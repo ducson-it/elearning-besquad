@@ -1,2 +1,12 @@
-Backend-Web07
-This is document backend 
+# Beesquad settup project
+
+1. Install composer
+composer install
+
+2. Install npm
+npm install
+
+3. Run mix
+npm run dev
+
+
