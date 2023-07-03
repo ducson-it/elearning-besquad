@@ -35,12 +35,18 @@
                         </div>
                         <div class="col-11">
                             <div>
-                                <label for="basiInput" class="form-label">Danh mục</label>
+                                <label for="basiInput" class="form-label">Chủ đề</label>
                                 <select class="form-select mb-3" aria-label="Default select example" >
                                     <option selected=""></option>
-                                    <option value="1">Khoá học miễn phí</option>
-                                    <option value="2">Khoá học mât phí</option>
+                                    <option value="1">Lập trình web</option>
+                                    <option value="2">Lập trình front end</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-11">
+                            <div>
+                                <label for="basiInput" class="form-label">Thẻ tag (chý ý: các thẻ ngăn cách nhau bởi dấu phẩy)</label>
+                                <input type="text" class="form-control" id="basiInput">
                             </div>
                         </div>
                         <!--end col-->

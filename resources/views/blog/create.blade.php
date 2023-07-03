@@ -43,6 +43,12 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-11">
+                            <div>
+                                <label for="basiInput" class="form-label">Thẻ tag (chý ý: các thẻ ngăn cách nhau bởi dấu phẩy)</label>
+                                <input type="text" class="form-control" id="basiInput">
+                            </div>
+                        </div>
                         <!--end col-->
                         <div class="mx-6">
                             <div class="hstack gap-2 justify-content-end">
