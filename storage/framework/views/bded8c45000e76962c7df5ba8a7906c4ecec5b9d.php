@@ -5,19 +5,19 @@
         <!-- Dark Logo-->
         <a href="index" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="22">
+                <img src="<?php echo e(URL::asset('assets/images/logo-sm.png')); ?>" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('assets/images/logo-dark.png') }}" alt="" height="17">
+                <img src="<?php echo e(URL::asset('assets/images/logo-dark.png')); ?>" alt="" height="17">
             </span>
         </a>
         <!-- Light Logo-->
         <a href="index" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="22">
+                <img src="<?php echo e(URL::asset('assets/images/logo-sm.png')); ?>" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('assets/images/logo-light.png') }}" alt="" height="17">
+                <img src="<?php echo e(URL::asset('assets/images/logo-light.png')); ?>" alt="" height="17">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
@@ -28,14 +28,14 @@
     <div id="scrollbar">
         <div class="container-fluid">
             <ul class="navbar-nav" id="navbar-nav">
-                <li class="menu-title"><span>@lang('translation.menu')</span></li>
+                <li class="menu-title"><span><?php echo app('translator')->get('translation.menu'); ?></span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#">
                         <i class="ri-dashboard-2-line"></i> <span>Dashboards</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('categories')}}">
+                    <a class="nav-link menu-link" href="<?php echo e(route('categories')); ?>">
                         <i class="ri-apps-2-line"></i> <span>Quản lý danh mục</span>
                     </a>
                 </li>
@@ -46,19 +46,19 @@
                     <div class="collapse menu-dropdown" id="course">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('courses.list')}}" class="nav-link">Danh sách</a>
+                                <a href="<?php echo e(route('courses.list')); ?>" class="nav-link">Danh sách</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('courses.topics.select')}}" class="nav-link">Chủ đề</a>
+                                <a href="<?php echo e(route('courses.topics.select')); ?>" class="nav-link">Chủ đề</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('courses.lessons.select')}}" class="nav-link">Bài học</a>
+                                <a href="<?php echo e(route('courses.lessons.select')); ?>" class="nav-link">Bài học</a>
                             </li>
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('blog-categories')}}">
+                    <a class="nav-link menu-link" href="<?php echo e(route('blog-categories')); ?>">
                         <i class="ri-apps-2-line"></i> <span>Quản lý chủ đề blog</span>
                     </a>
                 </li>
@@ -69,10 +69,10 @@
                     <div class="collapse menu-dropdown" id="blog">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('blog.create')}}" class="nav-link">Tạo mới</a>
+                                <a href="<?php echo e(route('blog.create')); ?>" class="nav-link">Tạo mới</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('blog.list')}}" class="nav-link">Danh sách</a>
+                                <a href="<?php echo e(route('blog.list')); ?>" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
@@ -96,7 +96,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('tag.list')}}">
+                    <a class="nav-link menu-link" href="<?php echo e(route('tag.list')); ?>">
                         <i class="ri-apps-2-line"></i> <span>Quản lý tag</span>
                     </a>
                 </li>
@@ -107,10 +107,10 @@
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('user.create')}}" class="nav-link">Tạo mới</a>
+                                <a href="<?php echo e(route('user.create')); ?>" class="nav-link">Tạo mới</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('user.list')}}" class="nav-link">Danh sách</a>
+                                <a href="<?php echo e(route('user.list')); ?>" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
@@ -156,3 +156,4 @@
 <!-- Left Sidebar End -->
 <!-- Vertical Overlay-->
 <div class="vertical-overlay"></div>
+<?php /**PATH D:\Xampp\htdocs\Backend-Web07\resources\views/layouts/sidebar.blade.php ENDPATH**/ ?>
