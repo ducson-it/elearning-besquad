@@ -96,7 +96,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="<?php echo e(route('tag.list')); ?>">
                         <i class="ri-apps-2-line"></i> <span>Quản lý tag</span>
                     </a>
                 </li>
@@ -107,10 +107,10 @@
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="apps-calendar" class="nav-link">Tạo mới</a>
+                                <a href="<?php echo e(route('user.create')); ?>" class="nav-link">Tạo mới</a>
                             </li>
                             <li class="nav-item">
-                                <a href="apps-calendar" class="nav-link">Danh sách</a>
+                                <a href="<?php echo e(route('user.list')); ?>" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
