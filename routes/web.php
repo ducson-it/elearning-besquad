@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-require __DIR__ .'/route-layout.php';
 Auth::routes();
 //Language Translation
 Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
@@ -24,6 +23,17 @@ Route::post('/update-profile/{id}', [App\Http\Controllers\HomeController::class,
 Route::post('/update-password/{id}', [App\Http\Controllers\HomeController::class, 'updatePassword'])->name('updatePassword');
 
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+require __DIR__ .'/route-layout.php';
 //Upload image in  blog content
 Route::post('/blog/media/upload',[\App\Http\Controllers\Controller::class,'mediaUpload'])->name('media.upload');
+require __DIR__ .'/categories.php';
+require __DIR__ .'/course.php';
+require __DIR__ .'/slider.php';
+require __DIR__ .'/categories_blog.php';
+require __DIR__ .'/blog.php';
+require __DIR__ .'/comments.php';
+require __DIR__ .'/notify.php';
+require __DIR__ .'/tags.php';
+require __DIR__ .'/user.php';
+
 
