@@ -21,7 +21,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /var/www/beesquad & deploy.sh
+            cd /var/www/beesquad & sh deploy.sh
             php artisan migrate --force
             php artisan cache:clear
             php artisan config:cache
