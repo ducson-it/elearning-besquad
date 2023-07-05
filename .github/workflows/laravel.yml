@@ -28,19 +28,19 @@ jobs:
         uses: appleboy/scp-action@master
         with:
           host: 13.55.25.188
-          username: root
+          username: ubuntu
           key: ${{ secrets.DATN }}
           source: ./
-          target: /var/www/html
+          target: /var/www/beesquad
 
       - name: SSH into EC2 and run commands
         uses: appleboy/ssh-action@master
         with:
           host: 13.55.25.188
-          username: root
+          username: ubuntu
           key: ${{ secrets.DATN }}
           script: |
-            cd /var/www/html
+            cd /var/www/beesquad
             php artisan migrate --force
             php artisan cache:clear
             php artisan config:cache
