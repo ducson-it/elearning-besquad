@@ -6,15 +6,33 @@ on:
       - main
 
 jobs:
-  deploy-test-server:
-    name: deploy backend
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: build
-        uses: garygrossgarten/github-action-ssh@release
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to EC2
+        uses: appleboy/scp-action@master
         with:
-          run: cd /var/www/beesquad && sh deploy.sh
-          host: ${{ secrets.HOST}}
-          username: ${{ secrets.USER}}
-          port: ${{ secrets.PORT}}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          source: ./
+          target: /var/www/beesquad
+
+      - name: SSH into EC2 and run commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /var/www/besquad
+            php artisan migrate --force
+            php artisan cache:clear
+            php artisan config:cache
+            php artisan route:cache
