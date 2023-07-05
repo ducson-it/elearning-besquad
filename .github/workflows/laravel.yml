@@ -11,8 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build
-        uses: gappleboy/ssh-action@master && sh deploy.sh
+        uses: garygrossgarten/github-action-ssh@release
         with:
+          command: cd /var/www/beesquad && sh deploy.sh
           host: ${{ secrets.HOST}}
           username: root
           port: ${{ secrets.PORT}}
