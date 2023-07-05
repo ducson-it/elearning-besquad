@@ -20,5 +20,9 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script:
+          script: |
+            cd /var/www/beesquad
+            php artisan migrate --force
+            php artisan cache:clear
+            php artisan config:cache
             php artisan route:cache
