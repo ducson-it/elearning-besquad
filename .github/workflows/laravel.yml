@@ -13,9 +13,8 @@ jobs:
       - name: build
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: cd /var/www/beesquad && sh deploy.sh
+          run: cd /var/www/beesquad && sh deploy.sh
           host: ${{ secrets.HOST}}
           username: ${{ secrets.USER}}
           port: ${{ secrets.PORT}}
           key: ${{ secrets.KEY }}
-          command: cd /var/www/beesquad && sh deploy.sh
