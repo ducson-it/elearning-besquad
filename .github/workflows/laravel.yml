@@ -17,12 +17,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Configure SSH key
-      #   run: |
-      #     mkdir -p ~/.ssh/
-      #     echo "${{ secrets.DATN }}" > ~/.ssh/id_rsa
-      #     chmod 600 ~/.ssh/id_rsa
-      #     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+      - name: Configure SSH key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.DATN }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
-      # - name: Deploy to server
-      # run: ssh ubuntu@ip-172-31-4-226 'bash -s' < deploy.sh
+      - name: Deploy to server
+      run: ssh ubuntu@ip-172-31-4-226 'bash -s' < deploy.sh
