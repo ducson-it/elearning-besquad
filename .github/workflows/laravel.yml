@@ -1,9 +1,12 @@
+name: Deploy to Server
+
 on:
   pull_request:
     types:
-      - closed
+    - closed
     branches:
     - main
+
 jobs:
   deploy-test-server:
     name: deploy backend to beesquad
@@ -22,3 +25,4 @@ jobs:
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
       - name: Deploy to server
+      run: ssh ubuntu@ip-172-31-4-226 'bash -s' < deploy.sh
