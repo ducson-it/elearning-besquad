@@ -12,14 +12,16 @@ jobs:
     steps:
       deploy-test-server:
       name: deploy backend
-      if: github.event.pull_request.merged == true
       runs-on: ubuntu-latest
       steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+
         - name: build
-          uses: garygrossgarten/github-action-ssh@release
+          uses: gappleboy/ssh-action@master
           with:
-            command: cd /var/www/beesquad && sh deploy.sh
             host: ${{ secrets.HOST}}
             username: root
             port: ${{ secrets.PORT}}
             password: ${{ secrets.PASSWORD}}
+            command: cd /var/www/beesquad && sh deploy.sh
