@@ -6,22 +6,15 @@ on:
       - main
 
 jobs:
-  deploy:
+  deploy-test-server:
+    name: deploy backend
     runs-on: ubuntu-latest
-
     steps:
-      deploy-test-server:
-      name: deploy backend
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
-
-        - name: build
-          uses: gappleboy/ssh-action@master
-          with:
-            host: ${{ secrets.HOST}}
-            username: root
-            port: ${{ secrets.PORT}}
-            password: ${{ secrets.PASSWORD}}
-            command: cd /var/www/beesquad && sh deploy.sh
+      - name: build
+        uses: gappleboy/ssh-action@master && sh deploy.sh
+        with:
+          host: ${{ secrets.HOST}}
+          username: root
+          port: ${{ secrets.PORT}}
+          password: ${{ secrets.PASSWORD}}
+          command: cd /var/www/beesquad && sh deploy.sh
