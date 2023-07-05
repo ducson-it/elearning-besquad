@@ -15,7 +15,7 @@ jobs:
         with:
           command: cd /var/www/beesquad && sh deploy.sh
           host: ${{ secrets.HOST}}
-          username: root
+          username: ${{ secrets.USER}}
           port: ${{ secrets.PORT}}
           password: ${{ secrets.PASSWORD}}
           command: cd /var/www/beesquad && sh deploy.sh
