@@ -20,5 +20,8 @@ class HomeController extends Controller
     {
         return view('layouts.master');
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fb4e8402a14f45a08491292df6084d7c4c8a722a
 }
