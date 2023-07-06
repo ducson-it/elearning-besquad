@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Auth;
 */
 Auth::routes();
 
-<<<<<<< HEAD
-
-=======
->>>>>>> fb4e8402a14f45a08491292df6084d7c4c8a722a
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 require __DIR__ .'/route-layout.php';
