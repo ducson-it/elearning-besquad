@@ -38,8 +38,8 @@ class DatabaseSeeder extends Seeder
         RolePermission::factory()->count(10)->create();
         Category::factory()->count(10)->create();
         User::factory()->count(10)->create();
-        UserVoucher::factory()->count(10)->create();
         Voucher::factory()->count(10)->create();
+        UserVoucher::factory()->count(10)->create();
         Course::factory()->count(10)->create();
         Module::factory()->count(10)->create();
         Lesson::factory()->count(10)->create();

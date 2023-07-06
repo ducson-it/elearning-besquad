@@ -18,7 +18,7 @@ class VoucherFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'value' => $this->faker->paragraph,
+            'value' => $this->faker->realText($maxNbChars = 10, $indexSize = 2),
         ];
     }
 }

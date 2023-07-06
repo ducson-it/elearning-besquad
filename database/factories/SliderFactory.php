@@ -22,7 +22,7 @@ class SliderFactory extends Factory
             'text_color' => $this->faker->hexcolor,
             'url_btn' => $this->faker->url,
             'content_btn' => $this->faker->paragraph,
-            'image' => $this->faker->image(storage_path('app/public/sliders'), 200, 200, null, false),
+            'image' => $this->faker->image(storage_path('app/public/images'), 200, 200, null, false),
             'status' => $this->faker->randomElement([0, 1]),
         ];
     }
