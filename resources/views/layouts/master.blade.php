@@ -8,8 +8,8 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ mix('resources/scss/app.scss')}}">
-    <script type="module" src="{{mix('resources/js/app.js')}}"></script>
+    {{-- <link rel="stylesheet" href="{{ mix('resources/scss/app.scss')}}">
+    <script type="module" src="{{mix('resources/js/app.js')}}"></script> --}}
 
     <!-- App favicon -->
     {{-- <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico')}}"> --}}
@@ -21,7 +21,7 @@
 @show
     <!-- Begin page -->
     <div id="layout-wrapper">
-        @include('layouts.topbar')
+        {{-- @include('layouts.topbar') --}}
         @include('layouts.sidebar')
         <!-- ============================================================== -->
         <!-- Start right Content here -->
