@@ -28,6 +28,7 @@ class CourseFactory extends Factory
             'category_id' => Category::factory()->create()->id,
             'image' => $this->faker->imageUrl(200, 200),
             'description' => $this->faker->paragraph,
+            'is_free' => $this->faker->boolean ? 1 : 0,
         ];
     }
 }

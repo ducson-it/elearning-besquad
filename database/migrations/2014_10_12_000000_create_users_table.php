@@ -37,8 +37,8 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('permission_id');
             $table->timestamps();
 
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-            $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
+            // $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            // $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
         });
 
         // Table: categories
@@ -64,7 +64,7 @@ class CreateUsersTable extends Migration
             $table->integer('active');
             $table->timestamps();
 
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            // $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
         // Table: vouchers
         Schema::create('vouchers', function (Blueprint $table) {
@@ -81,8 +81,8 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->timestamps();
 
-            $table->foreign('voucher_id')->references('id')->on('vouchers')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('voucher_id')->references('id')->on('vouchers')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
         // Table: courses
         Schema::create('courses', function (Blueprint $table) {
@@ -97,10 +97,11 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('category_id');
             $table->string('image');
             $table->text('description');
+            $table->text('is_free');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            // $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
 
         // Table: modules
@@ -112,7 +113,7 @@ class CreateUsersTable extends Migration
             $table->text('description');
             $table->timestamps();
 
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            // $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
 
         // Table: lessons
@@ -126,10 +127,10 @@ class CreateUsersTable extends Migration
             $table->string('video_id');
             $table->integer('status');
             $table->text('description');
+            $table->integer('is_trial_lesson');
             $table->timestamps();
-
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
-            $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
+            // $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            // $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
         });
 
         // Table: sliders
@@ -167,8 +168,8 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('category_blog_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('category_blog_id')->references('id')->on('category_blogs')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('category_blog_id')->references('id')->on('category_blogs')->onDelete('cascade');
         });
 
         // Table: comments
@@ -181,7 +182,7 @@ class CreateUsersTable extends Migration
             $table->string('commentable_type');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->index(['commentable_id', 'commentable_type']);
         });
 
@@ -210,7 +211,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
         // Table: taggables
@@ -221,7 +222,7 @@ class CreateUsersTable extends Migration
             $table->string('taggable_type');
             $table->timestamps();
 
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            // $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
             $table->index(['taggable_id', 'taggable_type']);
         });
 
@@ -233,8 +234,8 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('course_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
 
         // Table: statues
