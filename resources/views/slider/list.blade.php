@@ -24,7 +24,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="table-responsive table-card mt-3 mb-1">
                             <table class="table align-middle table-nowrap" id="customerTable">
                                 <thead class="table-light">
@@ -34,44 +33,51 @@
                                             <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                         </div>
                                     </th>
-                                    <th class="sort" data-sort="customer_name">Tên</th>
-                                    <th class="sort" data-sort="course">Email</th>
-                                    <th class="sort" data-sort="date">UserName</th>
-                                    <th class="sort" data-sort="action">Điện thoại</th>
-                                    <th class="sort" data-sort="action">Địa chỉ</th>
-                                    <th class="sort" data-sort="action">Loại tài khoản</th>
-                                    <th class="sort" data-sort="action">Trạng thái</th>
-                                    <th class="sort" data-sort="action">Ngày tạo</th>
-                                    <th class="sort" data-sort="action">Lựa chọn</th>
+                                    <th>Stt</th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Content</th>
+                                    <th>Text Color</th>
+                                    <th>Url_btn</th>
+                                    <th>Content_btn</th>
+                                    <th>Image</th>
+                                    <th>Status</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Thao tác</th>
                                 </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
+                                @foreach($sliders as $i => $slider )
                                     <tr>
                                         <th scope="row">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                             </div>
                                         </th>
-                                        <td class="customer_name">Quan98</td>
-                                        <td class="course">quan98@gmail.com</td>
-                                        <td class="course">QuanDev</td>
-                                        <td class="course">09873482433</td>
-                                        <td class="course">Hà Nam</td>
-                                        <td class="course">Giảng viên</td>
-                                        <td class="course">Active</td>
-                                        <td class="date">13 Dec, 2021</td>
+                                        <td class="">{{$i+1}}</td>
+                                        <td class="">{{$slider->id}}</td>
+                                        <td class="">{{$slider->name}}</td>
+                                        <td class="">{{$slider->content}}</td>
+                                        <td class="">{{$slider->text_color}}</td>
+                                        <td class="">{{$slider->url_btn}}</td>
+                                        <td class="">{{$slider->content_btn}}</td>
+                                        <td class="">
+                                            <img style="width:80px; height:60px"  alt="ảnh">
+                                        </td>
+                                        <td class="">{{$slider->status}}</td>
+                                        <td class="">{{$slider->created_at}}</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="detail">
-                                                    <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('user.edit',1)}}">Edit</a></button>
+                                                    <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('slider.update',$slider->id)}}">Edit</a></button>
                                                 </div>
                                                 <div class="remove">
                                                     <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
                                                 </div>
-
                                             </div>
                                         </td>
                                     </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                             <div class="noresult" style="display: none">
