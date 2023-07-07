@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SliderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +26,8 @@ Route::post('/update-password/{id}', [App\Http\Controllers\HomeController::class
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 require __DIR__ .'/route-layout.php';
 //Upload image in  blog content
+
+
 Route::post('/blog/media/upload',[\App\Http\Controllers\Controller::class,'mediaUpload'])->name('media.upload');
 require __DIR__ .'/categories.php';
 require __DIR__ .'/course.php';

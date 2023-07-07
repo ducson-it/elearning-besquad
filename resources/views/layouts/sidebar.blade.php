@@ -96,9 +96,9 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('tag.list')}}">
-                        <i class="ri-apps-2-line"></i> <span>Quản lý tag</span>
-                    </a>
+{{--                    <a class="nav-link menu-link" href="{{route('tags.list')}}">--}}
+{{--                        <i class="ri-apps-2-line"></i> <span>Quản lý tag</span>--}}
+{{--                    </a>--}}
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#user" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
@@ -107,10 +107,25 @@
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('user.create')}}" class="nav-link">Tạo mới</a>
+{{--                                <a href="{{route('users.create')}}" class="nav-link">Tạo mới</a>--}}
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('user.list')}}" class="nav-link">Danh sách</a>
+{{--                                <a href="{{route('users.list')}}" class="nav-link">Danh sách</a>--}}
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#user" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                        <i class="ri-apps-2-line"></i> <span>Quản lý slider</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="user">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+{{--                                                                <a href="{{route('slider.create')}}" class="nav-link">Tạo mới</a>--}}
+                            </li>
+                            <li class="nav-item">
+                                                                <a href="{{route('slider.list')}}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
