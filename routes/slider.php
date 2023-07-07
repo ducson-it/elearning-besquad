@@ -9,5 +9,4 @@ Route::group(['prefix' =>'slider'], function () {
     Route::get('/edit/{id}', [SliderController::class, 'edit'])->name('slider.edit');
     Route::post('/update/{$id}', [SliderController::class, 'update'])->name('slider.update');
     Route::delete('/destroy/{id}', [SliderController::class, 'delete'])->name('slider.destroy');
-
 });
