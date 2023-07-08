@@ -4,15 +4,50 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Thêm mới slider</h4>
+                    <h4 class="card-title mb-0">Danh sách Category_blogs</h4>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="listjs-table" id="customerList">
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
                                 <div>
-                                    <button type="button" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i> <a href="{{route('slider.create')}}"> Add</a></button>
-                                    <button class="btn btn-soft-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Add</button>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="{{ route('category_blogs.store') }}" method="POST">
+                                                    @csrf
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Thêm Category_Blogs</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="mb-3">
+                                                            <label for="recipient-name" class="col-form-label">Name</label>
+                                                            <input type="text" class="form-control" name="name">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="recipient-name" class="col-form-label">Slug</label>
+                                                            <input type="text" class="form-control" name="slug">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="message-text" class="col-form-label">Description</label>
+                                                            <textarea class="form-control" id="message-text" name="description"></textarea>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -34,20 +69,13 @@
                                         </div>
                                     </th>
                                     <th>Stt</th>
-                                    <th>ID</th>
                                     <th>Name</th>
-                                    <th>Content</th>
-                                    <th>Text Color</th>
-                                    <th>Url_btn</th>
-                                    <th>Content_btn</th>
-                                    <th>Image</th>
-                                    <th>Status</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Thao tác</th>
+                                    <th>Slug</th>
+                                    <th>Description</th>
                                 </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
-                                @foreach($sliders as $i => $slider )
+                                @foreach($category_blogs as $i => $category_blog )
                                     <tr>
                                         <th scope="row">
                                             <div class="form-check">
@@ -55,21 +83,14 @@
                                             </div>
                                         </th>
                                         <td class="">{{$i+1}}</td>
-                                        <td class="">{{$slider->id}}</td>
-                                        <td class="">{{$slider->name}}</td>
-                                        <td class="">{{$slider->content}}</td>
-                                        <td class="">{{$slider->text_color}}</td>
-                                        <td class="">{{$slider->url_btn}}</td>
-                                        <td class="">{{$slider->content_btn}}</td>
-                                        <td class="">
-                                            <img style="width:80px; height:60px"  alt="ảnh">
-                                        </td>
-                                        <td class="">{{$slider->status}}</td>
-                                        <td class="">{{$slider->created_at}}</td>
+                                        <td class="">{{$category_blog->name}}</td>
+                                        <td class="">{{$category_blog->slug}}</td>
+                                        <td class="">{{$category_blog->description}}</td>
+                                        <td class="">{{$category_blog->created_at}}</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="detail">
-                                                    <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('slider.edit',$slider->id)}}">Edit</a></button>
+                                                    <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('category_blog.edit',$category_blog->id)}}">Edit</a></button>
                                                 </div>
                                                 <div class="remove">
                                                     <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
@@ -88,16 +109,9 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="d-flex justify-content-end">
                             <div class="pagination-wrap hstack gap-2" style="display: flex;">
-                                <a class="page-item pagination-prev disabled" href="javascrpit:void(0)">
-                                    Previous
-                                </a>
-                                <ul class="pagination listjs-pagination mb-0"><li class="active"><a class="page" href="#" data-i="1" data-page="8">1</a></li><li><a class="page" href="#" data-i="2" data-page="8">2</a></li></ul>
-                                <a class="page-item pagination-next" href="javascrpit:void(0)">
-                                    Next
-                                </a>
+                                {{$category_blogs->links()}}
                             </div>
                         </div>
                     </div>

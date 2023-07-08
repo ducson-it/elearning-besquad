@@ -78,6 +78,21 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#blog" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                        <i class="ri-apps-2-line"></i> <span>Quản lý Category_blogs</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="blog">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('category_blog.create')}}" class="nav-link">Tạo mới</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('category_blog.list')}}" class="nav-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#comment" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span>Quản lý comments</span>
                     </a>
