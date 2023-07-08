@@ -38,6 +38,7 @@ class InstallSystemCommand extends Command
     public function handle()
     {
         $this->call('migrate:fresh');
+        $this->call('db:seed');
         return 0;
     }
 }

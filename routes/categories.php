@@ -1,11 +1,8 @@
 <?php
-//use Illuminate\Support\Facades\Route;
-//use App\Http\Controllers\CategoryController;
-//
-//Route::group(['prefix' =>'category'], function () {
-//    Route::get('/', [CategoryController::class, 'index'])->name('category.list');
-//    Route::post('/create/{id}', [CategoryController::class, 'create'])->name('category.create');
-//    Route::post('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
-//    Route::delete('/destroy/{id}', [CategoryController::class, 'delete'])->name('category.destroy');
-//
-//});
+
+use App\Http\Controllers\CategoryController;
+
+Route::get('categories',[CategoryController::class,'index'])->name('categories');
+Route::post('categories/store',[CategoryController::class,'store'])->name('categories.store');
+Route::put('categories/update/{cateogry}',[CategoryController::class,'update'])->name('categories.update');
+Route::delete('categories/delete/{category}',[CategoryController::class,'destroy'])->name('categories.destroy');

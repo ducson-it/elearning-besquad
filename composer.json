@@ -9,9 +9,10 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^9.0",
-        "laravel/sanctum": "^2.11",
+        "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.4"
+        "laravel/ui": "^3.4",
+        "laravelcollective/html": "^6.4"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",
