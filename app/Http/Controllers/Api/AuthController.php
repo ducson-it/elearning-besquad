@@ -12,9 +12,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-
         $credentials = $request->only('email', 'password');
         if (!Auth::once($credentials)) {
             return response()->json([
