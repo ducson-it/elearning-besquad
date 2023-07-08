@@ -8,11 +8,14 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ mix('resources/scss/app.scss')}}">
-    <script type="module" src="{{mix('resources/js/app.js')}}"></script>
+    {{-- <link rel="stylesheet" href="{{ mix('resources/scss/app.scss')}}">
+    <script type="module" src="{{mix('resources/js/app.js')}}"></script> --}}
 
     <!-- App favicon -->
     {{-- <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico')}}"> --}}
+    @vite(['resources/scss/app.scss',
+    'resources/js/app.js',
+])
     @include('layouts.head-css')
 </head>
 

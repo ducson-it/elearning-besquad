@@ -4,9 +4,8 @@
     "version": "1.0.0",
     "author": "Themesbrand",
     "scripts": {
-        "dev": "mix",
-        "build": "mix build",
-        "watch": "mix watch"
+        "dev": "vite",
+        "build": "vite build"
     },
     "devDependencies": {
         "@popperjs/core": "^2.10.2",
