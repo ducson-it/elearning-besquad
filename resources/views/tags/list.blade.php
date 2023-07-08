@@ -13,6 +13,36 @@
                             <div>
                                 <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><i class="ri-add-line align-bottom me-1"></i> Add</button>
                                 <button class="btn btn-soft-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="addTopic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form id="tag-form" action="{{route('storeTag')}}" method="post">
+                                            @csrf
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="tag-name-input">
+                                                        <p>Name</p>
+                                                        <input type="text" id="tag-name-input" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="tag name">
+                                                        <div id="error-messages" class="text-danger"></div>
+                                                    </div>
+                                                    <div class="tag-description-input mt-3">
+                                                        <p>Description</p>
+                                                        <textarea id="tag-description-input"  class="form-control" name="tag_description" placeholder="mô tả"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm">
@@ -30,9 +60,7 @@
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col" style="width: 50px;">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                        </div>
+
                                     </th>
                                     <th class="sort" data-sort="customer_name">Tên thẻ</th>
                                     <th class="sort" data-sort="course">Mô tả</th>
@@ -92,4 +120,45 @@
     </div>
     <!-- end col -->
 </div>
+
 @endsection
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#tag-form').submit(function(event) {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của form (tải lại trang)
+
+            var form = $(this);
+            var url = form.attr('action');
+            var formData = form.serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: formData,
+                success: function(response) {
+                    // Xử lý kết quả thành công
+                    console.log(response);
+
+                    window.location.reload();
+                    // Thực hiện các hành động khác sau khi gửi thành công
+                    $('#tag-name-input').val('');
+                    $('#tag-description-input').val('');
+                    // Hiển thị thông báo thành công (nếu cần)
+                    // ...
+                },
+                error: function(response) {
+                    // Xử lý lỗi
+                    var errors = response.responseJSON.errors;
+                    console.log(errors);
+                    // Hiển thị lỗi trên giao diện
+                    var errorMessages = '';
+                    $.each(errors, function(key, value) {
+                        errorMessages += '<p>' + value + '</p>';
+                    });
+                    $('#error-messages').html(errorMessages);
+                }
+            });
+        });
+    });
+</script>
