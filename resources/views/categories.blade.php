@@ -99,22 +99,25 @@
                 <h5 class="modal-title" id="exampleModalLabel">Thêm danh mục</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
-            <form class="tablelist-form" autocomplete="off">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="phone-field" class="form-label">Tên danh mục</label>
-                        <input type="text" id="phone-field" class="form-control" placeholder="Enter name" required="" name="title">
-                    </div>
-
+            {!! Form::open(['route'=>'categories.store','class'=>'tablelist-form']) !!}
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="phone-field" class="form-label">Tên danh mục</label>
+                    <input type="text" id="phone-field" class="form-control" placeholder="Enter name" required="" name="name">
                 </div>
-                <div class="modal-footer" style="display: block;">
-                    <div class="hstack gap-2 justify-content-end">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-success" id="add-btn">Thêm</button>
-                        <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
-                    </div>
+                <div class="mb-3">
+                    <label for="phone-field" class="form-label">Mô tả</label>
+                    <textarea rows="2" cols="3" class="form-control" placeholder="Enter name" required="" name="description"></textarea>
                 </div>
-            </form>
+            </div>
+            <div class="modal-footer" style="display: block;">
+                <div class="hstack gap-2 justify-content-end">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success" id="add-btn">Thêm</button>
+                    <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
+                </div>
+            </div>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>

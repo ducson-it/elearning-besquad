@@ -12,7 +12,11 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+<<<<<<< HEAD
         "mohamedgaber-intake40/sanctum-refresh-token": "^2.2"
+=======
+        "laravelcollective/html": "^6.4"
+>>>>>>> 004ddb562c849c32b45ad21c409a6c39f7ef5604
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",
