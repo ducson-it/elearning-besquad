@@ -54,7 +54,11 @@
                             </div>
                         </div>
                     </div>
-
+                    <div id="message-container">
+                        @if(session('message'))
+                            <div class="alert alert-success">{{ session('message') }}</div>
+                        @endif
+                    </div>
                     <div class="table-responsive table-card mt-3 mb-1">
                         <table class="table align-middle table-nowrap" id="customerTable">
                             <thead class="table-light">
@@ -69,16 +73,16 @@
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
-                                @for ($i = 0; $i < 5; $i++)
+                            @foreach($tags as $tag)
                                 <tr>
                                     <th scope="row">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                         </div>
                                     </th>
-                                    <td class="customer_name">Lập trình website</td>
-                                    <td class="course">Lập trình website </td>
-                                    <td class="date">13 Dec, 2021</td>
+                                    <td class="customer_name">{{$tag->name}}</td>
+                                    <td class="course">{{$tag->description}} </td>
+                                    <td class="date">{{$tag->created_at}}</td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <div class="remove">
@@ -90,7 +94,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                @endfor
+                            @endforeach
                             </tbody>
                         </table>
                         <div class="noresult" style="display: none">
@@ -140,12 +144,14 @@
                     // Xử lý kết quả thành công
                     console.log(response);
 
-                    window.location.reload();
+                    $('#addTopic').modal('hide');
                     // Thực hiện các hành động khác sau khi gửi thành công
                     $('#tag-name-input').val('');
                     $('#tag-description-input').val('');
+                    // Hiển thị thông báo thành công trên giao diện
                     // Hiển thị thông báo thành công (nếu cần)
-                    // ...
+                    // ... // Hiển thị thông báo thành công trên giao diện
+                    $('#message-container').html('<div class="alert alert-success">' + response.message + '</div>');
                 },
                 error: function(response) {
                     // Xử lý lỗi
