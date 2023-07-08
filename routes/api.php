@@ -26,13 +26,23 @@ Route::get('slider', [SliderController::class, 'slider']);
 Route::get('blog', [BlogController::class, 'blog']);
 
 Route::prefix('course')->group(function () {
-    Route::get('free-course', [CourseController::class, 'freeCourse']);
-    Route::get('paid-course', [CourseController::class, 'paidCourse']);
+    Route::get('category-course', [CourseController::class, 'categoryCourse']);
     Route::get('{course}', [CourseController::class, 'detailCourse']);
-    Route::get('my-course', [CourseController::class, 'myCourse'])->middleware('auth');
+    // Route::get('my-course', [CourseController::class, 'myCourse'])->middleware('auth');
 });
 
 Route::prefix('lesson')->group(function () {
-    Route::get('{lesson}', [LessonController::class, 'detailLesson']);
     Route::get('trial-lesson', [LessonController::class, 'trailLesson']);
+    Route::get('{lesson}', [LessonController::class, 'detailLesson']);
 });
+
+Route::fallback(function () {
+    return response()->json([
+        'message' => 'API endpoint not found.'
+    ], 404);
+});
+
+
+
+
+
