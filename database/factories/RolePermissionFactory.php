@@ -17,13 +17,13 @@ class RolePermissionFactory extends Factory
      */
     public function definition()
     {
+        $roleId = Role::factory()->create()->getKey();
+        $permissionId = Permission::factory()->create()->getKey();
+
         return [
-            'role_id' => function () {
-                return Role::factory()->create()->id;
-            },
-            'permission_id' => function () {
-                return Permission::factory()->create()->id;
-            },
+            'role_id' => $roleId,
+            'permission_id' => $permissionId,
         ];
     }
+
 }
