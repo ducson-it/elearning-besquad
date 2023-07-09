@@ -2,6 +2,11 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
+            @if (Session::has('success'))
+                <div class="alert alert-success">
+                    {{ Session::get('success') }}
+                </div>
+            @endif
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title mb-0">Danh sách Category_blogs</h4>
@@ -15,7 +20,7 @@
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <form action="{{ route('category_blogs.store') }}" method="POST">
+                                                <form action="{{ route('category_blog.store') }}" method="POST">
                                                     @csrf
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Thêm Category_Blogs</h5>

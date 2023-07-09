@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\CategoryBlog;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryBlogRequest;
+use Illuminate\Support\Str;
 
 class Category_BlogController extends Controller
 {
@@ -13,25 +15,17 @@ class Category_BlogController extends Controller
         return view('category_blogs.list',compact('category_blogs'));
     }
 
-    public function store(Request $request)
+    public function store(CategoryBlogRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|unique:sales,name|max:255',
-            'slug' => 'required|date|before_or_equal:end_date',
-            'description' => 'required|date|after_or_equal:start_date',
-        ], [
-            'name.required' => 'Tên không được để trống',
-            'slug.required' => 'Tên không được để trống',
-            'description.required' => 'Vui lòng nhập mô tả',
-        ]);
+        $validatedData = $request->validated();
 
-
+        $slug = Str::slug($validatedData['name']);
+        $validatedData['slug'] = $slug;
         CategoryBlog::create([
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'description' => $request->description,
+            'name' => $validatedData['name'],
+            'slug' => $validatedData['slug'],
+            'description' => $validatedData['description'],
         ]);
-
         return redirect()->route('category_blogs.list')->with('success', 'Thêm Category_blogs thành công.');
     }
     public function edit(){
