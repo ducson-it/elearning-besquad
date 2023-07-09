@@ -55,13 +55,13 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('password');
-            $table->string('avatar');
-            $table->string('username');
+            $table->string('avatar')->nullable();
+            $table->string('username')->nullable();
             $table->string('phone');
-            $table->string('address');
-            $table->integer('point');
-            $table->unsignedInteger('role_id');
-            $table->integer('active');
+            $table->string('address')->nullable();
+            $table->integer('point')->default(0);
+            $table->unsignedInteger('role_id')->default(2);
+            $table->integer('active')->default(1);
             $table->timestamps();
 
             // $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');

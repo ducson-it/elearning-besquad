@@ -53,5 +53,8 @@ class DatabaseSeeder extends Seeder
         Order::factory()->count(10)->create();
         Status::factory()->count(10)->create();
         Notification::factory()->count(10)->create();
+        $this->call([
+            UsersSeeder::class
+        ]);
     }
 }
