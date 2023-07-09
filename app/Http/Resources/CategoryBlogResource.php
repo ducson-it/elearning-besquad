@@ -18,7 +18,8 @@ class CategoryBlogResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'description' => $this->description
+            'description' => $this->description,
+            'blogs' => BlogResource::collection($this->whenLoaded('blogs'))
         ];
     }
 }

@@ -25,7 +25,7 @@ class CourseFactory extends Factory
             'discount' => $this->faker->numberBetween(0, 50),
             'status' => $this->faker->boolean ? 1 : 0,
             'featured' => $this->faker->boolean ? 1 : 0,
-            'category_id' => Category::factory()->create()->id,
+            'category_id' => Category::inRandomOrder()->first()->id,
             'image' => $this->faker->imageUrl(200, 200),
             'description' => $this->faker->paragraph,
             'is_free' => $this->faker->boolean ? 1 : 0,

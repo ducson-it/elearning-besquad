@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         Role::factory()->count(10)->create();
         Permission::factory()->count(10)->create();
         RolePermission::factory()->count(10)->create();
-        Category::factory()->count(10)->create();
+        Category::factory()->count(2)->create();
         User::factory()->count(10)->create();
         Voucher::factory()->count(10)->create();
         UserVoucher::factory()->count(10)->create();
@@ -53,5 +53,8 @@ class DatabaseSeeder extends Seeder
         Order::factory()->count(10)->create();
         Status::factory()->count(10)->create();
         Notification::factory()->count(10)->create();
+        $this->call([
+            UsersSeeder::class
+        ]);
     }
 }

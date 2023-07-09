@@ -13,6 +13,9 @@
 
     <!-- App favicon -->
     {{-- <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico')}}"> --}}
+    @vite(['resources/scss/app.scss',
+    'resources/js/app.js',
+])
     @include('layouts.head-css')
 </head>
 
@@ -21,7 +24,7 @@
 @show
     <!-- Begin page -->
     <div id="layout-wrapper">
-        {{-- @include('layouts.topbar') --}}
+        @include('layouts.topbar')
         @include('layouts.sidebar')
         <!-- ============================================================== -->
         <!-- Start right Content here -->

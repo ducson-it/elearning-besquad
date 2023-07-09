@@ -3,35 +3,44 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CourseResource;
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function freeCourse()
+    public function categoryCourse()
     {
-        $courses = Course::freeCourse()->get();
+        $courses = Category::with('courses')->get();
 
-        return CourseResource::collection($courses);
-    }
-
-    public function paidCourse()
-    {
-        $courses = Course::paidCourse()->get();
-
-        return CourseResource::collection($courses);
+        if (!$courses) {
+            return response()->json([
+                'code' => 404,
+                'message' => 'note found'
+            ]);
+        }
+        return response()->json([
+            'code' => 200,
+            'message' => 'success',
+            'data' => CategoryResource::collection($courses)
+        ]);
     }
 
     public function detailCourse(Course $course)
     {
-        return new CourseResource($course);
-    }
-
-    public function myCourse()
-    {
-        $course = Course::all();
-        return CourseResource::collection($course);
+        if (!$course) {
+            return response()->json([
+                'code' => 404,
+                'message' => 'note found'
+            ]);
+        }
+        return response()->json([
+            'code' => 200,
+            'message' => 'success',
+            'data' => new CourseResource($course->load('modules','modules.lessons'))
+        ]);
     }
 }
