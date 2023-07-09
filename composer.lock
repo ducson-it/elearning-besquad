@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "b2aa9c2334aa496cc922f84eb3f82360",
+=======
+    "content-hash": "2f560f6f8280b590e8b6c16d1d1f76aa",
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2077,6 +2081,7 @@
         },
         {
             "name": "mohamedgaber-intake40/sanctum-refresh-token",
+<<<<<<< HEAD
             "version": "v1.24",
             "source": {
                 "type": "git",
@@ -2091,6 +2096,22 @@
             },
             "require": {
                 "laravel/sanctum": "^2.11"
+=======
+            "version": "v2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mohamedgaber-intake40/sanctum-refresh-token.git",
+                "reference": "3fd4de7f5e071f7cfd81c7564549ac20275daced"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mohamedgaber-intake40/sanctum-refresh-token/zipball/3fd4de7f5e071f7cfd81c7564549ac20275daced",
+                "reference": "3fd4de7f5e071f7cfd81c7564549ac20275daced",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/sanctum": "^3.0"
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
             },
             "type": "library",
             "extra": {
@@ -2118,9 +2139,15 @@
             "description": "add refresh token feature to laravel sanctum official package",
             "support": {
                 "issues": "https://github.com/mohamedgaber-intake40/sanctum-refresh-token/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/mohamedgaber-intake40/sanctum-refresh-token/tree/v1.24"
             },
             "time": "2022-03-27T11:11:11+00:00"
+=======
+                "source": "https://github.com/mohamedgaber-intake40/sanctum-refresh-token/tree/v2.2"
+            },
+            "time": "2022-10-24T15:01:13+00:00"
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
         },
         {
             "name": "monolog/monolog",
@@ -3881,6 +3908,7 @@
         },
         {
             "name": "symfony/http-foundation",
+<<<<<<< HEAD
             "version": "v6.0.20",
             "source": {
                 "type": "git",
@@ -3891,6 +3919,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/http-foundation/zipball/e16b2676a4b3b1fa12378a20b29c364feda2a8d6",
                 "reference": "e16b2676a4b3b1fa12378a20b29c364feda2a8d6",
+=======
+            "version": "v6.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-foundation.git",
+                "reference": "e0ad0d153e1c20069250986cd9e9dd1ccebb0d66"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/e0ad0d153e1c20069250986cd9e9dd1ccebb0d66",
+                "reference": "e0ad0d153e1c20069250986cd9e9dd1ccebb0d66",
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
                 "shasum": ""
             },
             "require": {
@@ -3936,7 +3976,11 @@
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/http-foundation/tree/v6.0.20"
+=======
+                "source": "https://github.com/symfony/http-foundation/tree/v6.3.1"
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
             },
             "funding": [
                 {
@@ -3952,6 +3996,7 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-01-30T15:41:07+00:00"
         },
         {
@@ -3966,6 +4011,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/http-kernel/zipball/6dc70833fd0ef5e861e17c7854c12d7d86679349",
                 "reference": "6dc70833fd0ef5e861e17c7854c12d7d86679349",
+=======
+            "time": "2023-06-24T11:51:27+00:00"
+        },
+        {
+            "name": "symfony/http-kernel",
+            "version": "v6.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-kernel.git",
+                "reference": "161e16fd2e35fb4881a43bc8b383dfd5be4ac374"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/161e16fd2e35fb4881a43bc8b383dfd5be4ac374",
+                "reference": "161e16fd2e35fb4881a43bc8b383dfd5be4ac374",
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
                 "shasum": ""
             },
             "require": {
@@ -4045,7 +4106,11 @@
             "description": "Provides a structured process for converting a Request into a Response",
             "homepage": "https://symfony.com",
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/http-kernel/tree/v6.0.20"
+=======
+                "source": "https://github.com/symfony/http-kernel/tree/v6.3.1"
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
             },
             "funding": [
                 {
@@ -4061,7 +4126,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-02-01T08:22:55+00:00"
+=======
+            "time": "2023-06-26T06:07:32+00:00"
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
         },
         {
             "name": "symfony/mailer",
@@ -5019,6 +5088,7 @@
         },
         {
             "name": "symfony/routing",
+<<<<<<< HEAD
             "version": "v6.0.19",
             "source": {
                 "type": "git",
@@ -5029,6 +5099,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/routing/zipball/e56ca9b41c1ec447193474cd86ad7c0b547755ac",
                 "reference": "e56ca9b41c1ec447193474cd86ad7c0b547755ac",
+=======
+            "version": "v6.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/routing.git",
+                "reference": "d37ad1779c38b8eb71996d17dc13030dcb7f9cf5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/d37ad1779c38b8eb71996d17dc13030dcb7f9cf5",
+                "reference": "d37ad1779c38b8eb71996d17dc13030dcb7f9cf5",
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
                 "shasum": ""
             },
             "require": {
@@ -5087,7 +5169,11 @@
                 "url"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/routing/tree/v6.0.19"
+=======
+                "source": "https://github.com/symfony/routing/tree/v6.3.1"
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
             },
             "funding": [
                 {
@@ -5103,7 +5189,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-01-01T08:36:10+00:00"
+=======
+            "time": "2023-06-05T15:30:22+00:00"
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
         },
         {
             "name": "symfony/service-contracts",
@@ -5521,6 +5611,7 @@
         },
         {
             "name": "symfony/var-dumper",
+<<<<<<< HEAD
             "version": "v6.0.19",
             "source": {
                 "type": "git",
@@ -5531,6 +5622,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/var-dumper/zipball/eb980457fa6899840fe1687e8627a03a7d8a3d52",
                 "reference": "eb980457fa6899840fe1687e8627a03a7d8a3d52",
+=======
+            "version": "v6.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/var-dumper.git",
+                "reference": "c81268d6960ddb47af17391a27d222bd58cf0515"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/c81268d6960ddb47af17391a27d222bd58cf0515",
+                "reference": "c81268d6960ddb47af17391a27d222bd58cf0515",
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
                 "shasum": ""
             },
             "require": {
@@ -5589,7 +5692,11 @@
                 "dump"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/var-dumper/tree/v6.0.19"
+=======
+                "source": "https://github.com/symfony/var-dumper/tree/v6.3.1"
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
             },
             "funding": [
                 {
@@ -5605,7 +5712,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-01-20T17:44:14+00:00"
+=======
+            "time": "2023-06-21T12:08:28+00:00"
+>>>>>>> ed36c8766fca6a8f556ecd7c8e9cb03f917c150d
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
