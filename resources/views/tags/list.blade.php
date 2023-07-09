@@ -66,6 +66,9 @@
                                     <th scope="col" style="width: 50px;">
 
                                     </th>
+                                    <th class="sort" data-sort="">
+                                        STT
+                                    </th>
                                     <th class="sort" data-sort="customer_name">Tên thẻ</th>
                                     <th class="sort" data-sort="course">Mô tả</th>
                                     <th class="sort" data-sort="date">Ngày tạo</th>
@@ -73,20 +76,21 @@
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
-                            @foreach($tags as $tag)
+                            @foreach($tags as $key => $tag)
                                 <tr>
                                     <th scope="row">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                         </div>
                                     </th>
+                                    <td>{{$key}}</td>
                                     <td class="customer_name">{{$tag->name}}</td>
                                     <td class="course">{{$tag->description}} </td>
                                     <td class="date">{{$tag->created_at}}</td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <div class="remove">
-                                                <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                <button class="btn btn-sm btn-danger remove-item-btn"  onclick="showDeleteConfirmation({{$tag->id}})" >Remove</button>
                                             </div>
                                             <div class="detail">
                                                 <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('tag.taggable',1)}}">Detail</a></button>
@@ -107,15 +111,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <div class="pagination-wrap hstack gap-2" style="display: flex;">
-                            <a class="page-item pagination-prev disabled" href="javascrpit:void(0)">
-                                Previous
-                            </a>
-                            <ul class="pagination listjs-pagination mb-0"><li class="active"><a class="page" href="#" data-i="1" data-page="8">1</a></li><li><a class="page" href="#" data-i="2" data-page="8">2</a></li></ul>
-                            <a class="page-item pagination-next" href="javascrpit:void(0)">
-                                Next
-                            </a>
-                        </div>
+                        {{ $tags->links() }}
                     </div>
                 </div>
             </div><!-- end card -->
@@ -127,6 +123,7 @@
 
 @endsection
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
         $('#tag-form').submit(function(event) {
@@ -167,4 +164,44 @@
             });
         });
     });
+        function showDeleteConfirmation(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Gửi yêu cầu xóa bằng Ajax
+                $.ajax({
+                    url: '/tag/delete-tag/' + id,
+                    type: 'DELETE',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your record has been deleted.',
+                            'success'
+                        ).then(() => {
+                            // Chuyển hướng sau khi xóa thành công
+                            window.location.href = '{{ route("show.tag") }}';
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire(
+                            'Error!',
+                            'An error occurred while deleting the record.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    }
+
 </script>

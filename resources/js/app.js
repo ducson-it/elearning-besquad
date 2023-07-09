@@ -2,8 +2,6 @@ import $ from 'jquery';
 window.$ = window.jquery = $
 import Quill from "quill";
 import ImageResize from 'quill-image-resize';
-import $ from "jquery";
-window.$ = window.jquery = $
 // Register ImageResize module
 import ImageUploader from "quill-image-uploader";
 Quill.register('modules/imageResize', ImageResize);
@@ -11,7 +9,7 @@ Quill.register("modules/imageUploader", ImageUploader);
 // import file js'
    import './tag';
 addTag();
-console.log('âsddasdsad')
+console.log('cvcxvcxvvcxv')
 //Destroy Quill Editor
 // import QuillMarkdown from 'quilljs-markdown';
 var toolbarOptions =
