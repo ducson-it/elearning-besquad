@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\LessonController;
@@ -17,6 +18,19 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+//auth sanctum
+Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
+Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+//refresh token
+Route::post('refresh-token', [AuthController::class, 'refresh'])->middleware('auth:sanctum')->name('token.refresh');
+
+//info
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
