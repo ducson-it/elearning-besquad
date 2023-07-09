@@ -89,6 +89,41 @@
                                     <td class="date">{{$tag->created_at}}</td>
                                     <td>
                                         <div class="d-flex gap-2">
+                                            <div class="edit">
+                                                <button class="btn btn-sm btn-warning edit-item-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#editTag{{$tag->id}}"
+                                                        data-id="{{$tag->id}}" data-name="{{$tag->name}}" data-description="{{$tag->description}}" >edit</button>
+                                            </div>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="editTag{{$tag->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <form id="edit-tag-form{{$tag->id}}" action="{{ route('editTag', $tag->id) }}" method="post">
+                                                        @csrf
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Cập nhật tags</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="tag-name-input">
+                                                                    <p>Name</p>
+                                                                    <input type="text" value="{{$tag->name}}" id="tag-name-input-{{$tag->id}}" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="tag name">
+                                                                    <div id="error-messages-{{$tag->id}}" class="text-danger"></div>
+                                                                </div>
+                                                                <input type="hidden" value="{{$tag->id}}" id="tag-id-input-{{$tag->id}}" name="tag_id">
+                                                                <div class="tag-description-input mt-3">
+                                                                    <p>Description</p>
+                                                                    <textarea id="tag-description-input-{{$tag->id}}"  class="form-control" name="tag_description" placeholder="mô tả">{{$tag->description}}</textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+                                            </div>
                                             <div class="remove">
                                                 <button class="btn btn-sm btn-danger remove-item-btn"  onclick="showDeleteConfirmation({{$tag->id}})" >Remove</button>
                                             </div>
@@ -164,7 +199,54 @@
             });
         });
     });
-        function showDeleteConfirmation(id) {
+
+    //
+    $(document).ready(function() {
+        @foreach($tags as $tag)
+        $('#edit-tag-form{{$tag->id}}').submit(function(event) {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của form (tải lại trang)
+
+            var form = $(this);
+            var url = form.attr('action');
+            var formData = form.serialize();
+
+            var errorMessagesContainer = $('#error-messages-{{$tag->id}}'); // Phần tử hiển thị thông báo lỗi
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: formData,
+                success: function(response) {
+                    Swal.fire(
+                        'Update!',
+                        'Đã cập nhật thành công',
+                        'success'
+                    ).then(() => {
+                        // Chuyển hướng sau khi xóa thành công
+                        window.location.href = '{{ route("show.tag") }}';
+                    });
+                    // Xử lý kết quả thành công
+                    // Hiển thị thông báo thành công trên giao diện
+                    // ... // Hiển thị thông báo thành công trên giao diện
+                    $('#message-container').html('<div class="alert alert-success">' + response.message + '</div>');
+                },
+                error: function(response) {
+                    // Xử lý lỗi
+                    var errors = response.responseJSON.errors;
+                    console.log(errors);
+                    // Hiển thị lỗi trên giao diện
+                    var errorMessages = '';
+                    $.each(errors, function(key, value) {
+                        errorMessages += '<p>' + value + '</p>';
+                    });
+                    errorMessagesContainer.html(errorMessages); // Hiển thị thông báo lỗi trong phần tử tương ứng
+                }
+            });
+        });
+        @endforeach
+    });
+
+    function showDeleteConfirmation(id) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
