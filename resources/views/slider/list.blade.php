@@ -62,7 +62,7 @@
                                         <td class="">{{$slider->url_btn}}</td>
                                         <td class="">{{$slider->content_btn}}</td>
                                         <td class="">
-                                            <img style="width:80px; height:60px"  alt="ảnh">
+                                            <img src="/storage/sliders/anh.png" style="width:80px; height:60px"  alt="ảnh">
                                         </td>
                                         <td class="">{{$slider->status}}</td>
                                         <td class="">{{$slider->created_at}}</td>
@@ -72,7 +72,10 @@
                                                     <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('slider.edit',$slider->id)}}">Edit</a></button>
                                                 </div>
                                                 <div class="remove">
-                                                    <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+{{--                                                    <button onclick="event.preventDefault(); deletesliders({{ $slider->id }})" class="btn btn-sm btn-danger remove-item-btn"><a href="{{route('slider.destroy',$slider->id)}}">Remove</a></button>--}}
+                                                    <a href="{{ route('slider.destroy', $slider->id) }}"  onclick="e.preventDefault();deletesliders({{ $slider->id }})"
+                                                       class="btn btn-sm btn-danger remove-item-btn">Remove</a>
+
                                                 </div>
                                             </div>
                                         </td>
@@ -101,4 +104,35 @@
         </div>
         <!-- end col -->
     </div>
+    <script>
+        import 'bootstrap';
+        import Swal from 'sweetalert2';
+        window.deletesliders = (id) => {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Xóa',
+                showConfirmButton: true,
+                showCancelButton: true
+            }).then(res => {
+                if (res.isConfirmed) {
+                    // Gọi API để xóa
+                    axios.delete('/slider/destroy/' + id)
+                        .then(apiRes => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Deleted',
+                                text: 'successfully!',
+                                showConfirmButton: true
+                            }).then(() => {
+                                location.reload();
+                            });
+                        })
+                        .catch(err => {
+                            console.error(err);
+
+                        });
+                }
+            });
+        };
+    </script>
 @endsection

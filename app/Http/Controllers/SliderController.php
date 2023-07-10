@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class SliderController extends Controller
 {
     public function index(){
-        $sliders = Slider::paginate(10);
+        $sliders = Slider::paginate(5);
         return view('slider.list',compact('sliders'));
     }
     public function create(){
@@ -23,7 +23,16 @@ class SliderController extends Controller
 
     public function update( Request $request , $id){
     }
-    public function destroy(){
-
+    public function destroy($id)
+    {
+        try {
+            $sliders = Slider::findOrFail($id);
+            $sliders->delete();
+            return response()->json(['message' => 'Xóa bản ghi thành công'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Xóa bản ghi thất bại'], 500);
+        }
     }
+
+
 }
