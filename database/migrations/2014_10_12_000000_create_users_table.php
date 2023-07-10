@@ -63,7 +63,7 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->string('address');
             $table->integer('point');
-            $table->unsignedInteger('role_id');
+            $table->unsignedInteger('role_id')->comment('1->admin, 2->teacher, 3->member');
             $table->integer('active');
             $table->timestamps();
             $table->softDeletes();
