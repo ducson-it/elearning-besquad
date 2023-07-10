@@ -48,7 +48,7 @@
                         <div class="col-sm">
                             <div class="d-flex justify-content-sm-end">
                                 <div class="search-box ms-2">
-                                    <input type="text" class="form-control search" placeholder="Search...">
+                                    <input type="text" class="form-control search" placeholder="Search..." id="searchInput">
                                     <i class="ri-search-line search-icon"></i>
                                 </div>
                             </div>
@@ -60,12 +60,10 @@
                         @endif
                     </div>
                     <div class="table-responsive table-card mt-3 mb-1">
-                        <table class="table align-middle table-nowrap" id="customerTable">
+                        <table class="table align-middle table-nowrap " id="customerTable">
                             <thead class="table-light">
                                 <tr>
-                                    <th scope="col" style="width: 50px;">
-
-                                    </th>
+                                    <th scope="col" style="width: 50px;" class="checkbox-column"></th>
                                     <th class="sort" data-sort="">
                                         STT
                                     </th>
@@ -75,7 +73,7 @@
                                     <th class="sort" data-sort="action">Lựa chọn</th>
                                 </tr>
                             </thead>
-                            <tbody class="list form-check-all">
+                            <tbody class="list form-check-all customerList">
                             @foreach($tags as $key => $tag)
                                 <tr>
                                     <th scope="row">
@@ -128,7 +126,7 @@
                                                 <button class="btn btn-sm btn-danger remove-item-btn"  onclick="showDeleteConfirmation({{$tag->id}})" >Remove</button>
                                             </div>
                                             <div class="detail">
-                                                <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('tag.taggable',1)}}">Detail</a></button>
+                                                <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('show.taggable',$tag->id)}}">Detail</a></button>
                                             </div>
                                         </div>
                                     </td>
@@ -155,10 +153,10 @@
     </div>
     <!-- end col -->
 </div>
-
-@endsection
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#tag-form').submit(function(event) {
@@ -285,5 +283,22 @@
             }
         });
     }
+    //search
+    // Khởi tạo List.js và cấu hình tìm kiếm
+    const options = {
+        valueNames: ['customer_name', 'course', 'date'], // Các trường dữ liệu để tìm kiếm
+    };
+    const customerList = new List('customerTable', options);
+
+    // Lắng nghe sự kiện nhập liệu trong ô tìm kiếm
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('keyup', function() {
+            const searchString = searchInput.value;
+            customerList.search(searchString);
+        });
+    });
 
 </script>
+@endsection
+
