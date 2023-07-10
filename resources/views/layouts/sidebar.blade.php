@@ -110,7 +110,7 @@
                                 <a href="{{route('user.create')}}" class="nav-link">Tạo mới</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('user.list')}}" class="nav-link">Danh sách</a>
+                                <a href="{{route('showUser')}}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
