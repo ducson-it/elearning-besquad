@@ -10,15 +10,35 @@ use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
-    public function detailLesson(Lesson $lesson)
+    public function trailLesson()
     {
-        return new LessonResource($lesson);
+        $lessons = Lesson::trialLesson()->get();
+        if (!$lessons) {
+            return response()->json([
+                'code' => 404,
+                'message' => 'note found'
+            ]);
+        }
+        return response()->json([
+            'code' => 200,
+            'message' => 'success',
+            'data' => LessonResource::collection($lessons)
+        ]);
     }
 
-    public function trialLesson()
+    public function detailLesson(Lesson $lesson)
     {
-        $lessons = Lesson::trailLesson()->get();
-        return LessonResource::collection($lessons);
+        if (!$lesson) {
+            return response()->json([
+                'code' => 404,
+                'message' => 'note found'
+            ]);
+        }
+        return response()->json([
+            'code' => 200,
+            'message' => 'success',
+            'data' => new LessonResource($lesson)
+        ]);
     }
 
 }

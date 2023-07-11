@@ -13,6 +13,17 @@ class BlogController extends Controller
     public function blog()
     {
         $blogs = Blog::take(Beesquad::LIMIT)->get();
-        return BlogResource::collection($blogs);
+        if (!$blogs) {
+            return response()->json([
+                'code' => 404,
+                'message' => 'note found'
+            ]);
+        }
+        return response()->json([
+            'code' => 200,
+            'message' => 'success',
+            'data' => BlogResource::collection($blogs)
+        ]);
     }
+
 }

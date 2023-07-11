@@ -27,6 +27,7 @@ class CourseResource extends JsonResource
             'image' => $this->image,
             'description' => $this->description,
             'is_free' => $this->is_free,
+            'modules' => ModuleResource::collection($this->whenLoaded('modules')),
         ];
     }
 }

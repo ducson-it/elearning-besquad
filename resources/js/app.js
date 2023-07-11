@@ -10,7 +10,10 @@ import ImageResize from 'quill-image-resize';
 import ImageUploader from "quill-image-uploader";
 Quill.register('modules/imageResize', ImageResize);
 Quill.register("modules/imageUploader", ImageUploader);
-
+// import file js'
+   import './tag';
+addTag();
+console.log('cvcxvcxvvcxv')
 //Destroy Quill Editor
 // import QuillMarkdown from 'quilljs-markdown';
 var toolbarOptions =
@@ -113,7 +116,7 @@ File: Main Js File
             });
         });
 	}
-	
+
 	function setLanguage(lang) {
 		if (document.getElementById("header-lang-img")) {
 			if (lang == "en") {
@@ -454,7 +457,7 @@ File: Main Js File
 		if (defaultValues && (isTwoColumn == "twocolumn" || defaultValues["data-layout"] == "twocolumn")) {
 			if(document.querySelector(".navbar-menu")){
 			document.querySelector(".navbar-menu").innerHTML = navbarMenuHTML;
-		}	
+		}
 			var ul = document.createElement("ul");
 			ul.innerHTML = '<a href="#" class="logo"><img src="assets/images/logo-sm.png" alt="" height="22"></a>';
 			Array.from(document.getElementById("navbar-nav").querySelectorAll(".menu-link")).forEach(function (item) {
@@ -576,9 +579,9 @@ File: Main Js File
 				searchOptions.classList.remove("d-none");
 
 				var inputVal = searchInput.value.toLowerCase();
-				
+
 				var notifyItem = document.getElementsByClassName("notify-item");
-				
+
 				Array.from(notifyItem).forEach(function (element) {
 					var notifiTxt = ''
 					if(element.querySelector("h6")){
@@ -595,7 +598,7 @@ File: Main Js File
 
 					if (notifiTxt)
 						element.style.display = notifiTxt.includes(inputVal) ? "block" : "none";
-						
+
 				});
 			} else {
 				dropdown.classList.remove("show");
@@ -693,7 +696,7 @@ File: Main Js File
 			document.getElementById("two-column-menu").innerHTML = "";
 			if(document.querySelector(".navbar-menu")){
 			document.querySelector(".navbar-menu").innerHTML = navbarMenuHTML;
-		}	
+		}
 			document.getElementById("scrollbar").setAttribute("data-simplebar", "");
 			document.getElementById("navbar-nav").setAttribute("data-simplebar", "");
 			document.getElementById("scrollbar").classList.add("h-100");
@@ -911,7 +914,7 @@ File: Main Js File
 		});
 		if(document.getElementById("topnav-hamburger-icon")){
 		document.getElementById("topnav-hamburger-icon").addEventListener("click", toggleHamburgerMenu);
-	}	
+	}
 		var isValues = sessionStorage.getItem("defaultAttribute");
 		var defaultValues = JSON.parse(isValues);
 		var windowSize = document.documentElement.clientWidth;
@@ -1101,11 +1104,11 @@ File: Main Js File
 			}
 			emptyNotification();
 
-			
+
 			Array.from(document.querySelectorAll(".notification-check input")).forEach(function (element) {
 				element.addEventListener("change", function (el) {
 					el.target.closest(".notification-item").classList.toggle("active");
-				
+
 					var checkedCount = document.querySelectorAll('.notification-check input:checked').length;
 
 					if (el.target.closest(".notification-item").classList.contains("active")) {
@@ -1618,7 +1621,7 @@ File: Main Js File
 							getElementUsingTagname("data-preloader", "disable");
 							sessionStorage.setItem("data-preloader", "disable");
 							document.documentElement.setAttribute("data-preloader", "disable");
-						
+
 						break;
 					case "enable":
 							getElementUsingTagname("data-preloader", "enable");
@@ -1637,7 +1640,7 @@ File: Main Js File
 							getElementUsingTagname("data-preloader", "disable");
 							sessionStorage.setItem("data-preloader", "disable");
 							document.documentElement.setAttribute("data-preloader", "disable");
-			
+
 						}else if (sessionStorage.getItem("data-preloader") == "enable") {
 							getElementUsingTagname("data-preloader", "enable");
 							sessionStorage.setItem("data-preloader", "enable");
@@ -1679,7 +1682,7 @@ File: Main Js File
 							sessionStorage.setItem("data-body-image", "none");
 							document.documentElement.setAttribute("data-body-image", "none");
 						break;
-						
+
 					default:
 						if (sessionStorage.getItem("data-body-image") && sessionStorage.getItem("data-body-image") == "img-1") {
 							sessionStorage.setItem("data-body-image", "img-1");
@@ -1806,7 +1809,7 @@ File: Main Js File
 				}
 			});
 		}
-		
+
 		Array.from(document.querySelectorAll("[name='data-sidebar']")).forEach(function (elem) {
 			if (document.querySelector("[data-bs-target='#collapseBgGradient']")) {
 				if (document.querySelector("#collapseBgGradient .form-check input:checked")) {
@@ -1821,7 +1824,7 @@ File: Main Js File
 					} else {
 						document.querySelector("[data-bs-target='#collapseBgGradient']").classList.remove("active");
 					}
-				})	
+				})
 			}
 		})
 

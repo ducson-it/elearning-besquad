@@ -19,7 +19,7 @@ class ModuleFactory extends Factory
         return [
             'name' => $this->faker->sentence,
             'slug' => $this->faker->slug,
-            'course_id' => Course::factory(),
+            'course_id' => Course::inRandomOrder()->first()->id,
             'description' => $this->faker->text,
         ];
     }

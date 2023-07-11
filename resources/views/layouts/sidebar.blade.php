@@ -96,7 +96,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('tag.list')}}">
+                    <a class="nav-link menu-link" href="{{route('show.tag')}}">
                         <i class="ri-apps-2-line"></i> <span>Quản lý tag</span>
                     </a>
                 </li>
