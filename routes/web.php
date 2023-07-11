@@ -12,13 +12,15 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+// Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
-
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web','auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
 require __DIR__ .'/route-layout.php';
 //Upload image in  blog content
-Route::post('/blog/media/upload',[\App\Http\Controllers\Controller::class,'mediaUpload'])->name('media.upload');
+Route::post('/media/upload',[\App\Http\Controllers\Controller::class,'mediaUpload'])->name('media.upload');
 require __DIR__ .'/categories.php';
 require __DIR__ .'/course.php';
 require __DIR__ .'/slider.php';
