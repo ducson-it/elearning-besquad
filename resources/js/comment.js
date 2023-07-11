@@ -1,8 +1,7 @@
 import 'bootstrap';
 import Swal from 'sweetalert2';
 import axios from "axios";
-//xóa category blog
-window.deletecategory_blog = (id) => {
+window.deletecomment = (id) => {
     Swal.fire({
         icon: 'warning',
         title: 'Xóa',
@@ -11,7 +10,7 @@ window.deletecategory_blog = (id) => {
     }).then(res => {
         if (res.isConfirmed) {
             // Gọi API để xóa
-            axios.get('/category_blog/delete/' + id)
+            axios.get('/comment/delete/' + id)
                 .then(apiRes => {
                     Swal.fire({
                         icon: 'success',
@@ -29,7 +28,3 @@ window.deletecategory_blog = (id) => {
         }
     });
 };
-//***********88theem category_blog***************
-// Lấy tham chiếu đến các phần tử trong DOM
-
-

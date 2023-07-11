@@ -99,13 +99,7 @@
                     <div class="collapse menu-dropdown" id="comment">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="apps-calendar" class="nav-link">comments blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="apps-calendar" class="nav-link">comment khoá học</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="apps-calendar" class="nav-link">comment forum</a>
+                                <a href="{{route('comment.list')}}"class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>

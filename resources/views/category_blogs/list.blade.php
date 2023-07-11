@@ -1,12 +1,12 @@
 @extends('layouts.master')
 @section('content')
+    @if (Session::has('success'))
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-lg-12">
-            @if (Session::has('success'))
-                <div class="alert alert-success">
-                    {{ Session::get('success') }}
-                </div>
-            @endif
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title mb-0">Danh sách Category_blogs</h4>
@@ -22,30 +22,28 @@
                                             <div class="modal-content">
                                                 <form action="{{ route('category_blog.store') }}" method="POST">
                                                     @csrf
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Thêm Category_Blogs</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form>
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Thêm Category_Blogs</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
                                                         <div class="mb-3">
                                                             <label for="recipient-name" class="col-form-label">Name</label>
-                                                            <input type="text" class="form-control" name="name">
+                                                            <input type="text" class="form-control" id="name" name="name" oninput="generateSlug()">
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="recipient-name" class="col-form-label">Slug</label>
-                                                            <input type="text" class="form-control" name="slug">
+                                                            <input type="text" class="form-control" id="slug" name="slug">
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="message-text" class="col-form-label">Description</label>
                                                             <textarea class="form-control" id="message-text" name="description"></textarea>
                                                         </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Lưu</button>
-                                                </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Lưu</button>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>
@@ -103,6 +101,13 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            <div class="noresult" style="display: none">
+                                <div class="text-center">
+                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
+                                    <h5 class="mt-2">Sorry! No Result Found</h5>
+                                    <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any orders for you search.</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-end">
                             <div class="pagination-wrap hstack gap-2" style="display: flex;">
@@ -116,4 +121,23 @@
         </div>
         <!-- end col -->
     </div>
+    <script>
+        function generateSlug() {
+            const nameInput = document.getElementById('name');
+            const slugInput = document.getElementById('slug');
+
+            // Lấy giá trị từ input name
+            const nameValue = nameInput.value.trim();
+
+            // Xử lý chuỗi để tạo slug
+            const slugValue = nameValue
+                .toLowerCase()
+                .replace(/[^a-z0-9-]/g, '-')  // Xóa các ký tự không hợp lệ
+                .replace(/-+/g, '-')  // Loại bỏ các dấu gạch ngang liền nhau
+                .replace(/^-|-$/g, '');  // Loại bỏ dấu gạch ngang ở đầu và cuối chuỗi
+
+            // Gán giá trị vào input slug
+            slugInput.value = slugValue;
+        }
+    </script>
 @endsection

@@ -27,7 +27,7 @@ class Category_BlogController extends Controller
             'slug' => $validatedData['slug'],
             'description' => $validatedData['description'],
         ]);
-        return redirect()->route('category_blogs.list')->with('success', 'Thêm Category_blogs thành công.');
+        return redirect()->route('category_blog.list')->with('success', 'Thêm Category_blogs thành công.');
     }
     public function edit(){
 
