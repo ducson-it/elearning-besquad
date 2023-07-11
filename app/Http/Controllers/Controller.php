@@ -30,8 +30,7 @@ class Controller extends BaseController
             'disk'=>"public",
             'path'=>$path
         ];
-        session()->push('sliders',$image);
-//        $image['path'] = Storage::disk($image['disk'])->url($image['path']);
-        return response()->json($image);
+        session()->put('media',$image);
+        return response()->json($image,200);
     }
 }

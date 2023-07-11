@@ -1,4 +1,5 @@
 import 'bootstrap';
+import Dropzone from "dropzone";
 import Swal from 'sweetalert2';
 import axios from "axios";
 window.deletesliders = (id) => {
@@ -28,4 +29,20 @@ window.deletesliders = (id) => {
         }
     });
 };
+// ****************************88888upload file
+
+const metaToken = document.querySelector('meta[name="csrf-token"]');
+const elUpload = document.querySelector('#sliders-img-upload')
+if(elUpload){
+    let myDropzone = new Dropzone("#sliders-img-upload",{
+        url:'/media/upload2',
+        headers: {
+            'X-CSRF-Token': metaToken.getAttribute('content')
+        }
+    });
+    myDropzone.on('complete', (file) => {
+
+    })
+}
+
 

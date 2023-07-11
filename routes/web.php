@@ -21,7 +21,7 @@ require __DIR__ .'/route-layout.php';
 
 Route::post('/blog/media/upload',[\App\Http\Controllers\Controller::class,'mediaUpload'])->name('media.upload');
 //upload sliders
-Route::post('/sliders/upload',[\App\Http\Controllers\Controller::class,'mediaUpload2'])->name('sliders.upload');
+Route::post('/sliders/upload2',[\App\Http\Controllers\Controller::class,'mediaUpload2'])->name('sliders.upload');
 
 
 require __DIR__ .'/categories.php';

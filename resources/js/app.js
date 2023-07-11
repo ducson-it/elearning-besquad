@@ -7,18 +7,30 @@ import {Dropzone} from "dropzone";
 Dropzone.autoDiscover = false;
 const metaToken = document.querySelector('meta[name="csrf-token"]');
 let myDropzone = new Dropzone("#sliders-image-upload",{
-    url:'/sliders/upload',
+    url:'/sliders/upload2',
     headers: {
         'X-CSRF-TOKEN':metaToken.getAttribute('content')
     }
 });
-myDropzone.on('complete', ()=>{
+myDropzone.on('complete', (file)=>{
 
 })
+
+
+
+
+
+
+
+
+
+
+
 import Quill from "quill";
 import ImageResize from 'quill-image-resize';
 // Register ImageResize module
 import ImageUploader from "quill-image-uploader";
+import {document} from "postcss";
 Quill.register('modules/imageResize', ImageResize);
 Quill.register("modules/imageUploader", ImageUploader);
 //------------------------------------sliders----------------------------------

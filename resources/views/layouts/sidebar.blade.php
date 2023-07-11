@@ -69,10 +69,10 @@
                     <div class="collapse menu-dropdown" id="blog">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('blog.create')}}" class="nav-link">Tạo mới</a>
+                                <a href="{{route('blogs.create')}}" class="nav-link">Tạo mới</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('blog.list')}}" class="nav-link">Danh sách</a>
+                                <a href="{{route('blogs.list')}}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>

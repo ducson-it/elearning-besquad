@@ -42,9 +42,8 @@
                                     </div>
                                 </div>
                                 <div class="col-11">
-                                    <label for="basiInput" class="form-label" style="margin-top: 60px" >Images</label>
-                                    <div id="sliders-image-upload" class="dropzone" name="image">
-                                    </div>
+                                    <label for="basiInput" class="form-label" >Image</label>
+                                    <div id="sliders-image-upload" class="dropzone"></div>
                                 </div>
                                 <div class="col-11">
                                     <div>
