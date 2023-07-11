@@ -1,5 +1,4 @@
-import './categories';
-import './courses';
+import Swal from "sweetalert2"
 import $ from 'jquery';
 window.$ = window.jquery = $;
 import 'bootstrap';
@@ -13,7 +12,11 @@ Quill.register("modules/imageUploader", ImageUploader);
 // import file js'
    import './tag';
 addTag();
-console.log('cvcxvcxvvcxv')
+import select2 from 'select2';
+select2()
+import './categories';
+import './module';
+import './courses';
 //Destroy Quill Editor
 // import QuillMarkdown from 'quilljs-markdown';
 var toolbarOptions =
