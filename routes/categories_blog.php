@@ -8,5 +8,5 @@ Route::group(['prefix' =>'category_blog'], function () {
     Route::post('/store', [Category_BlogController::class, 'store'])->name('category_blog.store');
     Route::get('/edit/{id}', [Category_BlogController::class, 'edit'])->name('category_blog.edit');
     Route::post('/update/{id}', [Category_BlogController::class, 'update'])->name('category_blog.update');
-    Route::delete('/destroy/{id}', [Category_BlogController::class, 'delete'])->name('category_blog.destroy');
+    Route::get('//{id}', [Category_BlogController::class, 'delete'])->name('category_blog.destroy');
 });

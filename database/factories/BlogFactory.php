@@ -25,7 +25,11 @@ class BlogFactory extends Factory
             'user_id' => User::factory()->create()->id,
             'title' => $title,
             'slug' => $this->faker->slug,
-            'image' => $this->faker->imageUrl(200, 200),
+            'image' => json_encode([
+                'url' => $this->faker->imageUrl(700, 300),
+                'width' => 700,
+                'height' => 300,
+            ]),
             'view' => $this->faker->numberBetween(0, 1000),
             'description_short' => $this->faker->sentence,
             'content' => $this->faker->paragraph,

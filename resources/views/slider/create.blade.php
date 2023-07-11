@@ -8,48 +8,48 @@
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
-                        <form action="">
+                        <form action="{{route('slider.store')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="row gy-4 d-flex justify-content-center">
                                 <div class="col-11">
                                     <div>
-                                        <label for="basiInput" class="form-label" name="name">Name</label>
-                                        <input type="text" class="form-control" id="basiInput">
+                                        <label for="basiInput" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="basiInput" name="name">
                                     </div>
                                 </div>
                                 <div class="col-11">
                                     <div>
-                                        <label for="basiInput" class="form-label" name="content">Content</label>
-                                        <input type="text" class="form-control" id="basiInput">
+                                        <label for="basiInput" class="form-label">Content</label>
+                                        <input type="text" class="form-control" id="basiInput"  name="content">
                                     </div>
                                 </div>
                                 <div class="col-11">
                                     <div>
-                                        <label for="basiInput" class="form-label" name="text_color">Text-color</label>
-                                        <input type="text" class="form-control" id="basiInput">
+                                        <label for="basiInput" class="form-label" >Text-color</label>
+                                        <input type="text" class="form-control" id="basiInput" name="text_color">
                                     </div>
                                 </div>
                                 <div class="col-11">
                                     <div>
-                                        <label for="basiInput" class="form-label" name="url_btn">Url_btn</label>
-                                        <input type="text" class="form-control" id="basiInput">
+                                        <label for="basiInput" class="form-label" >Url_btn</label>
+                                        <input type="text" class="form-control" id="basiInput" name="url_btn">
                                     </div>
                                 </div>
                                 <div class="col-11">
                                     <div>
-                                        <label for="basiInput" class="form-label" name="content_btn">Content_btn</label>
-                                        <input type="text" class="form-control" id="basiInput">
+                                        <label for="basiInput" class="form-label" >Content_btn</label>
+                                        <input type="text" class="form-control" id="basiInput" name="content_btn">
+                                    </div>
+                                </div>
+                                <div class="col-11">
+                                    <label for="basiInput" class="form-label" style="margin-top: 60px" >Images</label>
+                                    <div id="sliders-image-upload" class="dropzone" name="image">
                                     </div>
                                 </div>
                                 <div class="col-11">
                                     <div>
-                                        <label for="basiInput" class="form-label" style="margin-top: 60px" name="image">Images</label>
-                                        <input type="file"  name="document" class="form-control" id="basiInput">
-                                    </div>
-                                </div>
-                                <div class="col-11">
-                                    <div>
-                                        <label for="basiInput" class="form-label" name="status">Status</label>
-                                        <input type="text" class="form-control" id="basiInput">
+                                        <label for="basiInput" class="form-label" >Status</label>
+                                        <input type="text" class="form-control" id="basiInput" name="status">
                                     </div>
                                 </div>
                                 <!--end col-->

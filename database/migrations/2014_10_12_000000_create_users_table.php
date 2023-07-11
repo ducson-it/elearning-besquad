@@ -95,7 +95,7 @@ class CreateUsersTable extends Migration
             $table->integer('status');
             $table->integer('featured');
             $table->unsignedInteger('category_id');
-            $table->string('image');
+            $table->json('image');
             $table->text('description');
             $table->text('is_free');
             $table->timestamps();
@@ -141,7 +141,7 @@ class CreateUsersTable extends Migration
             $table->string('text_color');
             $table->string('url_btn');
             $table->text('content_btn');
-            $table->string('image');
+            $table->json('image');
             $table->integer('status');
             $table->timestamps();
         });
@@ -161,7 +161,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('title');
             $table->string('slug');
-            $table->string('image');
+            $table->json('image');
             $table->integer('view');
             $table->string('description_short');
             $table->text('content');

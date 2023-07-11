@@ -22,4 +22,16 @@ class Controller extends BaseController
         $image['path'] = Storage::disk($image['disk'])->url($image['path']);
         return response()->json($image);
     }
+    //upload ảnh trong sliders
+    public  function mediaUpload2(Request $request){
+        $file = $request->file('file');
+        $path = $file->store('sliders','public');
+        $image = [
+            'disk'=>"public",
+            'path'=>$path
+        ];
+        session()->push('sliders',$image);
+//        $image['path'] = Storage::disk($image['disk'])->url($image['path']);
+        return response()->json($image);
+    }
 }

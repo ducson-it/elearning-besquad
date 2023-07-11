@@ -1,7 +1,7 @@
 import 'bootstrap';
 import Swal from 'sweetalert2';
 import axios from "axios";
-window.deletesliders = (id) => {
+window.deletecategory_blog = (id) => {
     Swal.fire({
         icon: 'warning',
         title: 'Xóa',
@@ -10,7 +10,7 @@ window.deletesliders = (id) => {
     }).then(res => {
         if (res.isConfirmed) {
             // Gọi API để xóa
-            axios.get('/slider/delete/' + id)
+            axios.get('/category_blog/delete/' + id)
                 .then(apiRes => {
                     Swal.fire({
                         icon: 'success',

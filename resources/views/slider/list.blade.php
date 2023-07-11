@@ -73,8 +73,7 @@
                                                 </div>
                                                 <div class="remove">
 {{--                                                    <button onclick="event.preventDefault(); deletesliders({{ $slider->id }})" class="btn btn-sm btn-danger remove-item-btn"><a href="{{route('slider.destroy',$slider->id)}}">Remove</a></button>--}}
-                                                    <a href="{{ route('slider.destroy', $slider->id) }}"  onclick="e.preventDefault();deletesliders({{ $slider->id }})"
-                                                       class="btn btn-sm btn-danger remove-item-btn">Remove</a>
+                                                    <button onclick="event.preventDefault(); deletesliders({{ $slider->id }})" class="btn btn-sm btn-danger remove-item-btn">Remove</button>
 
                                                 </div>
                                             </div>
@@ -83,13 +82,6 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="noresult" style="display: none">
-                                <div class="text-center">
-                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
-                                    <h5 class="mt-2">Sorry! No Result Found</h5>
-                                    <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any orders for you search.</p>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="d-flex justify-content-end">
@@ -104,35 +96,4 @@
         </div>
         <!-- end col -->
     </div>
-    <script>
-        import 'bootstrap';
-        import Swal from 'sweetalert2';
-        window.deletesliders = (id) => {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Xóa',
-                showConfirmButton: true,
-                showCancelButton: true
-            }).then(res => {
-                if (res.isConfirmed) {
-                    // Gọi API để xóa
-                    axios.delete('/slider/destroy/' + id)
-                        .then(apiRes => {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Deleted',
-                                text: 'successfully!',
-                                showConfirmButton: true
-                            }).then(() => {
-                                location.reload();
-                            });
-                        })
-                        .catch(err => {
-                            console.error(err);
-
-                        });
-                }
-            });
-        };
-    </script>
 @endsection

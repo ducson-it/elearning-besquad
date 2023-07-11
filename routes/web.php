@@ -19,8 +19,11 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 require __DIR__ .'/route-layout.php';
 //Upload image in  blog content
 
-
 Route::post('/blog/media/upload',[\App\Http\Controllers\Controller::class,'mediaUpload'])->name('media.upload');
+//upload sliders
+Route::post('/sliders/upload',[\App\Http\Controllers\Controller::class,'mediaUpload2'])->name('sliders.upload');
+
+
 require __DIR__ .'/categories.php';
 require __DIR__ .'/course.php';
 require __DIR__ .'/slider.php';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\CategoryBlog;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryBlogRequest;
 use Illuminate\Support\Str;
@@ -34,7 +35,12 @@ class Category_BlogController extends Controller
     public function update(){
 
     }
-    public function destroy(){
+    public function delete($id){
+        $category_blogs = CategoryBlog::findOrFail($id);
+        if($category_blogs->delete()){
+            return response()->json(['message' => 'Xóa bản ghi thành công'], 200);
+        }
+        return response()->json(['message' => 'Xóa bản ghi thất bại'], 500);
 
     }
 }

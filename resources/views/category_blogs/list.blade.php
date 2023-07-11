@@ -98,7 +98,7 @@
                                                     <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('category_blog.edit',$category_blog->id)}}">Edit</a></button>
                                                 </div>
                                                 <div class="remove">
-                                                    <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                    <button onclick="event.preventDefault(); deletecategory_blog({{ $category_blog->id }})" class="btn btn-sm btn-danger remove-item-btn">Remove</button>
                                                 </div>
                                             </div>
                                         </td>

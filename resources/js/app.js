@@ -1,12 +1,29 @@
 import $ from 'jquery';
 window.$ = window.jquery = $
+//----------------thành import--------------------
+import './thanhcode';
+// dropzone
+import {Dropzone} from "dropzone";
+Dropzone.autoDiscover = false;
+const metaToken = document.querySelector('meta[name="csrf-token"]');
+let myDropzone = new Dropzone("#sliders-image-upload",{
+    url:'/sliders/upload',
+    headers: {
+        'X-CSRF-TOKEN':metaToken.getAttribute('content')
+    }
+});
+myDropzone.on('complete', ()=>{
+
+})
 import Quill from "quill";
 import ImageResize from 'quill-image-resize';
 // Register ImageResize module
 import ImageUploader from "quill-image-uploader";
 Quill.register('modules/imageResize', ImageResize);
 Quill.register("modules/imageUploader", ImageUploader);
-import './thanhcode';
+//------------------------------------sliders----------------------------------
+
+
 //Destroy Quill Editor
 // import QuillMarkdown from 'quilljs-markdown';
 var toolbarOptions =
@@ -78,14 +95,6 @@ editor.on('text-change', () => {
     document.querySelector('#content').value = editor.getHTML()
     // $('#content').val(editor.container.firstChild.innerHTML);
 });
-/*
-Template Name: Velzon - Admin & Dashboard Template
-Author: Themesbrand
-Version: 2.2.0
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
-File: Main Js File
-*/
 (function () {
 	("use strict");
 
@@ -2000,3 +2009,4 @@ if (mybutton) {
 		document.documentElement.scrollTop = 0;
 	}
 }
+/---------------------/

@@ -29,9 +29,9 @@ return [
     */
 
     'disks' => [
-        'media' => [
+        'sliders' => [
             'driver' => 'local',
-            'root' => storage_path('app/media'),
+            'root' => storage_path('app/sliders'),
         ],
         'local' => [
             'driver' => 'local',

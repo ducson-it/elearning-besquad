@@ -28,7 +28,11 @@ class SliderFactory extends Factory
             'text_color' => $this->faker->hexcolor,
             'url_btn' => $this->faker->url,
             'content_btn' => $contentBtn,
-            'image' => $this->faker->imageUrl(700, 300),
+            'image' => json_encode([
+                'url' => $this->faker->imageUrl(700, 300),
+                'width' => 700,
+                'height' => 300,
+            ]),
             'status' => $this->faker->randomElement([0, 1]),
         ];
     }
