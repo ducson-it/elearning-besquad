@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ModuleController;
 
 Route::group(['prefix'=>"courses","as"=>"courses."],function(){
     Route::get('/',[CourseController::class,'index'])->name('list');
