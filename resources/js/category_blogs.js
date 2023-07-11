@@ -29,7 +29,6 @@ window.deletecategory_blog = (id) => {
         }
     });
 };
-//***********88theem category_blog***************
-// Lấy tham chiếu đến các phần tử trong DOM
+
 
 

@@ -29,12 +29,26 @@ class Category_BlogController extends Controller
         ]);
         return redirect()->route('category_blog.list')->with('success', 'Thêm Category_blogs thành công.');
     }
-    public function edit(){
+    public function edit($id){
+        $category_blogs = CategoryBlog::find($id);
+        return view('category_blog.list',compact('category_blogs'));
 
     }
-    public function update(){
+    public function update(CategoryBlogRequest $request, $id)
+    {
+        $validatedData = $request->validated();
+        $slug = Str::slug($validatedData['name']);
+        $validatedData['slug'] = $slug;
+        $categoryBlog = CategoryBlog::findOrFail($id);
+        $categoryBlog->update([
+            'name' => $validatedData['name'],
+            'slug' => $validatedData['slug'],
+            'description' => $validatedData['description'],
+        ]);
 
+        return redirect()->route('category_blog.list')->with('success', 'Cập nhật Category_blogs thành công.');
     }
+
     public function delete($id){
         $category_blogs = CategoryBlog::findOrFail($id);
         if($category_blogs->delete()){

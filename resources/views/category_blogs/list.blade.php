@@ -90,7 +90,42 @@
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="detail">
-                                                    <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('category_blog.edit',$category_blog->id)}}">Edit</a></button>
+
+                                                    <!-- Button trigger modal -->
+                                                    <form action="{{ route('category_blog.update',$category_blog->id) }}" method="POST">
+                                                        @csrf
+                                                    <button type="button" class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$category_blog->id}}">
+                                                        Edit
+                                                    </button>
+                                                    <div class="modal fade" id="staticBackdrop{{$category_blog->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Sửa Category_blog</h1>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="mb-3">
+                                                                        <label for="recipient-name" class="col-form-label">Name</label>
+                                                                        <input type="text" class="form-control" id="name" name="name" oninput="generateSlug()" value="{{$category_blog->name}}">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="recipient-name" class="col-form-label">Slug</label>
+                                                                        <input type="text" class="form-control" id="slug" name="slug" value="{{$category_blog->slug}}">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="message-text" class="col-form-label">Description</label>
+                                                                        <textarea class="form-control" id="message-text" name="description">{{$category_blog->description}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </form>
                                                 </div>
                                                 <div class="remove">
                                                     <button onclick="event.preventDefault(); deletecategory_blog({{ $category_blog->id }})" class="btn btn-sm btn-danger remove-item-btn">Remove</button>
@@ -122,6 +157,38 @@
         <!-- end col -->
     </div>
     <script>
+        //Truyền wx liệu sửa vào modal
+        const editButtons = document.querySelectorAll('.edit-item-btn');
+
+        editButtons.forEach((button) => {
+            button.addEventListener('click', function() {
+                const categoryId = this.getAttribute('data-id');
+                const editForm = document.getElementById('editForm');
+
+                // Tạo URL đến route update với categoryId đã nhận được
+                const editUrl = '{{ route("category_blog.update", ":id") }}'.replace(':id', categoryId);
+
+                // Gửi yêu cầu AJAX để lấy dữ liệu của categoryId
+                fetch(editUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Gán dữ liệu vào các trường nhập trong modal
+                        document.getElementById('name').value = data.name;
+                        document.getElementById('slug').value = data.slug;
+                        document.getElementById('message-text').value = data.description;
+
+                        // Thiết lập action và method của form trong modal
+                        editForm.action = editUrl;
+                        editForm.method = 'POST';
+                        editForm.insertAdjacentHTML('beforeend', '@method("PUT")');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+
+        //hàm lấy slug ***********8
         function generateSlug() {
             const nameInput = document.getElementById('name');
             const slugInput = document.getElementById('slug');
