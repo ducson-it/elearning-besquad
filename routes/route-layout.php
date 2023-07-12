@@ -39,5 +39,3 @@ Route::view('blog','blog.list')->name('blog.list');
 Route::view('blog/create','blog.create')->name('blog.create');
 Route::view('blog/edit/{blog}','blog.edit')->name('blog.edit');
 
-Route::view('users/create','users.create')->name('user.create');
-Route::view('users/edit/{user}','users.edit')->name('user.edit');

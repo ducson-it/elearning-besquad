@@ -13,7 +13,7 @@
                                 <div>
                                     <button type="button" class="btn btn-success add-btn"><i
                                             class="ri-add-line align-bottom me-1"></i> <a
-                                            href="{{route('user.create')}}"> Add</a></button>
+                                            href="{{route('addUser')}}"> Add</a></button>
                                     <button class="btn btn-soft-danger" onclick="deleteMultipleUser()"><i
                                             class="ri-delete-bin-2-line"></i></button>
                                 </div>
@@ -54,7 +54,8 @@
                                     <tr data-user-id="{{$user->id}}">
                                         <th scope="row">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                                <input class="form-check-input" type="checkbox" name="chk_child"
+                                                       value="option1">
                                             </div>
                                         </th>
                                         <td>{{$key + 1}}</td>
@@ -67,14 +68,23 @@
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="detail">
-                                                    <button class="btn btn-sm btn-warning edit-item-btn"><a
-                                                            href="{{route('user.edit',1)}}">Edit</a></button>
+                                                    <a href="{{route('editUser',$user->id)}}">
+                                                        <button class="btn btn-sm btn-warning edit-item-btn">Edit
+                                                        </button>
+                                                    </a>
                                                 </div>
                                                 <div class="remove">
                                                     <button class="btn btn-sm btn-danger remove-item-btn"
                                                             onclick="DeleteUser({{$user->id}})">
                                                         Remove
                                                     </button>
+                                                </div>
+                                                <div class="detail">
+                                                    <button onclick="activeUser({{$user->id}})"
+                                                            class="btn btn-sm btn-success edit-item-btn">Active
+                                                    </button>
+
+
                                                 </div>
 
                                             </div>
@@ -129,7 +139,7 @@
                         data: {
                             _token: $('meta[name="csrf-token"]').attr('content')
                         },
-                        success: function(response) {
+                        success: function (response) {
                             Swal.fire(
                                 'Deleted!',
                                 'Your record has been deleted.',
@@ -139,10 +149,49 @@
                                 window.location.reload();
                             });
                         },
-                        error: function(xhr) {
+                        error: function (xhr) {
                             Swal.fire(
                                 'Error!',
                                 'An error occurred while deleting the record.',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
+        function activeUser(id) {
+            Swal.fire({
+                title: ' Bạn chắc chắn ? ',
+                text: "Thay đổi trạng thái tài khoản này ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, update it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Gửi yêu cầu xóa bằng Ajax
+                    $.ajax({
+                        url: '/user/user-active/' + id,
+                        type: 'put',
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (response) {
+                            Swal.fire(
+                                'Updated!',
+                                'Đã cập nhật trường active thành công',
+                                'success'
+                            ).then(() => {
+                                // Chuyển hướng sau khi xóa thành công
+                                window.location.reload();
+                            });
+                        },
+                        error: function (xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'Không thể cập nhật trường active.',
                                 'error'
                             );
                         }
@@ -160,9 +209,9 @@
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     selectedIds: selectedIds
                 },
-                success: function(response) {
+                success: function (response) {
                     // Xóa các hàng đã chọn từ giao diện
-                    selectedIds.forEach(function(userId) {
+                    selectedIds.forEach(function (userId) {
                         const row = document.querySelector(`tr[data-user-id="${userId}"]`);
                         if (row) {
                             row.remove();
@@ -175,7 +224,7 @@
                         'success'
                     );
                 },
-                error: function(xhr) {
+                error: function (xhr) {
                     Swal.fire(
                         'Error!',
                         'An error occurred while deleting the records.',
@@ -205,10 +254,11 @@
             // Gọi hàm xóa trên backend và gửi mảng các ID đã chọn
             deleteUserCheckbox(selectedIds);
         }
+
         //search
         // Khởi tạo List.js và cấu hình tìm kiếm
         const options = {
-            valueNames: ['customer_name', 'email', 'phone','role_name','created_at','active'], // Các trường dữ liệu để tìm kiếm
+            valueNames: ['customer_name', 'email', 'phone', 'role_name', 'created_at', 'active'], // Các trường dữ liệu để tìm kiếm
         };
         const customerList = new List('userTable', options);
 
