@@ -18,32 +18,27 @@ class Category_BlogController extends Controller
 
     public function store(CategoryBlogRequest $request)
     {
-        $validatedData = $request->validated();
-
-        $slug = Str::slug($validatedData['name']);
-        $validatedData['slug'] = $slug;
+        $slug = Str::slug($request->input('name'));
         CategoryBlog::create([
-            'name' => $validatedData['name'],
-            'slug' => $validatedData['slug'],
-            'description' => $validatedData['description'],
+            'name' => $request->input('name'),
+            'slug' => $slug,
+            'description' => $request->input('description'),
         ]);
         return redirect()->route('category_blog.list')->with('success', 'Thêm Category_blogs thành công.');
     }
     public function edit($id){
         $category_blogs = CategoryBlog::find($id);
         return view('category_blog.list',compact('category_blogs'));
-
     }
     public function update(CategoryBlogRequest $request, $id)
     {
-        $validatedData = $request->validated();
-        $slug = Str::slug($validatedData['name']);
-        $validatedData['slug'] = $slug;
+        $slug = Str::slug($request['name']);
+        $request['slug'] = $slug;
         $categoryBlog = CategoryBlog::findOrFail($id);
         $categoryBlog->update([
-            'name' => $validatedData['name'],
-            'slug' => $validatedData['slug'],
-            'description' => $validatedData['description'],
+            'name' => $request['name'],
+            'slug' => $request['slug'],
+            'description' => $request['description'],
         ]);
 
         return redirect()->route('category_blog.list')->with('success', 'Cập nhật Category_blogs thành công.');

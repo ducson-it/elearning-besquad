@@ -30,19 +30,16 @@ window.deletesliders = (id) => {
     });
 };
 // ****************************88888upload file
-
 const metaToken = document.querySelector('meta[name="csrf-token"]');
-const elUpload = document.querySelector('#sliders-img-upload')
-if(elUpload){
-    let myDropzone = new Dropzone("#sliders-img-upload",{
-        url:'/media/upload2',
-        headers: {
-            'X-CSRF-Token': metaToken.getAttribute('content')
-        }
-    });
-    myDropzone.on('complete', (file) => {
 
-    })
-}
+let myDropzone = new Dropzone("#sliders-image-upload",{
+    url:'/sliders/upload2',
+    headers: {
+        'X-CSRF-TOKEN':metaToken.getAttribute('content')
+    }
+});
+myDropzone.on('complete', (file) => {
+    document.querySelector('input[name="image"]').setAttribute('value', file.xhr.response)
+})
 
 

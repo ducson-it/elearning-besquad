@@ -23,7 +23,6 @@ class SliderRequest extends FormRequest
             'status' => 'required',
         ];
     }
-
     public function messages()
     {
         return [

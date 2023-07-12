@@ -9,41 +9,25 @@ class SliderController extends Controller
 {
     public function index(){
         $sliders = Slider::paginate(5);
+        $sliders->getcollection()->transform(function ($item) {
+            if (isset($item->image['disk']) && isset($item->image['path']))
+                $item->image = Storage::disk($item->image['disk'])->url($item->image['path']);
+            else
+                $item->image = '/storage/anh.png';
+            return $item;
+        });
         return view('slider.list',compact('sliders'));
     }
     public function create(){
         return view('slider.create');
     }
-    public function store(Request $request)
+    public function store(SliderRequest $request)
     {
-        $validateData= $request->validate([
-            'name' => 'required',
-            'content' => 'required',
-            'text_color' => 'required',
-            'url_btn' => 'required',
-            'content_btn' => 'required',
-            'image' => 'required|image',
-            'status' => 'required',
-
-        ],[
-            'name.required' => 'Vui lòng nhập tên.',
-            'content.required' => 'Vui lòng nhập nội dung.',
-            'text_color.required' => 'Vui lòng nhập màu chữ cho nút.',
-            'url_btn.required' => 'Vui lòng nhập URL cho nút.',
-            'content_btn.required' => 'Vui lòng nhập nội dung cho nút.',
-            'image.required' => 'Vui lòng chọn ảnh.',
-            'image.image' => 'Tệp tải lên phải là hình ảnh.',
-            'status.required' => 'Vui lòng chọn trạng thái.',
-        ]);
-        Slider::create([
-            'name'=>$request->name,
-            'content'=>$request->content,
-            'text_color'=>$request->text_color,
-            'url_btn'=>$request->url_btn,
-            'content_btn'=>$request->content_btn,
-            'status'=>$request->status,
-        ]);
-        return redirect()->route('slider.list')->with('success','Thêm slider thành công');
+        $data = $request->all();
+        $media = session('sliders');
+        $data['image'] = $media;
+        Slider::create($data);
+        return redirect()->route('slider.list')->with('success', 'Thêm slider thành công');
     }
     public function edit($id){
         $sliders = Slider::findOrFail($id);

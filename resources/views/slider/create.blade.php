@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                                 <div class="col-11">
-                                    <label for="basiInput" class="form-label" >Image</label>
+                                    <label for="basiInput" class="form-label" >Images</label>
                                     <div id="sliders-image-upload" class="dropzone"></div>
                                 </div>
                                 <div class="col-11">

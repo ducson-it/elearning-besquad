@@ -1,5 +1,10 @@
 @extends('layouts.master')
 @section('content')
+    @if (Session::has('success'))
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -61,8 +66,12 @@
                                         <td class="">{{$slider->text_color}}</td>
                                         <td class="">{{$slider->url_btn}}</td>
                                         <td class="">{{$slider->content_btn}}</td>
-                                        <td class="">
-                                            <img src="/storage/sliders/anh.png" style="width:80px; height:60px"  alt="ảnh">
+                                        <td class="">@isset($slider->image)
+                                            <img src="{{$slider->image}}"style="width:80px; height:60px">
+                                            @else
+                                                <img src="/storage/anh.png" style="width:80px; height:60px"  alt="ảnh">
+                                            @endif
+
                                         </td>
                                         <td class="">{{$slider->status}}</td>
                                         <td class="">{{$slider->created_at}}</td>

@@ -54,7 +54,7 @@
                                         <td class="customer_name">{{$comment->user->name}}</td>
                                         <td class="course">{{$comment->content}}</td>
                                         <td class="course">{{$comment->status}}</td>
-{{--                                        <td class="customer_name">{{$comment->commentable->content}}--}}
+                                        <td class="customer_name">{{$comment->commentable->content}}
                                         </td>
                                         <td>
                                             <div class="d-flex gap-2">

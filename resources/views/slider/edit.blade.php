@@ -25,7 +25,7 @@
                                 <div class="col-11">
                                     <div>
                                         <label class="form-label" style="margin-top: 60px">Text color</label>
-                                        <input type="file" class="form-control" value="{{ $sliders->text_color }}">
+                                        <input type="text" class="form-control" value="{{ $sliders->text_color }}">
                                     </div>
                                 </div>
                                 <div class="col-11">
@@ -41,22 +41,16 @@
                                     </div>
                                 </div>
                                 <div class="col-11">
+                                    <label for="basiInput" class="form-label" style="margin-top: 60px">Images</label>
                                     <div>
                                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1BwYl1Svb2h_YRhj9tcnZk0yAuIHh3oBM03dzDa8f&s" alt="" width="100px"><br>
-                                        <label for="basiInput" class="form-label" style="margin-top: 60px">Images</label>
-                                        <input type="file" name="image" value="{{ $sliders->image }}">
+{{--                                        <input type="file" name="image" value="{{ $sliders->image }}">--}}
                                     </div>
                                 </div>
                                 <div class="col-11">
                                     <div>
                                         <label class="form-label">Status</label>
                                         <input type="text" class="form-control" value="{{ $sliders->status }}">
-                                    </div>
-                                </div>
-                                <div class="col-11">
-                                    <div>
-                                        <label class="form-label">Ngày tạo</label>
-                                        <input type="text" class="form-control" value="{{ $sliders->created_at }}">
                                     </div>
                                 </div>
                                 <!--end col-->
