@@ -107,10 +107,10 @@
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('user.create')}}" class="nav-link">Tạo mới</a>
+                                <a href="{{route('addUser')}}" class="nav-link">Tạo mới</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('showUser')}}" class="nav-link">Danh sách</a>
+                                <a href="{{route('show.user')}}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>

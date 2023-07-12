@@ -1,4 +1,3 @@
- console.log('ấdasdasdasd')
 window.addTag = () => {
     $('#tag-form').submit(function(event) {
         event.preventDefault(); // Ngăn chặn hành vi mặc định của form (tải lại trang)
