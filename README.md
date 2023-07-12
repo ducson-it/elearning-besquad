@@ -6,7 +6,7 @@ composer install
 2. Install npm
 npm install
 
-3. Run mix
+3. Run vite
 npm run dev
 
 
