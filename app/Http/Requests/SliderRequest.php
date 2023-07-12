@@ -19,7 +19,7 @@ class SliderRequest extends FormRequest
             'text_color' => 'required',
             'url_btn' => 'required',
             'content_btn' => 'required',
-            'image' => 'required|image',
+//            'image' => 'required|image',
             'status' => 'required',
         ];
     }

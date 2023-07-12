@@ -8,49 +8,48 @@
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
-                        <form action="">
+                        <form action="{{ route('slider.update', $sliders->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
                             <div class="row gy-4 d-flex justify-content-center">
                                 <div class="col-11">
                                     <div>
                                         <label class="form-label">Tên</label>
-                                        <input type="text" class="form-control" value="{{ $sliders->name }}">
+                                        <input type="text" class="form-control" name="name" value="{{ $sliders->name}}">
                                     </div>
                                 </div>
                                 <div class="col-11">
                                     <div>
                                         <label class="form-label">Content</label>
-                                        <input type="email" class="form-control" value="{{ $sliders->content }}">
+                                        <input type="text" class="form-control"  name="content" value="{{ $sliders->content }}">
                                     </div>
                                 </div>
                                 <div class="col-11">
                                     <div>
                                         <label class="form-label" style="margin-top: 60px">Text color</label>
-                                        <input type="text" class="form-control" value="{{ $sliders->text_color }}">
+                                        <input type="text" class="form-control" name="text_color" value="{{ $sliders->text_color }}">
                                     </div>
                                 </div>
                                 <div class="col-11">
                                     <div>
                                         <label class="form-label">Url-btn</label>
-                                        <input type="text" class="form-control" value="{{ $sliders->url_btn }}">
+                                        <input type="text" class="form-control" name="url_btn" value="{{ $sliders->url_btn }}">
                                     </div>
                                 </div>
                                 <div class="col-11">
                                     <div>
                                         <label class="form-label">Content_btn</label>
-                                        <input type="text" class="form-control" value="{{ $sliders->content_btn }}">
+                                        <input type="text" class="form-control" name="content_btn" value="{{ $sliders->content_btn }}">
                                     </div>
                                 </div>
                                 <div class="col-11">
-                                    <label for="basiInput" class="form-label" style="margin-top: 60px">Images</label>
-                                    <div>
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1BwYl1Svb2h_YRhj9tcnZk0yAuIHh3oBM03dzDa8f&s" alt="" width="100px"><br>
-{{--                                        <input type="file" name="image" value="{{ $sliders->image }}">--}}
-                                    </div>
+                                    <label for="basiInput" class="form-label" >Images</label>
+                                    <div id="sliders-image-upload" class="dropzone"></div>
                                 </div>
                                 <div class="col-11">
                                     <div>
                                         <label class="form-label">Status</label>
-                                        <input type="text" class="form-control" value="{{ $sliders->status }}">
+                                        <input type="text" class="form-control" name="status" value="{{ $sliders->status }}">
                                     </div>
                                 </div>
                                 <!--end col-->

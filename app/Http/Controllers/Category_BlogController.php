@@ -40,7 +40,6 @@ class Category_BlogController extends Controller
             'slug' => $request['slug'],
             'description' => $request['description'],
         ]);
-
         return redirect()->route('category_blog.list')->with('success', 'Cập nhật Category_blogs thành công.');
     }
 

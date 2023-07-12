@@ -39,7 +39,6 @@ let myDropzone = new Dropzone("#sliders-image-upload",{
     }
 });
 myDropzone.on('complete', (file) => {
-    document.querySelector('input[name="image"]').setAttribute('value', file.xhr.response)
 })
 
 

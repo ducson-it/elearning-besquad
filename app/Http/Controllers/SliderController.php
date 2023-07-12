@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use App\Http\Requests\SliderRequest;
+use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
     public function index(){
         $sliders = Slider::paginate(5);
+        //xử lý link ảnh
         $sliders->getcollection()->transform(function ($item) {
             if (isset($item->image['disk']) && isset($item->image['path']))
                 $item->image = Storage::disk($item->image['disk'])->url($item->image['path']);
@@ -36,6 +38,14 @@ class SliderController extends Controller
 
     public function update(SliderRequest $request, $id)
     {
+        $data = $request->all();
+        $media = session('sliders');
+        if ($media) {
+            $data['image'] = $media['path'];
+        }
+        $slider = Slider::findOrFail($id);
+        $slider->update($data);
+        return redirect()->route('slider.list')->with('success', 'Cập nhật slider thành công');
 
     }
     public function delete($id)
