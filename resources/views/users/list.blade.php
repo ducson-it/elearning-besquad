@@ -11,9 +11,9 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
                                 <div>
-                                    <button type="button" class="btn btn-success add-btn"><i
-                                            class="ri-add-line align-bottom me-1"></i> <a
-                                            href="{{route('addUser')}}"> Add</a></button>
+                                    <a
+                                        href="{{route('addUser')}}"> <button type="button" class="btn btn-success add-btn"><i
+                                            class="ri-add-line align-bottom me-1"></i> Add</button></a>
                                     <button class="btn btn-soft-danger" onclick="deleteMultipleUser()"><i
                                             class="ri-delete-bin-2-line"></i></button>
                                 </div>
@@ -81,7 +81,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <button onclick="activeUser({{$user->id}})"
-                                                            class="btn btn-sm btn-success edit-item-btn">Active
+                                                            class="btn btn-sm btn-success edit-item-btn">
+                                                     <?= $user->active == 0 ? 'Active': 'Inactive'  ?>
                                                     </button>
 
 
@@ -161,6 +162,7 @@
             });
         }
         function activeUser(id) {
+            console.log(id)
             Swal.fire({
                 title: ' Bạn chắc chắn ? ',
                 text: "Thay đổi trạng thái tài khoản này ?",
@@ -174,7 +176,7 @@
                     // Gửi yêu cầu xóa bằng Ajax
                     $.ajax({
                         url: '/user/user-active/' + id,
-                        type: 'put',
+                        type: 'POST',
                         data: {
                             _token: $('meta[name="csrf-token"]').attr('content')
                         },
