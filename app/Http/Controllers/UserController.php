@@ -95,16 +95,22 @@ class UserController extends Controller
     }
     public function activeUser($id){
         $user  = User::find($id);
-        if($user->active == 'active'){
-            $user->update([
-                'active' => 'inactive'
-            ]);
-        }else{
-            $user->update([
-                'active' => 'active'
-            ]);
+        try{
+            if($user->active == 1){
+                $user->update([
+                    'active' => 0
+                ]);
+            }else{
+                $user->update([
+                    'active' => 1
+                ]);
+            }
+            return redirect()->route('show.user')->with('success', 'Đã cập nhật active thành công');
+        }catch (\Exception $e){
+            return redirect()->back()->with('error', 'Cập nhật active thất bại');
         }
-        return redirect()->route('show.user')->with('message', 'cập nhật trường active  thành công');
+
+
     }
     public function editUser($id){
         $user = User::find($id);
