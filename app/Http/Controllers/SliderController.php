@@ -38,15 +38,16 @@ class SliderController extends Controller
 
     public function update(SliderRequest $request, $id)
     {
+        $slider = Slider::findOrFail($id);
         $data = $request->all();
         $media = session('sliders');
         if ($media) {
-            $data['image'] = $media['path'];
+            $data['image'] = $media;
+            $slider->clearMediaCollection('sliders');
+            $slider->addMedia(storage_path('app/' . $media))->toMediaCollection('sliders');
         }
-        $slider = Slider::findOrFail($id);
         $slider->update($data);
         return redirect()->route('slider.list')->with('success', 'Cập nhật slider thành công');
-
     }
     public function delete($id)
     {

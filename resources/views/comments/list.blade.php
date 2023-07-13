@@ -25,7 +25,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="table-responsive table-card mt-3 mb-1">
                             <table class="table align-middle table-nowrap" id="customerTable">
                                 <thead class="table-light">
@@ -39,6 +38,7 @@
                                     <th class="" data-sort="customer_name"> Người comment</th>
                                     <th class="" data-sort="course">Content</th>
                                     <th class="" data-sort="course">Status</th>
+                                    <th class="" data-sort="course">Thuộc </th>
                                     <th class="" data-sort="action">Thao tác</th>
                                 </tr>
                                 </thead>
@@ -51,10 +51,65 @@
                                             </div>
                                         </th>
                                         <td class="customer_name">{{$i +1}}</td>
-                                        <td class="customer_name">{{$comment->user->name}}</td>
+                                        <td class="customer_name">{{$comment->user?->name}}</td>
                                         <td class="course">{{$comment->content}}</td>
-                                        <td class="course">{{$comment->status}}</td>
-                                        <td class="customer_name">{{$comment->commentable->content}}
+                                        <td class="course">
+                                            @if($comment->status == 0)
+                                                //trạng thái Inactive
+                                                <button type="button" class="btn btn-sm btn-warning edit-item-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$comment->id}}">
+                                                    Inactive
+                                                </button>
+                                                <div class="modal fade" id="staticBackdrop{{$comment->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Sửa Category_blog</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name" class="col-form-label">Status</label>
+                                                                    <input type="text" class="form-control" id="name" name="status">
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Update</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                //trạng thái active
+                                                <button type="button" class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$comment->id}}">
+                                                    Active
+                                                </button>
+                                                <div class="modal fade" id="staticBackdrop{{$comment->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Sửa Category_blog</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name" class="col-form-label">Status</label>
+                                                                    <input type="text" class="form-control" id="name" name="status">
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Update</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            @endif
+                                        </td>
+                                        <td class="customer_name">của blog hay của khóa học....
                                         </td>
                                         <td>
                                             <div class="d-flex gap-2">

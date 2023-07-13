@@ -1,6 +1,7 @@
 import 'bootstrap';
 import Swal from 'sweetalert2';
 import axios from "axios";
+//xóa comment
 window.deletecomment = (id) => {
     Swal.fire({
         icon: 'warning',

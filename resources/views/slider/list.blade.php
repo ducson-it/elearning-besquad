@@ -77,7 +77,7 @@
                                                     <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('slider.edit',$slider->id)}}">Edit</a></button>
                                                 </div>
                                                 <div class="remove">
-                                                    <button onclick="event.preventDefault(); deletesliders({{ $slider->id }})" class="btn btn-sm btn-danger remove-item-btn">Remove</button>
+                                                    <button onclick="deletesliders({{ $slider->id }})" class="btn btn-sm btn-danger remove-item-btn">Remove</button>
                                                 </div>
                                             </div>
                                         </td>

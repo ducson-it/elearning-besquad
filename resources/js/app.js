@@ -2,8 +2,10 @@ import $ from 'jquery';
 window.$ = window.jquery = $
 //----------------thành import--------------------
 
-
-import './thanhcode';
+import 'bootstrap';
+import './comment'
+import './blog'
+import './slider'
 
 
 import Quill from "quill";
@@ -34,7 +36,6 @@ var toolbarOptions =
         ['clean']
     ]
 // quill editor create blog
-
 const editor = new Quill('#quillEditor', {
     modules:{
         syntax:false,

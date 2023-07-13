@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     public function index(){
-        $comments = Comment::with()->paginate(5);
+        $comments = Comment::paginate(5);
         return view('comments.list',compact('comments'));
     }
     public function create(){
@@ -17,7 +17,7 @@ class CommentController extends Controller
     public function store(){
 
     }
-    public function edit(){
+    public function edit($id){
 
     }
     public function update(){

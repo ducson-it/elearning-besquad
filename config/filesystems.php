@@ -33,6 +33,10 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/sliders'),
         ],
+        'blogs' => [
+            'driver' => 'local',
+            'root' => storage_path('app/blogs'),
+        ],
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

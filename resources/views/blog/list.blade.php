@@ -2,6 +2,11 @@
 @section('content')
 
 <div class="row">
+    @if (Session::has('success'))
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+    @endif
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
@@ -12,7 +17,7 @@
                     <div class="row g-4 mb-3">
                         <div class="col-sm-auto">
                             <div>
-                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><i class="ri-add-line align-bottom me-1"></i> Add</button>
+                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><i class="ri-add-line align-bottom me-1"></i><a href="{{route('blogs.create')}}"> Add</a></button>
                                 <button class="btn btn-soft-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                             </div>
                         </div>
@@ -43,7 +48,7 @@
                                     <th class="" data-sort="date">Mô tả ngắn</th>
                                     <th class="" data-sort="action">Content</th>
                                     <th class="" data-sort="action">Tác giả</th>
-{{--                                    <th class="" data-sort="action">Category_blog</th>--}}
+                                    <th class="" data-sort="action">Category_blog</th>
                                     <th class="" data-sort="action">Thao tác</th>
                                 </tr>
                             </thead>
@@ -58,18 +63,18 @@
                                     <td class="customer_name">{{$i +1}}</td>
                                     <td class="customer_name">{{$blog->title}}</td>
                                     <td class="course">{{$blog->slug}}</td>
-                                    <td class="customer_name">{{$blog->image}}
-
+                                    <td class="customer_name">
+                                        <img src="{{$blog->image}}" alt="ảnh" width="80px" height="60px">
                                     </td>
                                     <td class="course">{{$blog->view}}</td>
                                     <td class="customer_name">{{$blog->description_short}}</td>
                                     <td class="course">{{$blog->content}}</td>
-                                    <td class="customer_name">{{$blog->user->name}}</td>
-{{--                                    <td class="course">{{$blog->category->name}}</td>--}}
+                                    <td class="customer_name">{{$blog->user?->name}}</td>
+                                    <td class="course">{{$blog->category?->name}}</td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <div class="detail">
-                                                <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('slider.edit',$blog->id)}}">Edit</a></button>
+                                                <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('blogs.edit',$blog->id)}}">Edit</a></button>
                                             </div>
                                             <div class="remove">
                                                 <button onclick="event.preventDefault(); deleteblogs({{ $blog->id }})" class="btn btn-sm btn-danger remove-item-btn">Remove</button>

@@ -10,7 +10,9 @@ class Blog extends Model
     use HasFactory;
     protected $table = 'blogs';
     protected $fillable = ['user_id', 'title', 'slug', 'image', 'view', 'description_short', 'content', 'category_blog_id'];
-
+    protected $casts = [
+        'image'=>'json'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);

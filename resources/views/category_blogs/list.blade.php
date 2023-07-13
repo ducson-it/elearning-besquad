@@ -128,7 +128,7 @@
                                                     </form>
                                                 </div>
                                                 <div class="remove">
-                                                    <button onclick="event.preventDefault(); deletecategory_blog({{ $category_blog->id }})" class="btn btn-sm btn-danger remove-item-btn">Remove</button>
+                                                    <button onclick="deletecategory_blog({{ $category_blog->id }})" class="btn btn-sm btn-danger remove-item-btn">Remove</button>
                                                 </div>
                                             </div>
                                         </td>

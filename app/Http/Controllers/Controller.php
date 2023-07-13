@@ -34,5 +34,17 @@ class Controller extends BaseController
         session()->put('sliders', $image);
         return response()->json($image, 200);
     }
+    //upload ảnh trong blogs
+    public function mediaUpload3(Request $request)
+    {
+        $file = $request->file('file');
+        $path = $file->store('blogs', 'public');
+        $image = [
+            'disk' => "public",
+            'path' => $path
+        ];
+        session()->put('blogs', $image);
+        return response()->json($image, 200);
+    }
 
 }
