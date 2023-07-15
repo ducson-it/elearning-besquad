@@ -26,9 +26,7 @@
                                 <div class="col-10 mt-2">
                                     <div>
                                         <label for="basiInput" class="form-label">Khoá học</label>
-                                        <select name="course_id" id="course_id" class="form-control">
-                                        </select>
-
+                                        {!! Form::select('course_id',$courses,null,['id'=>'course_id','class'=>'form-control']) !!}
                                     </div>
                                 </div>
                                 <!--end col-->

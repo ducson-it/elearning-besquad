@@ -61,7 +61,7 @@ class ModuleController extends Controller
     public function searchCourse(Request $request)
     {
         $courses = Course::orWhere('name','like',"%{$request->get('search')}%")
-                            ->limit(20)
+                            ->limit(1)
                             ->get();
         return response()->json($courses);
     }

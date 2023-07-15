@@ -6,6 +6,7 @@ use App\Http\Requests\CourseRequest;
 use App\Models\Category;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
@@ -31,7 +32,7 @@ class CourseController extends Controller
             'featured'=>$request->featured,
             'category_id'=>$request->category_id,
             'image'=>$request->filepath,
-            'description'=>$request->content
+            'description'=>$request->content,
         ];
         Course::create($data);
         return redirect()->route('courses.list')->with('message','Thêm thành công');
