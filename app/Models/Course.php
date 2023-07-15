@@ -11,7 +11,7 @@ class Course extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'courses';
-    protected $fillable = ['name', 'slug', 'price', 'user_id', 'discount', 'status', 'featured', 'category_id', 'image', 'description', 'is_free'];
+    protected $fillable = ['name', 'slug', 'price', 'user_id', 'discount', 'status', 'featured', 'category_id', 'image', 'description', 'is_free','subscribe'];
 
     public function user()
     {
