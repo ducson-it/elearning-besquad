@@ -24,6 +24,7 @@ Route::post('/media/upload',[\App\Http\Controllers\Controller::class,'mediaUploa
 require __DIR__ .'/categories.php';
 require __DIR__ .'/course.php';
 require __DIR__ .'/module.php';
+require __DIR__ .'/lessons.php';
 require __DIR__ .'/slider.php';
 require __DIR__ .'/categories_blog.php';
 require __DIR__ .'/blog.php';

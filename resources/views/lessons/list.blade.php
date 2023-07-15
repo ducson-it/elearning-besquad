@@ -4,6 +4,10 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
+                @if ($message = Session::get('message'))
+                        <p class="message" style="color: rgb(17, 186, 9); margin-left:20px"><i class="fa-solid fa-check"></i>
+                            {{ $message }}</p>
+                    @endif
                 <h4 class="card-title mb-0">Quản lý bài học</h4>
             </div><!-- end card header -->
             <div class="card-body">
@@ -11,7 +15,7 @@
                     <div class="row g-4 mb-3">
                         <div class="col-sm-auto">
                             <div>
-                                <button type="button" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i><a href="{{route('courses.lessons.create',[$course,$topic])}}">Add</a></button>
+                                <button type="button" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i><a href="{{route('lessons.create')}}">Add</a></button>
                                 <button class="btn btn-soft-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                             </div>
                         </div>
@@ -38,35 +42,43 @@
                                     <th class="sort" data-sort="course">Khoá học</th>
                                     <th class="sort" data-sort="topic">Chủ đề</th>
                                     <th class="sort" data-sort="status">Trạng thái</th>
+                                    <th class="sort" data-sort="status">View</th>
+                                    <th class="sort" data-sort="status">Trạng thái học thử</th>
                                     <th class="sort" data-sort="date">Ngày tạo</th>
                                     <th class="sort" data-sort="action">Lựa chọn</th>
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
-                                @for ($i = 0; $i < 5; $i++)
+                                @foreach ($lessons as $lesson)
                                 <tr>
                                     <th scope="row">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                         </div>
                                     </th>
-                                    <td class="customer_name">Timothy Smith</td>
-                                    <td class="course">Lập trình website</td>
-                                    <td class="topic">Giới thiệu lập trình website</td>
-                                    <td class="status"><span class="badge badge-soft-success text-uppercase">Active</span></td>
+                                    <td class="customer_name">{{ $lesson->name }}</td>
+                                    <td class="course">{{ $lesson->course->name }}</td>
+                                    <td class="topic">{{ $lesson->module->name }}</td>
+                                    <td class="status"><span
+                                        class="badge badge-soft-success text-uppercase">{{ $lesson->status == 1 ? 'Active' : 'Inactive' }}</span>
+                                </td>
+                                <td class="topic">{{ $lesson->view }}</td>
+                                <td class="status"><span
+                                    class="badge badge-soft-success text-uppercase">{{ $lesson->is_trial_lesson == 1 ? 'Được phép học thử' : 'Không được phép học thử' }}</span>
+                            </td>
                                     <td class="date">13 Dec, 2021</td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <div class="edit">
-                                                <button class="btn btn-sm btn-success edit-item-btn"><a href="{{route('courses.lessons.edit',[$course,$topic,1])}}">Edit</a></button>
+                                                <button class="btn btn-sm btn-success edit-item-btn"><a href="{{route('lessons.edit',$lesson->id)}}">Edit</a></button>
                                             </div>
                                             <div class="remove">
-                                                <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                <button class="btn btn-sm btn-danger remove-item-btn" id="deleteLesson">Remove</button>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                @endfor
+                                @endforeach
                             </tbody>
                         </table>
                         <div class="noresult" style="display: none">
@@ -77,18 +89,8 @@
                             </div>
                         </div>
                     </div>
+                    {{-- paginate --}}
 
-                    <div class="d-flex justify-content-end">
-                        <div class="pagination-wrap hstack gap-2" style="display: flex;">
-                            <a class="page-item pagination-prev disabled" href="javascrpit:void(0)">
-                                Previous
-                            </a>
-                            <ul class="pagination listjs-pagination mb-0"><li class="active"><a class="page" href="#" data-i="1" data-page="8">1</a></li><li><a class="page" href="#" data-i="2" data-page="8">2</a></li></ul>
-                            <a class="page-item pagination-next" href="javascrpit:void(0)">
-                                Next
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div><!-- end card -->
         </div>

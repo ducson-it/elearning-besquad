@@ -24,6 +24,10 @@ class CategoryController extends Controller
             'slug'=>Str::slug($request->name)
         ];
         Category::create($data);
+        return response()->json([
+            'status'=>true,
+            'message'=>'Thêm thành công'
+        ]);
     }
 
     public function update(Category $category, CategoryRequest $request)
@@ -34,6 +38,10 @@ class CategoryController extends Controller
             'status'=>$request->status
         ];
         $category->update($data);
+        return response()->json([
+            'status'=>true,
+            'message'=>'Cập nhật thành công'
+        ]);
 
     }
     public function show($category_id){
@@ -44,5 +52,9 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+        return response()->json([
+            'status'=>true,
+            'message'=>'Xoá thành công'
+        ]);
     }
 }

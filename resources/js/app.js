@@ -17,6 +17,7 @@ select2()
 import './categories';
 import './module';
 import './courses';
+import './lessons';
 //Destroy Quill Editor
 // import QuillMarkdown from 'quilljs-markdown';
 var toolbarOptions =
@@ -54,7 +55,7 @@ const editor = new Quill('#quillEditor', {
                     const metaToken = document.querySelector('meta[name="csrf-token"]')
                     var formData = new FormData();
                     formData.append('file', file);
-
+					console.log(formData);
                     $.ajax({
                         type: "POST",
                         url: '/media/upload',
