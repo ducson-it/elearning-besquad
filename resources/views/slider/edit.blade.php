@@ -8,7 +8,7 @@
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('slider_update', $sliders->id) }}" >
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('slider.update', $sliders->id) }}" >
                             @csrf
                             <div class="row gy-4 d-flex justify-content-center">
                                 <div class="col-11">
@@ -43,7 +43,9 @@
                                 </div>
                                 <div class="col-11">
                                     <label for="basiInput" class="form-label" >Images</label>
-                                    <div id="sliders-image-upload" class="dropzone" ></div>
+                                    <div id="sliders-image-upload" class="dropzone">
+                                        <img style="width: 80px; height: 50px" src="{{ $sliders->image }}" alt="Current Image">
+                                    </div>
                                 </div>
                                 <div class="col-11">
                                     <div>

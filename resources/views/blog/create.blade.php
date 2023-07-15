@@ -40,7 +40,6 @@
                             <div id="quillEditor"></div>
                             <textarea name="content" id="content" class="d-none"></textarea>
                         </div>
-
                         <div class="col-11" style="margin-top: 100px">
                                 <label for="basiInput" class="form-label">Chủ đề</label>
                                 <select name="category_blog_id" class="form-control ">

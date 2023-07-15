@@ -3,23 +3,22 @@ window.$ = window.jquery = $
 //----------------thành import--------------------
 
 import 'bootstrap';
+import './slider'
 import './comment'
 import './blog'
-import './slider'
-
+import './category_blogs'
 
 import Quill from "quill";
 import ImageResize from 'quill-image-resize';
 // Register ImageResize module
 import ImageUploader from "quill-image-uploader";
-import {document} from "postcss";
 Quill.register('modules/imageResize', ImageResize);
 Quill.register("modules/imageUploader", ImageUploader);
 //------------------------------------sliders----------------------------------
 
 
 //Destroy Quill Editor
-// import QuillMarkdown from 'quilljs-markdown';
+import QuillMarkdown from 'quilljs-markdown';
 var toolbarOptions =
     [
         ['bold', 'italic', 'underline', 'strike'],
@@ -54,10 +53,9 @@ const editor = new Quill('#quillEditor', {
                     const metaToken = document.querySelector('meta[name="csrf-token"]')
                     var formData = new FormData();
                     formData.append('file', file);
-
                     $.ajax({
                         type: "POST",
-                        url: 'media/upload',
+                        url: '/media/upload',
                         headers: {
                             'X-CSRF-TOKEN': metaToken.getAttribute('content')
                         },

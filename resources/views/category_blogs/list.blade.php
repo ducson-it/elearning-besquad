@@ -90,7 +90,6 @@
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="detail">
-
                                                     <!-- Button trigger modal -->
                                                     <form action="{{ route('category_blog.update',$category_blog->id) }}" method="POST">
                                                         @csrf

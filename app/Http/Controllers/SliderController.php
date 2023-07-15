@@ -33,9 +33,13 @@ class SliderController extends Controller
     }
     public function edit($id){
         $sliders = Slider::findOrFail($id);
+        if (isset($sliders->image['disk']) && isset($sliders->image['path'])) {
+            $sliders->image = Storage::disk($sliders->image['disk'])->url($sliders->image['path']);
+        } else {
+            $sliders->image = '/storage/anh.png';
+        }
         return view('slider.edit',compact('sliders'));
     }
-
     public function update(SliderRequest $request, $id)
     {
         $slider = Slider::findOrFail($id);
@@ -43,8 +47,6 @@ class SliderController extends Controller
         $media = session('sliders');
         if ($media) {
             $data['image'] = $media;
-            $slider->clearMediaCollection('sliders');
-            $slider->addMedia(storage_path('app/' . $media))->toMediaCollection('sliders');
         }
         $slider->update($data);
         return redirect()->route('slider.list')->with('success', 'Cập nhật slider thành công');

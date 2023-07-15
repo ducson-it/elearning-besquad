@@ -26,10 +26,6 @@ class Category_BlogController extends Controller
         ]);
         return redirect()->route('category_blog.list')->with('success', 'Thêm Category_blogs thành công.');
     }
-    public function edit($id){
-        $category_blogs = CategoryBlog::find($id);
-        return view('category_blog.list',compact('category_blogs'));
-    }
     public function update(CategoryBlogRequest $request, $id)
     {
         $slug = Str::slug($request['name']);
