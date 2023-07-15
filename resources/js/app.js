@@ -1,5 +1,8 @@
+import Swal from "sweetalert2"
 import $ from 'jquery';
-window.$ = window.jquery = $
+window.$ = window.jquery = $;
+import 'bootstrap';
+import './general/filemanager.js';
 import Quill from "quill";
 import ImageResize from 'quill-image-resize';
 // Register ImageResize module
@@ -9,7 +12,12 @@ Quill.register("modules/imageUploader", ImageUploader);
 // import file js'
    import './tag';
 addTag();
-console.log('cvcxvcxvvcxv')
+import select2 from 'select2';
+select2()
+import './categories';
+import './module';
+import './courses';
+import './lessons';
 //Destroy Quill Editor
 // import QuillMarkdown from 'quilljs-markdown';
 var toolbarOptions =
@@ -47,10 +55,10 @@ const editor = new Quill('#quillEditor', {
                     const metaToken = document.querySelector('meta[name="csrf-token"]')
                     var formData = new FormData();
                     formData.append('file', file);
-
+					console.log(formData);
                     $.ajax({
                         type: "POST",
-                        url: 'media/upload',
+                        url: '/media/upload',
                         headers: {
                             'X-CSRF-TOKEN': metaToken.getAttribute('content')
                         },
@@ -81,6 +89,7 @@ editor.on('text-change', () => {
     document.querySelector('#content').value = editor.getHTML()
     // $('#content').val(editor.container.firstChild.innerHTML);
 });
+//file manager
 /*
 Template Name: Velzon - Admin & Dashboard Template
 Author: Themesbrand
@@ -89,6 +98,7 @@ Website: https://Themesbrand.com/
 Contact: Themesbrand@gmail.com
 File: Main Js File
 */
+
 (function () {
 	("use strict");
 

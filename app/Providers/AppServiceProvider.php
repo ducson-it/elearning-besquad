@@ -30,6 +30,6 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         JsonResource::withoutWrapping();
         Schema::defaultStringLength(191);
-
+        Paginator::useBootstrap();
     }
 }

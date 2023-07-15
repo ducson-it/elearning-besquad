@@ -49,10 +49,10 @@
                                 <a href="{{route('courses.list')}}" class="nav-link">Danh sách</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('courses.topics.select')}}" class="nav-link">Chủ đề</a>
+                                <a href="{{route('modules.list')}}" class="nav-link">Chủ đề</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('courses.lessons.select')}}" class="nav-link">Bài học</a>
+                                <a href="{{route('lessons.list')}}" class="nav-link">Bài học</a>
                             </li>
                         </ul>
                     </div>
