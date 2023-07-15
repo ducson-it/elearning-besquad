@@ -12,15 +12,28 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Auth::routes();
-//Language Translation
-Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('root');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
-//Update User Details
-Route::post('/update-profile/{id}', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('updateProfile');
-Route::post('/update-password/{id}', [App\Http\Controllers\HomeController::class, 'updatePassword'])->name('updatePassword');
+require __DIR__ .'/route-layout.php';
+//Upload image in  blog content
 
-Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Route::post('/media/upload',[\App\Http\Controllers\Controller::class,'mediaUpload'])->name('media.upload');
+//upload sliders
+Route::post('/sliders/upload2',[\App\Http\Controllers\Controller::class,'mediaUpload2'])->name('sliders.upload');
+//upload file blogs
+Route::post('/blogs/upload3',[\App\Http\Controllers\Controller::class,'mediaUpload3'])->name('blogs.upload');
+
+
+require __DIR__ .'/categories.php';
+require __DIR__ .'/course.php';
+require __DIR__ .'/slider.php';
+require __DIR__ .'/categories_blog.php';
+require __DIR__ .'/blog.php';
+require __DIR__ .'/comments.php';
+require __DIR__ .'/notify.php';
+require __DIR__ .'/tags.php';
+require __DIR__ .'/user.php';
+
+
