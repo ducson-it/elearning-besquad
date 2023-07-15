@@ -40,11 +40,33 @@ class BlogController extends Controller
         ]);
         return redirect()->route('blogs.list')->with('success', 'Thêm blogs thành công');
     }
-    public function edit(){
-
+    public function edit($id)
+    {
+        $blog= Blog::find($id);
+        $category_blogs = CategoryBlog::all();
+        if (isset($blog->image['disk']) && isset($blog->image['path'])) {
+            $blog->image = Storage::disk($blog->image['disk'])->url($blog->image['path']);
+        } else {
+            $blog->image = '/storage/anh.png';
+        }
+        return view('blog.edit', compact('blog','category_blogs'));
     }
-    public function update(){
+    public function update(Request $request, $id)
+    {
+        $blog = Blog::findOrFail($id);
+        $media = session('blogs');
 
+        $blog->update([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'description_short' => $request->description_short,
+            'image' => $media,
+            'content' => $request->content,
+            'view' => $request->view,
+            'category_blog_id' => $request->category_blog_id
+        ]);
+
+        return redirect()->route('blogs.list')->with('success', 'Cập nhật blogs thành công');
     }
     public function delete($id){
         $blogs = Blog::findOrFail($id);

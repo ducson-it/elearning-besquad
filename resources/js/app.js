@@ -3,10 +3,10 @@ window.$ = window.jquery = $
 //----------------thành import--------------------
 
 import 'bootstrap';
-import './slider'
-import './comment'
 import './blog'
-import './category_blogs'
+// import './slider'
+// import './comment'
+// import './category_blogs'
 
 import Quill from "quill";
 import ImageResize from 'quill-image-resize';
