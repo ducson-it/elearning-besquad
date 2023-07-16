@@ -16,7 +16,7 @@ class LessonController extends Controller
     //
     public function index()
     {
-        $lessons = Lesson::with('module')->with('course')->get();
+        $lessons = Lesson::with('module','module')->get();
         return view('lessons.list',compact('lessons'));
     }
     public function create()
