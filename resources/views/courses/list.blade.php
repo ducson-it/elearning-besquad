@@ -24,6 +24,14 @@
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
+                                    <div class="col-sm-2">
+                                        <select name="category_id" id="selectCate" class="form-select" >
+                                            <option value="">All</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="search-box ms-2">
                                         <input type="text" class="form-control search" placeholder="Search...">
                                         <i class="ri-search-line search-icon"></i>
@@ -52,7 +60,7 @@
                                         <th class="sort" data-sort="action">Lựa chọn</th>
                                     </tr>
                                 </thead>
-                                <tbody class="list form-check-all">
+                                <tbody class="list form-check-all" id="course-content-list">
                                     @foreach ($courses as $course)
                                         <tr>
                                             <th scope="row">
