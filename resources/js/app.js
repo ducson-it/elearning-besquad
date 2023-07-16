@@ -12,7 +12,7 @@ import ImageUploader from "quill-image-uploader";
 
 Quill.register('modules/imageResize', ImageResize);
 Quill.register("modules/imageUploader", ImageUploader);
-import Dropzone from "dropzone";
+// import Dropzone from "dropzone";
 // import file js'
 import './tag';
 import './user';
