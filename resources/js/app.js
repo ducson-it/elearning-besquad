@@ -6,6 +6,7 @@ import 'bootstrap';
 import './general/filemanager.js';
 import Quill from "quill";
 import ImageResize from 'quill-image-resize';
+
 // Register ImageResize module
 import ImageUploader from "quill-image-uploader";
 
