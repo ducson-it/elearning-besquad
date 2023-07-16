@@ -4,7 +4,7 @@
 cd /var/www/beesquad
 
 # Pull the latest code from the repository
-git pull origin main
+git pull
 # Install dependencies
 composer install --no-interaction --no-dev --prefer-dist
 composer update
