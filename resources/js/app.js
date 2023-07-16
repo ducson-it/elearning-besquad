@@ -1,24 +1,25 @@
+import Swal from "sweetalert2"
 import $ from 'jquery';
-window.$ = window.jquery = $
-//----------------thành import--------------------
-
+window.$ = window.jquery = $;
 import 'bootstrap';
-import './blog'
-// import './slider'
-// import './comment'
-// import './category_blogs'
-
+import './general/filemanager.js';
 import Quill from "quill";
 import ImageResize from 'quill-image-resize';
 // Register ImageResize module
 import ImageUploader from "quill-image-uploader";
 Quill.register('modules/imageResize', ImageResize);
 Quill.register("modules/imageUploader", ImageUploader);
-//------------------------------------sliders----------------------------------
-
-
+// import file js'
+   import './tag';
+addTag();
+import select2 from 'select2';
+select2()
+import './categories';
+import './module';
+import './courses';
+import './lessons';
 //Destroy Quill Editor
-import QuillMarkdown from 'quilljs-markdown';
+// import QuillMarkdown from 'quilljs-markdown';
 var toolbarOptions =
     [
         ['bold', 'italic', 'underline', 'strike'],
@@ -35,6 +36,7 @@ var toolbarOptions =
         ['clean']
     ]
 // quill editor create blog
+
 const editor = new Quill('#quillEditor', {
     modules:{
         syntax:false,
@@ -53,6 +55,7 @@ const editor = new Quill('#quillEditor', {
                     const metaToken = document.querySelector('meta[name="csrf-token"]')
                     var formData = new FormData();
                     formData.append('file', file);
+					console.log(formData);
                     $.ajax({
                         type: "POST",
                         url: '/media/upload',
@@ -86,6 +89,16 @@ editor.on('text-change', () => {
     document.querySelector('#content').value = editor.getHTML()
     // $('#content').val(editor.container.firstChild.innerHTML);
 });
+//file manager
+/*
+Template Name: Velzon - Admin & Dashboard Template
+Author: Themesbrand
+Version: 2.2.0
+Website: https://Themesbrand.com/
+Contact: Themesbrand@gmail.com
+File: Main Js File
+*/
+
 (function () {
 	("use strict");
 
@@ -2000,4 +2013,3 @@ if (mybutton) {
 		document.documentElement.scrollTop = 0;
 	}
 }
-/---------------------/
