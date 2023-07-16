@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 //Auth
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
@@ -32,7 +32,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('slider', [SliderController::class, 'slider']);
-Route::get('blog', [BlogController::class, 'blog']);
+
+Route::prefix('blog')->group(function () {
+    Route::get('/', [BlogController::class, 'blog']);
+    Route::get('/category-blog', [BlogController::class, 'categoryBlog']);
+    Route::get('/{blog}', [BlogController::class, 'detailBlog']);
+});
 
 Route::prefix('course')->group(function () {
     Route::get('category-course', [CourseController::class, 'categoryCourse']);
@@ -47,11 +52,6 @@ Route::prefix('lesson')->group(function () {
 
 Route::fallback(function () {
     return response()->json([
-        'message' => 'API endpoint not found.'
+        'message' => 'API endpoint not found.',
     ], 404);
 });
-
-
-
-
-
