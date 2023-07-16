@@ -49,7 +49,7 @@
                                     <th class="sort" data-sort="action">Lựa chọn</th>
                                 </tr>
                                 </thead>
-                                <tbody class="list form-check-all customerList">
+                                <tbody class="list form-check-all ">
                                 @foreach($list_users as $key => $user)
                                     <tr data-user-id="{{$user->id}}">
                                         <th scope="row">

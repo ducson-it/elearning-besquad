@@ -19,3 +19,4 @@ if(UserUpload){
         document.querySelector('input[name="image"]').setAttribute('value',file.xhr.response);
     })
 }
+
