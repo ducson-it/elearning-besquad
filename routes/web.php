@@ -20,6 +20,14 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web','auth']]
 });
 require __DIR__ .'/route-layout.php';
 //Upload image in  blog content
+
+Route::post('/media/upload',[\App\Http\Controllers\Controller::class,'mediaUpload'])->name('media.upload');
+//upload sliders
+Route::post('/sliders/upload2',[\App\Http\Controllers\Controller::class,'mediaUpload2'])->name('sliders.upload');
+//upload file blogs
+Route::post('/blogs/upload3',[\App\Http\Controllers\Controller::class,'mediaUpload3'])->name('blogs.upload');
+
+
 Route::post('/media/upload',[\App\Http\Controllers\Controller::class,'mediaUpload'])->name('media.upload');
 require __DIR__ .'/categories.php';
 require __DIR__ .'/course.php';

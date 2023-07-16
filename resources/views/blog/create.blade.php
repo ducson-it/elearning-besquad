@@ -8,18 +8,31 @@
             </div><!-- end card header -->
             <div class="card-body">
                 <div class="live-preview">
-                    <form action="">
+                    <form method="POST" enctype="multipart/form-data" action="{{route('blogs.store')}}" >
+                        @csrf
                     <div class="row gy-4 d-flex justify-content-center">
                         <div class="col-11">
                             <div>
                                 <label for="basiInput" class="form-label">Tiêu đề</label>
-                                <input type="text" class="form-control" id="basiInput">
+                                <input type="text" class="form-control" name="title" id="name" oninput="generateSlug()">
+                            </div>
+                        </div>
+                        <div class="col-11">
+                            <div>
+                                <label for="basiInput" class="form-label">Slug</label>
+                                <input type="text" class="form-control" name="slug" id="slug">
+                            </div>
+                        </div>
+                        <div class="col-11">
+                            <div>
+                                <label for="basiInput" class="form-label">Image</label>
+                                <div id="blogs-image-upload" class="dropzone"></div>
                             </div>
                         </div>
                         <div class="col-11">
                             <div>
                                 <label for="exampleFormControlTextarea5" class="form-label">Mô tả ngắn</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea5" rows="3"></textarea>
+                                <textarea class="form-control" name="description_short" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="col-11">
@@ -27,34 +40,24 @@
                             <div id="quillEditor"></div>
                             <textarea name="content" id="content" class="d-none"></textarea>
                         </div>
-                        <div class="col-11">
-                            <div>
-                                <label for="basiInput" class="form-label" style="margin-top: 60px">Tải ảnh đại diện</label>
-                                <input type="file"  name="document" class="form-control" id="basiInput">
-                            </div>
-                        </div>
-                        <div class="col-11">
-                            <div>
+                        <div class="col-11" style="margin-top: 100px">
                                 <label for="basiInput" class="form-label">Chủ đề</label>
-                                <select class="form-select mb-3" aria-label="Default select example" >
-                                    <option selected=""></option>
-                                    <option value="1">Lập trình web</option>
-                                    <option value="2">Lập trình front end</option>
+                                <select name="category_blog_id" class="form-control ">
+                                    <option value="">-- Chọn danh mục --</option>
+                                    @foreach ($category_blogs as $item)
+                                        <option value="{{ $item->id }}">
+                                            {{ $item->name}}</option>
+                                    @endforeach
                                 </select>
-                            </div>
                         </div>
                         <div class="col-11">
-                            <div>
-                                <label for="basiInput" class="form-label">Thẻ tag (chý ý: các thẻ ngăn cách nhau bởi dấu phẩy)</label>
-                                <input type="text" class="form-control" id="basiInput">
-                            </div>
+                            <label class="label-control mb-2">View</label>
+                            <input type="number" class="form-control" name="view" >
                         </div>
-                        <!--end col-->
                         <div class="mx-6">
                             <div class="hstack gap-2 justify-content-end">
-                                <button type="submit" class="btn btn-success" id="add-btn">Thêm</button>
-                                <button type="button" class="btn btn-light" data-bs-dismiss="modal"><a href="">Trở lại</a></button>
-                                <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
+                                <button type="submit" class="btn btn-success" >Thêm</button>
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal"><a href="{{route('blogs.list')}}">Trở lại</a></button>
                             </div>
                         </div>
                         <!--end col-->
@@ -67,4 +70,55 @@
     </div>
     <!--end col-->
 </div>
+<script>
+    //Truyền wx liệu sửa vào modal
+    const editButtons = document.querySelectorAll('.edit-item-btn');
+
+    editButtons.forEach((button) => {
+        button.addEventListener('click', function() {
+            const categoryId = this.getAttribute('data-id');
+            const editForm = document.getElementById('editForm');
+
+            // Tạo URL đến route update với categoryId đã nhận được
+            const editUrl = '{{ route("category_blog.update", ":id") }}'.replace(':id', categoryId);
+
+            // Gửi yêu cầu AJAX để lấy dữ liệu của categoryId
+            fetch(editUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Gán dữ liệu vào các trường nhập trong modal
+                    document.getElementById('name').value = data.name;
+                    document.getElementById('slug').value = data.slug;
+                    document.getElementById('message-text').value = data.description;
+
+                    // Thiết lập action và method của form trong modal
+                    editForm.action = editUrl;
+                    editForm.method = 'POST';
+                    editForm.insertAdjacentHTML('beforeend', '@method("PUT")');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    });
+
+    //hàm lấy slug ***********8
+    function generateSlug() {
+        const nameInput = document.getElementById('name');
+        const slugInput = document.getElementById('slug');
+
+        // Lấy giá trị từ input name
+        const nameValue = nameInput.value.trim();
+
+        // Xử lý chuỗi để tạo slug
+        const slugValue = nameValue
+            .toLowerCase()
+            .replace(/[^a-z0-9-]/g, '-')  // Xóa các ký tự không hợp lệ
+            .replace(/-+/g, '-')  // Loại bỏ các dấu gạch ngang liền nhau
+            .replace(/^-|-$/g, '');  // Loại bỏ dấu gạch ngang ở đầu và cuối chuỗi
+
+        // Gán giá trị vào input slug
+        slugInput.value = slugValue;
+    }
+</script>
 @endsection
