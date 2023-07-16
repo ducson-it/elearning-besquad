@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
         Taggable::factory()->count(10)->create();
         Order::factory()->count(10)->create();
         Status::factory()->count(10)->create();
-        Notification::factory()->count(10)->create();
+        // Notification::factory()->count(10)->create();
         $this->call([
             UsersSeeder::class
         ]);
