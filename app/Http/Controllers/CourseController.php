@@ -15,7 +15,8 @@ class CourseController extends Controller
     //list courses
     public function index(){
         $courses = Course::with('category')->paginate(5);
-        return view('courses.list',compact('courses'));
+        $categories = Category::all();
+        return view('courses.list',compact('courses','categories'));
     }
     //view create courses
     public function create(){
@@ -63,5 +64,15 @@ class CourseController extends Controller
             'status'=>true,
             'message'=>"Xoá thành công"
         ]);
+    }
+    //filter courses by category
+    public function showCourseCate($category_id)
+    {
+        $courses = Course::with('category')->where('category_id',$category_id)->get();
+        return response()->json($courses);
+    }
+    public function showAllCourseCate(){
+        $courses = Course::with('category')->get();
+        return response()->json($courses);
     }
 }

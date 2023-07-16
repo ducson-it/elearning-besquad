@@ -12,6 +12,7 @@ Quill.register("modules/imageUploader", ImageUploader);
 // import file js'
    import './tag';
 addTag();
+import Dropzone from "dropzone";
 import select2 from 'select2';
 select2()
 import './categories';
