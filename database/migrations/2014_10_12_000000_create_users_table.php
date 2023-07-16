@@ -60,7 +60,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->string('username')->nullable();
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->integer('point')->default(0);
             $table->unsignedInteger('role_id')->default(2);
