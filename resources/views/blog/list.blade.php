@@ -1,6 +1,12 @@
 @extends('layouts.master')
 @section('content')
+
 <div class="row">
+    @if (Session::has('success'))
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+    @endif
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
@@ -11,7 +17,7 @@
                     <div class="row g-4 mb-3">
                         <div class="col-sm-auto">
                             <div>
-                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><i class="ri-add-line align-bottom me-1"></i> Add</button>
+                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><i class="ri-add-line align-bottom me-1"></i><a href="{{route('blogs.create')}}"> Add</a></button>
                                 <button class="btn btn-soft-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                             </div>
                         </div>
@@ -34,61 +40,58 @@
                                             <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                         </div>
                                     </th>
-                                    <th class="sort" data-sort="customer_name">Tên bài viết</th>
-                                    <th class="sort" data-sort="course">Chủ đề</th>
-                                    <th class="sort" data-sort="status">Trạng thái</th>
-                                    <th class="sort" data-sort="author">Tác giả</th>
-                                    <th class="sort" data-sort="date">Ngày tạo</th>
-                                    <th class="sort" data-sort="action">Lựa chọn</th>
+                                    <th class="" data-sort="customer_name">STT</th>
+                                    <th class="" data-sort="customer_name">Title</th>
+                                    <th class="" data-sort="course">Slug</th>
+                                    <th class="" data-sort="status">Images</th>
+                                    <th class="" data-sort="author">View</th>
+                                    <th class="" data-sort="date">Mô tả ngắn</th>
+                                    <th class="" data-sort="action">Content</th>
+                                    <th class="" data-sort="action">Tác giả</th>
+                                    <th class="" data-sort="action">Category_blog</th>
+                                    <th class="" data-sort="action">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
-                                @for ($i = 0; $i < 5; $i++)
+                                @foreach($blogs as $i =>$blog)
                                 <tr>
-                                    <th scope="row">
+                                    <th scope="col" style="width: 50px;">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                         </div>
                                     </th>
-                                    <td class="customer_name">Học trình website cần chuẩn bị gì?</td>
-                                    <td class="course">Lập trình website </td>
-                                    <td class="status"><span class="badge badge-soft-success text-uppercase">Active</span></td>
-                                    <td class="author">Admin</td>
-                                    <td class="date">13 Dec, 2021</td>
+                                    <td class="customer_name">{{$i +1}}</td>
+                                    <td class="customer_name">{{$blog->title}}</td>
+                                    <td class="course">{{$blog->slug}}</td>
+                                    <td class="customer_name">
+                                        <img src="{{$blog->image}}" alt="ảnh" width="80px" height="60px">
+                                    </td>
+                                    <td class="course">{{$blog->view}}</td>
+                                    <td class="customer_name">{{$blog->description_short}}</td>
+                                    <td class="course">{{$blog->content}}</td>
+                                    <td class="customer_name">{{$blog->user?->name}}</td>
+                                    <td class="course">{{$blog->category?->name}}</td>
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <div class="edit">
-                                                <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('blog.edit',1)}}">Edit</a></button>
+                                            <div class="detail">
+                                                <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('blogs.edit',$blog->id)}}">Edit</a></button>
                                             </div>
                                             <div class="remove">
-                                                <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                <button onclick="event.preventDefault(); deleteblogs({{ $blog->id }})" class="btn btn-sm btn-danger remove-item-btn">Remove</button>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                @endfor
+                                @endforeach
                             </tbody>
                         </table>
-                        <div class="noresult" style="display: none">
-                            <div class="text-center">
-                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
-                                <h5 class="mt-2">Sorry! No Result Found</h5>
-                                <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any orders for you search.</p>
-                            </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <div class="pagination-wrap hstack gap-2" style="display: flex;">
+                            {{$blogs->links()}}
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-end">
-                        <div class="pagination-wrap hstack gap-2" style="display: flex;">
-                            <a class="page-item pagination-prev disabled" href="javascrpit:void(0)">
-                                Previous
-                            </a>
-                            <ul class="pagination listjs-pagination mb-0"><li class="active"><a class="page" href="#" data-i="1" data-page="8">1</a></li><li><a class="page" href="#" data-i="2" data-page="8">2</a></li></ul>
-                            <a class="page-item pagination-next" href="javascrpit:void(0)">
-                                Next
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div><!-- end card -->
         </div>

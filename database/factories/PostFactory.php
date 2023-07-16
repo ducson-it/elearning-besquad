@@ -18,7 +18,8 @@ class PostFactory extends Factory
     {
         return [
             'content' => $this->faker->paragraph,
-            'user_id' =>User::factory()->create()->id,
+            'user_id' => User::inRandomOrder()->first()->id,
         ];
     }
+
 }
