@@ -16,8 +16,10 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->word;
+        $name = substr($name, 0, 30);
         return [
-            'name' => $this->faker->word,
+            'name' => $name,
             'slug' => $this->faker->slug,
             'description' => $this->faker->text,
         ];
