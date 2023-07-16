@@ -158,6 +158,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
+
     $(document).ready(function() {
         $('#tag-form').submit(function(event) {
             event.preventDefault(); // Ngăn chặn hành vi mặc định của form (tải lại trang)
