@@ -100,7 +100,7 @@ class CreateUsersTable extends Migration
             $table->integer('status');
             $table->integer('featured');
             $table->unsignedInteger('category_id');
-            $table->json('image');
+            $table->string('image');
             $table->text('description');
             $table->text('is_free');
             $table->timestamps();
