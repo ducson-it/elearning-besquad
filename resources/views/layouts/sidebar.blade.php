@@ -49,10 +49,10 @@
                                 <a href="{{route('courses.list')}}" class="nav-link">Danh sách</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('courses.topics.select')}}" class="nav-link">Chủ đề</a>
+                                <a href="{{route('modules.list')}}" class="nav-link">Chủ đề</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('courses.lessons.select')}}" class="nav-link">Bài học</a>
+                                <a href="{{route('lessons.list')}}" class="nav-link">Bài học</a>
                             </li>
                         </ul>
                     </div>
@@ -125,16 +125,21 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('show.tag')}}">
+                        <i class="ri-apps-2-line"></i> <span>Quản lý tag</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#user" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span>Quản lý slider</span>
                     </a>
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-{{--                                                                <a href="{{route('slider.create')}}" class="nav-link">Tạo mới</a>--}}
+                                <a href="{{route('addUser')}}" class="nav-link">Tạo mới</a>
                             </li>
                             <li class="nav-item">
-                                                                <a href="{{route('slider.list')}}" class="nav-link">Danh sách</a>
+                                <a href="{{route('show.user')}}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
@@ -167,10 +172,26 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('show.notify')}}">
+                        <i class="ri-apps-2-line"></i> <span>Notifycation</span>
+                    </a>
+                    <a class="nav-link menu-link" href="#order" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                        <i class="ri-apps-2-line"></i> <span>Quản lý order</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="order">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="apps-calendar" class="nav-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#">
                         <i class="ri-apps-2-line"></i> <span>Thống kê</span>
                     </a>
                 </li>
+
             </ul>
         </div>
         <!-- Sidebar -->

@@ -69,7 +69,6 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'phone' => $request->phone
         ]);
 
         $access_token = $user->createAuthToken('web')->plainTextToken;
