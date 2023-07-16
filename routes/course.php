@@ -11,4 +11,8 @@ Route::group(['prefix'=>"courses","as"=>"courses."],function(){
     Route::get('/edit/{course}',[CourseController::class,'edit'])->name('edit');
     Route::put('/update/{course}',[CourseController::class,'update'])->name('update');
     Route::delete('/delete/{course_id}',[CourseController::class,'destroy'])->name('delete');
+
+    //filter by category
+    Route::get('/select/category/{category_id}',[CourseController::class,'showCourseCate']);
+    Route::get('/select/category/',[CourseController::class,'showAllCourseCate']);
 });

@@ -42,7 +42,7 @@ $(document).ready(function(){
 //             })
 })
 //delete lesson
-window.deleteLesson = (course_id)=>{
+window.deleteLesson = (lesson_id)=>{
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -59,7 +59,7 @@ window.deleteLesson = (course_id)=>{
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 processData: false,
-                url: 'lesson/delete/'+course_id,
+                url: 'lesson/delete/'+lesson_id,
                 success: function (data) {
                     if(data){
                         Swal.fire(
