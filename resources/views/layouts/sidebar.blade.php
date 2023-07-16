@@ -107,10 +107,10 @@
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('user.create')}}" class="nav-link">Tạo mới</a>
+                                <a href="{{route('addUser')}}" class="nav-link">Tạo mới</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('user.list')}}" class="nav-link">Danh sách</a>
+                                <a href="{{route('show.user')}}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
@@ -143,10 +143,16 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('show.notify')}}">
+                        <i class="ri-apps-2-line"></i> <span>Notifycation</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#">
                         <i class="ri-apps-2-line"></i> <span>Thống kê</span>
                     </a>
                 </li>
+
             </ul>
         </div>
         <!-- Sidebar -->
