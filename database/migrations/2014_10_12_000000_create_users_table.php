@@ -102,7 +102,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('category_id');
             $table->string('image');
             $table->text('description');
-            $table->text('is_free')->default(0);
+            $table->boolean('is_free')->default(0);
             $table->timestamps();
             $table->softDeletes();
             // $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
