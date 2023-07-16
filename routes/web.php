@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Auth;
 // Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web','auth']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
+// Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web','auth']], function () {
+//     \UniSharp\LaravelFilemanager\Lfm::routes();
+// });
 require __DIR__ .'/route-layout.php';
 //Upload image in  blog content
 
