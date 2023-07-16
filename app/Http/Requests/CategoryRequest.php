@@ -27,5 +27,12 @@ class CategoryRequest extends FormRequest
             //
             'name'=>'required',
         ];
+        
+    }
+    public function messages()
+    {
+        return [
+            'name.required'=>'Trường này không được để trống',
+        ];
     }
 }

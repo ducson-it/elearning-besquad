@@ -8,71 +8,87 @@
             </div><!-- end card header -->
             <div class="card-body">
                 <div class="live-preview">
-                    <form action="">
-                    <div class="row gy-4 d-flex justify-content-center">
-                        <div class="col-8">
-                            <div>
-                                <label for="basiInput" class="form-label">Tên khoá học</label>
-                                <input type="text" class="form-control" id="basiInput" value="Lập trình web online">
+                    {!! Form::open(['route'=>['courses.update',$course->id],'method'=>"put"]) !!}
+                    <div class="row gy-5 d-flex justify-content-center">
+                        <div class="row col-5 mt-5">
+                            <div class="col-10">
+                                <div>
+                                    <label for="basiInput" class="form-label">Tên khoá học</label>
+                                    <input type="text" class="form-control" id="basiInput" value="{{$course->name}}" name="name">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-8">
-                            <div>
-                                <label for="basiInput" class="form-label">Danh mục</label>
-                                <select class="form-select mb-3" aria-label="Default select example" >
-                                    <option value=""></option>
-                                    <option value="1" selected>Khoá học miễn phí</option>
-                                    <option value="2">Khoá học mât phí</option>
-                                </select>
+                            <div class="col-10 mt-2">
+                                <div>
+                                    <label for="basiInput" class="form-label">Danh mục</label>
+                                    {!! Form::select('category_id', $categories, $course->category_id, ['name'=>'category_id','class'=>"form-control"]) !!}
+                                </div>
                             </div>
-                        </div>
-                        {{-- Sử dụng dropzone để upload ảnh --}}
-                        <div class="col-8">
-                            <img src="https://hoclaptrinhonline.asia/pluginfile.php/2137/course/overviewfiles/la%CC%A3%CC%82p-tri%CC%80nh-web-min.png" alt="" width="200px">
-                        </div>
-                        <div class="col-8">
-                            <div>
-                                <label for="basiInput" class="form-label">Tải anh lên</label>
-                                <input type="file" class="form-control" id="basiInput">
+                            <div class="col-10 mt-2">
+                                <div>
+                                    <label for="basiInput" class="form-label">Trạng thái</label>
+                                    {!! Form::select('status', ["0"=>"Inactive","1"=>"Active"], $course->status, ['name'=>'status','class'=>"form-control"]) !!}
+                                </div>
                             </div>
-                        </div>
-                        <!--end col-->
-                        <div class="col-8">
-                            <div>
-                                <label for="iconInput" class="form-label">Giá</label>
-                                <div class="form-icon">
-                                    <input type="number" class="form-control form-control-icon" id="iconInput" placeholder="" value="450000">
+                            {{-- Sử dụng dropzone để upload ảnh --}}
+                            <div class="col-10 mt-2">
+                                <img src="{{$course->image}}" alt="" width="200px">
+                            </div>
+                            <div class="col-10 mt-2">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="lfm btn btn-primary" data-input="thumbnail2"
+                                            data-preview="holder2" class="btn btn-primary text-white">
+                                            <i class="fa fa-picture-o"></i> Choose
+                                        </button>
+                                    </span>
+                                    <input id="thumbnail2" class="form-control" type="text" name="filepath" value="{{$course->image}}">
                                 </div>
                             </div>
                         </div>
-                        <!--end col-->
-                        <div class="col-8">
-                            <div>
-                                <label for="iconrightInput" class="form-label">Giá sale</label>
-                                <div class="form-icon">
-                                    <input type="number" class="form-control form-control-icon" id="iconInput" placeholder="" value="0">
+                        <div class="row col-6 mt-5">
+                            @if ($course->category_id == 44)
+                            <div class="col-12 mt-2">
+                                <div>
+                                    <label for="iconInput" class="form-label">Giá</label>
+                                    <div class="form-icon">
+                                        <input type="number" class="form-control form-control-icon" id="iconInput" placeholder="" value="{{$course->price}}" name="price">
+                                    </div>
                                 </div>
                             </div>
+                            <!--end col-->
+                            <div class="col-12 price-sale mt-2">
+                                <div>
+                                    <label for="iconrightInput" class="form-label">Giảm giá</label>
+                                    <div class="form-icon">
+                                        <input type="number" class="form-control form-control-icon" id="iconInput" placeholder="" value="{{$course->discount}}" name="discount">
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            <!--end col-->
+                            <div class="col-12 mt-2">
+                                <div>
+                                    <label for="exampleFormControlTextarea5" class="form-label">Mô tả chung</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea5" rows="3" name="featured">{{$course->featured}}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-5">
+                                <label class="label-control mb-2">Mô tả</label>
+                                <div id="quillEditor">{!!$course->description!!}</div>
+                                <textarea name="content" id="content" class="d-none">{!!$course->description!!}</textarea>
+                            </div>
+                        
                         </div>
                         <!--end col-->
-                        <div class="col-8">
-                            <div>
-                                <label for="exampleFormControlTextarea5" class="form-label">Example Textarea</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea5" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
-                            </div>
-                        </div>
-                        <div class="mx-6">
+                        <div class="" style="margin-top: 60px;">
                             <div class="hstack gap-2 justify-content-end">
                                 <button type="submit" class="btn btn-success" id="add-btn">Cập nhật</button>
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal"><a href="{{route('courses.list')}}">Trở lại</a></button>
                                 <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                             </div>
                         </div>
-                        <!--end col-->
                     </div>
-                </form>
+                {!! Form::close() !!}
                     <!--end row-->
                 </div>
             </div>

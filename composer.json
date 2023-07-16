@@ -13,7 +13,8 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.4",
-        "mohamedgaber-intake40/sanctum-refresh-token": "1.24"
+        "mohamedgaber-intake40/sanctum-refresh-token": "1.24",
+        "unisharp/laravel-filemanager": "^2.6"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",
