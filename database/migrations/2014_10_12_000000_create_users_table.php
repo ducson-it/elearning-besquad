@@ -207,9 +207,17 @@ class CreateUsersTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('content');
-            $table->string('is_send_email');
+            $table->text('content');
+            $table->string('is_send_email')->nullable();
+            $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
+            $table->boolean('is_read')->default(false);
+            $table->boolean('is_processed')->default(false)->comment('Trạng thái đã xử lí hay chưa');
+            $table->boolean('is_deleted')->default(false);
+            $table->string('link')->nullable()->comment('link đưa admin đến có thể chuyển đến trang chi tiết hoặc hành động liên quan đến thông báo.');
+            $table->string('notification_type')->comment('system, group_users')->nullable();
+            $table->enum('send_to', ['system', 'group_users'])->default('system')->comment('system-toàn hệ thống, group_users-1 nhóm người');
             $table->date('expired');
+            $table->string('send_user')->comment('xác định người gửi thông báo');
             $table->timestamps();
             $table->softDeletes();
         });

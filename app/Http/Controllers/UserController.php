@@ -15,7 +15,6 @@ class UserController extends Controller
         $list_users = User::with('role')->Where('role_id', '<>', 1)->paginate(10);
         return view('users.list', compact('list_users'));
     }
-
     public function deleteUser($id)
     {
         $user = User::find($id)->delete();

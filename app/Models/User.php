@@ -60,4 +60,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Voucher::class, 'user_voucher', 'user_id', 'voucher_id');
     }
+    public function notifications()
+    {
+        return $this->belongsToMany(Notification::class, 'notification_user', 'user_id', 'notification_id');
+    }
 }
