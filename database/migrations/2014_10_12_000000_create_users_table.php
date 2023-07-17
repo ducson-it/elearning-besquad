@@ -214,7 +214,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_processed')->default(false)->comment('Trạng thái đã xử lí hay chưa');
             $table->boolean('is_deleted')->default(false);
             $table->string('link')->nullable()->comment('link đưa admin đến có thể chuyển đến trang chi tiết hoặc hành động liên quan đến thông báo.');
-            $table->string('notification_type')->comment('system, group_users')->nullable();
+            $table->string('notification_type')->comment('tin tức , cảnh bao, he thong')->nullable();
             $table->enum('send_to', ['system', 'group_users'])->default('system')->comment('system-toàn hệ thống, group_users-1 nhóm người');
             $table->date('expired');
             $table->string('send_user')->comment('xác định người gửi thông báo');

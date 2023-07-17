@@ -56,7 +56,7 @@
                                 <div class="col-11 mt-3">
                                     <div>
                                         <label for="basiInput" class="form-label fs-5 fw-bold">expired</label>
-                                        <input type="date" class="form-control" name="expired" value="{{$notify->expired}}" id="date"/>
+                                        <input type="date" class="form-control" name="expired" value="{{$notify->expired}}" />
                                         @error('expired')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror

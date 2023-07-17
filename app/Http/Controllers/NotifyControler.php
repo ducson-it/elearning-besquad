@@ -35,7 +35,6 @@ class NotifyControler extends Controller
             'title' => $request->title,
             'content' => $request->content_notify,
             'priority' => $request->priority,
-            'notification_type' => $request->notifycation_type,
             'expired' => $request->expired,
             'send_to'=> $send_to,
             'send_user'=> 'admin'
@@ -106,19 +105,19 @@ class NotifyControler extends Controller
     public function updateNotify(NotifycationRequest $request, $id)
     {
         $notify = Notification::find($id);
+
         if ($notify) {
             $data = [
-                'title' => $request->title,
-                'content' => $request->content_notify,
-                'priority' => $request->priority,
-                'expired' => $request->expired,
+                'title' => $request->input('title'),
+                'content' => $request->input('content_notify'),
+                'priority' => $request->input('priority'),
+                'expired' => $request->input('expired'),
             ];
-
             if ($notify->update($data)) {
                 // Lưu category vào cơ sở dữ liệu
                 return redirect()->route('show.notify')->with('message', 'Cập nhật thông báo thành công');
             } else {
-                return redirect()->route('show.notify')->with('message', 'Cập nhật thông báo thất bại');
+                return redirect()->back()->with('message', 'Cập nhật thông báo thất bại');
             }
         } else {
             return redirect()->route('show.notify')->with('message', 'Không tồn tại bản ghi hợp lệ');
