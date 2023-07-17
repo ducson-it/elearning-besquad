@@ -11,17 +11,28 @@ use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
-    public function index(){
-        $blogs= Blog::with('category')->paginate(5);
-        $blogs->getcollection()->transform(function ($item) {
-            if (isset($item->image['disk']) && isset($item->image['path']))
+    public function index(Request $request)
+    {
+//        $search = $request->input('searchblogs'); // Lấy giá trị tìm kiếm từ request
+
+//        $query = Blog::query();
+
+//        if ($search) {
+//            $query->where('title', 'like', '%'.$search.'%'); // tìm kiếm theo tiêu đề
+//        }
+        $blogs = Blog::with('category')->paginate(5);
+        $blogs->getCollection()->transform(function ($item) {
+            if (isset($item->image['disk']) && isset($item->image['path'])) {
                 $item->image = Storage::disk($item->image['disk'])->url($item->image['path']);
-            else
+            } else {
                 $item->image = '/storage/anh.png';
+            }
             return $item;
         });
-        return view('blog.list',compact('blogs',));
+
+        return view('blog.list', compact('blogs'));
     }
+
     public function create(){
         $category_blogs = CategoryBlog::all();
         return view('blog.create',compact('category_blogs'));
