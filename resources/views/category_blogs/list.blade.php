@@ -17,6 +17,8 @@
                             <div class="col-sm-auto">
                                 <div>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Add</button>
+                                    <button type="button" class="btn btn-primary"><a style="color: white" href="{{ route('category_blog.list') }}">Danh sách</a></button>
+
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -53,8 +55,10 @@
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
-                                        <input type="text" class="form-control search" placeholder="Search...">
-                                        <i class="ri-search-line search-icon"></i>
+                                        <form action="{{ route('category_blog.list') }}" method="GET">
+                                            <input type="text" class="form-control search" placeholder="Search..." name="search">
+                                            <i class="ri-search-line search-icon"></i>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

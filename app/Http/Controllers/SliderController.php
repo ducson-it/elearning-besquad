@@ -8,17 +8,24 @@ use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
-    public function index(){
+    public function index(Request $request)
+    {
         $sliders = Slider::paginate(5);
-        //xử lý link ảnh
-        $sliders->getcollection()->transform(function ($item) {
-            if (isset($item->image['disk']) && isset($item->image['path']))
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $sliders = Slider::where('name', 'like', '%' . $search . '%')->paginate(5);
+        }
+        // Xử lý link ảnh
+        $sliders->getCollection()->transform(function ($item) {
+            if (isset($item->image['disk']) && isset($item->image['path'])) {
                 $item->image = Storage::disk($item->image['disk'])->url($item->image['path']);
-            else
+            } else {
                 $item->image = '/storage/anh.png';
+            }
             return $item;
         });
-        return view('slider.list',compact('sliders'));
+
+        return view('slider.list', compact('sliders'));
     }
     public function create(){
         return view('slider.create');

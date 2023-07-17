@@ -19,6 +19,13 @@ select2()
 import './tag';
 import './user';
 import './notifycation';
+//thanành import js
+import './category_blogs'
+import './comment'
+import './slider'
+import './blog'
+
+addTag();
 selectpicker();
 //addTag();
 import Dropzone from "dropzone";
