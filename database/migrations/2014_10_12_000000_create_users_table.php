@@ -59,12 +59,12 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('avatar')->nullable();
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('username')->nullable();
-            $table->string('address');
-            $table->integer('point');
+            $table->string('address')->nullable();
+            $table->integer('point')->default(0);
             $table->unsignedInteger('role_id')->comment('1->admin, 2->member,3->teacher')->default(2);
-            $table->integer('active')->comment('0->inactive, 1->active');
+            $table->integer('active')->default(1)->comment('0->inactive, 1->active');
             $table->timestamps();
             $table->softDeletes();
 
@@ -102,7 +102,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('category_id');
             $table->string('image');
             $table->text('description');
-            $table->text('is_free');
+            $table->boolean('is_free')->default(0);
             $table->timestamps();
             $table->softDeletes();
             // $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
@@ -147,7 +147,7 @@ class CreateUsersTable extends Migration
             $table->string('text_color');
             $table->string('url_btn');
             $table->text('content_btn');
-            $table->string('image');
+            $table->json('image');
             $table->integer('status');
             $table->timestamps();
             $table->softDeletes();
@@ -169,7 +169,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('title');
             $table->string('slug');
-            $table->string('image');
+            $table->json('image');
             $table->integer('view');
             $table->string('description_short');
             $table->text('content');
@@ -214,7 +214,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_processed')->default(false)->comment('Trạng thái đã xử lí hay chưa');
             $table->boolean('is_deleted')->default(false);
             $table->string('link')->nullable()->comment('link đưa admin đến có thể chuyển đến trang chi tiết hoặc hành động liên quan đến thông báo.');
-            $table->string('notification_type')->comment('system, group_users')->nullable();
+            $table->string('notification_type')->comment('tin tức , cảnh bao, he thong')->nullable();
             $table->enum('send_to', ['system', 'group_users'])->default('system')->comment('system-toàn hệ thống, group_users-1 nhóm người');
             $table->date('expired');
             $table->string('send_user')->comment('xác định người gửi thông báo');

@@ -48,7 +48,7 @@
                                     <th class="sort" data-sort="action">Lựa chọn</th>
                                 </tr>
                             </thead>
-                            <tbody class="list form-check-all">
+                            <tbody class="list form-check-all" >
                                 @foreach ($lessons as $lesson)
                                 <tr>
                                     <th scope="row">
@@ -73,7 +73,7 @@
                                                 <button class="btn btn-sm btn-success edit-item-btn"><a href="{{route('lessons.edit',$lesson->id)}}">Edit</a></button>
                                             </div>
                                             <div class="remove">
-                                                <button class="btn btn-sm btn-danger remove-item-btn" id="deleteLesson">Remove</button>
+                                                <button class="btn btn-sm btn-danger remove-item-btn" id="deleteLesson({{$lesson->id}})">Remove</button>
                                             </div>
                                         </div>
                                     </td>

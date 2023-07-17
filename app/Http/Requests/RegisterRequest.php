@@ -24,24 +24,24 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'phone' => ['required', 'min:11'],
             'name' => 'required'
         ];
     }
     public function messages()
     {
         return [
-            'required'=>'không được để trống',
-            'min'=>'tối thiểu :min ký tự'
+            'required'=>':email không được để trống',
+            'min'=>':phone tối thiểu :min ký tự'
         ];
     }
     public function attributes()
     {
         return [
             'email' => 'Email người dùng',
-            'password' => 'Mật khẩu'
+            'password' => 'Mật khẩu',
+            'phone' => 'Số điện thoại'
         ];
     }
 }

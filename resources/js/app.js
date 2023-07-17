@@ -6,21 +6,23 @@ import 'bootstrap';
 import './general/filemanager.js';
 import Quill from "quill";
 import ImageResize from 'quill-image-resize';
+
 // Register ImageResize module
 import ImageUploader from "quill-image-uploader";
 
 Quill.register('modules/imageResize', ImageResize);
 Quill.register("modules/imageUploader", ImageUploader);
-import Dropzone from "dropzone";
+import select2 from 'select2';
+select2()
+// import Dropzone from "dropzone";
 // import file js'
 import './tag';
 import './user';
 import './notifycation';
-
+selectpicker();
 addTag();
-import select2 from 'select2';
+import Dropzone from "dropzone";
 
-select2()
 import './categories';
 import './module';
 import './courses';

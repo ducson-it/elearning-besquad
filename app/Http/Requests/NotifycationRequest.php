@@ -25,6 +25,7 @@ class NotifycationRequest extends FormRequest
 
     public function rules()
     {
+
         return [
             'title' => 'required',
             'content_notify' => 'required',
@@ -33,7 +34,6 @@ class NotifycationRequest extends FormRequest
             }),
             'group_user.*' => 'exists:users,id',
             'priority' => 'required',
-            'notification_type' => 'required',
             'expired' => 'required|date',
         ];
     }

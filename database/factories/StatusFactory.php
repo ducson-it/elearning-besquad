@@ -3,6 +3,7 @@
 namespace Database\Factories;
 use App\Models\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 use Nette\Utils\Random;
 
 /**
@@ -17,8 +18,10 @@ class StatusFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->realText(50);
+        $name = Str::limit($name, 30);
         return [
-            'name' => $this->faker->word,
+            'name' => $name,
             'statusable_id' => random_int(1, 10),
             'statusable_type' => random_int(1, 10),
         ];

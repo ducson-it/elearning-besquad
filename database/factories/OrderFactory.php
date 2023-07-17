@@ -19,8 +19,9 @@ class OrderFactory extends Factory
     {
         return [
             'order_date' => $this->faker->date(),
-            'user_id' => User::factory()->create()->id,
-            'course_id' => Course::factory()->create()->id,
+            'user_id' => User::inRandomOrder()->first()->id,
+            'course_id' => Course::inRandomOrder()->first()->id,
         ];
     }
+
 }
