@@ -110,7 +110,7 @@
 {{--                    </a>--}}
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#user" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                    <a class="nav-link menu-link" href="{{route('show.user')}}" >
                         <i class="ri-apps-2-line"></i> <span>Quản lý user</span>
                     </a>
                     <div class="collapse menu-dropdown" id="user">

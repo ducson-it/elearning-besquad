@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,6 +14,7 @@ class UserController extends Controller
     public function showListUser()
     {
         $list_users = User::with('role')->Where('role_id', '<>', 1)->paginate(10);
+       // var_dump($list_users);
         return view('users.list', compact('list_users'));
     }
     public function deleteUser($id)
@@ -65,7 +67,8 @@ class UserController extends Controller
 
     public function addUser()
     {
-        return view('users.create');
+        $roles = Role::all();
+        return view('users.create',compact('roles'));
 
     }
 
@@ -76,10 +79,10 @@ class UserController extends Controller
         $data = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
             'phone' => $request->phone,
             'point'=>0,
-            'role_id' => $request->role_id,
+            'role_id' => intval($request->role_id),
             'active' => $request->active,
             'avatar' => json_encode($media['path']),
             'address' => $request->address,
@@ -113,12 +116,22 @@ class UserController extends Controller
     }
     public function editUser($id){
         $user = User::find($id);
-        return view('users.edit',compact('user'));
+        $roles = Role::all();
+        return view('users.edit',compact('user','roles'));
     }
     public function updateUser(UserRequest  $request,$id){
         $user = User::find($id);
-
-        $user->update($request->all());
+        $media = session('media_user');
+        $data = [
+            'name' => $request->name,
+            'password' => bcrypt($request->password),
+            'phone' => $request->phone,
+            'role_id' => intval($request->role_id),
+            'active' => $request->active,
+            'avatar' => json_encode($media['path']),
+            'address' => $request->address,
+        ];
+        $user->update($data);
 
         // Lưu category vào cơ sở dữ liệu
         return redirect()->route('show.user')->with('message', 'sửa user thành công');
