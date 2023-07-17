@@ -53,9 +53,12 @@
                                 <div>
                                     <label for="basiInput" class="form-label">Loại tài khoản</label>
                                     <select class="form-select mb-3" name="role_id"  aria-label="Default select example" >
-                                        <option value=""></option>
-                                        <option <?= $user->role_id ==  2 ? 'selected':'' ?> value="2" >Giảng viên</option>
-                                        <option  <?= $user->role_id ==  3 ? 'selected':'' ?> value="3">Người dùng</option>
+                                        @foreach($roles as $role)
+                                            @if($role->id != 1)
+                                                <option <?=  $user->role_id ==  $role->id ? 'selected':'' ?>  value="{{$role->id}}">{{$role->name}}</option>
+                                            @endif
+                                        @endforeach
+
                                     </select>
                                 </div>
                             </div>
