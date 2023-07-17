@@ -97,8 +97,12 @@
                                             <select class="form-select mb-3 @error('role_id') is-invalid @enderror"
                                                     name="role_id">
                                                 <option value=""> Chon</option>
-                                                <option value="2">Giảng viên</option>
-                                                <option value="3">Người dùng</option>
+                                                @foreach($roles as $role)
+                                                    @if($role->id != 1)
+                                                    <option value="{{$role->id}}">{{$role->name}}</option>
+                                                    @endif
+                                                @endforeach
+
                                             </select>
                                             @error('role_id')
                                             <span class="text-danger">{{ $message }}</span>
