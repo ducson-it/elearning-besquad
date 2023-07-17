@@ -10,9 +10,14 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function index(){
+    public function index(Request $request)
+    {
         $comments = Comment::paginate(5);
-        return view('comments.list',compact('comments'));
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $comments = Comment::where('content', 'like', '%' . $search . '%')->paginate(5);
+        }
+        return view('comments.list', compact('comments'));
     }
     public function create(){
         $posts = Post::all();
