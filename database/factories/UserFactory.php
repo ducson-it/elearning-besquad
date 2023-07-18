@@ -1,11 +1,12 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\Role;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
 
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     /**
@@ -15,8 +16,13 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->realText(50);
+        $name = Str::limit($name, 30);
+        $roleIds = Role::pluck('id')->toArray();
+        $roleId = $this->faker->randomElement($roleIds);
+
         return [
-            'name' => $this->faker->name,
+            'name' => $name,
             'email' => $this->faker->unique()->safeEmail,
             'password' => bcrypt('12345678'),
             'avatar' => $this->faker->imageUrl(200, 200, 'avatar'),
@@ -24,21 +30,24 @@ class UserFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
             'point' => $this->faker->numberBetween(0, 100),
-            'role_id' => Role::factory()->create()->id,
+            'role_id' => $roleId,
             'active' => 1,
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Customize the factory to create a specific user.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return $this
      */
-    public function unverified()
+    public function admin()
     {
         return $this->state(function (array $attributes) {
             return [
-                'email_verified_at' => null,
+                'name' => 'admin',
+                'email' => 'dinhhuuthanh99@gmail.com',
+                'password' => Hash::make('12345678'),
+                'role_id' => Role::factory()->create(['name' => 'Admin'])->id,
             ];
         });
     }

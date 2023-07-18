@@ -10,6 +10,7 @@ class Beesquad extends Model
     use HasFactory;
 
     const LIMIT = 10;
+    const PAGINATE_BLOG = 8;
     const RULE = [
         'ADMIN' => 1,
         'STUDENT' => 2,

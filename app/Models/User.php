@@ -6,8 +6,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+// use Laravel\Sanctum\HasApiTokens;
+use MohamedGaber\SanctumRefreshToken\Traits\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -23,8 +25,8 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar',
-        'username',
         'phone',
+        'username',
         'address',
         'point',
         'role_id',
@@ -57,5 +59,9 @@ class User extends Authenticatable
     public function vouchers()
     {
         return $this->belongsToMany(Voucher::class, 'user_voucher', 'user_id', 'voucher_id');
+    }
+    public function notifications()
+    {
+        return $this->belongsToMany(Notification::class, 'notification_user', 'user_id', 'notification_id');
     }
 }

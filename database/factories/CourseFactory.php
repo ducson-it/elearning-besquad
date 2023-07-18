@@ -26,7 +26,11 @@ class CourseFactory extends Factory
             'status' => $this->faker->boolean ? 1 : 0,
             'featured' => $this->faker->boolean ? 1 : 0,
             'category_id' => Category::inRandomOrder()->first()->id,
-            'image' => $this->faker->imageUrl(200, 200),
+            'image' => json_encode([
+                'url' => $this->faker->imageUrl(700, 300),
+                'width' => 700,
+                'height' => 300,
+            ]),
             'description' => $this->faker->paragraph,
             'is_free' => $this->faker->boolean ? 1 : 0,
         ];

@@ -29,7 +29,14 @@ return [
     */
 
     'disks' => [
-
+        'sliders' => [
+            'driver' => 'local',
+            'root' => storage_path('app/sliders'),
+        ],
+        'blogs' => [
+            'driver' => 'local',
+            'root' => storage_path('app/blogs'),
+        ],
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -38,7 +45,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => '/storage',
             'visibility' => 'public',
         ],
 
