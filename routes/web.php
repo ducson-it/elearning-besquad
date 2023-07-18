@@ -32,5 +32,6 @@ require __DIR__ .'/comments.php';
 require __DIR__ .'/notify.php';
 require __DIR__ .'/tags.php';
 require __DIR__ .'/user.php';
+require __DIR__ .'/order.php';
 
 
