@@ -13,16 +13,12 @@ class Category_BlogController extends Controller
 {
     public function index(Request $request)
     {
-        $category_blogs = CategoryBlog::paginate(10);
-
-        if ($request->has('search')) {
+        if ('search') {
             $search = $request->input('search');
             $category_blogs = CategoryBlog::where('name', 'like', '%' . $search . '%')->paginate(10);
         }
-
         return view('category_blogs.list', compact('category_blogs'));
     }
-
 
     public function store(CategoryBlogRequest $request)
     {

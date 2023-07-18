@@ -6,62 +6,47 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\ChangeUserRequest;
 
 
 class UserController extends Controller
 {
-    public function changeUser(Request $request)
+    public function changeUser(ChangeUserRequest $request)
     {
         $userId = Auth::id();
-
         // Tìm người dùng
         $user = User::find($userId);
-
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
-
-        // Tạo luật kiểm tra dữ liệu đầu vào
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'avatar' => 'nullable|string',
-            'phone' => 'nullable|string',
-            'address' => 'nullable|string',
-            'old_password' => 'nullable|string', // Thêm luật kiểm tra mật khẩu cũ
-            'confirm_password' => 'nullable|string|min:6', // Luật kiểm tra mật khẩu mới
+        $data = $request->validated();
+        // Kiểm tra ảnh
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            // Lưu ảnh mới
+            $path = $file->store('avatars', 'public');
+            $avatar = json_encode(['disk' => 'public', 'path' => $path]);
+        } else {
+            // Giữ lại ảnh cũ
+            $avatar = $user->avatar;
+        }
+        $update = $user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'avatar' => $avatar,
+            'phone' => $data['phone'],
+            'address' => $data['address'],
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
+        if (!$update) {
+            return response()->json(['message' => 'Update failed'], 400);
         }
-        // Kiểm tra mật khẩu cũ
-        if ($request->filled('old_password')) {
-            $oldPassword = $request->old_password;
-
-            if (Hash::check($oldPassword, $user->password)) {
-                // Thay đổi mật khẩu mới nếu được cung cấp
-                if ($request->filled('confirm_password')) {
-                    $data['password'] = bcrypt($request->confirm_password);
-                }
-            } else {
-                return response()->json(['message' => 'Mật khẩu cũ không đúng'], 400);
-            }
-        }
-        // Cập nhật thông tin người dùng
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'avatar' => json_encode($request->avatar),
-            'phone' => $request->phone,
-            'address' => $request->address,
-        ];
-        $user->update($data);
         return response()->json([
             'status' => true,
             'message' => 'Cập nhật thành công',
             'data' => new UserResource($user)
-        ]);
+        ], 200);
     }
+
 }

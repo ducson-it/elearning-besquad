@@ -12,10 +12,9 @@ class CommentController extends Controller
 {
     public function index(Request $request)
     {
-        $comments = Comment::paginate(5);
-        if ($request->has('search')) {
+        if ('search') {
             $search = $request->input('search');
-            $comments = Comment::where('content', 'like', '%' . $search . '%')->paginate(5);
+            $comments = Comment::where('content', 'like', '%' . $search . '%')->paginate(10);
         }
         return view('comments.list', compact('comments'));
     }

@@ -10,10 +10,9 @@ class SliderController extends Controller
 {
     public function index(Request $request)
     {
-        $sliders = Slider::paginate(5);
-        if ($request->has('search')) {
+        if ('search') {
             $search = $request->input('search');
-            $sliders = Slider::where('name', 'like', '%' . $search . '%')->paginate(5);
+            $sliders = Slider::where('name', 'like', '%' . $search . '%')->paginate(10);
         }
         // Xử lý link ảnh
         $sliders->getCollection()->transform(function ($item) {
