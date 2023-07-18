@@ -43,4 +43,8 @@ class CourseController extends Controller
             'data' => new CourseResource($course->load('modules','modules.lessons'))
         ]);
     }
+
+    public function myCourse(){
+        
+    }
 }

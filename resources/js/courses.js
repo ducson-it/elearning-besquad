@@ -1,14 +1,22 @@
 import Swal from "sweetalert2"
 $(document).ready(function () {
-    $('#courseType').on("change", function () {
-        var type = $(this).val()
-        if (type == 45) {
+    function showPrice(){
+        var type = $('#courseType').val()
+        if (type == 0) {
             $('.price').hide()
             $('.price-sale').hide()
         } else {
             $('.price').show()
             $('.price-sale').show()
         }
+    }
+    showPrice()
+    $('#courseType').on("change", function () {
+        showPrice()
+    })
+    //hiden error after enter value validation
+    $('#name').on('change',function(){
+        $('#error-name').hide();
     })
     //filter by categories
     $('select#selectCate').on('change',function(){
@@ -24,20 +32,18 @@ $(document).ready(function () {
                 url:'courses/select/category/'+cate_id,
                 success:function(data){
                     console.log(data)
-                    data.forEach(function(value){
+                    data.forEach(function(value,index){
                         msg +=
                         `
                         <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="chk_child"
-                                        value="option1">
-                                </div>
-                            </th>
+                            <td class="customer_name">${ index+1 }</td>
                             <td class="customer_name">${value.name}</td>
                             <td class="course-price">${(value.price)?value.price.toLocaleString():0}</td>
                             <td class="price-discount">${ value.discount ? value.discount : 0 }%</td>
                             <td class="cate">${ value.category.name }</td>
+                            <td class="course_type"><span
+                                                    class="badge badge-soft-success text-uppercase">${ value.is_free == 1 ? 'Khoá học mất phí' : 'Khoá học miễn phí' }</span>
+                                            </td>
                             <td class="status"><span
                                     class="badge badge-soft-success text-uppercase">${ value.status == 1 ? 'Active' : 'Inactive' }</span>
                             </td>

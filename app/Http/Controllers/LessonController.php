@@ -16,7 +16,7 @@ class LessonController extends Controller
     //
     public function index()
     {
-        $lessons = Lesson::with('module','module')->get();
+        $lessons = Lesson::with('module','module')->paginate(5);
         return view('lessons.list',compact('lessons'));
     }
     public function create()
@@ -31,6 +31,7 @@ class LessonController extends Controller
     }
     public function store(Request $request)
     {
+        $documentName = '';
             if($request->file('document') != ''){
                 $document = $request->file('document');
                 $documentName = $document->getClientOriginalName();

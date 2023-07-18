@@ -123,5 +123,10 @@ class NotifyControler extends Controller
             return redirect()->route('show.notify')->with('message', 'Không tồn tại bản ghi hợp lệ');
         }
     }
-
+    public function searchNotify(Request $request){
+        $search = $request->input('search_notify');
+        $notifycations  = Notification::where('title', 'LIKE', '%'.$search.'%')->paginate(10);
+        //  dd($list_users);
+        return view('notifycations.list', compact('notifycations'));
+    }
 }
