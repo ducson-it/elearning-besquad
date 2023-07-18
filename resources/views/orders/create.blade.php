@@ -41,7 +41,17 @@
                                         @endif
                                 </div>
                                 <!--end col-->
+                                <div class="col-10 mt-4">
+                                    <label class="label-control mb-2">Giá tiền</label>
+                                    <input type="number" name="price" id="price" class="form-control">
+                                </div>
                                 <div class="col-10 mt-4 mb-5">
+                                    <label class="label-control mb-2">Mã giảm giá</label>
+                                    <input type="text" name="voucher" id="voucher" class="form-control">
+                                    <span id="error-voucher" class="text-danger"></span><br>
+                                    <a class="btn btn-primary" onclick="voucherVerify()">Áp dụng</a>
+                                </div>
+                                <div class="col-10 mt-2">
                                     <label class="label-control mb-2">Tổng tiền</label>
                                     <input type="number" name="amount" id="total_amount" class="form-control">
                                 </div>

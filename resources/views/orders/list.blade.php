@@ -35,10 +35,7 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col" style="width: 50px;">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="checkAll"
-                                                    value="option">
-                                            </div>
+                                            STT
                                         </th>
                                         <th class="sort" data-sort="customer_name">Mã order</th>
                                         <th class="sort" data-sort="price">User</th>
@@ -50,19 +47,16 @@
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all" id="course-content-list">
-                                    @foreach ($orders as $order)
+                                    @foreach ($orders as $index=>$order)
                                         <tr>
                                             <th scope="row">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="chk_child"
-                                                        value="option1">
-                                                </div>
+                                                {{$index+1}}
                                             </th>
                                             <td class="customer_name">{{ $order->order_id }}</td>
                                             <td class="course-price">{{ $order->user->name }}</td>
                                             <td class="price-discount">{{ $order->course->name }}</td>
                                             <td class="status"><span
-                                                    class="badge badge-soft-success text-uppercase">{{ ($order->status == 1) ? 'Payment' : (($order->status == 2)?'Canceled':'Pending') }}</span>
+                                                    class="badge badge-soft-success text-uppercase {{ ($order->status == 1) ? 'text-success' : (($order->status == 2)?'text-danger':'text-warning') }}"">{{ ($order->status == 1) ? 'Payment' : (($order->status == 2)?'Canceled':'Pending') }}</span>
                                             </td>
                                             <td class="price-discount">{{ number_format($order->amount, 0, ',', '.') }}</td>
                                             <td class="date">{{$order->created_at}}</td>
@@ -70,17 +64,17 @@
                                                 <div class="d-flex gap-2">
                                                     <div class="edit">
                                                         <button class="btn btn-sm btn-info edit-item-btn"><a
-                                                                href="{{ route('orders.detail', $order->id) }}">Detail</a></button>
+                                                                href="{{ route('orders.detail', $order->id) }}" class="text-light">Detail</a></button>
                                                                 
                                                     </div>
                                                     @if ($order->status == 0)
                                                     <div class="active">
                                                         <button class="btn btn-sm btn-success"
-                                                            onclick="PaymentVerify()">Payment</button>
+                                                            onclick="PaymentVerify({{$order->id}},1)">Payment</button>
                                                     </div>
                                                     <div class="inactive">
                                                         <button class="btn btn-sm btn-danger remove-item-btn"
-                                                            onclick="OrderCancel()">Cancel</button>
+                                                            onclick="PaymentVerify({{$order->id}},2)">Cancel</button>
                                                     </div>
                                                     @endif
                                                 </div>
