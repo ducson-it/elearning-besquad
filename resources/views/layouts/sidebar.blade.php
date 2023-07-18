@@ -110,7 +110,7 @@
 {{--                    </a>--}}
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#user" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                    <a class="nav-link menu-link" href="{{route('show.user')}}" >
                         <i class="ri-apps-2-line"></i> <span>Quản lý user</span>
                     </a>
                     <div class="collapse menu-dropdown" id="user">
@@ -166,7 +166,10 @@
                     <div class="collapse menu-dropdown" id="order">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="apps-calendar" class="nav-link">Danh sách</a>
+                                <a href="apps-calendar" class="nav-link">Khoá học miễn phí</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('orders.list')}}" class="nav-link">Khoá học mất phí</a>
                             </li>
                         </ul>
                     </div>

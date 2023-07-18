@@ -4,19 +4,22 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">Thêm chủ đề khoá học</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">Tạo order</h4>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
-                        {!! Form::open(['route' => 'modules.store']) !!}
+                        {!! Form::open(['route' => 'orders.store']) !!}
                         <div class="row gy-5 d-flex justify-content-center">
                                 <div class="col-10">
                                     <div>
-                                        <label for="basiInput" class="form-label">Tên chủ đề</label>
-                                        <input type="text" class="form-control" id="name" name="name">
+                                        <div>
+                                            <label for="basiInput" class="form-label">User</label>
+                                        <select name="user_id" id="user_id" class="form-control">
+                                        </select>
+                                        </div>
                                         @if ($errors->any())
-                                            <span id="error-name" style="color:red">
-                                                @error('name')
+                                            <span style="color:red">
+                                                @error('user_id')
                                                     {{ $message }}
                                                 @enderror
                                             </span><br>
@@ -26,14 +29,21 @@
                                 <div class="col-10 mt-2">
                                     <div>
                                         <label for="basiInput" class="form-label">Khoá học</label>
-                                        {!! Form::select('course_id',$courses,null,['id'=>'course_id','class'=>'form-control']) !!}
+                                        <select name="course_id" id="course_id" class="form-control">
+                                        </select>
                                     </div>
+                                    @if ($errors->any())
+                                            <span style="color:red">
+                                                @error('course_id')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span><br>
+                                        @endif
                                 </div>
                                 <!--end col-->
                                 <div class="col-10 mt-4 mb-5">
-                                    <label class="label-control mb-2">Mô tả</label>
-                                    <div id="quillEditor">{!! old('content') !!}</div>
-                                    <textarea name="content" id="content" class="d-none">{!! old('content') !!}</textarea>
+                                    <label class="label-control mb-2">Tổng tiền</label>
+                                    <input type="number" name="amount" id="total_amount" class="form-control">
                                 </div>
                             <!--end col-->
 
@@ -41,7 +51,7 @@
                                 <div class="hstack gap-2 justify-content-end mt-5">
                                     <button type="submit" class="btn btn-success" id="add-btn">Thêm</button>
                                     <button type="button" class="btn btn-light" data-bs-dismiss="modal"><a
-                                            href="{{ route('modules.list') }}">Trở lại</a></button>
+                                            href="{{ route('orders.list') }}">Trở lại</a></button>
                                     <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                                 </div>
                             </div>

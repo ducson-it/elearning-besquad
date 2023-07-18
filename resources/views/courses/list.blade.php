@@ -8,7 +8,7 @@
                         <p class="message" style="color: rgb(17, 186, 9); margin-left:20px"><i class="fa-solid fa-check"></i>
                             {{ $message }}</p>
                     @endif
-                    <h4 class="card-title mb-0">Quản lý khoá học</h4>
+                    <h4 class="card-title mb-0">Danh sách khoá học</h4>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="listjs-table" id="customerList">
@@ -18,42 +18,41 @@
                                     <button type="button" class="btn btn-success add-btn"><i
                                             class="ri-add-line align-bottom me-1"></i> <a
                                             href="{{ route('courses.create') }}">Add</a></button>
-                                    <button class="btn btn-soft-danger" onclick="deleteMultiple()"><i
-                                            class="ri-delete-bin-2-line"></i></button>
                                 </div>
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="col-sm-2">
-                                        <select name="category_id" id="selectCate" class="form-select" >
+                                        <select name="category_id" id="selectCate" class="form-select">
                                             <option value="">All</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="search-box ms-2">
-                                        <input type="text" class="form-control search" placeholder="Search...">
+                                        <form action="" method="GET">
+                                            <input type="text" class="form-control search" placeholder="Search..." name="keyword">
                                         <i class="ri-search-line search-icon"></i>
+                                        </form>
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        @if ($keyword != '')
+                        <p>Kết quả tìm kiếm cho từ khoá <span class="text-danger mx-1">"{{$keyword}}"</span></p>
+                    @endif
                         <div class="table-responsive table-card mt-3 mb-1">
                             <table class="table align-middle table-nowrap" id="customerTable">
                                 <thead class="table-light">
                                     <tr>
-                                        <th scope="col" style="width: 50px;">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="checkAll"
-                                                    value="option">
-                                            </div>
-                                        </th>
+                                        <th class="sort" data-sort="customer_name">STT</th>
                                         <th class="sort" data-sort="customer_name">Tên</th>
                                         <th class="sort" data-sort="price">Giá</th>
                                         <th class="sort" data-sort="price-discount">Giảm giá</th>
                                         <th class="sort" data-sort="customer_name">Danh mục</th>
+                                        <th class="sort" data-sort="customer_name">Loại khoá học</th>
                                         <th class="sort" data-sort="status">Trạng thái</th>
                                         <th class="sort" data-sort="image">Ảnh</th>
                                         <th class="sort" data-sort="date">Ngày tạo</th>
@@ -61,25 +60,22 @@
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all" id="course-content-list">
-                                    @foreach ($courses as $course)
+                                    @foreach ($courses as $index=>$course)
                                         <tr>
-                                            <th scope="row">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="chk_child"
-                                                        value="option1">
-                                                </div>
-                                            </th>
+                                            <td class="customer_name">{{ $index+1 }}</td>
                                             <td class="customer_name">{{ $course->name }}</td>
                                             <td class="course-price">{{ number_format($course->price, 0, ',', '.') }}</td>
                                             <td class="price-discount">{{ $course->discount ? $course->discount : 0 }}%</td>
                                             <td class="cate">{{ $course->category->name }}</td>
+                                            <td class="course_type"><span
+                                                    class="badge badge-soft-success text-uppercase">{{ $course->is_free == 1 ? 'Khoá học mất phí' : 'Khoá học miễn phí' }}</span>
+                                            </td>
                                             <td class="status"><span
                                                     class="badge badge-soft-success text-uppercase">{{ $course->status == 1 ? 'Active' : 'Inactive' }}</span>
                                             </td>
-                                            <td class="course-image"><img
-                                                    src="{{$course->image}}"
-                                                    alt="" width="100px"></td>
-                                            <td class="date">{{$course->created_at}}</td>
+                                            <td class="course-image"><img src="{{ $course->image }}" alt=""
+                                                    width="100px"></td>
+                                            <td class="date">{{ $course->created_at }}</td>
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <div class="edit">
@@ -88,7 +84,7 @@
                                                     </div>
                                                     <div class="remove">
                                                         <button class="btn btn-sm btn-danger remove-item-btn"
-                                                            onclick="deleteCourse({{$course->id}})">Remove</button>
+                                                            onclick="deleteCourse({{ $course->id }})">Remove</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -109,7 +105,7 @@
                             </div>
                         </div>
 
-                        {{$courses->links()}}
+                        {{ $courses->links() }}
                     </div>
                 </div><!-- end card -->
             </div>

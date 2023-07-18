@@ -34,6 +34,7 @@ import './categories';
 import './module';
 import './courses';
 import './lessons';
+import './order';
 //Destroy Quill Editor
 // import QuillMarkdown from 'quilljs-markdown';
 var toolbarOptions =

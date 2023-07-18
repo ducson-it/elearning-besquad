@@ -37,7 +37,7 @@ class LessonController extends Controller
         return response()->json([
             'code' => 200,
             'message' => 'success',
-            'data' => new LessonResource($lesson)
+            'data' => new LessonResource($lesson->load('module','course','course.modules','course.modules.lessons'))
         ]);
     }
 
