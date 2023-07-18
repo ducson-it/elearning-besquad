@@ -25,6 +25,8 @@ class LessonResource extends JsonResource
             'status' => $this->status,
             'description' => $this->description,
             'is_trial_lesson' => $this->is_trial_lesson,
+            'course' => new CourseResource($this->whenLoaded('course')),
+            'module' => new ModuleResource($this->whenLoaded('module'))
         ];
     }
 }
