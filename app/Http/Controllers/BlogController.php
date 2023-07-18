@@ -13,14 +13,7 @@ class BlogController extends Controller
 {
     public function index(Request $request)
     {
-//        $search = $request->input('searchblogs'); // Lấy giá trị tìm kiếm từ request
-
-//        $query = Blog::query();
-
-//        if ($search) {
-//            $query->where('title', 'like', '%'.$search.'%'); // tìm kiếm theo tiêu đề
-//        }
-        $blogs = Blog::with('category')->paginate(5);
+        $blogs = Blog::with('category')->paginate(10);
         $blogs->getCollection()->transform(function ($item) {
             if (isset($item->image['disk']) && isset($item->image['path'])) {
                 $item->image = Storage::disk($item->image['disk'])->url($item->image['path']);

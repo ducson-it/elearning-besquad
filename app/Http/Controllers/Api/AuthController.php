@@ -29,6 +29,7 @@ class AuthController extends Controller
             'access_token' => $access_token,
             'refresh_token' => $refresh_token,
             'expired'   => $refresh_expired
+
         ], 200);
     }
 

@@ -10,8 +10,9 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title mb-0">Quản lý blog</h4>
-                <marquee class="text-danger">Chào mừng đến vs giao diện quản lý blog</marquee>
+                <h1>
+                    <marquee class="text-danger">Quản lý blog</marquee>
+                </h1>
             </div><!-- end card header -->
             <div class="card-body">
                 <div class="listjs-table" id="customerList">

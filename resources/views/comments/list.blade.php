@@ -9,7 +9,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Quản lý comments</h4>
+                    <h1>
+                        <marquee class="text-danger">Quản lý Comment</marquee>
+                    </h1>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="listjs-table" id="customerList">
