@@ -14,9 +14,9 @@
                                 <div class="col-10">
                                     <div>
                                         <label for="basiInput" class="form-label">Tên khoá học</label>
-                                        <input type="text" class="form-control" id="basiInput" name="name">
+                                        <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}">
                                         @if ($errors->any())
-                                            <span style="color:red">
+                                            <span id="error-name" style="color:red">
                                                 @error('name')
                                                     {{ $message }}
                                                 @enderror
@@ -26,12 +26,19 @@
                                 </div>
                                 <div class="col-10 mt-2">
                                     <div>
-                                        <label for="basiInput" class="form-label">Danh mục</label>
-                                        {!! Form::select('category_id', $categories, null, [
-                                            'name' => 'category_id',
-                                            'class' => 'form-control',
+                                        <label for="basiInput" class="form-label">Loại khoá học</label>
+                                        {!! Form::select('is_free', $courseTypes, null, [
+                                            'name' => 'is_free',
+                                            'class' => 'form-select',
                                             'id' => 'courseType',
                                         ]) !!}
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-10 mt-2">
+                                    <div>
+                                        <label for="basiInput" class="form-label">Danh mục</label>
+                                        {!! Form::select('category_id', $categories, null, ['name'=>'category_id','class'=>"form-select"]) !!}
                                     </div>
                                 </div>
                                 {{-- Sử dụng file manager để upload ảnh --}}
@@ -51,8 +58,8 @@
                                     <div>
                                         <label for="iconInput" class="form-label">Giá</label>
                                         <div class="form-icon">
-                                            <input type="number" class="form-control form-control-icon" id="iconInput"
-                                                placeholder="" name="price">
+                                            <input type="number" class="form-control" id=""
+                                             name="price" value="{{old('price')}}">
                                         </div>
                                     </div>
                                 </div>
@@ -62,8 +69,8 @@
                                     <div>
                                         <label for="iconrightInput" class="form-label">Discount</label>
                                         <div class="form-icon">
-                                            <input type="number" class="form-control form-control-icon" id="iconInput"
-                                                placeholder="" name="discount">
+                                            <input type="number" class="form-control" id=""
+                                                 name="discount" value="{{old('discount')}}">
                                         </div>
                                     </div>
                                 </div>
@@ -71,13 +78,13 @@
                                 <div class="col-12 mt-2">
                                     <div>
                                         <label for="exampleFormControlTextarea5" class="form-label">Mô tả chung</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea5" rows="3" name="featured"></textarea>
+                                        <textarea class="form-control" id="exampleFormControlTextarea5" rows="3" name="featured">{{old('featured')}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12 mt-4 mb-5">
                                     <label class="label-control mb-2">Mô tả</label>
-                                    <div id="quillEditor"></div>
-                                    <textarea name="content" id="content" class="d-none"></textarea>
+                                    <div id="quillEditor">{!!old('content')!!}</div>
+                                    <textarea name="content" id="content" class="d-none">{!!old('content')!!}</textarea>
                                 </div>
                             </div>
                             <!--end col-->

@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         results: $.map(data, function (course) {
                             return {
                                 text: `${course.name}`,
-                                id: `${course.id}`
+                                id: `${course.id}`,
                             }
-                        })
+                        }),
                     };
                 },
                 cache: true
