@@ -6,6 +6,7 @@ use App\Http\Requests\OrderRequest;
 use App\Models\Course;
 use App\Models\Order;
 use App\Models\User;
+use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Nette\Utils\Random;
 
@@ -14,7 +15,7 @@ class OrderController extends Controller
     //
     public function index()
     {
-        $orders = Order::with('user','course')->paginate(5);
+        $orders = Order::with('user','course')->latest()->paginate(5);
         return view('orders.list',compact('orders'));
     }
     public function create()
@@ -37,6 +38,11 @@ class OrderController extends Controller
         Order::create($data);
         return redirect()->route('orders.list')->with('message','Thêm thành công');
     }
+    public function show($order_id)
+    {
+        $order = Order::with('user','course')->find($order_id);
+        return view('orders.detail',compact('order'));
+    }
     public function selectCourse($course_id)
     {
         $course = Course::find($course_id);
@@ -48,6 +54,43 @@ class OrderController extends Controller
                             ->limit(20)
                             ->get();
         return response()->json($users);
+    }
+    public function checkVoucher($voucher)
+    {
+        $voucher = Voucher::where('name',$voucher)->get();
+        if(!empty($voucher->toArray())){
+            return response()->json([
+                'status'=>true,
+                'data'=>$voucher
+            ]);
+        }
+        return response()->json([
+            'status'=>false,
+            'message'=>'Mã giảm giá không có hiệu lực'
+        ]);
+    }
+    public function checkPayment($type,$order_id)
+    {
+        $order = Order::find($order_id);
+        if($order){
+            if($type == 1){
+                $order->update([
+                    'status'=>1
+                ]);
+            }else{
+                $order->update([
+                    'status'=>2
+                ]);
+            }
+            return response()->json([
+                'status'=>true,
+                'message'=>'Cập nhật thành công'
+            ]);
+        }
+        return response()->json([
+            'status'=>false,
+            'message'=>'Không tổn tại order'
+        ]);
     }
 
 }

@@ -67,7 +67,7 @@
                             <div class="row col-6 mt-5">
                                 <div class="col-12 price-sale mt-2">
                                     <div>
-                                        <label for="iconrightInput" class="form-label">Discount</label>
+                                        <label for="iconrightInput" class="form-label">Giảm giá</label>
                                         <div class="form-icon">
                                             <input type="number" class="form-control" id=""
                                                  name="discount" value="{{old('discount')}}">

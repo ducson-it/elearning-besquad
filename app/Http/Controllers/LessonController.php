@@ -16,7 +16,7 @@ class LessonController extends Controller
     //
     public function index()
     {
-        $lessons = Lesson::with('module','module')->paginate(5);
+        $lessons = Lesson::with('module','module')->latest()->paginate(5);
         return view('lessons.list',compact('lessons'));
     }
     public function create()
