@@ -137,5 +137,10 @@ class UserController extends Controller
         return redirect()->route('show.user')->with('message', 'sửa user thành công');
 
     }
-
+    public function searchUser(Request $request){
+        $search = $request->input('search_user');
+        $list_users  = User::where('name', 'LIKE', '%'.$search.'%')->Where('role_id', '<>', 1)->paginate(10);
+      //  dd($list_users);
+        return view('users.list', compact('list_users'));
+    }
 }

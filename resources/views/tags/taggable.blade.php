@@ -17,10 +17,17 @@
                         </div>
                         <div class="col-sm">
                             <div class="d-flex justify-content-sm-end">
-                                <div class="search-box ms-2">
-                                    <input type="text" class="form-control search" placeholder="Search..." id="searchInputTaggable">
-                                    <i class="ri-search-line search-icon"></i>
-                                </div>
+                                <a href="{{route('show.taggable',$tag_id)}}"> <button class="rounded border-0 btn btn-warning">Danh sách</button></a>
+                                <form method="post" action="{{route('search.taggable',$tag_id)}}">
+                                    @csrf
+                                    <div class="search-box ms-2">
+                                        <input type="text" class="form-control search " name="search_taggable"
+                                               placeholder="Search...">
+                                        <i class="ri-search-line search-icon"></i>
+                                    </div>
+
+                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -84,120 +91,6 @@
     </div>
     <!-- end col -->
 </div>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
-<script>
-    function showDeleteTaggable(id) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Gửi yêu cầu xóa bằng Ajax
-                $.ajax({
-                    url: '/tag/delete-taggable/' + id,
-                    type: 'DELETE',
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Your record has been deleted.',
-                            'success'
-                        ).then(() => {
-                            // Chuyển hướng sau khi xóa thành công
-                            window.location.reload();
-                        });
-                    },
-                    error: function(xhr) {
-                        Swal.fire(
-                            'Error!',
-                            'An error occurred while deleting the record.',
-                            'error'
-                        );
-                    }
-                });
-            }
-        });
-    }
-    //
-    function deleteTaggables(selectedIds) {
-        // Gửi yêu cầu xóa bằng Ajax
-        $.ajax({
-            url: '/tag/delete-taggable-checkbox',
-            type: 'POST',
-            data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
-                selectedIds: selectedIds
-            },
-            success: function(response) {
-                // Xóa các hàng đã chọn từ giao diện
-                selectedIds.forEach(function(taggableId) {
-                    const row = document.querySelector(`tr[data-taggable-id="${taggableId}"]`);
-                    if (row) {
-                        row.remove();
-                    }
-                });
 
-                Swal.fire(
-                    'Deleted!',
-                    'Your records have been deleted.',
-                    'success'
-                );
-            },
-            error: function(xhr) {
-                Swal.fire(
-                    'Error!',
-                    'An error occurred while deleting the records.',
-                    'error'
-                );
-            }
-        });
-    }
-
-    function deleteMultiple() {
-        // Lấy danh sách tất cả các checkbox đã được tích
-        const checkboxes = document.querySelectorAll('#customerTable tbody input[type="checkbox"]:checked');
-
-        // Tạo một mảng để lưu trữ các ID đã chọn
-        const selectedIds = [];
-
-        // Lặp qua từng checkbox đã được tích và lưu trữ ID vào mảng
-        checkboxes.forEach(function (checkbox) {
-            const row = checkbox.closest('tr');
-            const taggableId = row.dataset.taggableId;
-            selectedIds.push(taggableId);
-
-            // Xóa hàng khỏi bảng
-            row.remove();
-        });
-        console.log(selectedIds)
-        // Gọi hàm xóa trên backend và gửi mảng các ID đã chọn
-        deleteTaggables(selectedIds);
-    }
-    //search
-    // Khởi tạo List.js và cấu hình tìm kiếm
-    const options = {
-        valueNames: ['customer_name','tag_type', 'course', 'date'], // Các trường dữ liệu để tìm kiếm
-    };
-    const customerList = new List('customerTaggable', options);
-
-    // Lắng nghe sự kiện nhập liệu trong ô tìm kiếm
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('searchInputTaggable');
-        searchInput.addEventListener('keyup', function() {
-            const searchString = searchInput.value;
-            customerList.search(searchString);
-        });
-    });
-</script>
 @endsection
 

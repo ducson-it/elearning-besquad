@@ -8,8 +8,10 @@
       Route::post('/store-tag',[TagController::class,'storeTag'])->name('storeTag');
       Route::delete('/delete-tag/{id}',[TagController::class,'deleteTag'])->name('deleteTag');
       Route::post('/edit-tag/{id}',[TagController::class,'editTag'])->name('editTag');
+      Route::post('/tag-search', [TagController::class, 'searchTag'])->name('search.tag');
       /// Taggable
       Route::get('taggable/{tag_id}',[TaggableController::class,'getTaggable'])->name('show.taggable');
       Route::delete('/delete-taggable/{id}',[TaggableController::class,'deleteTaggable'])->name('deleteTaggable');
       Route::post('/delete-taggable-checkbox',[TaggableController::class,'deleteCheckbox'])->name('deleteTaggable_Checkbox');
+      Route::post('/taggable-search/{tag_id}', [TaggableController::class, 'searchTaggable'])->name('search.taggable');
   });
