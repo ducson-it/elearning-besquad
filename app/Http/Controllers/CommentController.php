@@ -12,10 +12,8 @@ class CommentController extends Controller
 {
     public function index(Request $request)
     {
-        if ('search') {
             $search = $request->input('search');
             $comments = Comment::where('content', 'like', '%' . $search . '%')->paginate(10);
-        }
         return view('comments.list', compact('comments'));
     }
     public function create(){
