@@ -37,6 +37,10 @@ class InstallSystemCommand extends Command
      */
     public function handle()
     {
+        $this->call('view:clear');
+        $this->call('route:clear');
+        $this->call('config:clear');
+        $this->call('cache:clear');
         $this->call('migrate:fresh');
         $this->call('db:seed');
         return 0;

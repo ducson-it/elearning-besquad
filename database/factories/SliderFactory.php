@@ -16,14 +16,23 @@ class SliderFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->text(30);
+        $name = substr($name, 0, 30);
+
+        $contentBtn = $this->faker->text(10);
+        $contentBtn = substr($contentBtn, 0, 10);
+
         return [
-            'name' => $this->faker->word,
+            'name' => $name,
             'content' => $this->faker->sentence,
             'text_color' => $this->faker->hexcolor,
             'url_btn' => $this->faker->url,
-            'content_btn' => $this->faker->paragraph,
-            'image' => $this->faker->imageUrl(700, 300),
-            // 'image' => $this->faker->image(storage_path('app/public/images'), 200, 200, null, false),
+            'content_btn' => $contentBtn,
+            'image' => json_encode([
+                'url' => $this->faker->imageUrl(700, 300),
+                'width' => 700,
+                'height' => 300,
+            ]),
             'status' => $this->faker->randomElement([0, 1]),
         ];
     }

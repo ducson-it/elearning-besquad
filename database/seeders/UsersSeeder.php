@@ -15,6 +15,20 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->count(10)->create();
+        // User::factory()->count(10)->create();
+        User::create(
+            [
+                'name' => 'admin',
+                'email' => 'admin@beesquad.com',
+                'password' => bcrypt('12345678'),
+                'avatar' => 'random',
+                'username' => 'admin',
+                'phone' => '098123123123',
+                'address' => 'address',
+                'point' => 0,
+                'role_id' => 1,
+                'active' => 1,
+            ]
+            );
     }
 }
