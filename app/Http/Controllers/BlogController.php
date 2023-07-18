@@ -13,7 +13,7 @@ class BlogController extends Controller
 {
     public function index(Request $request)
     {
-        $blogs = Blog::with('category')->paginate(10);
+        $blogs = Blog::with('category')->paginate(5);
         $blogs->getCollection()->transform(function ($item) {
             if (isset($item->image['disk']) && isset($item->image['path'])) {
                 $item->image = Storage::disk($item->image['disk'])->url($item->image['path']);
@@ -22,7 +22,6 @@ class BlogController extends Controller
             }
             return $item;
         });
-
         return view('blog.list', compact('blogs'));
     }
 

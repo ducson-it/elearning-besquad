@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\History;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -52,9 +53,8 @@ class CourseController extends Controller
     }
     public function registerCourse(Request $request){
         // Kiểm tra giá trị course_id và token từ header
-        $courseId = $request->header('course_id');
-        $token = $request->header('token');
-        if (!$courseId || !$token) {
+        $courseId = $request->input('course_id');
+        if (!$courseId) {
             return response()->json(['error' => 'Invalid request'], 400);
         }
         $lesson = Lesson::where('course_id', $courseId)->first();
@@ -62,11 +62,9 @@ class CourseController extends Controller
             return response()->json(['error' => 'Lesson not found'], 404);
         }
         return response()->json([
-            'token' => $token,
             'lesson_id' => $lesson->id,
         ], 200);
     }
-
     public function historyCourse(Request $request)
     {
         $courseId = $request->input('course_id');
@@ -76,7 +74,6 @@ class CourseController extends Controller
 
         // Lấy thông tin người dùng từ mã token xác thực
         $user = auth()->user();
-
         $history = History::create([
             'user_id' => $user->id,
             'course_id' => $courseId,
@@ -84,15 +81,8 @@ class CourseController extends Controller
             'time' => Carbon::parse($time),
             'stop_time_video' => Carbon::parse($stopTimeVideo),
         ]);
-
         return response()->json(['message' => 'Lịch sử học đã được ghi lại thành công',
             'history' => $history], 200);
+
     }
-
-
-
-
-
-
-
 }

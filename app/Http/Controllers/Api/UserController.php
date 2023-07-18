@@ -22,20 +22,9 @@ class UserController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
         $data = $request->validated();
-        // Kiểm tra ảnh
-        if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
-            // Lưu ảnh mới
-            $path = $file->store('avatars', 'public');
-            $avatar = json_encode(['disk' => 'public', 'path' => $path]);
-        } else {
-            // Giữ lại ảnh cũ
-            $avatar = $user->avatar;
-        }
         $update = $user->update([
             'name' => $data['name'],
             'email' => $data['email'],
-            'avatar' => $avatar,
             'phone' => $data['phone'],
             'address' => $data['address'],
         ]);

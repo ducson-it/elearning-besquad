@@ -13,10 +13,8 @@ class Category_BlogController extends Controller
 {
     public function index(Request $request)
     {
-        if ('search') {
             $search = $request->input('search');
             $category_blogs = CategoryBlog::where('name', 'like', '%' . $search . '%')->paginate(10);
-        }
         return view('category_blogs.list', compact('category_blogs'));
     }
 
