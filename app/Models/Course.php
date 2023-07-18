@@ -12,7 +12,10 @@ class Course extends Model
     use SoftDeletes;
     protected $table = 'courses';
     protected $fillable = ['name', 'slug', 'price', 'user_id', 'discount', 'status', 'featured', 'category_id', 'image', 'description', 'is_free','subscribe'];
-
+    public static $courseType = [
+        '0'=>'Khoá học miễn phí',
+        '1'=>"Khoá học mất phí"
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);

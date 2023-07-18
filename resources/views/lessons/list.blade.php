@@ -16,7 +16,6 @@
                         <div class="col-sm-auto">
                             <div>
                                 <button type="button" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i><a href="{{route('lessons.create')}}">Add</a></button>
-                                <button class="btn btn-soft-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                             </div>
                         </div>
                         <div class="col-sm">
@@ -34,9 +33,7 @@
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col" style="width: 50px;">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                        </div>
+                                        sTT
                                     </th>
                                     <th class="sort" data-sort="customer_name">Tên</th>
                                     <th class="sort" data-sort="course">Khoá học</th>
@@ -49,12 +46,10 @@
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all" >
-                                @foreach ($lessons as $lesson)
+                                @foreach ($lessons as $index=>$lesson)
                                 <tr>
                                     <th scope="row">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                        </div>
+                                        {{$index+1}}
                                     </th>
                                     <td class="customer_name">{{ $lesson->name }}</td>
                                     <td class="course">{{ $lesson->course->name }}</td>
@@ -90,7 +85,7 @@
                         </div>
                     </div>
                     {{-- paginate --}}
-
+                    {{$lessons->links()}}
                 </div>
             </div><!-- end card -->
         </div>

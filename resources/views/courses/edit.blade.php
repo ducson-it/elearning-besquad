@@ -20,13 +20,19 @@
                             <div class="col-10 mt-2">
                                 <div>
                                     <label for="basiInput" class="form-label">Danh mục</label>
-                                    {!! Form::select('category_id', $categories, $course->category_id, ['name'=>'category_id','class'=>"form-control"]) !!}
+                                    {!! Form::select('category_id', $categories, $course->category_id, ['name'=>'category_id','class'=>"form-control",'id' => 'courseType',]) !!}
+                                </div>
+                            </div>
+                            <div class="col-10 mt-2">
+                                <div>
+                                    <label for="basiInput" class="form-label">Loại khoá học</label>
+                                    {!! Form::select('is_free', $courseTypes, $course->is_free, ['name'=>'is_free','class'=>"form-select"]) !!}
                                 </div>
                             </div>
                             <div class="col-10 mt-2">
                                 <div>
                                     <label for="basiInput" class="form-label">Trạng thái</label>
-                                    {!! Form::select('status', ["0"=>"Inactive","1"=>"Active"], $course->status, ['name'=>'status','class'=>"form-control"]) !!}
+                                    {!! Form::select('status', ["0"=>"Inactive","1"=>"Active"], $course->status, ['name'=>'status','class'=>"form-select"]) !!}
                                 </div>
                             </div>
                             {{-- Sử dụng dropzone để upload ảnh --}}
@@ -46,12 +52,11 @@
                             </div>
                         </div>
                         <div class="row col-6 mt-5">
-                            @if ($course->category_id == 44)
-                            <div class="col-12 mt-2">
+                            <div class="col-12 price mt-2">
                                 <div>
                                     <label for="iconInput" class="form-label">Giá</label>
                                     <div class="form-icon">
-                                        <input type="number" class="form-control form-control-icon" id="iconInput" placeholder="" value="{{$course->price}}" name="price">
+                                        <input type="number" class="form-control" id="" placeholder="" value="{{$course->price}}" name="price">
                                     </div>
                                 </div>
                             </div>
@@ -60,11 +65,10 @@
                                 <div>
                                     <label for="iconrightInput" class="form-label">Giảm giá</label>
                                     <div class="form-icon">
-                                        <input type="number" class="form-control form-control-icon" id="iconInput" placeholder="" value="{{$course->discount}}" name="discount">
+                                        <input type="number" class="form-control" id="" placeholder="" value="{{$course->discount}}" name="discount">
                                     </div>
                                 </div>
                             </div>
-                            @endif
                             <!--end col-->
                             <div class="col-12 mt-2">
                                 <div>

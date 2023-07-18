@@ -13,15 +13,22 @@ use Illuminate\Support\Str;
 class CourseController extends Controller
 {
     //list courses
-    public function index(){
-        $courses = Course::with('category')->paginate(5);
+    public function index(Request $request){
+        $courses = Course::with('category');
+        $keyword = '';
+        if($request->get('keyword')){
+            $keyword = $request->get('keyword');
+            $courses = $courses->where('name','like',"%{$keyword}%");
+        }
+        $courses = $courses->paginate(5);
         $categories = Category::all();
-        return view('courses.list',compact('courses','categories'));
+        return view('courses.list',compact('courses','categories','keyword'));
     }
     //view create courses
     public function create(){
         $categories = Category::pluck('name','id')->all();
-        return view('courses.create',compact('categories'));
+        $courseTypes = Course::$courseType;
+        return view('courses.create',compact('categories','courseTypes'));
     }
     public function store(CourseRequest $request){
         $data = [
@@ -34,13 +41,15 @@ class CourseController extends Controller
             'category_id'=>$request->category_id,
             'image'=>$request->filepath,
             'description'=>$request->content,
+            'is_free'=>$request->is_free
         ];
         Course::create($data);
         return redirect()->route('courses.list')->with('message','Thêm thành công');
     }
     public function edit(Course $course){
         $categories = Category::pluck('name','id');
-        return view('courses.edit',compact('course','categories'));
+        $courseTypes = Course::$courseType;
+        return view('courses.edit',compact('course','categories','courseTypes'));
     }
     public function update(Course $course,CourseRequest $request){
         $data = [
@@ -52,7 +61,8 @@ class CourseController extends Controller
             'featured'=>$request->featured,
             'category_id'=>$request->category_id,
             'image'=>$request->filepath,
-            'description'=>$request->content
+            'description'=>$request->content,
+            'is_free'=>$request->is_free
         ];
         $course->update($data);
         return redirect()->route('courses.list')->with('message',"Cập nhật thành công");

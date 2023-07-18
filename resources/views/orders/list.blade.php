@@ -8,7 +8,7 @@
                         <p class="message" style="color: rgb(17, 186, 9); margin-left:20px"><i class="fa-solid fa-check"></i>
                             {{ $message }}</p>
                     @endif
-                    <h4 class="card-title mb-0">Quản lý chủ đề</h4>
+                    <h4 class="card-title mb-0">Quản lý orders</h4>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="listjs-table" id="customerList">
@@ -16,8 +16,8 @@
                             <div class="col-sm-auto">
                                 <div>
                                     <button type="button" class="btn btn-success add-btn"><i
-                                            class="ri-add-line align-bottom me-1"></i> <a
-                                            href="{{ route('modules.create') }}">Add</a></button>
+                                        class="ri-add-line align-bottom me-1"></i> <a
+                                        href="{{ route('orders.create') }}">Add</a></button>
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -35,35 +35,54 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col" style="width: 50px;">
-                                            STT
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="checkAll"
+                                                    value="option">
+                                            </div>
                                         </th>
-                                        <th class="sort" data-sort="customer_name">Tên</th>
-                                        <th class="sort" data-sort="price">Slug</th>
+                                        <th class="sort" data-sort="customer_name">Mã order</th>
+                                        <th class="sort" data-sort="price">User</th>
                                         <th class="sort" data-sort="price-discount">Khoá học</th>
+                                        <th class="sort" data-sort="status">Trạng thái</th>
+                                        <th class="sort" data-sort="price-discount">Tổng giá</th>
                                         <th class="sort" data-sort="date">Ngày tạo</th>
-                                        <th class="sort" data-sort="action">Lựa chọn</th>
+                                        <th class="sort d-flex justify-content-center" data-sort="action">Lựa chọn</th>
                                     </tr>
                                 </thead>
-                                <tbody class="list form-check-all">
-                                    @foreach ($modules as $index=>$module)
+                                <tbody class="list form-check-all" id="course-content-list">
+                                    @foreach ($orders as $order)
                                         <tr>
                                             <th scope="row">
-                                                {{$index+1}}
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="chk_child"
+                                                        value="option1">
+                                                </div>
                                             </th>
-                                            <td class="customer_name">{{ $module->name }}</td>
-                                            <td class="customer_name">{{ $module->slug }}</td>
-                                            <td class="cate">{{ $module->course->name }}</td>
-                                            <td class="date">{{$module->created_at}}</td>
-                                            <td>
+                                            <td class="customer_name">{{ $order->order_id }}</td>
+                                            <td class="course-price">{{ $order->user->name }}</td>
+                                            <td class="price-discount">{{ $order->course->name }}</td>
+                                            <td class="status"><span
+                                                    class="badge badge-soft-success text-uppercase">{{ ($order->status == 1) ? 'Payment' : (($order->status == 2)?'Canceled':'Pending') }}</span>
+                                            </td>
+                                            <td class="price-discount">{{ number_format($order->amount, 0, ',', '.') }}</td>
+                                            <td class="date">{{$order->created_at}}</td>
+                                            <td class="d-flex justify-content-center">
                                                 <div class="d-flex gap-2">
                                                     <div class="edit">
-                                                        <button class="btn btn-sm btn-success edit-item-btn"><a
-                                                                href="{{ route('modules.edit', $module->id) }}">Edit</a></button>
+                                                        <button class="btn btn-sm btn-info edit-item-btn"><a
+                                                                href="{{ route('orders.detail', $order->id) }}">Detail</a></button>
+                                                                
                                                     </div>
-                                                    <div class="remove">
+                                                    @if ($order->status == 0)
+                                                    <div class="active">
+                                                        <button class="btn btn-sm btn-success"
+                                                            onclick="PaymentVerify()">Payment</button>
+                                                    </div>
+                                                    <div class="inactive">
                                                         <button class="btn btn-sm btn-danger remove-item-btn"
-                                                            onclick="deleteModule({{$module->id}})">Remove</button>
+                                                            onclick="OrderCancel()">Cancel</button>
                                                     </div>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>
@@ -83,7 +102,7 @@
                             </div>
                         </div>
 
-                        {{$modules->links()}}
+                        {{$orders->links()}}
                     </div>
                 </div><!-- end card -->
             </div>
