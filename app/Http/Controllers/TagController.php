@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TagRequest;
 use App\Models\Tag;
 use App\Models\Taggable;
+use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
@@ -48,6 +49,10 @@ class TagController extends Controller
        ]);
        return redirect()->route('show.tag')->with('message', 'Chỉnh sửa thành công');
    }
-
+    public function searchTag(Request $request){
+        $search = $request->input('search_tag');
+        $tags  = Tag::where('name', 'LIKE', '%'.$search.'%')->paginate(10);
+        return view('tags.list', compact('tags'));
+    }
 
 }

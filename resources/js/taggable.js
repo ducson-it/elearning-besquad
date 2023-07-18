@@ -1,4 +1,3 @@
-
 import 'bootstrap';
 import $ from 'jquery';
 
@@ -6,10 +5,7 @@ window.$ = window.jquery = $
 import axios from 'axios';
 import Swal from "sweetalert2"
 
-window.selectpicker = () => {
-    $('.list-select-user').select2();
-};
-window.DeleteNotify = (id) => {
+window.showDeleteTaggable = (id) => {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -22,7 +18,7 @@ window.DeleteNotify = (id) => {
         if (result.isConfirmed) {
             // Gửi yêu cầu xóa bằng Ajax
             $.ajax({
-                url: '/notify/delete-notify/' + id,
+                url: '/tag/delete-taggable/' + id,
                 type: 'DELETE',
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content')
@@ -50,10 +46,10 @@ window.DeleteNotify = (id) => {
 }
 
 //
-window.deleteNotifyCheckbox = (selectedIds) => {
+window.deleteTaggables = (selectedIds) => {
     // Gửi yêu cầu xóa bằng Ajax
     $.ajax({
-        url: '/notify/delete-notify-checkbox',
+        url: '/tag/delete-taggable-checkbox',
         type: 'POST',
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -61,8 +57,8 @@ window.deleteNotifyCheckbox = (selectedIds) => {
         },
         success: function (response) {
             // Xóa các hàng đã chọn từ giao diện
-            selectedIds.forEach(function (notifyId) {
-                const row = document.querySelector(`tr[data-notify-id="${notifyId}"]`);
+            selectedIds.forEach(function (taggableId) {
+                const row = document.querySelector(`tr[data-taggable-id="${taggableId}"]`);
                 if (row) {
                     row.remove();
                 }
@@ -84,9 +80,9 @@ window.deleteNotifyCheckbox = (selectedIds) => {
     });
 }
 
-window.deleteMultipleNotify = () => {
+window.deleteMultiple = () => {
     // Lấy danh sách tất cả các checkbox đã được tích
-    const checkboxes = document.querySelectorAll('#NotifyTable tbody input[type="checkbox"]:checked');
+    const checkboxes = document.querySelectorAll('#customerTable tbody input[type="checkbox"]:checked');
 
     // Tạo một mảng để lưu trữ các ID đã chọn
     const selectedIds = [];
@@ -94,14 +90,13 @@ window.deleteMultipleNotify = () => {
     // Lặp qua từng checkbox đã được tích và lưu trữ ID vào mảng
     checkboxes.forEach(function (checkbox) {
         const row = checkbox.closest('tr');
-        const notifyId = row.dataset.notifyId;
-        selectedIds.push(notifyId);
+        const taggableId = row.dataset.taggableId;
+        selectedIds.push(taggableId);
 
         // Xóa hàng khỏi bảng
         row.remove();
     });
     console.log(selectedIds)
     // Gọi hàm xóa trên backend và gửi mảng các ID đã chọn
-    deleteNotifyCheckbox(selectedIds);
+    deleteTaggables(selectedIds);
 }
-

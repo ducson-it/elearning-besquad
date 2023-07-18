@@ -10,4 +10,5 @@ Route::group(['prefix' => 'notify'], function () {
     Route::post('/delete-notify-checkbox',[NotifyControler::class,'deleteCheckbox'])->name('deleteNotify_Checkbox');
     Route::get('/notify-edit/{id}',[NotifyControler::class,'editNotify'])->name('edit.notify');
     Route::post('/notify-update/{id}',[NotifyControler::class,'updateNotify'])->name('update.notify');
+    Route::post('/notify-search', [NotifyControler::class, 'searchNotify'])->name('search.notify');
 });
