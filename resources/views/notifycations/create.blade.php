@@ -82,22 +82,6 @@
                                 </div>
                                 <div class="col-11 mt-3">
                                     <div>
-                                        <label for="basiInput" class="form-label fs-5 fw-bold">Notification_type</label>
-                                        <select class="form-select mb-3"
-                                                name="notification_type">
-                                            <option value=""> Chon</option>
-                                            <option value="Tin tức">Tin tức</option>
-                                            <option value="Cảnh báo">Cảnh báo</option>
-                                            <option value="Hệ thống">Hệ thống</option>
-                                        </select>
-                                        @error('notification_type')
-                                        <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-11 mt-3">
-                                    <div>
                                         <label for="basiInput" class="form-label fs-5 fw-bold">expired</label>
                                         <input type="date" class="form-control" name="expired" id="date"/>
                                         @error('expired')
