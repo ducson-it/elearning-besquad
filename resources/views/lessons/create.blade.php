@@ -14,9 +14,9 @@
                                 <div class="col-10">
                                     <div>
                                         <label for="basiInput" class="form-label">Tên bài học</label>
-                                        <input type="text" class="form-control" id="basiInput" name="name">
+                                        <input type="text" class="form-control" id="name" name="name">
                                         @if ($errors->any())
-                                            <span style="color:red">
+                                            <span id="error-name" style="color:red">
                                                 @error('name')
                                                     {{ $message }}
                                                 @enderror
@@ -44,7 +44,7 @@
                                 <div class="col-10">
                                     <label for="">Tải lên document (docx,pdf,...)</label><br>
                                     <div class="input-group">
-                                        <input type="file" class="form-control" name="document">
+                                        <input type="file" class="form-control" name="document" value="{{old('document')}}">
                                     </div>
                                 </div>
                                 {{-- upload video to sproud video --}}
@@ -75,8 +75,8 @@
                                 <!--end col-->
                                 <div class="col-12 mt-4 mb-5">
                                     <label class="label-control mb-2">Mô tả</label>
-                                    <div id="quillEditor"></div>
-                                    <textarea name="content" id="content" class="d-none"></textarea>
+                                    <div id="quillEditor">{!! old('content') !!}</div>
+                                    <textarea name="content" id="content" class="d-none">{!! old('content') !!}</textarea>
                                 </div>
                                 
 
