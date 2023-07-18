@@ -32,7 +32,7 @@ class BlogController extends Controller
     }
     public function blog()
     {
-        $blogs = Blog::paginate(2);
+        $blogs = Blog::paginate(Beesquad::PAGINATE_BLOG);
         if (!$blogs) {
             return response()->json([
                 'code' => 404,
