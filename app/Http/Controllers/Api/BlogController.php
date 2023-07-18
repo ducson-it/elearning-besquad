@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BlogCollection;
 use App\Http\Resources\BlogResource;
 use App\Http\Resources\CategoryBlogResource;
 use App\Models\Beesquad;
 use App\Models\Blog;
 use App\Models\CategoryBlog;
+use App\Models\Constant;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -30,7 +32,7 @@ class BlogController extends Controller
     }
     public function blog()
     {
-        $blogs = Blog::take(Beesquad::LIMIT)->get();
+        $blogs = Blog::paginate(2);
         if (!$blogs) {
             return response()->json([
                 'code' => 404,
@@ -40,7 +42,7 @@ class BlogController extends Controller
         return response()->json([
             'code' => 200,
             'message' => 'success',
-            'data' => BlogResource::collection($blogs)
+            'data' => new BlogCollection($blogs)
         ]);
     }
 
