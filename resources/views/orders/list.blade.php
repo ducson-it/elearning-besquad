@@ -52,7 +52,7 @@
                                             <th scope="row">
                                                 {{$index+1}}
                                             </th>
-                                            <td class="customer_name">{{ $order->order_id }}</td>
+                                            <td class="customer_name">{{ $order->order_code }}</td>
                                             <td class="course-price">{{ $order->user->name }}</td>
                                             <td class="price-discount">{{ $order->course->name }}</td>
                                             <td class="status"><span
