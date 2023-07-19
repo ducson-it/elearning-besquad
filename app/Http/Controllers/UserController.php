@@ -11,11 +11,17 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     //
-    public function showListUser()
+    public function showListUser(Request $request)
     {
         $list_users = User::with('role')->Where('role_id', '<>', 1)->paginate(10);
+        if($request->input('search_user')){
+            $search = $request->input('search_user');
+            $list_users  = User::where('name', 'LIKE', '%'.$search.'%')->Where('role_id', '<>', 1)->paginate(10);
+        }else{
+            $search = "";
+        }
        // var_dump($list_users);
-        return view('users.list', compact('list_users'));
+        return view('users.list', compact('list_users','search'));
     }
     public function deleteUser($id)
     {
@@ -112,7 +118,6 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Cập nhật active thất bại');
         }
 
-
     }
     public function editUser($id){
         $user = User::find($id);
@@ -136,11 +141,5 @@ class UserController extends Controller
         // Lưu category vào cơ sở dữ liệu
         return redirect()->route('show.user')->with('message', 'sửa user thành công');
 
-    }
-    public function searchUser(Request $request){
-        $search = $request->input('search_user');
-        $list_users  = User::where('name', 'LIKE', '%'.$search.'%')->Where('role_id', '<>', 1)->paginate(10);
-      //  dd($list_users);
-        return view('users.list', compact('list_users'));
     }
 }
