@@ -24,7 +24,7 @@
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <a href="{{route('show.user')}}"> <button class="rounded border-0 btn btn-warning">Danh sách</button></a>
-                                    <form method="post" action="{{route('search.user')}}">
+                                    <form method="post" action="{{route('show.user')}}">
                                         @csrf
                                         <div class="search-box ms-2">
                                             <input type="text" class="form-control search " name="search_user"
@@ -42,6 +42,9 @@
                                 <div class="alert alert-success">{{ session('message') }}</div>
                             @endif
                         </div>
+                        @if($search && $search != "")
+                            <p>Kết quả tìm kiếm từ khóa"{{$search}}"</p>
+                        @endif
                         <div class="table-responsive table-card mt-3 mb-1">
                             <table class="table align-middle table-nowrap" id="userTable">
                                 <thead class="table-light">

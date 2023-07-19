@@ -3,7 +3,7 @@
 use App\Http\Controllers\UserController;
 
 Route::group(['prefix' => 'user'], function () {
-    Route::match(['get', 'delete','put'],'/list',[UserController::class,'showListUser'])->name('show.user');
+    Route::match(['get', 'delete','put','post'],'/list',[UserController::class,'showListUser'])->name('show.user');
     Route::delete('/delete-user/{user_id}',[UserController::class,'deleteUser'])->name('deleteUser');
     Route::post('/delete-user-checkbox',[UserController::class,'deleteCheckbox'])->name('deleteUser_Checkbox');
     Route::get('/user-add',[UserController::class,'addUser'])->name('addUser');
