@@ -28,11 +28,12 @@ class OrderController extends Controller
 
             $order_code ='BQ'.random_int(100000, 999999);
 
-        } while (Order::where("order_id", "=", $order_code)->first());
+        } while (Order::where("order_code", "=", $order_code)->first());
         $data=[
-            'order_id'=>$order_code,
+            'order_code'=>$order_code,
             'user_id'=>$request->user_id,
             'course_id'=>$request->course_id,
+            'status'=>0,
             'amount'=>$request->amount
         ];
         Order::create($data);

@@ -19,7 +19,7 @@
                 <div class="{{ ($order->status == 1) ? 'bg-success-subtle' : (($order->status == 2)?'bg-danger-subtle':'bg-warning-subtle') }} position-relative">
                     <div class="card-body p-5">
                         <div class="text-center">
-                            <h3>Mã order: {{$order->order_id}}</h3>
+                            <h3>Mã order: {{$order->order_code}}</h3>
                             <p class="mb-0 text-muted">Ngày tạo: {{$order->created_at}}</p>
                         </div>
                     </div>

@@ -9,7 +9,7 @@ class Voucher extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = 'vourchers';
+    protected $table = 'vouchers';
     protected $fillable = ['name', 'value'];
 
     public function users()

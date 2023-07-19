@@ -64,7 +64,7 @@
                                 <div class="col-10">
                                     <label for="">Video</label><br>
                                         <div style="width:200px">
-                                            <iframe class='sproutvideo-player' src='https://videos.sproutvideo.com/embed/069fd5bd1f1ae6c08f/0b795b87fac6eb89' width='630' height='339' frameborder='0' allowfullscreen referrerpolicy='no-referrer-when-downgrade' title='Video Player'></iframe>
+                                            {!!$video['embed_code']!!}
                                         </div>
                                         <label for="">Lựa chọn video</label><br>
                                     <div class="input-group">
