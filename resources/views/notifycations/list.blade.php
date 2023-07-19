@@ -20,7 +20,7 @@
 
                                 <div class="d-flex justify-content-sm-end">
                                    <a href="{{route('show.notify')}}"> <button class="rounded border-0 btn btn-warning">Danh sách</button></a>
-                                    <form method="post" action="{{route('search.notify')}}">
+                                    <form method="post" action="{{route('show.notify')}}">
                                         @csrf
                                         <div class="search-box ms-2">
                                             <input type="text" class="form-control search " name="search_notify"
@@ -32,7 +32,9 @@
                                 </div>
                             </div>
                         </div>
-
+                        @if($search && $search != "")
+                            <p>Kết quả tìm kiếm từ khóa"{{$search}}"</p>
+                        @endif
                         <div class="table-responsive table-card mt-3 mb-1">
                             <table class="table align-middle table-nowrap" id="notifyTable">
                                 <thead class="table-light">

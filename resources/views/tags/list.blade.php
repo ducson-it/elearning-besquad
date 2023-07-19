@@ -48,7 +48,7 @@
                         <div class="col-sm">
                             <div class="d-flex justify-content-sm-end">
                                 <a href="{{route('show.tag')}}"> <button class="rounded border-0 btn btn-warning">Danh sách</button></a>
-                                <form method="post" action="{{route('search.tag')}}">
+                                <form method="post" action="{{route('show.tag')}}">
                                     @csrf
                                     <div class="search-box ms-2">
                                         <input type="text" class="form-control search " name="search_tag"
@@ -66,6 +66,10 @@
                             <div class="alert alert-success">{{ session('message') }}</div>
                         @endif
                     </div>
+                    @if($search && $search != "")
+                        <p>Kết quả tìm kiếm từ khóa"{{$search}}"</p>
+                    @endif
+
                     <div class="table-responsive table-card mt-3 mb-1">
                         <table class="table align-middle table-nowrap " id="customerTable">
                             <thead class="table-light">

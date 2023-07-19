@@ -9,9 +9,20 @@ use Illuminate\Http\Request;
 class TaggableController extends Controller
 {
     //
-    public function getTaggable($tag_id){
+    public function getTaggable(Request $request,$tag_id){
         $taggables = Taggable::with('tag')->where('tag_id',$tag_id)->paginate(10);
-        return view('tags.taggable',compact('taggables','tag_id'));
+        if($request->input('search_taggable')){
+            $search = $request->input('search_taggable');
+            $taggables = Taggable::where('tag_id', $tag_id)
+                ->whereHas('tag', function ($query) use ($search) {
+                    $query->where('name', 'LIKE', '%' . $search . '%');
+                })
+                ->with('tag')
+                ->paginate(10);
+        }else{
+            $search = "";
+        }
+        return view('tags.taggable',compact('taggables','tag_id','search'));
     }
     public function deleteTaggable($id){
         $tag = Taggable::find($id);
@@ -37,14 +48,5 @@ class TaggableController extends Controller
             return response()->json(['error' => 'Invalid selectedIds'], 400);
         }
     }
-    public function searchTaggable(Request $request,$tag_id){
-        $search = $request->input('search_taggable');
-        $taggables = Taggable::where('tag_id', $tag_id)
-            ->whereHas('tag', function ($query) use ($search) {
-                $query->where('name', 'LIKE', '%' . $search . '%');
-            })
-            ->with('tag')
-            ->paginate(10);
-        return view('tags.taggable', compact('taggables','tag_id'));
-    }
+
 }
