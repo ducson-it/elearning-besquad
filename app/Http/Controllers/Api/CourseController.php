@@ -50,13 +50,27 @@ class CourseController extends Controller
     public function myCourse(){
 
     }
+
+    public function registerCourse(Request $request){
+        // Kiểm tra giá trị course_id và token từ header
+        $courseId = $request->input('course_id');
+        if (!$courseId) {
+            return response()->json(['error' => 'Invalid request'], 400);
+        }
+        $lesson = Lesson::where('course_id', $courseId)->first();
+        if (!$lesson) {
+            return response()->json(['error' => 'Lesson not found'], 404);
+        }
+        return response()->json([
+            'lesson_id' => $lesson->id,
+        ], 200);
+    }
     public function historyCourse(Request $request)
     {
         $courseId = $request->input('course_id');
         $lessonId = $request->input('lesson_id');
         $time = $request->input('time');
         $stopTimeVideo = $request->input('stop_time_video');
-
         // Lấy thông tin người dùng từ mã token xác thực
         $user = auth()->user();
         $history = History::create([
@@ -68,6 +82,5 @@ class CourseController extends Controller
         ]);
         return response()->json(['message' => 'Lịch sử học đã được ghi lại thành công',
             'history' => $history], 200);
-
     }
 }
