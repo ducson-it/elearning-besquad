@@ -50,7 +50,6 @@ class CourseController extends Controller
     public function myCourse(){
 
     }
-
     public function historyCourse(Request $request)
     {
         $courseId = $request->input('course_id');

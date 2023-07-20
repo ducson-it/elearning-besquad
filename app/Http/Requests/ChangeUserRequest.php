@@ -13,7 +13,7 @@ class ChangeUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,6 @@ class ChangeUserRequest extends FormRequest
         return [
             'name' => 'required|string',
             'email' => 'required|email',
-            'avatar' => 'nullable|string',
             'phone' => 'nullable|string',
             'address' => 'nullable|string',
         ];
@@ -39,7 +38,6 @@ class ChangeUserRequest extends FormRequest
             'name.string' => 'Tên phải là một chuỗi.',
             'email.required' => 'Vui lòng nhập địa chỉ email.',
             'email.email' => 'Địa chỉ email không hợp lệ.',
-            'avatar.required' => 'Avatar không được trống',
             'phone.string' => 'Số điện thoại phải là một chuỗi.',
             'address.required' => 'Địa chỉ không được trống',
         ];
