@@ -21,13 +21,21 @@ class UserController extends Controller
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
-        $data = $request->validated();
-        $update = $user->update([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'address' => $data['address'],
-        ]);
+
+        $userData = [
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'phone' => $request['phone'],
+            'address' => $request['address'],
+        ];
+        // Xử lý ảnh và lưu URL
+        if (isset($request['avatar']) && is_string($request['avatar'])) {
+            $userData['avatar'] = $request['avatar'];
+        }
+        else {
+            $userData['avatar'] = $user->avatar;
+        }
+        $update = $user->update($userData);
         if (!$update) {
             return response()->json(['message' => 'Update failed'], 400);
         }
