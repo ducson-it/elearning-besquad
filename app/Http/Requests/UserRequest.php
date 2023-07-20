@@ -23,16 +23,25 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-            'confirm_password' => 'required|same:password',
             'phone' => 'required|min:10',
             'address' => 'required',
             'role_id' => 'required',
             'active' => 'required',
         ];
+
+        // Add conditional rules for email and password fields
+        if ($this->has('email')) {
+            $rules['email'] = 'required|email|unique:users,email';
+        }
+
+        if ($this->has('password')) {
+            $rules['password'] = 'required|min:6';
+            $rules['confirm_password'] = 'required|same:password';
+        }
+
+        return $rules;
     }
     public function messages()
     {

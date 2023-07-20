@@ -5,12 +5,14 @@
 <script src="{{ URL::asset('assets/js/plugins.min.js') }}"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+{{--<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>--}}
 {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> --}}
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script src="https://kit.fontawesome.com/6da5ba8330.js" crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.6.2/ckeditor.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.6.2/adapters/jquery.js"></script>
-    <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.6.2/ckeditor.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.6.2/adapters/jquery.js"></script>
+<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+
 @yield('script')
 @yield('script-bottom')

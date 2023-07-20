@@ -11,9 +11,11 @@ use Illuminate\Support\Str;
 
 class Category_BlogController extends Controller
 {
-    public function index(){
-        $category_blogs = CategoryBlog::paginate(10);
-        return view('category_blogs.list',compact('category_blogs'));
+    public function index(Request $request)
+    {
+            $search = $request->input('search');
+            $category_blogs = CategoryBlog::where('name', 'like', '%' . $search . '%')->paginate(10);
+        return view('category_blogs.list', compact('category_blogs'));
     }
 
     public function store(CategoryBlogRequest $request)
