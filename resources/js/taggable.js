@@ -2,28 +2,10 @@ import 'bootstrap';
 import $ from 'jquery';
 
 window.$ = window.jquery = $
-import Dropzone from "dropzone";
 import axios from 'axios';
 import Swal from "sweetalert2"
 
-const metaToken = document.querySelector('meta[name="csrf-token"]');
-const UserUpload = document.querySelector('#user-img-upload');
-
-if (UserUpload) {
-    let myDropzone = new Dropzone("#user-img-upload", {
-        url: '/user/upload',
-        headers: {
-            'X-CSRF-TOKEN': metaToken.getAttribute('content')
-        },
-        acceptedFiles: "image/*",
-    });
-    myDropzone.on('complete', file => {
-        console.log(file.xhr.response);
-        document.querySelector('input[name="image"]').setAttribute('value', file.xhr.response);
-    })
-}
-
-window.DeleteUser = (id) => {
+window.showDeleteTaggable = (id) => {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -36,7 +18,7 @@ window.DeleteUser = (id) => {
         if (result.isConfirmed) {
             // Gửi yêu cầu xóa bằng Ajax
             $.ajax({
-                url: '/user/delete-user/' + id,
+                url: '/tag/delete-taggable/' + id,
                 type: 'DELETE',
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content')
@@ -63,52 +45,11 @@ window.DeleteUser = (id) => {
     });
 }
 
-window.activeUser = (id) => {
-    console.log(id)
-    Swal.fire({
-        title: ' Bạn chắc chắn ? ',
-        text: "Thay đổi trạng thái tài khoản này ?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, update it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Gửi yêu cầu xóa bằng Ajax
-            $.ajax({
-                url: '/user/user-active/' + id,
-                type: 'POST',
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (response) {
-                    Swal.fire(
-                        'Updated!',
-                        'Đã cập nhật trường active thành công',
-                        'success'
-                    ).then(() => {
-                        // Chuyển hướng sau khi xóa thành công
-                        window.location.reload();
-                    });
-                },
-                error: function (xhr) {
-                    Swal.fire(
-                        'Error!',
-                        'Không thể cập nhật trường active.',
-                        'error'
-                    );
-                }
-            });
-        }
-    });
-}
-
 //
-window.deleteUserCheckbox = (selectedIds) => {
+window.deleteTaggables = (selectedIds) => {
     // Gửi yêu cầu xóa bằng Ajax
     $.ajax({
-        url: '/user/delete-user-checkbox',
+        url: '/tag/delete-taggable-checkbox',
         type: 'POST',
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -116,13 +57,13 @@ window.deleteUserCheckbox = (selectedIds) => {
         },
         success: function (response) {
             // Xóa các hàng đã chọn từ giao diện
-            selectedIds.forEach(function (userId) {
-                const row = document.querySelector(`tr[data-user-id="${userId}"]`);
+            selectedIds.forEach(function (taggableId) {
+                const row = document.querySelector(`tr[data-taggable-id="${taggableId}"]`);
                 if (row) {
                     row.remove();
                 }
             });
-            selectedIds = [];
+
             Swal.fire(
                 'Deleted!',
                 'Your records have been deleted.',
@@ -139,9 +80,9 @@ window.deleteUserCheckbox = (selectedIds) => {
     });
 }
 
-window.deleteMultipleUser = () => {
+window.deleteMultiple = () => {
     // Lấy danh sách tất cả các checkbox đã được tích
-    const checkboxes = document.querySelectorAll('#userTable tbody input[type="checkbox"]:checked');
+    const checkboxes = document.querySelectorAll('#customerTable tbody input[type="checkbox"]:checked');
 
     // Tạo một mảng để lưu trữ các ID đã chọn
     const selectedIds = [];
@@ -149,15 +90,13 @@ window.deleteMultipleUser = () => {
     // Lặp qua từng checkbox đã được tích và lưu trữ ID vào mảng
     checkboxes.forEach(function (checkbox) {
         const row = checkbox.closest('tr');
-        const userId = row.dataset.userId;
-        selectedIds.push(userId);
+        const taggableId = row.dataset.taggableId;
+        selectedIds.push(taggableId);
 
         // Xóa hàng khỏi bảng
         row.remove();
     });
     console.log(selectedIds)
     // Gọi hàm xóa trên backend và gửi mảng các ID đã chọn
-    deleteUserCheckbox(selectedIds);
+    deleteTaggables(selectedIds);
 }
-
-
