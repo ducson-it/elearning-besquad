@@ -1,5 +1,4 @@
 import 'bootstrap';
-import Dropzone from "dropzone";
 import Swal from 'sweetalert2';
 import axios from "axios";
 //xóa blogs
@@ -115,16 +114,5 @@ window.deletesliders = (id) => {
         }
     });
 };
-// ****************************88888upload file
-const metaToken = document.querySelector('meta[name="csrf-token"]');
-
-let myDropzone = new Dropzone("#sliders-image-upload",{
-    url:'/sliders/upload2',
-    headers: {
-        'X-CSRF-TOKEN':metaToken.getAttribute('content')
-    }
-});
-myDropzone.on('complete', (file) => {
-})
 
 

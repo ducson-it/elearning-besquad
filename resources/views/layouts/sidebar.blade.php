@@ -116,10 +116,10 @@
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-{{--                                <a href="{{route('users.create')}}" class="nav-link">Tạo mới</a>--}}
+{{--                                <a href="" class="nav-link">Tạo mới</a>--}}
                             </li>
                             <li class="nav-item">
-{{--                                <a href="{{route('users.list')}}" class="nav-link">Danh sách</a>--}}
+{{--                                <a href="" class="nav-link">Danh sách</a>--}}
                             </li>
                         </ul>
                     </div>
@@ -136,10 +136,10 @@
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('addUser')}}" class="nav-link">Tạo mới</a>
+                                <a href="{{route('slider.create')}}" class="nav-link">Tạo mới</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('show.user')}}" class="nav-link">Danh sách</a>
+                                <a href="{{route('slider.list')}}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
@@ -160,19 +160,9 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#order" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                    <a class="nav-link menu-link" href="{{route('orders.list')}}">
                         <i class="ri-apps-2-line"></i> <span>Quản lý order</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="order">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="apps-calendar" class="nav-link">Khoá học miễn phí</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('orders.list')}}" class="nav-link">Khoá học mất phí</a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('show.notify')}}">
