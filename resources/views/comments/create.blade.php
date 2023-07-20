@@ -10,6 +10,16 @@
                     <div class="live-preview">
                         <form action="{{ route('comment.store') }}" method="POST">
                             @csrf
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             <label for="content">Nội dung comment:</label><br>
                             <textarea id="content" name="content" rows="4" cols="50"></textarea><br>
 

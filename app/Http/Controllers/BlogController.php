@@ -13,15 +13,8 @@ class BlogController extends Controller
 {
     public function index(Request $request)
     {
-        $blogs = Blog::with('category')->paginate(5);
-        $blogs->getCollection()->transform(function ($item) {
-            if (isset($item->image['disk']) && isset($item->image['path'])) {
-                $item->image = Storage::disk($item->image['disk'])->url($item->image['path']);
-            } else {
-                $item->image = '/storage/anh.png';
-            }
-            return $item;
-        });
+        $search = $request->input('search');
+        $blogs = Blog::where('title', 'like', '%' . $search . '%')->paginate(10);
         return view('blog.list', compact('blogs'));
     }
 
@@ -29,14 +22,13 @@ class BlogController extends Controller
         $category_blogs = CategoryBlog::all();
         return view('blog.create',compact('category_blogs'));
     }
-    public function store(Request $request){
-        $media = session('blogs');
+    public function store(BlogsRequest $request){
         Blog::create([
             'title'=>$request->title,
             'slug'=>$request->slug,
             'user_id'=>Auth::user()->id,
             'description_short'=>$request->description_short,
-            'image'=>$media,
+            'image'=>$request->filepath,
              'content'=>$request->content,
             'view'=>$request->view,
             'category_blog_id'=>$request->category_blog_id
@@ -47,23 +39,16 @@ class BlogController extends Controller
     {
         $blog= Blog::find($id);
         $category_blogs = CategoryBlog::all();
-        if (isset($blog->image['disk']) && isset($blog->image['path'])) {
-            $blog->image = Storage::disk($blog->image['disk'])->url($blog->image['path']);
-        } else {
-            $blog->image = '/storage/anh.png';
-        }
         return view('blog.edit', compact('blog','category_blogs'));
     }
-    public function update(Request $request, $id)
+    public function update(BlogsRequest $request, $id)
     {
         $blog = Blog::findOrFail($id);
-        $media = session('blogs');
-
         $blog->update([
             'title' => $request->title,
             'slug' => $request->slug,
             'description_short' => $request->description_short,
-            'image' => $media,
+            'image' => $request->filepath,
             'content' => $request->content,
             'view' => $request->view,
             'category_blog_id' => $request->category_blog_id

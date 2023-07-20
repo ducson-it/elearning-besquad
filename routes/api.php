@@ -56,7 +56,7 @@ Route::prefix('course')->group(function () {
     Route::get('my-course', [CourseController::class, 'myCourse'])->middleware('auth:sanctum');
     Route::post('registerCourse', [CourseController::class, 'registerCourse'])->middleware('auth:sanctum');
     Route::post('historyCourse', [CourseController::class, 'historyCourse'])->middleware('auth:sanctum');
-    Route::get('first',[CourseController::class,'firstCourse']);
+
 });
 
 Route::prefix('lesson')->group(function () {

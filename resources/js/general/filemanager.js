@@ -6,7 +6,7 @@ var options = {
     filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
 };
 
-// $('textarea.my-editor').ckeditor(options);
+$('textarea.my-editor').ckeditor(options);
 
 $('[class*="lfm"]').each(function() {
     $(this).filemanager('image');
