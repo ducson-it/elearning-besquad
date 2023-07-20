@@ -129,5 +129,27 @@ class NotifyControler extends Controller
             return redirect()->route('show.notify')->with('message', 'Không tồn tại bản ghi hợp lệ');
         }
     }
-
+    public function getNoicePage(Request $request){
+        $listNotifys = Notification::where('send_user','<>','admin')->Where('is_read','<>',true)->paginate(10);
+        $search = '';
+        if($request->input('search_notice')){
+            $search = $request->input('search_notice');
+            $listNotifys = Notification::where('send_user','<>','admin')
+                ->Where('is_read','<>',true)
+                ->where('title', 'LIKE', '%'.$search.'%')
+                ->paginate(10);
+        }
+        return view('notifycations.notice_page',compact('listNotifys','search'));
+    }
+    public function updateIreadNotify($id)
+    {
+        $notify = Notification::find($id);
+        if ($notify) {
+            $notify->is_read = true;
+            $notify->save();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Notify not found.']);
+        }
+    }
 }
