@@ -58,7 +58,7 @@
                                                 <div class="d-flex gap-2">
                                                     <div class="edit">
                                                         <button class="btn btn-sm btn-success edit-item-btn"><a
-                                                                href="{{ route('modules.edit', $module->id) }}">Edit</a></button>
+                                                                href="{{ route('modules.edit', $module->id) }}" class="text-light">Edit</a></button>
                                                     </div>
                                                     <div class="remove">
                                                         <button class="btn btn-sm btn-danger remove-item-btn"
