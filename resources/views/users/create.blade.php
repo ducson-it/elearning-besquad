@@ -50,10 +50,21 @@
                                             @enderror
                                         </div>
                                     </div>
+{{--                                    <div class="col-11 mt-3">--}}
+{{--                                        <label for="basiInput" class="form-label">Tải ảnh đại diện</label>--}}
+{{--                                        <input type="hidden" name="image" value="">--}}
+{{--                                        <div id="user-img-upload" class="dropzone dz-clickable"></div>--}}
+{{--                                    </div>--}}
                                     <div class="col-11 mt-3">
-                                        <label for="basiInput" class="form-label">Tải ảnh đại diện</label>
-                                        <input type="hidden" name="image" value="">
-                                        <div id="user-img-upload" class="dropzone dz-clickable"></div>
+                                        <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="lfm btn btn-primary" data-input="thumbnail2"
+                                                    data-preview="holder2" class="btn btn-primary text-white">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                            </button>
+                                        </span>
+                                            <input id="thumbnail2" class="form-control" type="text" name="filepath">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">

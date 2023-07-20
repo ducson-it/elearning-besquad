@@ -67,7 +67,7 @@
                         @endif
                     </div>
                     @if($search && $search != "")
-                        <p>Kết quả tìm kiếm từ khóa"{{$search}}"</p>
+                        <p style="padding-left: 40px;" class="fs-5">Kết quả tìm kiếm từ khóa"<strong class="text-danger">  {{$search}}  </strong>"</p>
                     @endif
 
                     <div class="table-responsive table-card mt-3 mb-1">
