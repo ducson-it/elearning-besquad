@@ -13,5 +13,4 @@ use App\Http\Requests\ChangeUserRequest;
 
 class UserController extends Controller
 {
-
 }
