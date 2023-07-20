@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\LessonController;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\UploadImageController;
+use App\Http\Controllers\Api\UserController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +35,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// change user
+Route::post('changeUser', [UserController::class, 'changeUser'])->middleware('auth:sanctum');
+
+
+
 Route::get('/slider', [SliderController::class, 'slider']);
 Route::get('/search', [SearchController::class, 'search']);
 Route::post('/upload-image', [UploadImageController::class, 'uploadImage']);
@@ -47,6 +54,9 @@ Route::prefix('course')->group(function () {
     Route::get('category-course', [CourseController::class, 'categoryCourse']);
     Route::get('{course}', [CourseController::class, 'detailCourse']);
     Route::get('my-course', [CourseController::class, 'myCourse'])->middleware('auth:sanctum');
+    Route::post('registerCourse', [CourseController::class, 'registerCourse'])->middleware('auth:sanctum');
+    Route::post('historyCourse', [CourseController::class, 'historyCourse'])->middleware('auth:sanctum');
+
 });
 
 Route::prefix('lesson')->group(function () {

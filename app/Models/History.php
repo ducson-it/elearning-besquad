@@ -4,14 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Faker\Factory as Faker;
-class Order extends Model
+
+class History extends Model
 {
     use HasFactory;
-    use SoftDeletes;
-    protected $table = 'orders';
-    protected $fillable = ['order_date', 'user_id', 'course_id','name'];
+    protected $table = 'history';
+    protected $fillable = ['user_id', 'course_id', 'lesson_id', 'time', 'stop_time_video'];
 
     public function user()
     {
@@ -21,5 +19,10 @@ class Order extends Model
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class);
     }
 }

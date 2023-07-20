@@ -10,11 +10,21 @@
                     <div class="live-preview">
                         <form action="{{ route('comment.store') }}" method="POST">
                             @csrf
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             <label for="content">Nội dung comment:</label><br>
                             <textarea id="content" name="content" rows="4" cols="50"></textarea><br>
 
                             <label for="posts">Posts:</label>
-                            <input type="checkbox" id="posts" name="tables[]" value="posts">
+                            <input type="radio" id="posts" name="tables[]" value="posts">
                             <div class="col-11">
                                 <select name="post_id">
                                     @foreach ($posts as $post)
@@ -25,7 +35,7 @@
                             <br>
                             <div class="col-11">
                                 <label for="course">Courses:</label>
-                                <input type="checkbox" id="courses" name="tables[]" value="courses">
+                                <input type="radio" id="courses" name="tables[]" value="courses">
                                 <select name="course_id">
                                     @foreach ($courses as $course)
                                         <option value="{{ $course->id }}">{{ $course->name }}</option>
@@ -35,7 +45,7 @@
                             <br>
                             <div class="col-11">
                                 <label for="lessons">Lessons:</label>
-                                <input type="checkbox" id="lessons" name="tables[]" value="lessons">
+                                <input type="radio" id="lessons" name="tables[]" value="lessons">
                                 <select name="lesson_id">
                                     @foreach ($lessons as $lesson)
                                         <option value="{{ $lesson->id }}">{{ $lesson->name }}</option>

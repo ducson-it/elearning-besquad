@@ -9,7 +9,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Thêm mới slider</h4>
+                    <h1>
+                        <marquee class="text-danger">Quản lý slider</marquee>
+                    </h1>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="listjs-table" id="customerList">
@@ -17,15 +19,17 @@
                             <div class="col-sm-auto">
                                 <div>
                                     <button type="button" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i> <a href="{{route('slider.create')}}"> Add</a></button>
-                                    <button class="btn btn-soft-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                    <button type="button" class="btn btn-primary"><a style="color: white" href="{{route('slider.list')}}">Danh sách</a></button>
                                 </div>
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
-                                        <input type="text" class="form-control search" placeholder="Search...">
-                                        <i class="ri-search-line search-icon"></i>
+                                        <form action="{{ route('slider.list') }}" method="GET">
+                                            <input type="text" class="form-control search" placeholder="Search..." name="search">
+                                        </form>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -67,7 +71,7 @@
                                         <td class="">{{$slider->url_btn}}</td>
                                         <td class="">{{$slider->content_btn}}</td>
                                         <td class="">
-                                            <img src="{{$slider->image}}"style="width:80px; height:60px">
+                                            <img src="{{$slider->image}}" alt="ảnh" width="80px" height="60px">
                                         </td>
                                         <td class="">{{$slider->status}}</td>
                                         <td class="">{{$slider->created_at}}</td>

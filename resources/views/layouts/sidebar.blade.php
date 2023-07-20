@@ -110,16 +110,16 @@
 {{--                    </a>--}}
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#user" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                    <a class="nav-link menu-link" href="{{route('show.user')}}" >
                         <i class="ri-apps-2-line"></i> <span>Quản lý user</span>
                     </a>
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-{{--                                <a href="{{route('users.create')}}" class="nav-link">Tạo mới</a>--}}
+{{--                                <a href="" class="nav-link">Tạo mới</a>--}}
                             </li>
                             <li class="nav-item">
-{{--                                <a href="{{route('users.list')}}" class="nav-link">Danh sách</a>--}}
+{{--                                <a href="" class="nav-link">Danh sách</a>--}}
                             </li>
                         </ul>
                     </div>
@@ -136,10 +136,10 @@
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('addUser')}}" class="nav-link">Tạo mới</a>
+                                <a href="{{route('slider.create')}}" class="nav-link">Tạo mới</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('show.user')}}" class="nav-link">Danh sách</a>
+                                <a href="{{route('slider.list')}}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-<div class="row">
+<div class="row" xmlns="">
     @if (Session::has('success'))
         <div class="alert alert-success">
             {{ Session::get('success') }}
@@ -10,7 +10,9 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title mb-0">Quản lý blog</h4>
+                <h1>
+                    <marquee class="text-danger">Quản lý blog</marquee>
+                </h1>
             </div><!-- end card header -->
             <div class="card-body">
                 <div class="listjs-table" id="customerList">
@@ -24,15 +26,14 @@
                         <div class="col-sm">
                             <div class="d-flex justify-content-sm-end">
                                 <div class="search-box ms-2">
-                                    <input type="text" class="form-control search" placeholder="Search...">
+                                        <input type="text"  class="form-control" placeholder="tìm kiếm" id="searchBlogInput">
                                     <i class="ri-search-line search-icon"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="table-responsive table-card mt-3 mb-1">
-                        <table class="table align-middle table-nowrap" id="customerTable">
+                        <table class="table align-middle table-nowrap" id="BlogTable">
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col" style="width: 50px;">
@@ -45,8 +46,6 @@
                                     <th class="" data-sort="course">Slug</th>
                                     <th class="" data-sort="status">Images</th>
                                     <th class="" data-sort="author">View</th>
-                                    <th class="" data-sort="date">Mô tả ngắn</th>
-                                    <th class="" data-sort="action">Content</th>
                                     <th class="" data-sort="action">Tác giả</th>
                                     <th class="" data-sort="action">Category_blog</th>
                                     <th class="" data-sort="action">Thao tác</th>
@@ -60,15 +59,13 @@
                                             <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                         </div>
                                     </th>
-                                    <td class="customer_name">{{$i +1}}</td>
-                                    <td class="customer_name">{{$blog->title}}</td>
-                                    <td class="course">{{$blog->slug}}</td>
+                                    <td class="">{{$i +1}}</td>
+                                    <td class="title">{{$blog->title}}</td>
+                                    <td class="slug">{{$blog->slug}}</td>
                                     <td class="customer_name">
                                         <img src="{{$blog->image}}" alt="ảnh" width="80px" height="60px">
                                     </td>
                                     <td class="course">{{$blog->view}}</td>
-                                    <td class="customer_name">{{$blog->description_short}}</td>
-                                    <td class="course">{{$blog->content}}</td>
                                     <td class="customer_name">{{$blog->user?->name}}</td>
                                     <td class="course">{{$blog->category?->name}}</td>
                                     <td>
@@ -99,4 +96,22 @@
     </div>
     <!-- end col -->
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+    <script>
+        //search
+        // Khởi tạo List.js và cấu hình tìm kiếm
+        const options = {
+            valueNames: ['title', 'content', 'description_short'], // Các trường dữ liệu để tìm kiếm
+        };
+        const customerList = new List('BlogTable', options);
+
+        // Lắng nghe sự kiện nhập liệu trong ô tìm kiếm
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchBlogInput');
+            searchInput.addEventListener('keyup', function () {
+                const searchString = searchInput.value;
+                customerList.search(searchString);
+            });
+        });
+    </script>
 @endsection

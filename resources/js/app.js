@@ -19,10 +19,12 @@ select2()
 import './tag';
 import './user';
 import './notifycation';
+
+addTag();
 selectpicker();
 //addTag();
 import Dropzone from "dropzone";
-
+import './thanhjs'
 import './categories';
 import './module';
 import './courses';
