@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrderRequest;
 use App\Models\Course;
 use App\Models\Order;
+use App\Models\Study;
 use App\Models\User;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
@@ -75,10 +76,18 @@ class OrderController extends Controller
         $order = Order::find($order_id);
         if($order){
             if($type == 1){
+                //payment complete
                 $order->update([
                     'status'=>1
                 ]);
+                $data = [
+                    'user_id'=>$order->user_id,
+                    'course_id'=>$order->course_id,
+                    'status'=>0
+                ];
+                Study::create($data);
             }else{
+                //cancel order
                 $order->update([
                     'status'=>2
                 ]);

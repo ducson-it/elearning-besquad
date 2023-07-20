@@ -36,6 +36,15 @@ class Course extends Model
         return $this->hasMany(Lesson::class);
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function studies()
+    {
+        return $this->hasMany(Study::class);
+    }
+
     public function scopeFreeCourse(Builder $query): void
     {
         $query->where('is_free', 0);
