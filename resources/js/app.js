@@ -14,7 +14,8 @@ Quill.register('modules/imageResize', ImageResize);
 Quill.register("modules/imageUploader", ImageUploader);
 import select2 from 'select2';
 select2()
-
+// import Dropzone from "dropzone";
+// import file js'
 import './tag';
 import './user';
 import './notifycation';

@@ -12,7 +12,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\History;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
