@@ -11,17 +11,7 @@ class SliderController extends Controller
     public function index(Request $request)
     {
             $search = $request->input('search');
-            $sliders = Slider::where('name', 'like', '%' . $search . '%')->paginate(10);
-        // Xử lý link ảnh
-        $sliders->getCollection()->transform(function ($item) {
-            if (isset($item->image['disk']) && isset($item->image['path'])) {
-                $item->image = Storage::disk($item->image['disk'])->url($item->image['path']);
-            } else {
-                $item->image = '/storage/anh.png';
-            }
-            return $item;
-        });
-
+            $sliders = Slider::where('name', 'like', '%' . $search . '%')->paginate(3);
         return view('slider.list', compact('sliders'));
     }
     public function create(){
@@ -30,28 +20,19 @@ class SliderController extends Controller
     public function store(SliderRequest $request)
     {
         $data = $request->all();
-        $media = session('sliders');
-        $data['image'] = $media;
+        $data['image']=$request->filepath;
         Slider::create($data);
         return redirect()->route('slider.list')->with('success', 'Thêm slider thành công');
     }
     public function edit($id){
         $sliders = Slider::findOrFail($id);
-        if (isset($sliders->image['disk']) && isset($sliders->image['path'])) {
-            $sliders->image = Storage::disk($sliders->image['disk'])->url($sliders->image['path']);
-        } else {
-            $sliders->image = '/storage/anh.png';
-        }
         return view('slider.edit',compact('sliders'));
     }
     public function update(SliderRequest $request, $id)
     {
         $slider = Slider::findOrFail($id);
         $data = $request->all();
-        $media = session('sliders');
-        if ($media) {
-            $data['image'] = $media;
-        }
+        $data['image']=$request->filepath;
         $slider->update($data);
         return redirect()->route('slider.list')->with('success', 'Cập nhật slider thành công');
     }

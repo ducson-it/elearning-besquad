@@ -71,7 +71,7 @@
                                         <td class="">{{$slider->url_btn}}</td>
                                         <td class="">{{$slider->content_btn}}</td>
                                         <td class="">
-                                            <img src="{{$slider->image}}"style="width:80px; height:60px">
+                                            <img src="{{$slider->image}}" alt="ảnh" width="80px" height="60px">
                                         </td>
                                         <td class="">{{$slider->status}}</td>
                                         <td class="">{{$slider->created_at}}</td>

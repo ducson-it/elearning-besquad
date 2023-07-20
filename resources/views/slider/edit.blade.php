@@ -42,9 +42,14 @@
                                     </div>
                                 </div>
                                 <div class="col-11">
-                                    <label for="basiInput" class="form-label" >Images</label>
-                                    <div id="sliders-image-upload" class="dropzone">
-                                        <img style="width: 80px; height: 50px" src="{{ $sliders->image }}" alt="Current Image">
+                                    <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="lfm btn btn-primary" data-input="thumbnail2"
+                                                data-preview="holder2" class="btn btn-primary text-white">
+                                            <i class="fa fa-picture-o"></i> Choose
+                                        </button>
+                                    </span>
+                                        <input id="thumbnail2" class="form-control" type="text" name="filepath" value="{{$sliders->image}}">
                                     </div>
                                 </div>
                                 <div class="col-11">

@@ -24,9 +24,15 @@
                             </div>
                         </div>
                         <div class="col-11">
-                            <div>
-                                <label for="basiInput" class="form-label">Image</label>
-                                <div id="blogs-image-upload" class="dropzone"></div>
+                            <label>Images</label>
+                            <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="lfm btn btn-primary" data-input="thumbnail2"
+                                                    data-preview="holder2" class="btn btn-primary text-white">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                            </button>
+                                        </span>
+                                <input id="thumbnail2" class="form-control" type="text" name="filepath">
                             </div>
                         </div>
                         <div class="col-11">

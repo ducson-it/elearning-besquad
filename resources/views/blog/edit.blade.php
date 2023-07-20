@@ -24,11 +24,14 @@
                                     </div>
                                 </div>
                                 <div class="col-11">
-                                    <div>
-                                        <label for="basiInput" class="form-label">Image</label>
-                                        <div id="blogs-image-upload" class="dropzone">
-                                            <img style="width: 80px; height: 50px" src="{{ $blog->image }}" alt="Current Image">
-                                        </div>
+                                    <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="lfm btn btn-primary" data-input="thumbnail2"
+                                                data-preview="holder2" class="btn btn-primary text-white">
+                                            <i class="fa fa-picture-o"></i> Choose
+                                        </button>
+                                    </span>
+                                        <input id="thumbnail2" class="form-control" type="text" name="filepath" value="{{$blog->image}}">
                                     </div>
                                 </div>
                                 <div class="col-11">
@@ -39,8 +42,10 @@
                                 </div>
                                 <div class="col-11">
                                     <label class="label-control mb-2">Nội dung</label>
-                                    <div id="quillEditor">{!! $blog->content !!}</div>
-                                    <textarea name="content" id="content" class="d-none">{!! $blog->content !!}</textarea>
+                                    <div id="quillEditor">{!!$blog->content!!}</div>
+                                    <textarea name="content" id="content" class="d-none">{!!$blog->content!!}
+                                    <img style="width: 80px; height: 50px" src="{{ $blog->image }}" alt="Current Image">
+                                    </textarea>
                                 </div>
                                 <div class="col-11" style="margin-top: 100px">
                                     <label for="basiInput" class="form-label">Chủ đề</label>

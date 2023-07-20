@@ -14,22 +14,19 @@ Quill.register('modules/imageResize', ImageResize);
 Quill.register("modules/imageUploader", ImageUploader);
 import select2 from 'select2';
 select2()
-// import Dropzone from "dropzone";
-// import file js'
+
 import './tag';
 import './user';
 import './notifycation';
-//thanành import js
-import './category_blogs'
-import './comment'
-import './slider'
-import './blog'
 
 addTag();
 selectpicker();
 //addTag();
 import Dropzone from "dropzone";
-
+import './slider'
+import './blog'
+import './category_blogs'
+import './comment'
 import './categories';
 import './module';
 import './courses';
