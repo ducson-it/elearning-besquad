@@ -1,6 +1,15 @@
 @extends('layouts.master')
 @section('content')
     <div class="row">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
@@ -15,12 +24,18 @@
                                     <div>
                                         <label for="basiInput" class="form-label">Tiêu đề</label>
                                         <input type="text" class="form-control" name="title" id="name" oninput="generateSlug()" value="{{ old('title', $blog->title) }}">
+                                        @if ($errors->has('title'))
+                                            <span class="text-danger">{{ $errors->first('title') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-11">
                                     <div>
                                         <label for="basiInput" class="form-label">Slug</label>
                                         <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug', $blog->slug) }}">
+                                        @if ($errors->has('slug'))
+                                            <span class="text-danger">{{ $errors->first('slug') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-11">
@@ -33,12 +48,18 @@
                                     </span>
                                         <input id="thumbnail2" class="form-control" type="text" name="filepath" value="{{$blog->image}}">
                                     </div>
+                                    @if ($errors->has('image'))
+                                        <span class="text-danger">{{ $errors->first('image') }}</span>
+                                    @endif
                                 </div>
                                 <div class="col-11">
                                     <div>
                                         <label for="exampleFormControlTextarea5" class="form-label">Mô tả ngắn</label>
                                         <textarea class="form-control" name="description_short" rows="3">{{ old('description_short', $blog->description_short) }}</textarea>
                                     </div>
+                                    @if ($errors->has('description_short'))
+                                        <span class="text-danger">{{ $errors->first('description_short') }}</span>
+                                    @endif
                                 </div>
                                 <div class="col-11">
                                     <label class="label-control mb-2">Nội dung</label>
@@ -46,6 +67,9 @@
                                     <textarea name="content" id="content" class="d-none">{!!$blog->content!!}
                                     <img style="width: 80px; height: 50px" src="{{ $blog->image }}" alt="Current Image">
                                     </textarea>
+                                    @if ($errors->has('content'))
+                                        <span class="text-danger">{{ $errors->first('content') }}</span>
+                                    @endif
                                 </div>
                                 <div class="col-11" style="margin-top: 100px">
                                     <label for="basiInput" class="form-label">Chủ đề</label>
@@ -56,6 +80,9 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    @error('category_blog_id')
+                                    <span class="text-danger">{{ $errors->first('category_blog_id') }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-11">
                                     <label class="label-control mb-2">View</label>
