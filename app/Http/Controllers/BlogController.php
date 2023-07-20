@@ -11,9 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::with('category')->paginate(5);
+        $search = $request->input('search');
+        $blogs = Blog::where('title', 'like', '%' . $search . '%')->paginate(10);
         return view('blog.list', compact('blogs'));
     }
 

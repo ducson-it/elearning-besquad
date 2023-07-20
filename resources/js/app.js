@@ -24,10 +24,7 @@ addTag();
 selectpicker();
 //addTag();
 import Dropzone from "dropzone";
-import './slider'
-import './blog'
-import './category_blogs'
-import './comment'
+import './thanhjs'
 import './categories';
 import './module';
 import './courses';
