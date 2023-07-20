@@ -20,7 +20,7 @@ class CourseController extends Controller
             $keyword = $request->get('keyword');
             $courses = $courses->where('name','like',"%{$keyword}%");
         }
-        $courses = $courses->paginate(5);
+        $courses = $courses->latest()->paginate(5);
         $categories = Category::all();
         return view('courses.list',compact('courses','categories','keyword'));
     }

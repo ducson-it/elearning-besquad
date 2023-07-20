@@ -11,11 +11,17 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     //
-    public function showListUser()
+    public function showListUser(Request $request)
     {
         $list_users = User::with('role')->Where('role_id', '<>', 1)->paginate(10);
+        if($request->input('search_user')){
+            $search = $request->input('search_user');
+            $list_users  = User::where('name', 'LIKE', '%'.$search.'%')->Where('role_id', '<>', 1)->paginate(10);
+        }else{
+            $search = "";
+        }
        // var_dump($list_users);
-        return view('users.list', compact('list_users'));
+        return view('users.list', compact('list_users','search'));
     }
     public function deleteUser($id)
     {
@@ -49,20 +55,20 @@ class UserController extends Controller
     public function UserUpload(Request $request)
     {
 
-        $file = $request->file('file');
-        $file_type = $file->getClientOriginalExtension();
-        $file_name = time() . '.' . $file->getClientOriginalExtension();
-        $path = $file->storeAs('public/user_img', $file_name);
-        $image = [
-            'disk' => 'public',
-            'path' => $path,
-            'file_name' => $file_name,
-            'file_type' => $file_type
-        ];
-        // Set the value of the "image" field in the request
-        $request->merge(['image' => $path]);
-        session()->put('media_user', $image);
-        return response()->json($image, 200);
+//        $file = $request->file('file');
+//        $file_type = $file->getClientOriginalExtension();
+//        $file_name = time() . '.' . $file->getClientOriginalExtension();
+//        $path = $file->storeAs('public/user_img', $file_name);
+//        $image = [
+//            'disk' => 'public',
+//            'path' => $path,
+//            'file_name' => $file_name,
+//            'file_type' => $file_type
+//        ];
+//        // Set the value of the "image" field in the request
+//        $request->merge(['image' => $path]);
+//        session()->put('media_user', $image);
+//        return response()->json($image, 200);
     }
 
     public function addUser()
@@ -75,7 +81,7 @@ class UserController extends Controller
     public function storeUser(UserRequest  $request)
     {
 
-        $media = session('media_user');
+        //$media = session('media_user');
         $data = [
             'name' => $request->name,
             'email' => $request->email,
@@ -84,7 +90,7 @@ class UserController extends Controller
             'point'=>0,
             'role_id' => intval($request->role_id),
             'active' => $request->active,
-            'avatar' => json_encode($media['path']),
+            'avatar' =>$request->filepath,
             'address' => $request->address,
         ];
 
@@ -112,7 +118,6 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Cập nhật active thất bại');
         }
 
-
     }
     public function editUser($id){
         $user = User::find($id);
@@ -137,5 +142,4 @@ class UserController extends Controller
         return redirect()->route('show.user')->with('message', 'sửa user thành công');
 
     }
-
 }
