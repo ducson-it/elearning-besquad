@@ -50,11 +50,12 @@ class DatabaseSeeder extends Seeder
         Tag::factory()->count(10)->create();
         Post::factory()->count(10)->create();
         Taggable::factory()->count(10)->create();
-        Order::factory()->count(10)->create();
+        // Order::factory()->count(10)->create();
         Status::factory()->count(10)->create();
         // Notification::factory()->count(10)->create();
         $this->call([
-            UsersSeeder::class
+            UsersSeeder::class,
+            RolesSeeder::class
         ]);
     }
 }

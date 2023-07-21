@@ -40,9 +40,7 @@
                                 <div class="alert alert-success">{{ session('message') }}</div>
                             @endif
                         </div>
-                        @if($search && $search != "")
-                            <p style="padding-left: 40px;" class="fs-5">Kết quả tìm kiếm từ khóa"<strong class="text-danger">  {{$search}}  </strong>"</p>
-                        @endif
+
                         <div class="table-responsive table-card mt-3 mb-1">
                             <table class="table align-middle table-nowrap" id="userTable">
                                 <thead class="table-light">
