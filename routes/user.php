@@ -13,5 +13,6 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/upload',[UserController::class,'UserUpload'])->name('uploadFileUser');
     Route::post('/user-active/{id}',[UserController::class,'activeUser'])->name('activeUser');
     Route::post('/user-search', [UserController::class, 'searchUser'])->name('search.user');
-
+ ///
+    ///
 });

@@ -8,7 +8,7 @@
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
-                        <form action="{{route('updateUser',$user->id)}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('update.teacher',$user->id)}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4 d-flex justify-content-center">
                                 <div class="col">
@@ -91,7 +91,7 @@
                             <div class="mx-6">
                                 <div class="hstack gap-2 justify-content-end">
                                     <button type="submit" class="btn btn-success" id="add-btn">Cập nhật</button>
-                                    <button type="button" class="btn btn-light"><a href="{{route('show.user')}}">Trở
+                                    <button type="button" class="btn btn-light"><a href="{{route('show.teacher')}}">Trở
                                             lại</a></button>
                                 </div>
                             </div>

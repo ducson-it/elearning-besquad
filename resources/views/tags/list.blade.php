@@ -74,7 +74,6 @@
                         <table class="table align-middle table-nowrap " id="customerTable">
                             <thead class="table-light">
                                 <tr>
-                                    <th scope="col" style="width: 50px;" class="checkbox-column"></th>
                                     <th class="sort" data-sort="">
                                         STT
                                     </th>
@@ -87,11 +86,7 @@
                             <tbody class="list form-check-all customerList">
                             @foreach($tags as $key => $tag)
                                 <tr>
-                                    <th scope="row">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                        </div>
-                                    </th>
+
                                     <td>{{$key}}</td>
                                     <td class="customer_name">{{$tag->name}}</td>
                                     <td class="course">{{$tag->description}} </td>
