@@ -16,4 +16,5 @@ class Beesquad extends Model
         'STUDENT' => 2,
         'TEACHER' => 3,
     ];
+    const PAGINATE =10;
 }
