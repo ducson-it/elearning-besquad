@@ -52,8 +52,7 @@
                         </div>
                         <div class="col-11">
                             <label class="label-control mb-2">Nội dung</label>
-                            <div id="quillEditor"></div>
-                            <textarea name="content" id="content" class="d-none"></textarea>
+                            <textarea name="content" id="content" class="d-none my-editor"></textarea>
                         </div>
                         <div class="col-11" style="margin-top: 100px">
                                 <label for="basiInput" class="form-label">Chủ đề</label>
