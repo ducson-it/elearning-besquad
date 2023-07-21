@@ -12,7 +12,6 @@
                         <div class="col-sm-auto">
                             <div>
                                 <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><i class="ri-add-line align-bottom me-1"></i> Add</button>
-                                <button class="btn btn-soft-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                             </div>
                         </div>
                         <div class="col-sm">
@@ -38,8 +37,6 @@
                         <table class="table align-middle table-nowrap" id="customerTaggable">
                             <thead class="table-light">
                                 <tr>
-                                    <th scope="col" style="width: 50px;" class="checkbox-column">
-                                    </th>
                                     <th class="sort" >STT</th>
                                     <th class="sort" data-sort="customer_name">Tên thẻ</th>
                                     <th class="sort" data-sort="">Bài post/blog</th>
@@ -52,11 +49,6 @@
                             @if (isset($taggables) && !empty($taggables))
                             @foreach($taggables as $key => $taggable)
                                 <tr data-taggable-id="{{$taggable->id}}">
-                                    <th scope="row">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                        </div>
-                                    </th>
                                     <td >{{$key}}</td>
                                     <td  class="customer_name">{{$taggable->tag->name}}</td>
                                     <td class="course">Học lập trình website cần chuẩn bị gì?</td>
