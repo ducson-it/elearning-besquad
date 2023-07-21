@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CourseRequest extends FormRequest
+class LessonRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +25,9 @@ class CourseRequest extends FormRequest
     {
         return [
             'name'=>'required',
+            'file'=>'required|file|size:2048',
+            'course_id'=>'required',
+            'module_id'=>'required'
             //
         ];
     }
@@ -32,7 +35,9 @@ class CourseRequest extends FormRequest
     {
         return [
             'name.required'=>"Tên không được để trống",
-            //
+            'file.size'=>"Kích thước file quá lớn",
+            'course_id.required'=>"Bạn chưa chọn khoá học",
+            'module_id.required'=>"Bạn chưa chọn chủ đề"
         ];
     }
 }
