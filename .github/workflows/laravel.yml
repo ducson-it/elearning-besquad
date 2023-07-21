@@ -15,14 +15,10 @@ jobs:
 
       - name: SSH into VPS and run commands
         uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.KEYPAIR }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd /var/www/beesquad && sh deploy.sh
-            php artisan migrate --force
-            php artisan cache:clear
-            php artisan config:cache
-            php artisan route:cache
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.KEYPAIR }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H -v 178.128.119.123 >> ~/.ssh/known_hosts
+
