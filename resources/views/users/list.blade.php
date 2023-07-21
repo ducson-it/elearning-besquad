@@ -17,8 +17,6 @@
                                                 class="ri-add-line align-bottom me-1"></i> Add
                                         </button>
                                     </a>
-                                    <button class="btn btn-soft-danger" onclick="deleteMultipleUser()"><i
-                                            class="ri-delete-bin-2-line"></i></button>
                                 </div>
                             </div>
                             <div class="col-sm">
