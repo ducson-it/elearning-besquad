@@ -20,6 +20,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.KEYPAIR }}
           port: ${{ secrets.PORT }}
+          password: ${{ secrets.PASSWORD }}
           script: |
             cd /var/www/beesquad && sh deploy.sh
             php artisan migrate --force
