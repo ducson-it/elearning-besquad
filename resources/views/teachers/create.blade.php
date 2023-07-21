@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">Tạo tài khoản học sinh</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">Tạo tài khoản Giảng viên</h4>
                 </div><!-- end card header -->
                 <div id="message-container">
                     @if(session('message'))
@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     <div class="live-preview">
-                        <form action="{{route('store.user')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('store.teacher')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4 d-flex justify-content-center row">
                                 <div class="col">
@@ -99,7 +99,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <input  type="hidden" name="role_id" value="3">
+                                    <input  type="hidden" name="role_id" value="2">
                                     <div class="col-11 mt-3">
                                         <div>
                                             <label class="form-label">Trạng thái</label>

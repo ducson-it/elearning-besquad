@@ -7,7 +7,7 @@ import Swal from "sweetalert2"
 
 window.showDeleteTaggable = (id) => {
     Swal.fire({
-        title: 'Are you sure?',
+        title: 'Bạn chắc chắn muốn xóa?',
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -26,7 +26,7 @@ window.showDeleteTaggable = (id) => {
                 success: function (response) {
                     Swal.fire(
                         'Deleted!',
-                        'Your record has been deleted.',
+                        'Đã xóa thành công.',
                         'success'
                     ).then(() => {
                         // Chuyển hướng sau khi xóa thành công
@@ -36,7 +36,7 @@ window.showDeleteTaggable = (id) => {
                 error: function (xhr) {
                     Swal.fire(
                         'Error!',
-                        'An error occurred while deleting the record.',
+                        'Xóa thất bại.',
                         'error'
                     );
                 }
@@ -46,39 +46,6 @@ window.showDeleteTaggable = (id) => {
 }
 
 //
-window.deleteTaggables = (selectedIds) => {
-    // Gửi yêu cầu xóa bằng Ajax
-    $.ajax({
-        url: '/tag/delete-taggable-checkbox',
-        type: 'POST',
-        data: {
-            _token: $('meta[name="csrf-token"]').attr('content'),
-            selectedIds: selectedIds
-        },
-        success: function (response) {
-            // Xóa các hàng đã chọn từ giao diện
-            selectedIds.forEach(function (taggableId) {
-                const row = document.querySelector(`tr[data-taggable-id="${taggableId}"]`);
-                if (row) {
-                    row.remove();
-                }
-            });
-
-            Swal.fire(
-                'Deleted!',
-                'Your records have been deleted.',
-                'success'
-            );
-        },
-        error: function (xhr) {
-            Swal.fire(
-                'Error!',
-                'An error occurred while deleting the records.',
-                'error'
-            );
-        }
-    });
-}
 
 window.deleteMultiple = () => {
     // Lấy danh sách tất cả các checkbox đã được tích

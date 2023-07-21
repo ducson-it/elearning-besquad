@@ -7,34 +7,30 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class TeacherController extends Controller
 {
     //
-    public function showListUser(Request $request)
+    public function showListTeacher(Request $request)
     {
-        $list_users = User::with('role')
-            ->where('role_id', 3)
-            ->orderByDesc('created_at') // Sắp xếp theo thứ tự giảm dần của trường created_at (hoặc bạn có thể sử dụng một trường khác nếu muốn)
-            ->paginate(10);
-        if($request->input('search_user')){
-            $search = $request->input('search_user');
-            $list_users  = User::where('name', 'LIKE', '%'.$search.'%')->Where('role_id', 3)->paginate(10);
+        $list_teachers = User::with('role')->Where('role_id',2 )->paginate(10);
+        if($request->input('search_teacher')){
+            $search = $request->input('search_teacher');
+            $list_teachers  = User::where('name', 'LIKE', '%'.$search.'%')->Where('role_id',2)->paginate(10);
         }else{
             $search = "";
         }
-       // var_dump($list_users);
-        return view('users.list', compact('list_users','search'));
+        // var_dump($list_users);
+        return view('teachers.list', compact('list_teachers','search'));
     }
     public function deleteUser($id)
     {
         $user = User::find($id)->delete();
 
         if ($user) {
-            return redirect('/user/list')->with('message', 'Xóa thành công');
+            return redirect('/teacher/list')->with('message', 'Xóa thành công');
         } else {
-            return redirect('/user/list')->with('message', 'Xóa thất bại');
+            return redirect('/teacher/list')->with('message', 'Xóa thất bại');
         }
 
     }
@@ -57,13 +53,13 @@ class UserController extends Controller
     }
 
 
-    public function addUser()
+    public function addTeacher()
     {
         $roles = Role::all();
-        return view('users.create',compact('roles'));
+        return view('teachers.create',compact('roles'));
 
     }
-    public function storeUser(UserRequest $request)
+    public function storeTeacher(UserRequest $request)
     {
         try {
             $data = [
@@ -80,19 +76,19 @@ class UserController extends Controller
 
             $user = new User($data);
             if ($user->save()) {
-                return redirect()->route('show.user')->with('message', 'Thêm thành công');
+                return redirect()->route('show.teacher')->with('message', 'Thêm thành công');
             } else {
-                return redirect()->route('addUser')->with('message', 'Thêm thất bại');
+                return redirect()->route('add.teacher')->with('message', 'Thêm thất bại');
             }
         } catch (QueryException $e) {
             // Xử lý lỗi cụ thể cho các ngoại lệ của truy vấn cơ sở dữ liệu
-            return redirect()->route('addUser')->with('message', 'Lỗi khi thêm người dùng vào cơ sở dữ liệu: ' . $e->getMessage());
+            return redirect()->route('add.teacher')->with('message', 'Lỗi khi thêm người dùng vào cơ sở dữ liệu: ' . $e->getMessage());
         } catch (\Exception $e) {
             // Xử lý lỗi chung cho các ngoại lệ khác
-            return redirect()->route('addUser')->with('message', 'Có lỗi xảy ra: ' . $e->getMessage());
+            return redirect()->route('add.teacher')->with('message', 'Có lỗi xảy ra: ' . $e->getMessage());
         }
     }
-    public function activeUser($id){
+    public function activeTeacher($id){
         $user  = User::find($id);
         try{
             if($user->active == 1){
@@ -104,18 +100,18 @@ class UserController extends Controller
                     'active' => 1
                 ]);
             }
-            return redirect()->route('show.user')->with('success', 'Đã cập nhật active thành công');
+            return redirect()->route('show.teacher')->with('success', 'Đã cập nhật active thành công');
         }catch (\Exception $e){
             return redirect()->back()->with('error', 'Cập nhật active thất bại');
         }
 
     }
-    public function editUser($id){
+    public function editTeacher($id){
         $user = User::find($id);
         $roles = Role::all();
-        return view('users.edit',compact('user','roles'));
+        return view('teachers.edit',compact('user','roles'));
     }
-    public function updateUser(UserRequest  $request,$id){
+    public function updateTeacher(UserRequest  $request,$id){
         $user = User::find($id);
         $data = [
             'name' => $request->name,
@@ -129,7 +125,7 @@ class UserController extends Controller
         $user->update($data);
 
         // Lưu category vào cơ sở dữ liệu
-        return redirect()->route('show.user')->with('message', 'sửa user thành công');
+        return redirect()->route('show.teacher')->with('message', 'sửa user thành công');
 
     }
 }

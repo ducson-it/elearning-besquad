@@ -28,10 +28,10 @@ class NotifyControler extends Controller
    }
     public function storeNotify(NotifycationRequest $request)
     {
-        if ($request->option === 'option2' && $request->has('group_user')) {
-            $send_to = 'group_users';
-            $userIds = $request->group_user;
-        }
+//        if ($request->option === 'option2' && $request->has('group_user')) {
+//            $send_to = 'group_users';
+//            $userIds = $request->group_user;
+//        }
 
         if ($request->option === 'system') {
             $send_to = 'system';
@@ -50,18 +50,16 @@ class NotifyControler extends Controller
             $notify = Notification::create($data);
          //  dd($userIds);
             // Kiểm tra giá trị của option
-            if($send_to == 'system'){
-                return redirect()->route('show.notify')->with('success', 'Đã tạo thông báo thành công');
-            }
-            if ($userIds &&  $send_to == 'group_users' ) {
-                foreach ($userIds as $key => $userId) {
-                    Notifycation_user::create([
-                        'notifycation_id' => $notify->id,
-                        'user_id' => $userId,
-                    ]);
-                }
-                return redirect()->route('show.notify')->with('success', 'Đã tạo thông báo thành công');
-            }
+                return redirect()->route('show.notify')->with('message', 'Đã tạo thông báo thành công');
+//            if ($userIds &&  $send_to == 'group_users' ) {
+//                foreach ($userIds as $key => $userId) {
+//                    Notifycation_user::create([
+//                        'notifycation_id' => $notify->id,
+//                        'user_id' => $userId,
+//                    ]);
+//                }
+//                return redirect()->route('show.notify')->with('success', 'Đã tạo thông báo thành công');
+//            }
 
 
         } catch (\Exception $e) {
