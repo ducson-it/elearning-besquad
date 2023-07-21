@@ -18,7 +18,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          key: ${{ secrets.KEYPAIR }}
+          ssh-private-key: ${{ secrets.KEYPAIR }}
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/beesquad && sh deploy.sh
