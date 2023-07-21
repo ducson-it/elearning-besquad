@@ -1,3 +1,4 @@
+import Swal from "sweetalert2"
 //add categories
 window.addCate = ()=>{
     $.ajax({
