@@ -78,8 +78,8 @@
                             </div>
                             <div class="col-12 mb-5">
                                 <label class="label-control mb-2">Mô tả</label>
-                                <div id="quillEditor">{!!$course->description!!}</div>
-                                <textarea name="content" id="content" class="d-none">{!!$course->description!!}</textarea>
+                                {{-- <div id="quillEditor">{!!$course->description!!}</div> --}}
+                                <textarea name="content" id="content" class="my-editor">{!!$course->description!!}</textarea>
                             </div>
                         
                         </div>

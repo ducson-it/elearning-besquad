@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
 use App\Models\Post;
@@ -10,9 +11,11 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function index(){
-        $comments = Comment::paginate(5);
-        return view('comments.list',compact('comments'));
+    public function index(Request $request)
+    {
+            $search = $request->input('search');
+            $comments = Comment::where('content', 'like', '%' . $search . '%')->paginate(10);
+        return view('comments.list', compact('comments'));
     }
     public function create(){
         $posts = Post::all();
@@ -21,7 +24,7 @@ class CommentController extends Controller
         // Truyền dữ liệu sang view
         return view('comments.create',compact('posts', 'lessons', 'courses'));
     }
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
         // Lấy nội dung comment từ trường "content" trong request
         $commentContent = $request->input('content');

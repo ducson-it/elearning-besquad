@@ -67,7 +67,7 @@
                             <div class="row col-6 mt-5">
                                 <div class="col-12 price-sale mt-2">
                                     <div>
-                                        <label for="iconrightInput" class="form-label">Discount</label>
+                                        <label for="iconrightInput" class="form-label">Giảm giá</label>
                                         <div class="form-icon">
                                             <input type="number" class="form-control" id=""
                                                  name="discount" value="{{old('discount')}}">
@@ -83,8 +83,8 @@
                                 </div>
                                 <div class="col-12 mt-4 mb-5">
                                     <label class="label-control mb-2">Mô tả</label>
-                                    <div id="quillEditor">{!!old('content')!!}</div>
-                                    <textarea name="content" id="content" class="d-none">{!!old('content')!!}</textarea>
+                                    {{-- <div >{!!old('content')!!}</div> --}}
+                                    <textarea name="content" id="content" class="my-editor">{!!old('content')!!}</textarea>
                                 </div>
                             </div>
                             <!--end col-->
