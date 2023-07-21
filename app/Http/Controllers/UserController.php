@@ -14,7 +14,10 @@ class UserController extends Controller
     //
     public function showListUser(Request $request)
     {
-        $list_users = User::with('role')->Where('role_id', 3)->paginate(10);
+        $list_users = User::with('role')
+            ->where('role_id', 3)
+            ->orderByDesc('created_at') // Sắp xếp theo thứ tự giảm dần của trường created_at (hoặc bạn có thể sử dụng một trường khác nếu muốn)
+            ->paginate(10);
         if($request->input('search_user')){
             $search = $request->input('search_user');
             $list_users  = User::where('name', 'LIKE', '%'.$search.'%')->Where('role_id', 3)->paginate(10);

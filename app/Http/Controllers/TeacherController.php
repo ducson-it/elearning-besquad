@@ -56,7 +56,7 @@ class TeacherController extends Controller
     public function addTeacher()
     {
         $roles = Role::all();
-        return view('teacher.create',compact('roles'));
+        return view('teachers.create',compact('roles'));
 
     }
     public function storeTeacher(UserRequest $request)
