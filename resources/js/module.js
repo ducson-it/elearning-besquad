@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 cache: true
             },
-            minimumInputLength: 1
         });
     });
 });

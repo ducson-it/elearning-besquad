@@ -23,17 +23,25 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div class="mb-3 col-10">
+                                    <label for="phone-field" class="form-label">Slug</label>
+                                    <input type="text" class="form-control bg-light" readonly
+                                         name="slug" id="slug">
+                                </div>
                                 <div class="col-10 mt-2">
                                     <div>
                                         <label for="basiInput" class="form-label">Khoá học</label>
-                                        {!! Form::select('course_id',$courses,null,['id'=>'course_id','class'=>'form-control']) !!}
+                                        <select name="course_id" id="course_id" class="form-select">
+                                            <option value="1">fsf</option>
+                                            <option value="2">fsfgdfsfsdf</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <!--end col-->
                                 <div class="col-10 mt-4 mb-5">
                                     <label class="label-control mb-2">Mô tả</label>
-                                    <div id="quillEditor">{!! old('content') !!}</div>
-                                    <textarea name="content" id="content" class="d-none">{!! old('content') !!}</textarea>
+                                    {{-- <div >{!!old('content')!!}</div> --}}
+                                    <textarea name="content" id="content" class="my-editor">{!!old('content')!!}</textarea>
                                 </div>
                             <!--end col-->
 

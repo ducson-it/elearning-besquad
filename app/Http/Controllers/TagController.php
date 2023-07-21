@@ -5,13 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TagRequest;
 use App\Models\Tag;
 use App\Models\Taggable;
+use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
     //
-    public function show(){
+    public function show(Request $request){
         $tags = Tag::paginate(10);
-        return view('tags.list',compact('tags'));
+        if($request->input('search_tag')){
+            $search = $request->input('search_tag');
+            $tags  = Tag::where('name', 'LIKE', '%'.$search.'%')->paginate(10);
+        }else{
+            $search = "";
+        }
+
+        return view('tags.list',compact('tags','search'));
     }
    public function storetag(TagRequest $request){
        $data = [
@@ -48,6 +56,5 @@ class TagController extends Controller
        ]);
        return redirect()->route('show.tag')->with('message', 'Chỉnh sửa thành công');
    }
-
 
 }

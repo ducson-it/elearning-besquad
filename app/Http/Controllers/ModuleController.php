@@ -27,7 +27,7 @@ class ModuleController extends Controller
     {
         $data=[
             'name'=>$request->name,
-            'slug'=>Str::slug($request->name),
+            'slug'=>$request->slug,
             'course_id'=>$request->course_id,
             'description'=>$request->content
         ];
@@ -42,7 +42,7 @@ class ModuleController extends Controller
     {
         $data=[
             'name'=>$request->name,
-            'slug'=>Str::slug($request->name),
+            'slug'=>$request->slug,
             'course_id'=>$request->course_id,
             'description'=>$request->content
         ];

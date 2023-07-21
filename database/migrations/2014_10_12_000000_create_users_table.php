@@ -5,6 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
+
 class CreateUsersTable extends Migration
 {
     /**
@@ -98,7 +99,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('user_id')->nullable();
             $table->integer('discount');
             $table->integer('status');
-            $table->integer('featured');
+            $table->text('featured');
             $table->unsignedInteger('category_id');
             $table->string('image');
             $table->text('description');
@@ -133,6 +134,7 @@ class CreateUsersTable extends Migration
             $table->integer('status');
             $table->text('description');
             $table->integer('is_trial_lesson');
+            $table->integer('view');
             $table->timestamps();
             $table->softDeletes();
             // $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
@@ -250,12 +252,24 @@ class CreateUsersTable extends Migration
             $table->date('order_date');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('course_id');
+            $table->integer('status')->default(0);
+            $table->double('amount')->default(0);
             $table->timestamps();
             $table->softDeletes();
             // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             // $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
-
+        // Table: studies
+        Schema::create('studies', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('course_id');
+            $table->integer('status')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+        });
         // Table: statues
         Schema::create('statuses', function (Blueprint $table) {
             $table->increments('id');
@@ -297,4 +311,3 @@ class CreateUsersTable extends Migration
         Schema::dropIfExists('users');
     }
 }
-
