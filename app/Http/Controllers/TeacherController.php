@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Beesquad;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\QueryException;
@@ -13,15 +14,8 @@ class TeacherController extends Controller
     //
     public function showListTeacher(Request $request)
     {
-        $list_teachers = User::with('role')->Where('role_id',2 )->paginate(10);
-        if($request->input('search_teacher')){
-            $search = $request->input('search_teacher');
-            $list_teachers  = User::where('name', 'LIKE', '%'.$search.'%')->Where('role_id',2)->paginate(10);
-        }else{
-            $search = "";
-        }
-        // var_dump($list_users);
-        return view('teachers.list', compact('list_teachers','search'));
+        $list_teachers  = User::where([['name', 'LIKE', '%'.$request->search_teacher.'%'],[ 'role_id', '=',3 ]])->paginate(Beesquad::PAGINATE);
+        return view('teachers.list', compact('list_teachers'));
     }
     public function deleteUser($id)
     {
