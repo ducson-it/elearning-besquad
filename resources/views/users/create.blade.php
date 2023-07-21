@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">Tạo tài khoản user</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">Tạo tài khoản học sinh</h4>
                 </div><!-- end card header -->
                 <div id="message-container">
                     @if(session('message'))
@@ -52,6 +52,7 @@
                                     </div>
 
                                     <div class="col-11 mt-3">
+                                        <label for="basiInput" class="form-label">Avatar</label>
                                         <div class="input-group">
                                         <span class="input-group-btn">
                                             <button class="lfm btn btn-primary" data-input="thumbnail2"
@@ -98,25 +99,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-11 mt-3">
-                                        <div>
-                                            <label class="form-label">Loại tài khoản</label>
-                                            <select class="form-select mb-3 @error('role_id') is-invalid @enderror"
-                                                    name="role_id">
-                                                <option value=""> Chon</option>
-                                                @foreach($roles as $role)
-                                                    @if($role->id != 1)
-                                                    <option value="{{$role->id}}">{{$role->name}}</option>
-                                                    @endif
-                                                @endforeach
-
-                                            </select>
-                                            @error('role_id')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
-                                    </div>
+                                    <input  type="hidden" name="role_id" value="3">
                                     <div class="col-11 mt-3">
                                         <div>
                                             <label class="form-label">Trạng thái</label>
