@@ -20,7 +20,7 @@ import './tag';
 import './user';
 import './notifycation';
 
-addTag();
+// addTag();
 selectpicker();
 //addTag();
 import Dropzone from "dropzone";

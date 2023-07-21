@@ -10,7 +10,7 @@ window.selectpicker = () => {
 };
 window.DeleteNotify = (id) => {
     Swal.fire({
-        title: 'Are you sure?',
+        title: 'Bạn chắc chắn muốn xóa?',
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -29,7 +29,7 @@ window.DeleteNotify = (id) => {
                 success: function (response) {
                     Swal.fire(
                         'Deleted!',
-                        'Your record has been deleted.',
+                        'Đã xóa thành công.',
                         'success'
                     ).then(() => {
                         // Chuyển hướng sau khi xóa thành công
@@ -39,7 +39,7 @@ window.DeleteNotify = (id) => {
                 error: function (xhr) {
                     Swal.fire(
                         'Error!',
-                        'An error occurred while deleting the record.',
+                        'Đã gặp lỗi khi xóa.',
                         'error'
                     );
                 }
@@ -69,14 +69,14 @@ window.deleteNotifyCheckbox = (selectedIds) => {
 
             Swal.fire(
                 'Deleted!',
-                'Your records have been deleted.',
+                'Đã xóa thành công.',
                 'success'
             );
         },
         error: function (xhr) {
             Swal.fire(
                 'Error!',
-                'An error occurred while deleting the records.',
+                'Đã gặp lỗi khi thực hiện xóa.',
                 'error'
             );
         }

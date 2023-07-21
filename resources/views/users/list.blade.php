@@ -87,7 +87,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <button onclick="activeUser({{$user->id}})"
-                                                            class="btn btn-sm btn-success edit-item-btn">
+                                                            class="btn btn-sm  edit-item-btn <?= $user->active == 0 ? 'btn-success' : 'btn-primary'?>">
                                                             <?= $user->active == 0 ? 'Active' : 'Inactive' ?>
                                                     </button>
                                                 </div>
