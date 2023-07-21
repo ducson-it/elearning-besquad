@@ -26,13 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 cache: true
             },
-            minimumInputLength: 1
         });
     });
     //show price_course after choose course
     $('select#course_id').on('change',function(){
         var course_id = $(this).val()
         var msg = ''
+        var total_amount = ''
         $.ajax({
             type:"GET",
             url:'/orders/select/course/'+course_id,
@@ -43,7 +43,9 @@ document.addEventListener('DOMContentLoaded', function () {
             success:function(data){
                 console.log(data);
                     msg = `<input type="number" name="price" id="price" class="form-control" value = "${data.price}">`;
+                    total_amount = `<input type="number" name="amount" id="total_amount" class="form-control" value = "${data.price}">`;
                     $('#price').replaceWith(msg);
+                    $(('#total_amount')).replaceWith(total_amount);
             }
         })
     })

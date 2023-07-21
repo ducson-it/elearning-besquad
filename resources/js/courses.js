@@ -2,6 +2,7 @@ import Swal from "sweetalert2"
 $(document).ready(function () {
     function showPrice(){
         var type = $('#courseType').val()
+        console.log(type);
         if (type == 0) {
             $('.price').hide()
             $('.price-sale').hide()

@@ -24,6 +24,11 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div class="mb-3 col-10">
+                                    <label for="phone-field" class="form-label">Slug</label>
+                                    <input type="text" class="form-control bg-light" readonly
+                                         name="slug" id="slug">
+                                </div>
                                 <div class="col-10 mt-2">
                                     <div>
                                         <label for="basiInput" class="form-label">Khoá học</label>
@@ -65,7 +70,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12 mt-4 mb-5">
+                                <div class="col-10 mt-4 mb-5">
                                     <label class="label-control mb-2">Cho phép học thử?</label>
                                     <select name="is_trial_lesson" id="" class="form-control">
                                         <option value="0">Không học thử</option>
@@ -75,8 +80,9 @@
                                 <!--end col-->
                                 <div class="col-12 mt-4 mb-5">
                                     <label class="label-control mb-2">Mô tả</label>
-                                    <div id="quillEditor">{!! old('content') !!}</div>
-                                    <textarea name="content" id="content" class="d-none">{!! old('content') !!}</textarea>
+                                        <label class="label-control mb-2">Mô tả</label>
+                                        {{-- <div >{!!old('content')!!}</div> --}}
+                                        <textarea name="content" id="content" class="my-editor">{!!old('content')!!}</textarea>
                                 </div>
                                 
 

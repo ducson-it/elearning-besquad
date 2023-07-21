@@ -58,11 +58,6 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('blog-categories')}}">
-                        <i class="ri-apps-2-line"></i> <span>Quản lý chủ đề blog</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link menu-link" href="#blog" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span>Quản lý blog</span>
                     </a>
@@ -79,7 +74,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#blog" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-apps-2-line"></i> <span>Quản lý Category_blogs</span>
+                        <i class="ri-apps-2-line"></i> <span>Quản lý chủ đề blog</span>
                     </a>
                     <div class="collapse menu-dropdown" id="blog">
                         <ul class="nav nav-sm flex-column">
@@ -111,7 +106,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('show.user')}}" >
-                        <i class="ri-apps-2-line"></i> <span>Quản lý user</span>
+                        <i class="ri-apps-2-line"></i> <span>Quản lý học sinh</span>
                     </a>
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
@@ -123,6 +118,11 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('show.teacher')}}" >
+                        <i class="ri-apps-2-line"></i> <span>Quản lý giảng viên</span>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('show.tag')}}">

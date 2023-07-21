@@ -12,8 +12,6 @@
                             <div class="col-sm-auto">
                                 <div>
                                     <button type="button" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i> <a href="{{route('add.notify')}}"> Tạo thông báo</a></button>
-                                    <button class="btn btn-soft-danger" onclick="deleteMultipleNotify()"><i class="ri-delete-bin-2-line"></i></button>
-
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -32,6 +30,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="message-container">
+                            @if(session('message'))
+                                <div class="alert alert-success">{{ session('message') }}</div>
+                            @endif
+                        </div>
                         @if($search && $search != "")
                             <p style="padding-left: 40px;" class="fs-5">Kết quả tìm kiếm từ khóa"<strong class="text-danger">  {{$search}}  </strong>"</p>
                         @endif
@@ -39,11 +42,6 @@
                             <table class="table align-middle table-nowrap" id="notifyTable">
                                 <thead class="table-light">
                                 <tr>
-                                    <th scope="col" style="width: 50px;" class="checkbox-column">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                        </div>
-                                    </th>
                                     <th class="sort" >STT</th>
                                     <th class="sort" data-sort="title">Title</th>
                                     <th class="sort" data-sort="content">Content</th>
@@ -56,12 +54,6 @@
                                 <tbody class="list form-check-all">
                                 @foreach($notifycations as $key => $notifycation)
                                     <tr data-notify-id="{{$notifycation->id}}">
-                                        <th scope="row">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="chk_child"
-                                                       value="option1">
-                                            </div>
-                                        </th>
                                         <td >{{$key + 1}}</td>
                                         <td class="title">{{$notifycation->title}}</td>
                                         <td class="content">{{ Str::limit($notifycation->content, 50) }}</td>
