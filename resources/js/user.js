@@ -25,7 +25,7 @@ if (UserUpload) {
 
 window.DeleteUser = (id) => {
     Swal.fire({
-        title: 'Are you sure?',
+        title: 'Bạn có chắc chắn muốn xóa?',
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -44,7 +44,7 @@ window.DeleteUser = (id) => {
                 success: function (response) {
                     Swal.fire(
                         'Deleted!',
-                        'Your record has been deleted.',
+                        'Đã xóa thành công !',
                         'success'
                     ).then(() => {
                         // Chuyển hướng sau khi xóa thành công
@@ -54,7 +54,7 @@ window.DeleteUser = (id) => {
                 error: function (xhr) {
                     Swal.fire(
                         'Error!',
-                        'An error occurred while deleting the record.',
+                        'Đã xảy ra lỗi khi xóa.',
                         'error'
                     );
                 }
