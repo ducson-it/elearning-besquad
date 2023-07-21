@@ -38,8 +38,6 @@
                         <table class="table align-middle table-nowrap" id="customerTaggable">
                             <thead class="table-light">
                                 <tr>
-                                    <th scope="col" style="width: 50px;" class="checkbox-column">
-                                    </th>
                                     <th class="sort" >STT</th>
                                     <th class="sort" data-sort="customer_name">Tên thẻ</th>
                                     <th class="sort" data-sort="">Bài post/blog</th>
@@ -52,11 +50,6 @@
                             @if (isset($taggables) && !empty($taggables))
                             @foreach($taggables as $key => $taggable)
                                 <tr data-taggable-id="{{$taggable->id}}">
-                                    <th scope="row">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                        </div>
-                                    </th>
                                     <td >{{$key}}</td>
                                     <td  class="customer_name">{{$taggable->tag->name}}</td>
                                     <td class="course">Học lập trình website cần chuẩn bị gì?</td>

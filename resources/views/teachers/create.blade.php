@@ -106,7 +106,7 @@
                                                 <option value=""> Chon</option>
                                                 @foreach($roles as $role)
                                                     @if($role->id != 1)
-                                                    <option value="{{$role->id}}">{{$role->name}}</option>
+                                                        <option value="{{$role->id}}">{{$role->name}}</option>
                                                     @endif
                                                 @endforeach
 

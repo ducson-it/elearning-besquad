@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Quản lý user</h4>
+                    <h4 class="card-title mb-0">Quản lý Giảng viên</h4>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="listjs-table" id="customerList">
@@ -12,7 +12,7 @@
                             <div class="col-sm-auto">
                                 <div>
                                     <a
-                                        href="{{route('addUser')}}">
+                                        href="{{route('add.teacher')}}">
                                         <button type="button" class="btn btn-success add-btn"><i
                                                 class="ri-add-line align-bottom me-1"></i> Add
                                         </button>
@@ -23,11 +23,11 @@
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
-                                    <a href="{{route('show.user')}}"> <button class="rounded border-0 btn btn-warning">Danh sách</button></a>
-                                    <form method="post" action="{{route('show.user')}}">
+                                    <a href="{{route('show.teacher')}}"> <button class="rounded border-0 btn btn-warning">Danh sách</button></a>
+                                    <form method="post" action="{{route('show.teacher')}}">
                                         @csrf
                                         <div class="search-box ms-2">
-                                            <input type="text" class="form-control search " name="search_user"
+                                            <input type="text" class="form-control search " name="search_teacher"
                                                    placeholder="Search...">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
@@ -46,7 +46,7 @@
                             <p style="padding-left: 40px;" class="fs-5">Kết quả tìm kiếm từ khóa"<strong class="text-danger">  {{$search}}  </strong>"</p>
                         @endif
                         <div class="table-responsive table-card mt-3 mb-1">
-                            <table class="table align-middle table-nowrap" id="userTable">
+                            <table class="table align-middle table-nowrap" id="teacherTable">
                                 <thead class="table-light">
                                 <tr>
                                     <th class="sort">STT</th>
@@ -61,34 +61,33 @@
                                 </thead>
                                 <tbody class="list form-check-all">
                                 <!-- Sử dụng một vòng lặp để hiển thị các bản ghi người dùng -->
-                                @foreach($list_users as $key => $user)
-                                    <tr data-user-id="{{$user->id}}">
-
+                                @foreach($list_teachers as $key => $teacher)
+                                    <tr data-user-id="{{$teacher->id}}">
                                         <td>{{$key + 1}}</td>
-                                        <td class="customer_name">{{$user->name}}</td>
-                                        <td class="email">{{$user->email}}</td>
-                                        <td class="phone">{{$user->phone}}</td>
-                                        <td class="role_name" >{{$user->role->name}}</td>
-                                        <td class="active">{{$user->active == 1 ? 'Active': 'Inactive'}}</td>
-                                        <td class="created_at">{{$user->created_at}}</td>
+                                        <td class="customer_name">{{$teacher->name}}</td>
+                                        <td class="email">{{$teacher->email}}</td>
+                                        <td class="phone">{{$teacher->phone}}</td>
+                                        <td class="role_name">{{$teacher->role->name}}</td>
+                                        <td class="active">{{$teacher->active == 1 ? 'Active': 'Inactive'}}</td>
+                                        <td class="created_at">{{$teacher->created_at}}</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="detail">
-                                                    <a href="{{route('editUser',$user->id)}}">
+                                                    <a href="{{route('edit.teacher',$teacher->id)}}">
                                                         <button class="btn btn-sm btn-warning edit-item-btn">Edit
                                                         </button>
                                                     </a>
                                                 </div>
                                                 <div class="remove">
                                                     <button class="btn btn-sm btn-danger remove-item-btn"
-                                                            onclick="DeleteUser({{$user->id}})">
+                                                            onclick="DeleteUser({{$teacher->id}})">
                                                         Remove
                                                     </button>
                                                 </div>
                                                 <div class="detail">
-                                                    <button onclick="activeUser({{$user->id}})"
+                                                    <button onclick="activeUser({{$teacher->id}})"
                                                             class="btn btn-sm btn-success edit-item-btn">
-                                                            <?= $user->active == 0 ? 'Active' : 'Inactive' ?>
+                                                            <?= $teacher->active == 0 ? 'Active' : 'Inactive' ?>
                                                     </button>
                                                 </div>
                                             </div>
@@ -110,7 +109,7 @@
                         </div>
 
                         <div class="d-flex justify-content-end">
-                            {{ $list_users->links() }}
+                            {{ $list_teachers->links() }}
                         </div>
                     </div>
                 </div><!-- end card -->
