@@ -16,9 +16,9 @@ class Course extends Model
         '0'=>'Khoá học miễn phí',
         '1'=>"Khoá học mất phí"
     ];
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class,'user_course','course_id','user_id');
     }
 
     public function category()
