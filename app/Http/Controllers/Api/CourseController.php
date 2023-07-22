@@ -68,9 +68,21 @@ class CourseController extends Controller
         $course = Course::find($courseId);
 
         $user = Auth::user();
+
+        $checkOrder = Order::where('course_id', $course->id)
+                    ->Where('user_id', $user->id)
+                    ->Where('course_id', $course->id)
+                    ->Where('status', Beesquad::PENDING)
+                    ->exists();
+
+        if ($checkOrder) {
+            return response(['success' => false, 'data' => [
+                'message' => 'Đơn hàng đang trong thời gian xử lý'
+            ]]);
+        }
         if ($course) {
             if ($course->is_free == Beesquad::TRUE) {
-                    try {
+                try {
                     DB::beginTransaction();
                     do {
                         $order_code = 'BQ' . random_int(100000, 999999);
@@ -120,7 +132,7 @@ class CourseController extends Controller
                 } catch (\Throwable $th) {
                     DB::rollBack();
                     return response(['success' => false, 'data' => [
-                        'message' => 'Tạo không thành công đơn hàng, vui lòng thử lại!'
+                        'message' => 'Đơn hàng đang trong thời gian xử lý, vui lòng thử lại!'
                     ]]);
                 }
             }
