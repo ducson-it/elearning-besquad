@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\CommentRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
 use App\Models\Post;
@@ -58,28 +59,27 @@ class CommentController extends Controller
                 $comment->commentable_id = $commentable->id;
             }
         }
-
         $comment->save();
         return redirect()->route('comment.list')->with('success', 'Thêm comment thành công');
     }
 
-
-    public function edit($id){
-        $comments=Comment::find($id);
-        return view('comments.edit',compact('comments'));
-    }
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        $status = $request->input('status');
         $comment = Comment::find($id);
-        if (!$comment) {
-            return redirect()->route('comment.list')->with('success','Sửa trạng thái thất bại');
+        try{
+            if($comment->status == 0){
+                $comment->update([
+                    'status' => 1
+                ]);
+            }else{
+                $comment->update([
+                    'status' => 0
+                ]);
+            }
+            return redirect()->route('comment.list')->with('success', ' Thành công');
+        }catch (\Exception $e){
+            return redirect()->back()->with('error', 'Thất bại');
         }
-        // Chuyển đổi trạng thái thành 1 nếu chọn "active" và thành 0 nếu chọn "inactive"
-        $comment->status = ($status == 'active') ? 1 : 0;
-        $comment->save();
-        // Xử lý thành công
-        return redirect()->route('comment.list')->with('success','Sửa trạng thái thành công');
     }
     public function delete($id){
         $comments = Comment::findOrFail($id);

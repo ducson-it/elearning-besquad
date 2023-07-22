@@ -18,9 +18,6 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h1>
-                        <marquee class="text-danger">Quản lý Category_blogs</marquee>
-                    </h1>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="listjs-table" id="customerList">
@@ -76,11 +73,6 @@
                             <table class="table align-middle table-nowrap" id="customerTable">
                                 <thead class="table-light">
                                 <tr>
-                                    <th scope="col" style="width: 50px;">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                        </div>
-                                    </th>
                                     <th>Stt</th>
                                     <th>Name</th>
                                     <th>Slug</th>
@@ -90,11 +82,6 @@
                                 <tbody class="list form-check-all">
                                 @foreach($category_blogs as $i => $category_blog )
                                     <tr>
-                                        <th scope="row">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                            </div>
-                                        </th>
                                         <td class="">{{$i+1}}</td>
                                         <td class="">{{$category_blog->name}}</td>
                                         <td class="">{{$category_blog->slug}}</td>
