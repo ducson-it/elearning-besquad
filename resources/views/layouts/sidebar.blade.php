@@ -64,9 +64,6 @@
                     <div class="collapse menu-dropdown" id="blog">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('blogs.create')}}" class="nav-link">Tạo mới</a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="{{route('blogs.list')}}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
@@ -78,9 +75,6 @@
                     </a>
                     <div class="collapse menu-dropdown" id="blog">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{route('category_blog.create')}}" class="nav-link">Tạo mới</a>
-                            </li>
                             <li class="nav-item">
                                 <a href="{{route('category_blog.list')}}" class="nav-link">Danh sách</a>
                             </li>
@@ -135,9 +129,6 @@
                     </a>
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{route('slider.create')}}" class="nav-link">Tạo mới</a>
-                            </li>
                             <li class="nav-item">
                                 <a href="{{route('slider.list')}}" class="nav-link">Danh sách</a>
                             </li>
