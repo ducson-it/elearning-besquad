@@ -162,10 +162,9 @@ class CourseController extends Controller
     {
         $courseId = $request->input('course_id');
         $lessonId = $request->input('lesson_id');
-
         // Lấy thông tin người dùng từ mã token xác thực
         $history = History::create([
-            'user_id' => Auth()->id,
+            'user_id' => Auth::id(),
             'course_id' => $courseId,
             'lesson_id' => $lessonId,
             'status'=>1
