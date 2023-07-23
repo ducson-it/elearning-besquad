@@ -32,8 +32,6 @@
                                     <div>
                                         <label for="basiInput" class="form-label">Khoá học</label>
                                         <select name="course_id" id="course_id" class="form-select">
-                                            <option value="1">fsf</option>
-                                            <option value="2">fsfgdfsfsdf</option>
                                         </select>
                                     </div>
                                 </div>

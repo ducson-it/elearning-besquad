@@ -142,21 +142,43 @@ class CourseController extends Controller
     public function historyCourse(Request $request)
     {
         $courseId = $request->input('course_id');
-        $lessonId = $request->input('lesson_id');
-        $time = $request->input('time');
-        $stopTimeVideo = $request->input('stop_time_video');
         // Lấy thông tin người dùng từ mã token xác thực
-        $user = auth()->user();
+        $history =History::where('user_id',Auth::id())
+            ->where('course_id',$courseId)
+            ->get();
+        $lesson_history_count = History::where('user_id',Auth::id())
+        ->where('course_id',$courseId)
+        ->count();
+        $lesson_count = Lesson::where('course_id',$courseId)->count();
+        $complete_rate = round($lesson_history_count*100/$lesson_count,2);
+        return response()->json([
+            'status' => true,
+            'history' => $history,
+            'complete_rate'=>$complete_rate
+        ], 200);
+    }
+    public function historyCourseUpdate(Request $request)
+    {
+        $courseId = $request->input('course_id');
+        $lessonId = $request->input('lesson_id');
+
+        // Lấy thông tin người dùng từ mã token xác thực
         $history = History::create([
-            'user_id' => $user->id,
+            'user_id' => Auth()->id,
             'course_id' => $courseId,
             'lesson_id' => $lessonId,
-            'time' => Carbon::parse($time),
-            'stop_time_video' => Carbon::parse($stopTimeVideo),
+            'status'=>1
         ]);
+        $lesson_history_count = History::where('user_id',Auth::id())
+        ->where('course_id',$courseId)
+        ->count();
+        $lesson_count = Lesson::where('course_id',$courseId)->count();
+        $complete_rate = round($lesson_history_count*100/$lesson_count,2);
         return response()->json([
             'message' => 'Lịch sử học đã được ghi lại thành công',
-            'history' => $history
+            'status'=>true,
+            'history' => $history,
+            'complete_rate'=>$complete_rate
         ], 200);
     }
 }
