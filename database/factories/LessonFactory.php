@@ -26,7 +26,8 @@ class LessonFactory extends Factory
             'video_id' => $this->faker->uuid,
             'status' => $this->faker->randomElement([0, 1]),
             'description' => $this->faker->paragraph,
-            'is_trial_lesson' => $this->faker->randomElement([0, 1])
+            'is_trial_lesson' => $this->faker->randomElement([0, 1]),
+            'view' => rand(10,1000)
         ];
     }
 }

@@ -1,5 +1,5 @@
 import { forEach } from "lodash"
-
+import Swal from "sweetalert2"
 $(document).ready(function(){
     $('select#course_id').on('change',function(){
         var course_id = $(this).val()
@@ -43,6 +43,7 @@ $(document).ready(function(){
 })
 //delete lesson
 window.deleteLesson = (lesson_id)=>{
+    console.log('----quan--------')
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -59,7 +60,7 @@ window.deleteLesson = (lesson_id)=>{
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 processData: false,
-                url: 'lesson/delete/'+lesson_id,
+                url: 'lessons/delete/'+lesson_id,
                 success: function (data) {
                     if(data){
                         Swal.fire(
