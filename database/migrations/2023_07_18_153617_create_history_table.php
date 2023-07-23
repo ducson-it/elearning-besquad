@@ -21,9 +21,6 @@ return new class extends Migration
             $table->timestamp('time')->nullable();
             $table->timestamp('stop_time_video')->default(now());
             $table->timestamps();
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
-            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

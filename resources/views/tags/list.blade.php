@@ -12,7 +12,6 @@
                         <div class="col-sm-auto">
                             <div>
                                 <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><i class="ri-add-line align-bottom me-1"></i> Add</button>
-                                <button class="btn btn-soft-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                                 <!-- Modal -->
                                 <div class="modal fade" id="addTopic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -47,10 +46,17 @@
                         </div>
                         <div class="col-sm">
                             <div class="d-flex justify-content-sm-end">
-                                <div class="search-box ms-2">
-                                    <input type="text" class="form-control search" placeholder="Search..." id="searchInput">
-                                    <i class="ri-search-line search-icon"></i>
-                                </div>
+                                <a href="{{route('show.tag')}}"> <button class="rounded border-0 btn btn-warning">Danh sách</button></a>
+                                <form method="post" action="{{route('show.tag')}}">
+                                    @csrf
+                                    <div class="search-box ms-2">
+                                        <input type="text" class="form-control search " name="search_tag"
+                                               placeholder="Search...">
+                                        <i class="ri-search-line search-icon"></i>
+                                    </div>
+
+                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -59,11 +65,14 @@
                             <div class="alert alert-success">{{ session('message') }}</div>
                         @endif
                     </div>
+                    @if($search && $search != "")
+                        <p style="padding-left: 40px;" class="fs-5">Kết quả tìm kiếm từ khóa"<strong class="text-danger">  {{$search}}  </strong>"</p>
+                    @endif
+
                     <div class="table-responsive table-card mt-3 mb-1">
                         <table class="table align-middle table-nowrap " id="customerTable">
                             <thead class="table-light">
                                 <tr>
-                                    <th scope="col" style="width: 50px;" class="checkbox-column"></th>
                                     <th class="sort" data-sort="">
                                         STT
                                     </th>
@@ -76,11 +85,7 @@
                             <tbody class="list form-check-all customerList">
                             @foreach($tags as $key => $tag)
                                 <tr>
-                                    <th scope="row">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                        </div>
-                                    </th>
+
                                     <td>{{$key}}</td>
                                     <td class="customer_name">{{$tag->name}}</td>
                                     <td class="course">{{$tag->description}} </td>
@@ -155,7 +160,6 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script>
 
     $(document).ready(function() {
@@ -283,21 +287,6 @@
             }
         });
     }
-    //search
-    // Khởi tạo List.js và cấu hình tìm kiếm
-    const options = {
-        valueNames: ['customer_name', 'course', 'date'], // Các trường dữ liệu để tìm kiếm
-    };
-    const customerList = new List('customerTable', options);
-
-    // Lắng nghe sự kiện nhập liệu trong ô tìm kiếm
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('keyup', function() {
-            const searchString = searchInput.value;
-            customerList.search(searchString);
-        });
-    });
 
 </script>
 @endsection

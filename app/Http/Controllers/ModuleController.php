@@ -15,7 +15,7 @@ class ModuleController extends Controller
     //
     public function index()
     {
-        $modules = Module::with('course')->paginate(5);
+        $modules = Module::with('course')->latest()->paginate(5);
         return view('modules.list',compact('modules'));
     }
     public function create()
@@ -27,7 +27,7 @@ class ModuleController extends Controller
     {
         $data=[
             'name'=>$request->name,
-            'slug'=>Str::slug($request->name),
+            'slug'=>$request->slug,
             'course_id'=>$request->course_id,
             'description'=>$request->content
         ];
@@ -42,7 +42,7 @@ class ModuleController extends Controller
     {
         $data=[
             'name'=>$request->name,
-            'slug'=>Str::slug($request->name),
+            'slug'=>$request->slug,
             'course_id'=>$request->course_id,
             'description'=>$request->content
         ];

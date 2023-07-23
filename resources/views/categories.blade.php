@@ -14,49 +14,43 @@
                                     <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal"
                                         id="create-btn" data-bs-target="#showModal"><i
                                             class="ri-add-line align-bottom me-1"></i> Add</button>
-                                    <button class="btn btn-soft-danger" onclick="deleteMultiple()"><i
-                                            class="ri-delete-bin-2-line"></i></button>
                                 </div>
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
-                                        <input type="text" class="form-control search" placeholder="Search...">
+                                        <form action="" method="GET">
+                                            <input type="text" class="form-control search" placeholder="Search..." name="keyword">
                                         <i class="ri-search-line search-icon"></i>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        @if ($keyword != '')
+                        <p>Kết quả tìm kiếm cho từ khoá <span class="text-danger mx-1">"{{$keyword}}"</span></p>
+                        @endif
                         <div class="table-responsive table-card mt-3 mb-1">
                             <table class="table align-middle table-nowrap" id="customerTable">
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col" style="width: 50px;">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="checkAll"
-                                                    value="option">
-                                            </div>
+                                            STT
                                         </th>
                                         <th class="sort" data-sort="customer_name">Tên</th>
-                                        <th class="sort" data-sort="status">Trạng thái</th>
+                                        <th class="sort" data-sort="customer_name">Slug</th>
                                         <th class="sort" data-sort="date">Ngày tạo</th>
                                         <th class="sort" data-sort="action">Lựa chọn</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
-                                    @foreach ($categories as $category)
+                                    @foreach ($categories as $index=>$category)
                                         <tr>
                                             <th scope="row">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="chk_child"
-                                                        value="option1">
-                                                </div>
+                                                {{$index+1}}
                                             </th>
                                             <td class="customer_name">{{ $category->name }}</td>
-                                            <td class="status"><span
-                                                    class="badge badge-soft-success text-uppercase">{{ $category->status == 1 ? 'Active' : 'Inactive' }}</span>
-                                            </td>
+                                            <td class="slug_name">{{ $category->slug }}</td>
                                             <td class="date">{{ $category->created_at }}</td>
                                             <td>
                                                 <div class="d-flex gap-2">
@@ -95,16 +89,14 @@
                                                                 <span class="text-danger" id="error"></span>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="phone-field" class="form-label">Mô tả</label>
-                                                            <textarea rows="2" cols="3" class="form-control" placeholder="Enter name"
-                                                                name="description">{{ $category->description }}</textarea>
+                                                            <label for="phone-field" class="form-label bg-light">Slug</label>
+                                                            <input type="text" class="form-control" readonly
+                                                                 name="slug" id="name" value="{{$category->slug}}">
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="phone-field" class="form-label">Trạng thái</label><br>
-                                                            <select name="status" class="form-select">
-                                                                <option value="1" {{$category->status == 1 ?'selected':''}}>Active</option>
-                                                                <option value="0" {{$category->status == 0 ?'selected':''}}>Inactive</option>
-                                                            </select>
+                                                            <label for="phone-field" class="form-label">Mô tả</label>
+                                                            <textarea rows="8" cols="3" class="form-control" placeholder="Enter name"
+                                                                name="description">{{ $category->description }}</textarea>
                                                         </div>
 
                                                     </div>
@@ -161,6 +153,7 @@
         </div>
         <!-- end col -->
     </div>
+    {{-- Modal create categories --}}
     <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -174,13 +167,18 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="phone-field" class="form-label">Tên danh mục</label>
-                        <input type="text" id="phone-field" class="form-control" placeholder="Enter name"
+                        <input type="text"  class="form-control" id="name" placeholder="Enter name"
                              name="name">
                         <span class="text-danger" id="error"></span>
                     </div>
                     <div class="mb-3">
+                        <label for="phone-field" class="form-label">Slug</label>
+                        <input type="text" class="form-control bg-light" readonly
+                             name="slug" id="slug">
+                    </div>
+                    <div class="mb-3">
                         <label for="phone-field" class="form-label">Mô tả</label>
-                        <textarea rows="2" cols="3" class="form-control" placeholder="Enter name"
+                        <textarea rows="8" cols="3" class="form-control" placeholder="Enter name"
                             name="description"></textarea>
                     </div>
                 </div>

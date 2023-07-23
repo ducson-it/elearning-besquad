@@ -14,19 +14,24 @@
                             <div class="col-10">
                                 <div>
                                     <label for="basiInput" class="form-label">Tên khoá học</label>
-                                    <input type="text" class="form-control" id="basiInput" value="{{$course->name}}" name="name">
+                                    <input type="text" class="form-control"  value="{{$course->name}}" name="name" id="name">
                                 </div>
+                            </div>
+                            <div class="mb-3 col-10">
+                                <label for="phone-field" class="form-label">Slug</label>
+                                <input type="text" class="form-control bg-light" readonly
+                                     name="slug" id="slug" value="{{$course->slug}}">
                             </div>
                             <div class="col-10 mt-2">
                                 <div>
                                     <label for="basiInput" class="form-label">Danh mục</label>
-                                    {!! Form::select('category_id', $categories, $course->category_id, ['name'=>'category_id','class'=>"form-control",'id' => 'courseType',]) !!}
+                                    {!! Form::select('category_id', $categories, $course->category_id, ['name'=>'category_id','class'=>"form-control"]) !!}
                                 </div>
                             </div>
                             <div class="col-10 mt-2">
                                 <div>
                                     <label for="basiInput" class="form-label">Loại khoá học</label>
-                                    {!! Form::select('is_free', $courseTypes, $course->is_free, ['name'=>'is_free','class'=>"form-select"]) !!}
+                                    {!! Form::select('is_free', $courseTypes, $course->is_free, ['name'=>'is_free','class'=>"form-select" ,'id'=>"courseType"]) !!}
                                 </div>
                             </div>
                             <div class="col-10 mt-2">
@@ -63,9 +68,9 @@
                             <!--end col-->
                             <div class="col-12 price-sale mt-2">
                                 <div>
-                                    <label for="iconrightInput" class="form-label">Giảm giá</label>
+                                    <label for="iconrightInput" class="form-label">Giảm giá (đơn vị:%)</label>
                                     <div class="form-icon">
-                                        <input type="number" class="form-control" id="" placeholder="" value="{{$course->discount}}" name="discount">
+                                        <input type="number" class="form-control" id="" placeholder="" value="{{$course->discount}}" name="discount" min="0" max="100" step="5">
                                     </div>
                                 </div>
                             </div>
@@ -78,8 +83,8 @@
                             </div>
                             <div class="col-12 mb-5">
                                 <label class="label-control mb-2">Mô tả</label>
-                                <div id="quillEditor">{!!$course->description!!}</div>
-                                <textarea name="content" id="content" class="d-none">{!!$course->description!!}</textarea>
+                                {{-- <div id="quillEditor">{!!$course->description!!}</div> --}}
+                                <textarea name="content" id="content" class="my-editor">{!!$course->description!!}</textarea>
                             </div>
                         
                         </div>

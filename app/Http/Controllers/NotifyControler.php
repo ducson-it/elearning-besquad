@@ -12,9 +12,15 @@ use Illuminate\Support\Facades\Log;
 
 class NotifyControler extends Controller
 {
-    public function showNotify(){
+    public function showNotify(Request $request){
         $notifycations = Notification::paginate(10);
-        return view('notifycations.list',compact('notifycations'));
+        if($request->input('search_notify')){
+            $search = $request->input('search_notify');
+            $notifycations  = Notification::where('title', 'LIKE', '%'.$search.'%')->paginate(10);
+        }else{
+            $search = "";
+        }
+        return view('notifycations.list',compact('notifycations','search'));
     }
    public function addNotify(){
        $list_users = User::with('role')->Where('role_id', '<>', 1)->get();
@@ -22,10 +28,10 @@ class NotifyControler extends Controller
    }
     public function storeNotify(NotifycationRequest $request)
     {
-        if ($request->option === 'option2' && $request->has('group_user')) {
-            $send_to = 'group_users';
-            $userIds = $request->group_user;
-        }
+//        if ($request->option === 'option2' && $request->has('group_user')) {
+//            $send_to = 'group_users';
+//            $userIds = $request->group_user;
+//        }
 
         if ($request->option === 'system') {
             $send_to = 'system';
@@ -44,18 +50,16 @@ class NotifyControler extends Controller
             $notify = Notification::create($data);
          //  dd($userIds);
             // Kiểm tra giá trị của option
-            if($send_to == 'system'){
-                return redirect()->route('show.notify')->with('success', 'Đã tạo thông báo thành công');
-            }
-            if ($userIds &&  $send_to == 'group_users' ) {
-                foreach ($userIds as $key => $userId) {
-                    Notifycation_user::create([
-                        'notifycation_id' => $notify->id,
-                        'user_id' => $userId,
-                    ]);
-                }
-                return redirect()->route('show.notify')->with('success', 'Đã tạo thông báo thành công');
-            }
+                return redirect()->route('show.notify')->with('message', 'Đã tạo thông báo thành công');
+//            if ($userIds &&  $send_to == 'group_users' ) {
+//                foreach ($userIds as $key => $userId) {
+//                    Notifycation_user::create([
+//                        'notifycation_id' => $notify->id,
+//                        'user_id' => $userId,
+//                    ]);
+//                }
+//                return redirect()->route('show.notify')->with('success', 'Đã tạo thông báo thành công');
+//            }
 
 
         } catch (\Exception $e) {
@@ -123,5 +127,27 @@ class NotifyControler extends Controller
             return redirect()->route('show.notify')->with('message', 'Không tồn tại bản ghi hợp lệ');
         }
     }
-
+    public function getNoicePage(Request $request){
+        $listNotifys = Notification::where('send_user','<>','admin')->Where('is_read','<>',true)->paginate(10);
+        $search = '';
+        if($request->input('search_notice')){
+            $search = $request->input('search_notice');
+            $listNotifys = Notification::where('send_user','<>','admin')
+                ->Where('is_read','<>',true)
+                ->where('title', 'LIKE', '%'.$search.'%')
+                ->paginate(10);
+        }
+        return view('notifycations.notice_page',compact('listNotifys','search'));
+    }
+    public function updateIreadNotify($id)
+    {
+        $notify = Notification::find($id);
+        if ($notify) {
+            $notify->is_read = true;
+            $notify->save();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Notify not found.']);
+        }
+    }
 }

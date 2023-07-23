@@ -44,26 +44,12 @@
                                         <div>
                                             <input type="radio" name="option" checked value="system"
                                                    onchange="showDiv('div1')"> Toàn hệ thống
-                                            <input type="radio" class="ml-3" name="option" value="option2"
-                                                   onchange="showDiv('div2')"> Nhóm thành viên
                                         </div>
-
                                         <div id="div1"
                                              class="border  border-primary  bg-primary p-3  rounded text-white"
                                              style="display: none;">Bạn đang lựa chọn gửi thông báo cho toàn hệ thống
                                         </div>
-                                        <div id="div2" class="border border-primary bg-success p-3 rounded text-white"
-                                             style="display: none;">
-                                            Vui lòng nhập hoặc lựa chọn những user muốn gửi thông báo
-                                            <select class="list-select-user" name="group_user[]" multiple="multiple">
-                                                @foreach ($list_users as $user)
-                                                    <option value="{{ $user->id }}">{{ $user->email }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('group_user')
-                                        <span class="text-danger">{{ $message }}</span>
-                                        @enderror
+
                                     </div>
                                 </div>
                                 <div class="col-11 mt-3">

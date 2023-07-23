@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('deleted_at')->nullable();
+        Schema::create('user_course', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('course_id');
+            $table->timestamps();
+            $table->unique(['course_id', 'user_id']);
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-        $table->dropSoftDeletes();
-    });
+        Schema::dropIfExists('user_course');
     }
 };

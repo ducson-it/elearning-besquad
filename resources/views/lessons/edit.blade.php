@@ -14,7 +14,7 @@
                                 <div class="col-10">
                                     <div>
                                         <label for="basiInput" class="form-label">Tên bài học</label>
-                                        <input type="text" class="form-control" id="basiInput" name="name" value="{{$lesson->name}}">
+                                        <input type="text" class="form-control" id="name" name="name" value="{{$lesson->name}}">
                                         @if ($errors->any())
                                             <span style="color:red">
                                                 @error('name')
@@ -23,6 +23,11 @@
                                             </span><br>
                                         @endif
                                     </div>
+                                </div>
+                                <div class="mb-3 col-10">
+                                    <label for="phone-field" class="form-label">Slug</label>
+                                    <input type="text" class="form-control bg-light" readonly
+                                         name="slug" id="slug" value="{{$lesson->slug}}">
                                 </div>
                                 <div class="col-10 mt-2">
                                     <div>
@@ -64,7 +69,7 @@
                                 <div class="col-10">
                                     <label for="">Video</label><br>
                                         <div style="width:200px">
-                                            <iframe class='sproutvideo-player' src='https://videos.sproutvideo.com/embed/069fd5bd1f1ae6c08f/0b795b87fac6eb89' width='630' height='339' frameborder='0' allowfullscreen referrerpolicy='no-referrer-when-downgrade' title='Video Player'></iframe>
+                                            {!!$video['embed_code']!!}
                                         </div>
                                         <label for="">Lựa chọn video</label><br>
                                     <div class="input-group">
@@ -75,15 +80,16 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12 mt-4 mb-5">
+                                <div class="col-10 mt-4 mb-5">
                                     <label class="label-control mb-2">Cho phép học thử?</label>
                                     {!! Form::select('is_trial_lesson', ["0"=>"Không học thử","1"=>"Cho phép học thử"], $lesson->is_trial_lesson, ['name'=>'is_trial_lesson','class'=>"form-control"]) !!}
                                 </div>
                                 <!--end col-->
                                 <div class="col-12 mb-5">
                                     <label class="label-control mb-2">Mô tả</label>
-                                    <div id="quillEditor">{!!$lesson->description!!}</div>
-                                    <textarea name="content" id="content" class="d-none">{!!$lesson->description!!}</textarea>
+                                        <label class="label-control mb-2">Mô tả</label>
+                                        {{-- <div >{!!old('content')!!}</div> --}}
+                                        <textarea name="content" id="content" class="my-editor">{!!$lesson->description!!}</textarea>
                                 </div>
                                 
 

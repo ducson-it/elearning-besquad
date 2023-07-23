@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">Chỉnh chủ đề khoá học</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">Chỉnh sửa chủ đề khoá học</h4>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
@@ -13,7 +13,7 @@
                                 <div class="col-10">
                                     <div>
                                         <label for="basiInput" class="form-label">Tên chủ đề</label>
-                                        <input type="text" class="form-control" id="basiInput" name="name" value="{{$module->name}}">
+                                        <input type="text" class="form-control" id="name" name="name" value="{{$module->name}}">
                                         @if ($errors->any())
                                             <span style="color:red">
                                                 @error('name')
@@ -22,6 +22,11 @@
                                             </span><br>
                                         @endif
                                     </div>
+                                </div>
+                                <div class="mb-3 col-10">
+                                    <label for="phone-field" class="form-label">Slug</label>
+                                    <input type="text" class="form-control bg-light" readonly
+                                         name="slug" id="slug" value="{{$module->slug}}">
                                 </div>
                                 <div class="col-10 mt-2">
                                     <div>
@@ -33,10 +38,10 @@
                                     </div>
                                 </div>
                                 <!--end col-->
-                                <div class="col-10 mt-4 mb-5">
+                                <div class="col-10 mb-5">
                                     <label class="label-control mb-2">Mô tả</label>
-                                    <div id="quillEditor">{!!$module->description!!}</div>
-                                    <textarea name="content" id="content" class="d-none">{!!$module->description!!}</textarea>
+                                    {{-- <div id="quillEditor">{!!$module->description!!}</div> --}}
+                                    <textarea name="content" id="content" class="my-editor">{!!$module->description!!}</textarea>
                                 </div>
                             <!--end col-->
 

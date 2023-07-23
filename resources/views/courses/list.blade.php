@@ -49,6 +49,7 @@
                                     <tr>
                                         <th class="sort" data-sort="customer_name">STT</th>
                                         <th class="sort" data-sort="customer_name">Tên</th>
+                                        <th class="sort" data-sort="customer_name">Slug</th>
                                         <th class="sort" data-sort="price">Giá</th>
                                         <th class="sort" data-sort="price-discount">Giảm giá</th>
                                         <th class="sort" data-sort="customer_name">Danh mục</th>
@@ -64,6 +65,7 @@
                                         <tr>
                                             <td class="customer_name">{{ $index+1 }}</td>
                                             <td class="customer_name">{{ $course->name }}</td>
+                                            <td class="customer_name">{{ $course->slug }}</td>
                                             <td class="course-price">{{ number_format($course->price, 0, ',', '.') }}</td>
                                             <td class="price-discount">{{ $course->discount ? $course->discount : 0 }}%</td>
                                             <td class="cate">{{ $course->category->name }}</td>
@@ -80,7 +82,7 @@
                                                 <div class="d-flex gap-2">
                                                     <div class="edit">
                                                         <button class="btn btn-sm btn-success edit-item-btn"><a
-                                                                href="{{ route('courses.edit', $course->id) }}">Edit</a></button>
+                                                                href="{{ route('courses.edit', $course->id) }}" class="text-light">Edit</a></button>
                                                     </div>
                                                     <div class="remove">
                                                         <button class="btn btn-sm btn-danger remove-item-btn"

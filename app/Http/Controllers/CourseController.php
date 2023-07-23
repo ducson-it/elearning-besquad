@@ -20,7 +20,7 @@ class CourseController extends Controller
             $keyword = $request->get('keyword');
             $courses = $courses->where('name','like',"%{$keyword}%");
         }
-        $courses = $courses->paginate(5);
+        $courses = $courses->latest()->paginate(5);
         $categories = Category::all();
         return view('courses.list',compact('courses','categories','keyword'));
     }
@@ -31,9 +31,13 @@ class CourseController extends Controller
         return view('courses.create',compact('categories','courseTypes'));
     }
     public function store(CourseRequest $request){
+        if($request->is_free == 0){
+            $request->price = 0;
+            $request->discount = 0;
+        };
         $data = [
             'name'=>$request->name,
-            'slug'=>Str::slug($request->name),
+            'slug'=>$request->slug,
             'price'=>$request->price,
             'discount'=>$request->discount,
             'status'=>1,
@@ -54,7 +58,7 @@ class CourseController extends Controller
     public function update(Course $course,CourseRequest $request){
         $data = [
             'name'=>$request->name,
-            'slug'=>Str::slug($request->name),
+            'slug'=>$request->slug,
             'price'=>$request->price,
             'discount'=>$request->discount,
             'status'=>$request->status,

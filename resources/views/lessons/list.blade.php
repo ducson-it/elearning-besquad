@@ -65,7 +65,7 @@
                                     <td>
                                         <div class="d-flex gap-2">
                                             <div class="edit">
-                                                <button class="btn btn-sm btn-success edit-item-btn"><a href="{{route('lessons.edit',$lesson->id)}}">Edit</a></button>
+                                                <button class="btn btn-sm btn-success edit-item-btn"><a href="{{route('lessons.edit',$lesson->id)}}" class="text-light">Edit</a></button>
                                             </div>
                                             <div class="remove">
                                                 <button class="btn btn-sm btn-danger remove-item-btn" id="deleteLesson({{$lesson->id}})">Remove</button>

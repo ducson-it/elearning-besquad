@@ -5,17 +5,27 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
     //
-    public function showListUser()
+    public function showListUser(Request $request)
     {
-        $list_users = User::with('role')->Where('role_id', '<>', 1)->paginate(10);
+        $list_users = User::with('role')
+            ->where('role_id', 3)
+            ->orderByDesc('created_at') // Sắp xếp theo thứ tự giảm dần của trường created_at (hoặc bạn có thể sử dụng một trường khác nếu muốn)
+            ->paginate(10);
+        if($request->input('search_user')){
+            $search = $request->input('search_user');
+            $list_users  = User::where('name', 'LIKE', '%'.$search.'%')->Where('role_id', 3)->paginate(10);
+        }else{
+            $search = "";
+        }
        // var_dump($list_users);
-        return view('users.list', compact('list_users'));
+        return view('users.list', compact('list_users','search'));
     }
     public function deleteUser($id)
     {
@@ -46,24 +56,6 @@ class UserController extends Controller
         }
     }
 
-    public function UserUpload(Request $request)
-    {
-
-        $file = $request->file('file');
-        $file_type = $file->getClientOriginalExtension();
-        $file_name = time() . '.' . $file->getClientOriginalExtension();
-        $path = $file->storeAs('public/user_img', $file_name);
-        $image = [
-            'disk' => 'public',
-            'path' => $path,
-            'file_name' => $file_name,
-            'file_type' => $file_type
-        ];
-        // Set the value of the "image" field in the request
-        $request->merge(['image' => $path]);
-        session()->put('media_user', $image);
-        return response()->json($image, 200);
-    }
 
     public function addUser()
     {
@@ -71,28 +63,33 @@ class UserController extends Controller
         return view('users.create',compact('roles'));
 
     }
-
-    public function storeUser(UserRequest  $request)
+    public function storeUser(UserRequest $request)
     {
+        try {
+            $data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'phone' => $request->phone,
+                'point' => 0,
+                'role_id' => intval($request->role_id),
+                'active' => $request->active,
+                'avatar' => $request->filepath,
+                'address' => $request->address,
+            ];
 
-        $media = session('media_user');
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'phone' => $request->phone,
-            'point'=>0,
-            'role_id' => intval($request->role_id),
-            'active' => $request->active,
-            'avatar' => json_encode($media['path']),
-            'address' => $request->address,
-        ];
-
-        $user = new User($data);
-        if ($user->save()) {
-            return redirect()->route('show.user')->with('message', 'Thêm thành công');
-        } else {
-            return redirect()->route('addUser')->with('message', 'Thêm thất bại');
+            $user = new User($data);
+            if ($user->save()) {
+                return redirect()->route('show.user')->with('message', 'Thêm thành công');
+            } else {
+                return redirect()->route('addUser')->with('message', 'Thêm thất bại');
+            }
+        } catch (QueryException $e) {
+            // Xử lý lỗi cụ thể cho các ngoại lệ của truy vấn cơ sở dữ liệu
+            return redirect()->route('addUser')->with('message', 'Lỗi khi thêm người dùng vào cơ sở dữ liệu: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            // Xử lý lỗi chung cho các ngoại lệ khác
+            return redirect()->route('addUser')->with('message', 'Có lỗi xảy ra: ' . $e->getMessage());
         }
     }
     public function activeUser($id){
@@ -112,7 +109,6 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Cập nhật active thất bại');
         }
 
-
     }
     public function editUser($id){
         $user = User::find($id);
@@ -121,14 +117,13 @@ class UserController extends Controller
     }
     public function updateUser(UserRequest  $request,$id){
         $user = User::find($id);
-        $media = session('media_user');
         $data = [
             'name' => $request->name,
             'password' => bcrypt($request->password),
             'phone' => $request->phone,
             'role_id' => intval($request->role_id),
             'active' => $request->active,
-            'avatar' => json_encode($media['path']),
+            'avatar' =>$request->filepath,
             'address' => $request->address,
         ];
         $user->update($data);
@@ -137,5 +132,4 @@ class UserController extends Controller
         return redirect()->route('show.user')->with('message', 'sửa user thành công');
 
     }
-
 }
