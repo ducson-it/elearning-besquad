@@ -1,5 +1,4 @@
-import Swal from 'sweetalert2';
-
+import Swal from "sweetalert2"
 //add categories
 window.addCate = ()=>{
     $.ajax({
@@ -24,7 +23,7 @@ window.addCate = ()=>{
             var err = eval("(" + xhr.responseText + ")");
             console.log(err.message)
             $('#error').html(err.message);
-            
+
      }
 
     })
@@ -52,7 +51,7 @@ window.updateCate = (cate_id)=>{
             var err = eval("(" + xhr.responseText + ")");
             console.log(err.message)
             $('#error').html(err.message);
-            
+
      }
 
     })
@@ -85,7 +84,7 @@ window.deleteCate=(cate_id)=>{
                         location.reload()
                       })
                 },
-        
+
             })
         }
       })

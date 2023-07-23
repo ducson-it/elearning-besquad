@@ -56,7 +56,7 @@
                                             <td class="course-price">{{ $order->user->name }}</td>
                                             <td class="price-discount">{{ $order->course->name }}</td>
                                             <td class="status"><span
-                                                    class="badge badge-soft-success text-uppercase {{ ($order->status == 1) ? 'text-success' : (($order->status == 2)?'text-danger':'text-warning') }}"">{{ ($order->status == 1) ? 'Payment' : (($order->status == 2)?'Canceled':'Pending') }}</span>
+                                                    class="badge badge-soft-success text-uppercase {{ ($order->status == 1) ? 'text-success' : (($order->status == 2)?'text-danger':'text-warning') }}">{{ ($order->status == 1) ? 'Payment' : (($order->status == 2)?'Canceled':'Pending') }}</span>
                                             </td>
                                             <td class="price-discount">{{ number_format($order->amount, 0, ',', '.') }}</td>
                                             <td class="date">{{$order->created_at}}</td>
