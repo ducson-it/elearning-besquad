@@ -55,10 +55,16 @@
                                 </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
+                                <!-- Trang hiện tại -->
+                                @php
+                                    $currentPage = $list_teachers->currentPage();
+                                    $perPage = $list_teachers->perPage();
+                                    $start = ($currentPage - 1) * $perPage + 1;
+                                @endphp
                                 <!-- Sử dụng một vòng lặp để hiển thị các bản ghi người dùng -->
                                 @foreach($list_teachers as $key => $teacher)
                                     <tr data-user-id="{{$teacher->id}}">
-                                        <td>{{$key + 1}}</td>
+                                        <td>{{$start + $key}}</td>
                                         <td class="customer_name">{{$teacher->name}}</td>
                                         <td class="email">{{$teacher->email}}</td>
                                         <td class="phone">{{$teacher->phone}}</td>
