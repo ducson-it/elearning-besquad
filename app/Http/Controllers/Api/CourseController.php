@@ -16,13 +16,30 @@ use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Constraint\Count;
 
 class CourseController extends Controller
 {
+    //User login get courses in studies to check myCourse
+    public function getCourse()
+    {
+            $courses = Course::with(['category','studies'])->get();
+            if (!$courses) {
+                return response()->json([
+                    'code' => 404,
+                    'message' => 'note found'
+                ]);
+            }
+            return response()->json([
+                'code' => 200,
+                'message' => 'success',
+                'data' => $courses
+            ]);
+    
+    }
     public function categoryCourse()
     {
         $courses = Category::with('courses')->get();
-
         if (!$courses) {
             return response()->json([
                 'code' => 404,
@@ -171,6 +188,7 @@ class CourseController extends Controller
         ]);
         $lesson_history_count = History::where('user_id',Auth::id())
         ->where('course_id',$courseId)
+        ->distinct('lesson_id')
         ->count();
         $lesson_count = Lesson::where('course_id',$courseId)->count();
         $complete_rate = round($lesson_history_count*100/$lesson_count,2);

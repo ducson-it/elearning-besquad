@@ -11,9 +11,8 @@ class Category extends Model
     use SoftDeletes;
     protected $table = 'categories';
     protected $fillable = ['name', 'slug', 'description'];
-
     public function courses()
     {
         return $this->hasMany(Course::class);
-    }
+    }   
 }
