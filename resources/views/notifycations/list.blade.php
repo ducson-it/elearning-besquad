@@ -51,9 +51,14 @@
                                 </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
+                                @php
+                                    $currentPage = $notifycations->currentPage();
+                                    $perPage = $notifycations->perPage();
+                                    $start = ($currentPage - 1) * $perPage + 1;
+                                @endphp
                                 @foreach($notifycations as $key => $notifycation)
                                     <tr data-notify-id="{{$notifycation->id}}">
-                                        <td >{{$key + 1}}</td>
+                                        <td>{{$start + $key}}</td>
                                         <td class="title">{{$notifycation->title}}</td>
                                         <td class="content">{{ Str::limit($notifycation->content, 50) }}</td>
                                         <td class="is_processed"><?= $notifycation->is_processed == false ? 'Chưa xử lí': 'Đã xử lí'  ?></td>
@@ -88,7 +93,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-start">
                             {{ $notifycations->links() }}
                         </div>
                     </div>

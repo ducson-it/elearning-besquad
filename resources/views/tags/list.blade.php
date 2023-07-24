@@ -82,10 +82,14 @@
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all customerList">
+                            @php
+                                $currentPage = $tags->currentPage();
+                                $perPage = $tags->perPage();
+                                $start = ($currentPage - 1) * $perPage + 1;
+                            @endphp
                             @foreach($tags as $key => $tag)
                                 <tr>
-
-                                    <td>{{$key}}</td>
+                                    <td>{{$start + $key}}</td>
                                     <td class="customer_name">{{$tag->name}}</td>
                                     <td class="course">{{$tag->description}} </td>
                                     <td class="date">{{$tag->created_at}}</td>
@@ -147,7 +151,7 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-start">
                         {{ $tags->links() }}
                     </div>
                 </div>

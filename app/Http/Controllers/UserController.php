@@ -12,24 +12,6 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    //
-//    public function showListUser(Request $request)
-//    {
-////        $list_users = User::with('role')
-////            ->where('role_id', 3)
-////            ->orderByDesc('created_at') // Sắp xếp theo thứ tự giảm dần của trường created_at (hoặc bạn có thể sử dụng một trường khác nếu muốn)
-////            ->paginate(10);
-////        if($request->input('search_user')){
-////            $search = $request->input('search_user');
-////            $list_users  = User::where('name', 'LIKE', '%'.$search.'%')->Where('role_id', 3)->paginate(10);
-////        }else{
-////            $search = "";
-////        }
-//        $search = $request->search_user;
-//        $list_users = User::with('role')->where(['name', 'LIKE', '%'.$request->search_user.'%'],['role_id', 3])->paginate(10);
-//       // var_dump($list_users);
-//        return view('users.list', compact('list_users','search'));
-//    }
     public function showListUser(Request $request)
     {
         $list_users  = User::where([['name', 'LIKE', '%'.$request->search_user.'%'],[ 'role_id', '=',2 ]])->paginate(Beesquad::PAGINATE);
