@@ -176,7 +176,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link menu-link" href="{{route('studies.list')}}">
+                                <a class="nav-link menu-link" href="{{route('histories.list')}}">
                                     <span>Lịch sử học</span>
                                 </a>
                             </li>
