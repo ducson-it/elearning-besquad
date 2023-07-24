@@ -11,13 +11,12 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
                                 <div>
-                                    <button type="button" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i> <a href="{{route('add.notify')}}"> Tạo thông báo</a></button>
+                                    <a href="{{route('add.notify')}}"> <button type="button" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i>  Tạo thông báo</button></a>
                                 </div>
                             </div>
                             <div class="col-sm">
 
                                 <div class="d-flex justify-content-sm-end">
-                                   <a href="{{route('show.notify')}}"> <button class="rounded border-0 btn btn-warning">Danh sách</button></a>
                                     <form method="post" action="{{route('show.notify')}}">
                                         @csrf
                                         <div class="search-box ms-2">
@@ -52,9 +51,14 @@
                                 </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
+                                @php
+                                    $currentPage = $notifycations->currentPage();
+                                    $perPage = $notifycations->perPage();
+                                    $start = ($currentPage - 1) * $perPage + 1;
+                                @endphp
                                 @foreach($notifycations as $key => $notifycation)
                                     <tr data-notify-id="{{$notifycation->id}}">
-                                        <td >{{$key + 1}}</td>
+                                        <td>{{$start + $key}}</td>
                                         <td class="title">{{$notifycation->title}}</td>
                                         <td class="content">{{ Str::limit($notifycation->content, 50) }}</td>
                                         <td class="is_processed"><?= $notifycation->is_processed == false ? 'Chưa xử lí': 'Đã xử lí'  ?></td>
@@ -89,7 +93,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-start">
                             {{ $notifycations->links() }}
                         </div>
                     </div>
