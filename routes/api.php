@@ -52,6 +52,7 @@ Route::prefix('blog')->group(function () {
 
 Route::prefix('course')->group(function () {
     Route::get('category-course', [CourseController::class, 'categoryCourse']);
+    Route::get('studies-course', [CourseController::class, 'getCourse'])->middleware('auth:sanctum');
     Route::get('my-course', [CourseController::class, 'myCourse'])->middleware('auth:sanctum');
     Route::post('register-course', [CourseController::class, 'registerCourse'])->middleware('auth:sanctum');
     Route::get('historyCourse', [CourseController::class, 'historyCourse'])->middleware('auth:sanctum');
