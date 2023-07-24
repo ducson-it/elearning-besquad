@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Beesquad;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\QueryException;
@@ -11,21 +12,11 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    //
     public function showListUser(Request $request)
     {
-        $list_users = User::with('role')
-            ->where('role_id', 3)
-            ->orderByDesc('created_at') // Sắp xếp theo thứ tự giảm dần của trường created_at (hoặc bạn có thể sử dụng một trường khác nếu muốn)
-            ->paginate(10);
-        if($request->input('search_user')){
-            $search = $request->input('search_user');
-            $list_users  = User::where('name', 'LIKE', '%'.$search.'%')->Where('role_id', 3)->paginate(10);
-        }else{
-            $search = "";
-        }
-       // var_dump($list_users);
-        return view('users.list', compact('list_users','search'));
+        $list_users  = User::where([['name', 'LIKE', '%'.$request->search_user.'%'],[ 'role_id', '=',2 ]])->paginate(Beesquad::PAGINATE);
+        // var_dump($list_users);
+        return view('users.list', compact('list_users'));
     }
     public function deleteUser($id)
     {
