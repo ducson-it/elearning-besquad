@@ -1,5 +1,5 @@
 <!-- ========== App Menu ========== -->
-<div class="app-menu navbar-menu">
+<div class="app-menu navbar-menu overflow-auto">
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
@@ -105,35 +105,35 @@
 {{--                    </a>--}}
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('show.user')}}" >
-                        <i class="ri-apps-2-line"></i> <span>Quản lý học sinh</span>
+                    <a class="nav-link menu-link" href="#user" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                        <i class="ri-apps-2-line"></i> <span>Quản lý user</span>
                     </a>
                     <div class="collapse menu-dropdown" id="user">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-{{--                                <a href="" class="nav-link">Tạo mới</a>--}}
+                                <a class="nav-link menu-link" href="{{route('show.teacher')}}" >
+                                    <span>Quản lý giảng viên</span>
+                                </a>
                             </li>
                             <li class="nav-item">
-{{--                                <a href="" class="nav-link">Danh sách</a>--}}
+                                <a class="nav-link menu-link" href="{{route('show.user')}}" >
+                                    <span>Quản lý học sinh</span>
+                                </a>
                             </li>
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('show.teacher')}}" >
-                        <i class="ri-apps-2-line"></i> <span>Quản lý giảng viên</span>
-                    </a>
-                </li>
+        
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('show.tag')}}">
                         <i class="ri-apps-2-line"></i> <span>Quản lý tag</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#user" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                    <a class="nav-link menu-link" href="#slider" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span>Quản lý slider</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="user">
+                    <div class="collapse menu-dropdown" id="slider">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{route('slider.create')}}" class="nav-link">Tạo mới</a>
@@ -161,23 +161,34 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('orders.list')}}">
-                        <i class="ri-apps-2-line"></i> <span>Quản lý order</span>
+                        <i class="ri-apps-2-line"></i><span>Quản lý order</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#studies" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                        <i class="ri-apps-2-line"></i> <span>Quản lý học tập</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="studies">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{route('studies.list')}}">
+                                    <span>Đăng ký khoá học</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{route('studies.list')}}">
+                                    <span>Lịch sử học</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('show.notify')}}">
                         <i class="ri-apps-2-line"></i> <span>Notifycation</span>
                     </a>
-                    <a class="nav-link menu-link" href="#order" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-apps-2-line"></i> <span>Quản lý order</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="order">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="apps-calendar" class="nav-link">Danh sách</a>
-                            </li>
-                        </ul>
-                    </div>
+                   
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#">
