@@ -68,7 +68,7 @@
                                                 <button class="btn btn-sm btn-success edit-item-btn"><a href="{{route('lessons.edit',$lesson->id)}}" class="text-light">Edit</a></button>
                                             </div>
                                             <div class="remove">
-                                                <button class="btn btn-sm btn-danger remove-item-btn" id="deleteLesson({{$lesson->id}})">Remove</button>
+                                                <button class="btn btn-sm btn-danger remove-item-btn" onclick="deleteLesson({{$lesson->id}})">Remove</button>
                                             </div>
                                         </div>
                                     </td>

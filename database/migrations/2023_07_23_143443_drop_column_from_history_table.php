@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->string('name');
+        Schema::table('history', function (Blueprint $table) {
+            //
+            $table->dropColumn(['time','stop_time_video']);
         });
     }
 
@@ -25,8 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('name');
+        Schema::table('history', function (Blueprint $table) {
+            //
         });
     }
 };

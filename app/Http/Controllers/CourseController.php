@@ -26,9 +26,9 @@ class CourseController extends Controller
     }
     //view create courses
     public function create(){
-        $categories = Category::pluck('name','id')->all();
         $courseTypes = Course::$courseType;
-        return view('courses.create',compact('categories','courseTypes'));
+        $categories = Category::pluck('name','id')->all();
+        return view('courses.create',compact('courseTypes','categories'));
     }
     public function store(CourseRequest $request){
         if($request->is_free == 0){

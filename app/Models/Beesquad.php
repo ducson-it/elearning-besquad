@@ -16,5 +16,11 @@ class Beesquad extends Model
         'STUDENT' => 2,
         'TEACHER' => 3,
     ];
+
+    const DONE = 1;
+    const PENDING = 2;
+    const CANCEL = 3;
+    const TRUE = 1;
+    const FALSE = 0;
     const PAGINATE =10;
 }

@@ -249,15 +249,13 @@ class CreateUsersTable extends Migration
         // Table: orders
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('order_date');
+            $table->string('order_code');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('course_id');
             $table->integer('status')->default(0);
             $table->double('amount')->default(0);
             $table->timestamps();
             $table->softDeletes();
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            // $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
         // Table: studies
         Schema::create('studies', function (Blueprint $table) {

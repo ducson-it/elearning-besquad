@@ -20,8 +20,7 @@ class ModuleController extends Controller
     }
     public function create()
     {
-        $courses = Course::pluck('name','id');
-        return view('modules.create',compact('courses'));
+        return view('modules.create');
     }
     public function store(ModuleRequest $request)
     {
