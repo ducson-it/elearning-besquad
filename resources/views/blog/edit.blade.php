@@ -10,98 +10,103 @@
                 </ul>
             </div>
         @endif
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">Tạo bài viết</h4>
-                </div><!-- end card header -->
-                <div class="card-body">
-                    <div class="live-preview">
-                        <form method="POST" enctype="multipart/form-data" action="{{route('blogs.update',$blog->id)}}" >
-                            @csrf
-                            <div class="row gy-4 d-flex justify-content-center">
-                                <div class="col-11">
-                                    <div>
-                                        <label for="basiInput" class="form-label">Tiêu đề</label>
-                                        <input type="text" class="form-control" name="title" id="name" oninput="generateSlug()" value="{{ old('title', $blog->title) }}">
-                                        @if ($errors->has('title'))
-                                            <span class="text-danger">{{ $errors->first('title') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-11">
-                                    <div>
-                                        <label for="basiInput" class="form-label">Slug</label>
-                                        <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug', $blog->slug) }}">
-                                        @if ($errors->has('slug'))
-                                            <span class="text-danger">{{ $errors->first('slug') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-11">
-                                    <div class="input-group">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Tạo bài viết</h4>
+                    </div><!-- end card header -->
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <form method="POST" enctype="multipart/form-data" action="{{route('blogs.update',$blog->id)}}" >
+                                @csrf
+                                <div class="row gy-4">
+                                    <div class="col-md-6">
+                                        <div class="col-11">
+                                            <div>
+                                                <label for="basiInput" class="form-label">Tiêu đề</label>
+                                                <input type="text" class="form-control" name="title" id="name" oninput="generateSlug()" value="{{ old('title', $blog->title) }}">
+                                                @if ($errors->has('title'))
+                                                    <span class="text-danger">{{ $errors->first('title') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-11">
+                                            <div>
+                                                <label for="basiInput" class="form-label">Slug</label>
+                                                <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug', $blog->slug) }}">
+                                                @if ($errors->has('slug'))
+                                                    <span class="text-danger">{{ $errors->first('slug') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-11">
+                                            <div class="input-group">
                                     <span class="input-group-btn">
                                         <button class="lfm btn btn-primary" data-input="thumbnail2"
                                                 data-preview="holder2" class="btn btn-primary text-white">
                                             <i class="fa fa-picture-o"></i> Choose
                                         </button>
                                     </span>
-                                        <input id="thumbnail2" class="form-control" type="text" name="filepath" value="{{$blog->image}}">
+                                                <input id="thumbnail2" class="form-control" type="text" name="filepath" value="{{$blog->image}}">
+                                            </div>
+                                            @if ($errors->has('image'))
+                                                <span class="text-danger">{{ $errors->first('image') }}</span>
+                                            @endif
+                                        </div>
+                                        <div class="col-11">
+                                            <div>
+                                                <label for="exampleFormControlTextarea5" class="form-label">Mô tả ngắn</label>
+                                                <textarea class="form-control" name="description_short" rows="3">{{ old('description_short', $blog->description_short) }}</textarea>
+                                            </div>
+                                            @if ($errors->has('description_short'))
+                                                <span class="text-danger">{{ $errors->first('description_short') }}</span>
+                                            @endif
+                                        </div>
                                     </div>
-                                    @if ($errors->has('image'))
-                                        <span class="text-danger">{{ $errors->first('image') }}</span>
-                                    @endif
-                                </div>
-                                <div class="col-11">
-                                    <div>
-                                        <label for="exampleFormControlTextarea5" class="form-label">Mô tả ngắn</label>
-                                        <textarea class="form-control" name="description_short" rows="3">{{ old('description_short', $blog->description_short) }}</textarea>
+                                    <div class="col-md-6">
+                                        <div class="col-11">
+                                            <label class="label-control mb-2">Nội dung</label>
+                                            <textarea name="content" id="content" class="d-none my-editor">{!!$blog->content!!}
+                                </textarea>
+                                            @if ($errors->has('content'))
+                                                <span class="text-danger">{{ $errors->first('content') }}</span>
+                                            @endif
+                                        </div>
+                                        <div class="col-11" style="margin-top: 100px">
+                                            <div>
+                                                <label for="basiInput" class="form-label">Chủ đề</label>
+                                                <select name="category_blog_id" class="form-control ">
+                                                    @foreach ($category_blogs as $item)
+                                                        <option value="{{ $item->id }}" {{ old('category_blog_id', $blog->category_blog_id) == $item->id ? 'selected' : '' }}>
+                                                            {{ $item->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('category_blog_id')
+                                                <span class="text-danger">{{ $errors->first('category_blog_id') }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-11">
+                                            <label class="label-control mb-2">View</label>
+                                            <input type="number" class="form-control" name="view" value="{{ old('view', $blog->view) }}" >
+                                        </div>
                                     </div>
-                                    @if ($errors->has('description_short'))
-                                        <span class="text-danger">{{ $errors->first('description_short') }}</span>
-                                    @endif
                                 </div>
-                                <div class="col-11">
-                                    <label class="label-control mb-2">Nội dung</label>
-                                    <div id="quillEditor">{!!$blog->content!!}</div>
-                                    <textarea name="content" id="content" class="d-none">{!!$blog->content!!}
-                                    <img style="width: 80px; height: 50px" src="{{ $blog->image }}" alt="Current Image">
-                                    </textarea>
-                                    @if ($errors->has('content'))
-                                        <span class="text-danger">{{ $errors->first('content') }}</span>
-                                    @endif
-                                </div>
-                                <div class="col-11" style="margin-top: 100px">
-                                    <label for="basiInput" class="form-label">Chủ đề</label>
-                                    <select name="category_blog_id" class="form-control ">
-                                        @foreach ($category_blogs as $item)
-                                            <option value="{{ $item->id }}" {{ old('category_blog_id', $blog->category_blog_id) == $item->id ? 'selected' : '' }}>
-                                                {{ $item->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('category_blog_id')
-                                    <span class="text-danger">{{ $errors->first('category_blog_id') }}</span>
-                                    @enderror
-                                </div>
-                                <div class="col-11">
-                                    <label class="label-control mb-2">View</label>
-                                    <input type="number" class="form-control" name="view" value="{{ old('view', $blog->view) }}" >
-                                </div>
+                                <!--end col-->
+                                <br>
                                 <div class="mx-6">
                                     <div class="hstack gap-2 justify-content-end">
                                         <button type="submit" class="btn btn-success" >Update</button>
                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal"><a href="{{route('blogs.list')}}">Trở lại</a></button>
                                     </div>
                                 </div>
-                                <!--end col-->
-                            </div>
-                        </form>
-                        <!--end row-->
+                            </form>
+                            <!--end row-->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         <!--end col-->
     </div>
     <script>

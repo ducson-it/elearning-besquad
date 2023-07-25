@@ -149,15 +149,13 @@
                                         <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Khoá học</p>
                                     </div>
                                     <div class="flex-shrink-0">
-                                        <h5 class="text-muted fs-14 mb-0">
-                                            +0.00 %
-                                        </h5>
+                                        
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between mt-4">
                                     <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value"
-                                                data-target="165.89">165.89</span>k </h4>
+                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value"
+                                                data-target="165.89">{{$total_number_courses}}</span></h4>
                                         <a href="{{route('courses.list')}}" class="text-decoration-underline">Xem tất cả</a>
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
@@ -177,26 +175,28 @@
                         <div class="card-header border-0 align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Kết quả kinh doanh</h4>
                             <div>
-                                <button type="button" class="btn btn-soft-secondary btn-sm">
-                                    ALL
-                                </button>
-                                <button type="button" class="btn btn-soft-secondary btn-sm">
-                                    1 tháng
-                                </button>
-                                <button type="button" class="btn btn-soft-secondary btn-sm">
-                                    6 tháng
-                                </button>
-                                <button type="button" class="btn btn-soft-primary btn-sm">
-                                    1 năm
-                                </button>
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    <li class="nav-item mx-1" role="presentation">
+                                      <button class="btn btn-soft-secondary btn-sm active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" onclick="Statistic(0)">All</button>
+                                    </li>
+                                    <li class="nav-item mx-1" role="presentation">
+                                      <button class="btn btn-soft-secondary btn-sm" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="Statistic(1)">1 tháng</button>
+                                    </li>
+                                    <li class="nav-item mx-1" role="presentation">
+                                      <button class="btn btn-soft-secondary btn-sm" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false" onclick="Statistic(6)">6 tháng</button>
+                                    </li>
+                                    <li class="nav-item mx-1" role="presentation">
+                                        <button class="btn btn-soft-secondary btn-sm" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false" onclick="Statistic(12)">1 năm</button>
+                                      </li>
+                                  </ul>
                             </div>
                         </div><!-- end card header -->
 
                         <div class="card-header p-0 border-0 bg-light-subtle">
-                            <div class="row g-0 text-center">
+                            <div class="row g-0 text-center" id="statistic">
                                 <div class="col-6 col-sm-3">
                                     <div class="p-3 border border-dashed border-start-0">
-                                        <h5 class="mb-1"><span class="counter-value" data-target="7585">7,585</span>
+                                        <h5 class="mb-1"><span class="counter-value" data-target="7585">{{$order_all}}</span>
                                         </h5>
                                         <p class="text-muted mb-0">Đơn hàng</p>
                                     </div>
@@ -204,7 +204,7 @@
                                 <!--end col-->
                                 <div class="col-6 col-sm-3">
                                     <div class="p-3 border border-dashed border-start-0">
-                                        <h5 class="mb-1">$<span class="counter-value" data-target="22.89">22.89</span>k
+                                        <h5 class="mb-1">{{ number_format($revenue_all, 0, ',', '.') }}</span> Đ
                                         </h5>
                                         <p class="text-muted mb-0">Doanh thu</p>
                                     </div>
@@ -212,7 +212,7 @@
                                 <!--end col-->
                                 <div class="col-6 col-sm-3">
                                     <div class="p-3 border border-dashed border-start-0">
-                                        <h5 class="mb-1"><span class="counter-value" data-target="367">367</span>
+                                        <h5 class="mb-1"><span class="counter-value" data-target="367">{{$order_cancel}}</span>
                                         </h5>
                                         <p class="text-muted mb-0">Huỷ bỏ</p>
                                     </div>
@@ -221,7 +221,7 @@
                                 <div class="col-6 col-sm-3">
                                     <div class="p-3 border border-dashed border-start-0 border-end-0">
                                         <h5 class="mb-1 text-success"><span class="counter-value"
-                                                data-target="18.92">18.92</span>%</h5>
+                                                data-target="18.92">{{$conversion_rate}}</span>%</h5>
                                         <p class="text-muted mb-0">Tỷ lệ chuyển đổi</p>
                                     </div>
                                 </div>

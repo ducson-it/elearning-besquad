@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Validator;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -30,5 +31,8 @@ class AppServiceProvider extends ServiceProvider
         JsonResource::withoutWrapping();
         Schema::defaultStringLength(191);
         Paginator::useBootstrap();
+        Validator::extend('check_status', function ($attribute, $value, $parameters, $validator) {
+            return in_array($value, [0, 1]);
+        });
     }
 }

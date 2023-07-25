@@ -10,9 +10,6 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h1>
-                    <marquee class="text-danger">Quản lý blog</marquee>
-                </h1>
             </div><!-- end card header -->
             <div class="card-body">
                 <div class="listjs-table" id="customerList">
@@ -20,7 +17,6 @@
                         <div class="col-sm-auto">
                             <div>
                                 <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><i class="ri-add-line align-bottom me-1"></i><a href="{{route('blogs.create')}}"> Add</a></button>
-                                <button class="btn btn-soft-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                             </div>
                         </div>
                         <div class="col-sm">
@@ -36,11 +32,6 @@
                         <table class="table align-middle table-nowrap" id="BlogTable">
                             <thead class="table-light">
                                 <tr>
-                                    <th scope="col" style="width: 50px;">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                        </div>
-                                    </th>
                                     <th class="" data-sort="customer_name">STT</th>
                                     <th class="" data-sort="customer_name">Title</th>
                                     <th class="" data-sort="course">Slug</th>
@@ -54,11 +45,6 @@
                             <tbody class="list form-check-all">
                                 @foreach($blogs as $i =>$blog)
                                 <tr>
-                                    <th scope="col" style="width: 50px;">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                        </div>
-                                    </th>
                                     <td class="">{{$i +1}}</td>
                                     <td class="title">{{$blog->title}}</td>
                                     <td class="slug">{{$blog->slug}}</td>

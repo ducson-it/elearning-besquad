@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/statistic-business', [App\Http\Controllers\HomeController::class, 'statistic'])->middleware('auth');
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web','auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });

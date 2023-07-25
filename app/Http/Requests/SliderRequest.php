@@ -19,8 +19,7 @@ class SliderRequest extends FormRequest
             'text_color' => 'required',
             'url_btn' => 'required',
             'content_btn' => 'required',
-//            'image' => 'required|image',
-            'status' => 'required',
+            'status' => ['required', 'numeric', 'check_status'],
         ];
     }
     public function messages()
@@ -33,7 +32,6 @@ class SliderRequest extends FormRequest
             'content_btn.required' => 'Vui lòng nhập nội dung cho nút.',
             'image.required' => 'Vui lòng chọn ảnh.',
             'image.image' => 'Tệp tải lên phải là hình ảnh.',
-            'status.required' => 'Vui lòng chọn trạng thái.',
-        ];
+            'status.check_status' => 'Trạng thái chỉ được nhập 0 hoặc 1.',        ];
     }
 }
