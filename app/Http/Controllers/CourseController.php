@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CourseRequest;
+use App\Models\Beesquad;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -20,7 +23,7 @@ class CourseController extends Controller
             $keyword = $request->get('keyword');
             $courses = $courses->where('name','like',"%{$keyword}%");
         }
-        $courses = $courses->latest()->paginate(5);
+        $courses = $courses->orderBy('id','desc')->paginate(Beesquad::PAGINATE_BLOG);
         $categories = Category::all();
         return view('courses.list',compact('courses','categories','keyword'));
     }
@@ -73,7 +76,11 @@ class CourseController extends Controller
     }
     public function destroy($course_id){
         $course = Course::find($course_id);
+        $module = Module::where('course_id',$course_id);
+        $lesson = Lesson::where('course_id',$course_id);
         $course->delete();
+        $course->modules()->delete();
+        $course->lessons()->delete();
         return response()->json([
             'status'=>true,
             'message'=>"Xoá thành công"
