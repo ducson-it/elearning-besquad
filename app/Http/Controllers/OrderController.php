@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
+use App\Models\Beesquad;
 use App\Models\Course;
 use App\Models\Order;
 use App\Models\Study;
@@ -34,7 +35,7 @@ class OrderController extends Controller
             'order_code'=>$order_code,
             'user_id'=>$request->user_id,
             'course_id'=>$request->course_id,
-            'status'=>0,
+            'status'=>Beesquad::PENDING,
             'amount'=>$request->amount
         ];
         Order::create($data);
@@ -78,7 +79,7 @@ class OrderController extends Controller
             if($type == 1){
                 //payment complete
                 $order->update([
-                    'status'=>1
+                    'status'=>Beesquad::DONE
                 ]);
                 $data = [
                     'user_id'=>$order->user_id,
@@ -89,7 +90,7 @@ class OrderController extends Controller
             }else{
                 //cancel order
                 $order->update([
-                    'status'=>2
+                    'status'=>Beesquad::CANCEL
                 ]);
             }
             return response()->json([
