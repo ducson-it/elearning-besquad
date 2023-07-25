@@ -31,7 +31,7 @@
                         <p>Kết quả tìm kiếm cho từ khoá <span class="text-danger mx-1">"{{$keyword}}"</span></p>
                         @endif
                         <div class="table-responsive table-card mt-3 mb-1">
-                            <table class="table align-middle table-nowrap" id="customerTable">
+                            <table class="table align-middle" id="customerTable">
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col" style="width: 50px;">
@@ -86,7 +86,7 @@
                                                             <input type="text" id="phone-field" class="form-control"
                                                                 placeholder="Enter name" name="name"
                                                                 value="{{ $category->name }}">
-                                                                <span class="text-danger" id="error"></span>
+                                                                <span class="text-danger" id="error-edit"></span>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="phone-field" class="form-label bg-light">Slug</label>
@@ -169,7 +169,7 @@
                         <label for="phone-field" class="form-label">Tên danh mục</label>
                         <input type="text"  class="form-control" id="name" placeholder="Enter name"
                              name="name">
-                        <span class="text-danger" id="error"></span>
+                        <span class="text-danger" id="error-create"></span>
                     </div>
                     <div class="mb-3">
                         <label for="phone-field" class="form-label">Slug</label>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ModuleRequest;
+use App\Models\Beesquad;
 use App\Models\Course;
 use App\Models\Module;
 use Illuminate\Http\Request;
@@ -13,10 +14,19 @@ class ModuleController extends Controller
 {
  
     //
-    public function index()
+    public function index(Request $request)
     {
-        $modules = Module::with('course')->latest()->paginate(5);
-        return view('modules.list',compact('modules'));
+        $keyword = '';
+        $modules = Module::with('course');
+        if($request->get('keyword')){
+            $keyword = $request->get('keyword');
+            $modules = $modules->where('name','like',"%{$keyword}%")
+                            ->orWhereHas('course',function($q) use ($keyword){
+                                $q->where('name','like',"%{$keyword}%");
+                            });
+        }
+        $modules = $modules->orderBy('id','desc')->paginate(Beesquad::PAGINATE_BLOG);
+        return view('modules.list',compact('modules','keyword'));
     }
     public function create()
     {
@@ -52,6 +62,7 @@ class ModuleController extends Controller
     {
         $module = Module::find($module_id);
         $module->delete();
+        $module->lessons()->delete();
         return response()->json([
             'status'=>true,
             'message'=>'Xoá thành công'
