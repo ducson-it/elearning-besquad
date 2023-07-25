@@ -76,8 +76,6 @@ class CourseController extends Controller
     }
     public function destroy($course_id){
         $course = Course::find($course_id);
-        $module = Module::where('course_id',$course_id);
-        $lesson = Lesson::where('course_id',$course_id);
         $course->delete();
         $course->modules()->delete();
         $course->lessons()->delete();
