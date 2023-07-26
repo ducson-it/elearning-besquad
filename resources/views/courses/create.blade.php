@@ -73,7 +73,7 @@
                                     </div>
                                     @if ($errors->any())
                                         <span id="error-name" style="color:red">
-                                            @error('image')
+                                            @error('filepath')
                                                 {{ $message }}
                                             @enderror
                                         </span><br>
@@ -113,7 +113,7 @@
                                     <textarea name="content" id="content" class="my-editor">{!!old('content')!!}</textarea><br>
                                     @if ($errors->any())
                                     <span id="error-name" style="color:red">
-                                        @error('description')
+                                        @error('content')
                                             {{ $message }}
                                         @enderror
                                     </span><br>
