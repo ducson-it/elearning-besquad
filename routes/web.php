@@ -12,9 +12,10 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Auth::routes();
+Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/statistic-business', [App\Http\Controllers\HomeController::class, 'statistic'])->middleware('auth');
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web','auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });

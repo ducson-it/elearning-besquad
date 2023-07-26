@@ -9,7 +9,7 @@ class History extends Model
 {
     use HasFactory;
     protected $table = 'history';
-    protected $fillable = ['user_id', 'course_id', 'lesson_id', 'time', 'stop_time_video'];
+    protected $fillable = ['user_id', 'course_id', 'lesson_id', 'status'];
 
     public function user()
     {

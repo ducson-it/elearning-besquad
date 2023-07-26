@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\StudyController;
 
 Route::group(['prefix'=>"courses","as"=>"courses."],function(){
     Route::get('/',[CourseController::class,'index'])->name('list');
@@ -16,3 +18,7 @@ Route::group(['prefix'=>"courses","as"=>"courses."],function(){
     Route::get('/select/category/{category_id}',[CourseController::class,'showCourseCate']);
     Route::get('/select/category/',[CourseController::class,'showAllCourseCate']);
 });
+//learning management
+Route::get('/studies',[StudyController::class,'index'])->name('studies.list');
+//courses history
+Route::get('/histories',[HistoryController::class,'index'])->name('histories.list');

@@ -10,18 +10,16 @@ use Illuminate\Http\Request;
 class TagController extends Controller
 {
     //
-    public function show(Request $request){
-        $tags = Tag::paginate(10);
-        if($request->input('search_tag')){
-            $search = $request->input('search_tag');
-            $tags  = Tag::where('name', 'LIKE', '%'.$search.'%')->paginate(10);
-        }else{
-            $search = "";
-        }
+    public function show(Request $request) {
+        $search = $request->input('search_tag', '');
 
-        return view('tags.list',compact('tags','search'));
+        $tags = Tag::where('name', 'LIKE', '%' . $search . '%')
+            ->paginate(10);
+
+        return view('tags.list', compact('tags', 'search'));
     }
-   public function storetag(TagRequest $request){
+
+    public function storetag(TagRequest $request){
        $data = [
            'name' => $request->input('name'),
            'description' => $request->input('tag_description'),

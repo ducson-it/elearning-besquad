@@ -39,6 +39,7 @@ $(document).ready(function () {
                         <tr>
                             <td class="customer_name">${ index+1 }</td>
                             <td class="customer_name">${value.name}</td>
+                            <td class="customer_name">${value.slug}</td>
                             <td class="course-price">${(value.price)?value.price.toLocaleString():0}</td>
                             <td class="price-discount">${ value.discount ? value.discount : 0 }%</td>
                             <td class="cate">${ value.category.name }</td>

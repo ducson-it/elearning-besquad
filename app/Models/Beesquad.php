@@ -22,4 +22,5 @@ class Beesquad extends Model
     const CANCEL = 3;
     const TRUE = 1;
     const FALSE = 0;
+    const PAGINATE =10;
 }

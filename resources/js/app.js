@@ -16,6 +16,7 @@ import select2 from 'select2';
 select2()
 // import Dropzone from "dropzone";
 // import file js'
+import'./home';
 import './tag';
 import './user';
 import './notifycation';

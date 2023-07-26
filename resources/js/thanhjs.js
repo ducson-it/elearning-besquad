@@ -1,6 +1,7 @@
 import 'bootstrap';
 import Swal from 'sweetalert2';
 import axios from "axios";
+import $ from "jquery";
 //xóa blogs
 window.deleteblogs = (id) => {
     Swal.fire({
@@ -85,6 +86,44 @@ window.deletecomment = (id) => {
         }
     });
 };
+//status comment
+window.activeComment = (id) => {
+    Swal.fire({
+        title: ' Bạn chắc chắn ? ',
+        text: "Thay đổi trạng thái comment ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/comment/update/' + id,
+                type: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    Swal.fire(
+                        'Hiện comment!',
+                        'Đã thay đổi trạng thái comment',
+                        'success'
+                    ).then(() => {
+                        window.location.reload();
+                    });
+                },
+                error: function (xhr) {
+                    Swal.fire(
+                        'Error!',
+                        'Không thể cập nhật trạng thái',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+}
 
 //xóa slider
 window.deletesliders = (id) => {
