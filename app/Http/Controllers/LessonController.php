@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LessonRequest;
 use App\Models\Beesquad;
 use App\Models\Course;
 use App\Models\Lesson;
@@ -42,7 +43,7 @@ class LessonController extends Controller
         $videos = json_decode($videos,TRUE);
         return view('lessons.create',$videos);
     }
-    public function store(Request $request)
+    public function store(LessonRequest $request)
     {
         $documentName = '';
             if($request->file('document') != ''){
