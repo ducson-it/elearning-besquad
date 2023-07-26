@@ -15,6 +15,13 @@
                                 <div>
                                     <label for="basiInput" class="form-label">Tên khoá học</label>
                                     <input type="text" class="form-control"  value="{{$course->name}}" name="name" id="name">
+                                    @if ($errors->any())
+                                    <span id="error-name" style="color:red">
+                                        @error('name')
+                                            {{ $message }}
+                                        @enderror
+                                    </span><br>
+                                @endif
                                 </div>
                             </div>
                             <div class="mb-3 col-10">
@@ -70,7 +77,7 @@
                                 <div>
                                     <label for="iconrightInput" class="form-label">Giảm giá (đơn vị:%)</label>
                                     <div class="form-icon">
-                                        <input type="number" class="form-control" id="" placeholder="" value="{{$course->discount}}" name="discount" min="0" max="100" step="5">
+                                        <input type="number" class="form-control" id="" placeholder="" value="{{$course->discount}}" name="discount" max="100">
                                     </div>
                                 </div>
                             </div>
@@ -78,13 +85,27 @@
                             <div class="col-12 mt-2">
                                 <div>
                                     <label for="exampleFormControlTextarea5" class="form-label">Mô tả chung</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea5" rows="3" name="featured">{{$course->featured}}</textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea5" rows="3" name="featured">{{$course->featured}}</textarea><br>
+                                    @if ($errors->any())
+                                    <span id="error-name" style="color:red">
+                                        @error('featured')
+                                            {{ $message }}
+                                        @enderror
+                                    </span><br>
+                                @endif
                                 </div>
                             </div>
                             <div class="col-12 mb-5">
                                 <label class="label-control mb-2">Mô tả</label>
                                 {{-- <div id="quillEditor">{!!$course->description!!}</div> --}}
-                                <textarea name="content" id="content" class="my-editor">{!!$course->description!!}</textarea>
+                                <textarea name="content" id="content" class="my-editor">{!!$course->description!!}</textarea><br>
+                                @if ($errors->any())
+                                    <span id="error-name" style="color:red">
+                                        @error('content')
+                                            {{ $message }}
+                                        @enderror
+                                    </span><br>
+                                @endif
                             </div>
                         
                         </div>
