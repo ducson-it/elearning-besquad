@@ -81,7 +81,7 @@ class LessonController extends Controller
         $video = json_decode($video,TRUE);
         return view('lessons.edit',compact('lesson','video'),$videos);
     }
-    public function update(Request $request,Lesson $lesson)
+    public function update(LessonRequest $request,Lesson $lesson)
     {
         if($request->file('document') != ''){
             $document = $request->file('document');
