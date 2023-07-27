@@ -12,8 +12,9 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <h5>Nhóm quyền</h5>
-                        <a href="javascript:void(0);" data-click="createGroupPermission" class="btn btn-success add-btn"><i
-                                class="ri-add-line align-bottom me-1"></i> Thêm nhóm quyền</a>
+                        <button data-bs-toggle="modal" data-bs-target="#create-group-permission"
+                            class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i> Thêm nhóm
+                            quyền</button>
                     </div>
                     <div class="table-responsive table-card mt-3 mb-1">
                         <table class="table align-middle table-nowrap" id="customerTable">
@@ -115,25 +116,25 @@
         </div>
         <!-- end col -->
     </div>
-    <div class="modal fade" id="create-group-permission" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade" id="create-group-permission" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Xuất File</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm nhóm quyền</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <label for="">Lý do: </label>
-                    <textarea class="form-control" name="reason" id="reason"></textarea>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Tên nhóm quyền</span>
+                        <input type="text" name="name" class="form-control" placeholder="Nhóm quyền"
+                            aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="hidden" value="0" name="parent_id">
+                    </div>
+                    <div class="text-danger error input_name mt-1 ml-1"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary request " data-click="requestExport">Yêu cầu xuất
-                        file
-                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="createGroupPermission">Thêm</button>
                 </div>
             </div>
         </div>
@@ -142,23 +143,51 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $(this).on('click', '*[data-click]', function(e) {
-                let func = $(this).data('click');
-                switch (func) {
-                    case 'createGroupPermission':
-                        Permission.createGroupPermission();
-                        break;
-                    default:
-                        return;
+            $('#createGroupPermission').click(function() {
+                let modalCreateGroupId = $('#create-group-permission');
+                let nameGroup = modalCreateGroupId.find("input[name='name']").val();
+                let parentIdGroup = modalCreateGroupId.find("input[name='parent_id']").val();
+                let error = false;
+                if (!nameGroup) {
+                    error = true;
+                    $('.error.input_name').html('Vui lòng nhập dữ liệu!')
                 }
-            });
 
-            const Permission = {
-                createGroupPermission: function() {
-                    let modal = $("#create-group-permission");
-                    modal.modal('show');
-                }
-            }
+                if (error) return;
+
+                $.ajax({
+                    url: '/permissions',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        name: nameGroup,
+                        parent_id: parentIdGroup
+                    },
+                    type: 'post',
+                    success: function(res) {
+                        if (res.success == true) {
+                            // fileName.val('');
+                            // $('#attFileName').text('');
+                            // file.val(null);
+                            // Contract.config.fileList.push(res.data);
+                            // Contract.renderFileHtml();
+                            // button.find('.spin').css('display', 'none');
+                            location.reload();
+                            init.notyPopup('Upload thành công.', 'success');
+                        } else {
+                            init.notyPopup('Upload thất bại!', 'error');
+                        }
+                        button.attr('disabled', false)
+                    },
+                    // error: function(error) {
+                    //     button.attr('disabled', false)
+                    //     button.find('.spin').css('display', 'none');
+                    //     init.notyPopup('Upload thất bại!, Vui lòng thử lại', 'error');
+
+                    // }
+                });
+            })
         });
     </script>
 @endsection

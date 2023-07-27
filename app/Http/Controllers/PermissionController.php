@@ -15,7 +15,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::paginate(Beesquad::PAGINATE_BLOG);
+        $permissions = Permission::paginate(Beesquad::PAGINATE);
         return view('permissions.list', compact('permissions'));
     }
 
@@ -37,7 +37,13 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Permission::create(['name' => $request->name, 'parent_id' => $request->parent_id]);
+        return response([
+            'success' => true,
+            'data' => [
+                'message' => 'Thêm dữ liệu thành công!'
+            ]
+        ]);
     }
 
     /**
