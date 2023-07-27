@@ -9,21 +9,21 @@ use Illuminate\Http\Request;
 class TaggableController extends Controller
 {
     //
-    public function getTaggable(Request $request,$tag_id){
-        $taggables = Taggable::with('tag')->where('tag_id',$tag_id)->paginate(10);
-        if($request->input('search_taggable')){
-            $search = $request->input('search_taggable');
-            $taggables = Taggable::where('tag_id', $tag_id)
-                ->whereHas('tag', function ($query) use ($search) {
-                    $query->where('name', 'LIKE', '%' . $search . '%');
-                })
-                ->with('tag')
-                ->paginate(10);
-        }else{
-            $search = "";
-        }
-        return view('tags.taggable',compact('taggables','tag_id','search'));
+    public function getTaggable(Request $request, $tag_id) {
+        $search = $request->input('search_taggable', '');
+
+        $taggables = Taggable::with('tag')
+            ->where('tag_id', $tag_id)
+            ->when($search, function ($query) use ($search) {
+                $query->whereHas('tag', function ($subquery) use ($search) {
+                    $subquery->where('name', 'LIKE', '%' . $search . '%');
+                });
+            })
+            ->paginate(10);
+
+        return view('tags.taggable', compact('taggables', 'tag_id', 'search'));
     }
+
     public function deleteTaggable($id){
         $tag = Taggable::find($id);
         if($tag->delete()){

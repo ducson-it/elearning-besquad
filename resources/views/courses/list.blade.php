@@ -15,9 +15,12 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
                                 <div>
-                                    <button type="button" class="btn btn-success add-btn"><i
-                                            class="ri-add-line align-bottom me-1"></i> <a
-                                            href="{{ route('courses.create') }}">Add</a></button>
+                                    <a href="{{ route('courses.create') }}">
+                                        <button type="button" class="btn btn-success add-btn"><i
+                                            class="ri-add-line align-bottom me-1"></i>
+                                            Add</button>
+                                    </a>
+                                    
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -42,6 +45,8 @@
                         </div>
                         @if ($keyword != '')
                         <p>Kết quả tìm kiếm cho từ khoá <span class="text-danger mx-1">"{{$keyword}}"</span></p>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal"><a
+                            href="{{ route('courses.list') }}">Trở lại</a></button>
                     @endif
                         <div class="table-responsive table-card mt-3 mb-1">
                             <table class="table align-middle table-nowrap" id="customerTable">

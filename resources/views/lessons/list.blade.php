@@ -15,19 +15,29 @@
                     <div class="row g-4 mb-3">
                         <div class="col-sm-auto">
                             <div>
-                                <button type="button" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i><a href="{{route('lessons.create')}}">Add</a></button>
+                                <a href="{{ route('lessons.create') }}">
+                                    <button type="button" class="btn btn-success add-btn"><i
+                                        class="ri-add-line align-bottom me-1"></i>
+                                        Add</button>
+                                </a>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="d-flex justify-content-sm-end">
                                 <div class="search-box ms-2">
-                                    <input type="text" class="form-control search" placeholder="Search...">
+                                    <form action="" method="GET">
+                                        <input type="text" class="form-control search" placeholder="Search..." name="keyword">
                                     <i class="ri-search-line search-icon"></i>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    @if ($keyword != '')
+                    <p>Kết quả tìm kiếm cho từ khoá <span class="text-danger mx-1">"{{$keyword}}"</span></p>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal"><a
+                        href="{{ route('lessons.list') }}">Trở lại</a></button>
+                @endif
                     <div class="table-responsive table-card mt-3 mb-1">
                         <table class="table align-middle table-nowrap" id="customerTable">
                             <thead class="table-light">
@@ -68,7 +78,7 @@
                                                 <button class="btn btn-sm btn-success edit-item-btn"><a href="{{route('lessons.edit',$lesson->id)}}" class="text-light">Edit</a></button>
                                             </div>
                                             <div class="remove">
-                                                <button class="btn btn-sm btn-danger remove-item-btn" id="deleteLesson({{$lesson->id}})">Remove</button>
+                                                <button class="btn btn-sm btn-danger remove-item-btn" onclick="deleteLesson({{$lesson->id}})">Remove</button>
                                             </div>
                                         </div>
                                     </td>

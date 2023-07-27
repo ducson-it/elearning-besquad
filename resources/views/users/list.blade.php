@@ -40,9 +40,7 @@
                                 <div class="alert alert-success">{{ session('message') }}</div>
                             @endif
                         </div>
-                        @if($search && $search != "")
-                            <p style="padding-left: 40px;" class="fs-5">Kết quả tìm kiếm từ khóa"<strong class="text-danger">  {{$search}}  </strong>"</p>
-                        @endif
+
                         <div class="table-responsive table-card mt-3 mb-1">
                             <table class="table align-middle table-nowrap" id="userTable">
                                 <thead class="table-light">
@@ -58,11 +56,17 @@
                                 </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
+                                <!-- Trang hiện tại -->
+                                @php
+                                    $currentPage = $list_users->currentPage();
+                                    $perPage = $list_users->perPage();
+                                    $start = ($currentPage - 1) * $perPage + 1;
+                                @endphp
                                 <!-- Sử dụng một vòng lặp để hiển thị các bản ghi người dùng -->
                                 @foreach($list_users as $key => $user)
                                     <tr data-user-id="{{$user->id}}">
 
-                                        <td>{{$key + 1}}</td>
+                                        <td>{{$start + $key}}</td>
                                         <td class="customer_name">{{$user->name}}</td>
                                         <td class="email">{{$user->email}}</td>
                                         <td class="phone">{{$user->phone}}</td>
@@ -107,7 +111,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-start">
                             {{ $list_users->links() }}
                         </div>
                     </div>

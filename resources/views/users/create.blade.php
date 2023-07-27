@@ -99,7 +99,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <input  type="hidden" name="role_id" value="3">
+                                    <input  type="hidden" name="role_id" value="2">
                                     <div class="col-11 mt-3">
                                         <div>
                                             <label class="form-label">Trạng thái</label>

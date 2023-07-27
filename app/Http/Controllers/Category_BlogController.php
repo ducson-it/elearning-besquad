@@ -20,7 +20,7 @@ class Category_BlogController extends Controller
 
     public function store(CategoryBlogRequest $request)
     {
-        $slug = Str::slug($request->input('name'));
+        $slug = ($request->input('name'));
         CategoryBlog::create([
             'name' => $request->input('name'),
             'slug' => $slug,

@@ -13,7 +13,7 @@ class CategoryController extends Controller
     //
     public function index(Request $request)
     {
-        $categories = Category::latest();
+        $categories = Category::orderBy('id','desc');
         $keyword = '';
         if($request->get('keyword')){
             $keyword = $request->get('keyword');

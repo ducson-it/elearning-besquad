@@ -46,7 +46,6 @@
                         </div>
                         <div class="col-sm">
                             <div class="d-flex justify-content-sm-end">
-                                <a href="{{route('show.tag')}}"> <button class="rounded border-0 btn btn-warning">Danh sách</button></a>
                                 <form method="post" action="{{route('show.tag')}}">
                                     @csrf
                                     <div class="search-box ms-2">
@@ -83,10 +82,14 @@
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all customerList">
+                            @php
+                                $currentPage = $tags->currentPage();
+                                $perPage = $tags->perPage();
+                                $start = ($currentPage - 1) * $perPage + 1;
+                            @endphp
                             @foreach($tags as $key => $tag)
                                 <tr>
-
-                                    <td>{{$key}}</td>
+                                    <td>{{$start + $key}}</td>
                                     <td class="customer_name">{{$tag->name}}</td>
                                     <td class="course">{{$tag->description}} </td>
                                     <td class="date">{{$tag->created_at}}</td>
@@ -148,7 +151,7 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-start">
                         {{ $tags->links() }}
                     </div>
                 </div>

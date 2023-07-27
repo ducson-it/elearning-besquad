@@ -16,13 +16,30 @@ use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Constraint\Count;
 
 class CourseController extends Controller
 {
+    //User login get courses in studies to check myCourse
+    public function getCourse()
+    {
+            $courses = Course::with(['category','studies'])->get();
+            if (!$courses) {
+                return response()->json([
+                    'code' => 404,
+                    'message' => 'note found'
+                ]);
+            }
+            return response()->json([
+                'code' => 200,
+                'message' => 'success',
+                'data' => $courses
+            ]);
+    
+    }
     public function categoryCourse()
     {
         $courses = Category::with('courses')->get();
-
         if (!$courses) {
             return response()->json([
                 'code' => 404,
@@ -68,9 +85,21 @@ class CourseController extends Controller
         $course = Course::find($courseId);
 
         $user = Auth::user();
+
+        $checkOrder = Order::where('course_id', $course->id)
+                    ->Where('user_id', $user->id)
+                    ->Where('course_id', $course->id)
+                    ->Where('status', Beesquad::PENDING)
+                    ->exists();
+
+        if ($checkOrder) {
+            return response(['success' => false, 'data' => [
+                'message' => 'Đơn hàng đang trong thời gian xử lý'
+            ]]);
+        }
         if ($course) {
             if ($course->is_free == Beesquad::TRUE) {
-                    try {
+                try {
                     DB::beginTransaction();
                     do {
                         $order_code = 'BQ' . random_int(100000, 999999);
@@ -120,31 +149,54 @@ class CourseController extends Controller
                 } catch (\Throwable $th) {
                     DB::rollBack();
                     return response(['success' => false, 'data' => [
-                        'message' => 'Tạo không thành công đơn hàng, vui lòng thử lại!'
+                        'message' => 'Đơn hàng đang trong thời gian xử lý, vui lòng thử lại!'
                     ]]);
                 }
             }
         }
     }
 
+    
     public function historyCourse(Request $request)
     {
         $courseId = $request->input('course_id');
-        $lessonId = $request->input('lesson_id');
-        $time = $request->input('time');
-        $stopTimeVideo = $request->input('stop_time_video');
         // Lấy thông tin người dùng từ mã token xác thực
-        $user = auth()->user();
+        $history =History::where('user_id',Auth::id())
+            ->where('course_id',$courseId)
+            ->get();
+        $lesson_history_count = History::where('user_id',Auth::id())
+        ->where('course_id',$courseId)
+        ->count();
+        $lesson_count = Lesson::where('course_id',$courseId)->count();
+        $complete_rate = round($lesson_history_count*100/$lesson_count,2);
+        return response()->json([
+            'status' => true,
+            'history' => $history,
+            'complete_rate'=>$complete_rate
+        ], 200);
+    }
+    public function historyCourseUpdate(Request $request)
+    {
+        $courseId = $request->input('course_id');
+        $lessonId = $request->input('lesson_id');
+        // Lấy thông tin người dùng từ mã token xác thực
         $history = History::create([
-            'user_id' => $user->id,
+            'user_id' => Auth::id(),
             'course_id' => $courseId,
             'lesson_id' => $lessonId,
-            'time' => Carbon::parse($time),
-            'stop_time_video' => Carbon::parse($stopTimeVideo),
+            'status'=>1
         ]);
+        $lesson_history_count = History::where('user_id',Auth::id())
+        ->where('course_id',$courseId)
+        ->distinct('lesson_id')
+        ->count();
+        $lesson_count = Lesson::where('course_id',$courseId)->count();
+        $complete_rate = round($lesson_history_count*100/$lesson_count,2);
         return response()->json([
             'message' => 'Lịch sử học đã được ghi lại thành công',
-            'history' => $history
+            'status'=>true,
+            'history' => $history,
+            'complete_rate'=>$complete_rate
         ], 200);
     }
 }
