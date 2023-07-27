@@ -2,4 +2,4 @@
 
 use App\Http\Controllers\PermissionController;
 
-Route::resource('permission', PermissionController::class);
+Route::resource('permissions', PermissionController::class);

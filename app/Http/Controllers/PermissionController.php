@@ -37,7 +37,13 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Permission::create(['name' => $request->name, 'parent_id' => $request->parent_id]);
+        return response([
+            'success' => true,
+            'data' => [
+                'message' => 'Thêm dữ liệu thành công!'
+            ]
+        ]);
     }
 
     /**
