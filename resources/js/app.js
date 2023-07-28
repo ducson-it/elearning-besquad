@@ -19,6 +19,7 @@ select2()
 import'./home';
 import './tag';
 import './user';
+import './voucher';
 import './notifycation';
 
 selectpicker();
