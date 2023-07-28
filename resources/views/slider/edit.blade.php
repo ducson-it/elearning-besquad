@@ -1,15 +1,6 @@
 @extends('layouts.master')
 @section('content')
     <div class="row">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
@@ -25,15 +16,24 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Tên</label>
                                                 <input type="text" class="form-control" name="name" value="{{ old('name', $sliders->name) }}">
+                                                @if ($errors->has('name'))
+                                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                                @endif
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Content</label>
                                                 <input type="text" class="form-control"  name="content" value="{{ old('content', $sliders->content) }}">
                                             </div>
+                                            @if ($errors->has('content'))
+                                                <span class="text-danger">{{ $errors->first('content') }}</span>
+                                            @endif
                                             <div class="mb-3">
                                                 <label class="form-label">Text color</label>
                                                 <input type="text" class="form-control" name="text_color" value="{{ old('text_color', $sliders->text_color) }}">
                                             </div>
+                                            @if ($errors->has('text_color'))
+                                                <span class="text-danger">{{ $errors->first('text_color') }}</span>
+                                            @endif
                                         </div>
                                     </div>
                             </div>
@@ -42,10 +42,16 @@
                                     <label class="form-label">Content_btn</label>
                                     <input type="text" class="form-control" name="content_btn" value="{{ old('content_btn', $sliders->content_btn) }}">
                                 </div>
+                                @if ($errors->has('content_btn'))
+                                    <span class="text-danger">{{ $errors->first('content_btn') }}</span>
+                                @endif
                                 <div class="mb-3">
                                     <label class="form-label">Url-btn</label>
                                     <input type="text" class="form-control" name="url_btn" value="{{ old('url_btn', $sliders->url_btn) }}">
                                 </div>
+                                @if ($errors->has('url_btn'))
+                                    <span class="text-danger">{{ $errors->first('url_btn') }}</span>
+                                @endif
                                 <div class="mb-3">
                                     <label class="form-label">Images</label>
                                     <div class="input-group">
@@ -62,6 +68,9 @@
                                     <label class="form-label">Status</label>
                                     <input type="text" class="form-control" name="status" value="{{ old('status', $sliders->status) }}">
                                 </div>
+                                @if ($errors->has('status'))
+                                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                                @endif
                             </div>
                         </div>
                         <div class="row mt-4">

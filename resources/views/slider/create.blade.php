@@ -1,15 +1,6 @@
 @extends('layouts.master')
 @section('content')
     <div class="row">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
@@ -27,6 +18,9 @@
                                                 <label for="basiInput" class="form-label">Name</label>
                                                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
                                             </div>
+                                            @error('name')
+                                            <div class="alert text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <br>
                                         <div class="col-11">
@@ -34,6 +28,9 @@
                                                 <label for="basiInput" class="form-label">Content</label>
                                                 <input type="text" class="form-control @error('content') is-invalid @enderror" name="content" value="{{ old('content') }}">
                                             </div>
+                                            @error('content')
+                                            <div class="alert text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <br>
                                         <div class="col-11">
@@ -41,6 +38,9 @@
                                                 <label for="basiInput" class="form-label">Status</label>
                                                 <input type="text" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}">
                                             </div>
+                                            @error('status')
+                                            <div class="alert text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <br>
                                     </div>
@@ -63,6 +63,9 @@
                                                 <label for="basiInput" class="form-label">Text-color</label>
                                                 <input type="text" class="form-control @error('text_color') is-invalid @enderror" name="text_color" value="{{ old('text_color') }}">
                                             </div>
+                                            @error('text_color')
+                                            <div class="alert text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <br>
                                         <div class="col-11">
@@ -70,6 +73,9 @@
                                                 <label for="basiInput" class="form-label">Url_btn</label>
                                                 <input type="text" class="form-control @error('url_btn') is-invalid @enderror" name="url_btn" value="{{ old('url_btn') }}">
                                             </div>
+                                            @error('url_btn')
+                                            <div class="alert text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <br>
                                         <div class="col-11">
@@ -77,6 +83,9 @@
                                                 <label for="basiInput" class="form-label">Content_btn</label>
                                                 <input type="text" class="form-control @error('content_btn') is-invalid @enderror" name="content_btn" value="{{ old('content_btn') }}">
                                             </div>
+                                            @error('content_btn')
+                                            <div class="alert text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
