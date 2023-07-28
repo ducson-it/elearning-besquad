@@ -16,6 +16,7 @@ use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Laravel\Ui\Presets\React;
 use PHPUnit\Framework\Constraint\Count;
 
 class CourseController extends Controller
@@ -137,7 +138,7 @@ class CourseController extends Controller
                         'user_id' => $user->id,
                         'course_id' => $courseId,
                         'status' => Beesquad::PENDING,
-                        'amount' => $course->price
+                        'amount' => $request->input('amount')
                     ];
                     Order::create($data);
                     DB::commit();
@@ -152,6 +153,26 @@ class CourseController extends Controller
                         'message' => 'Đơn hàng đang trong thời gian xử lý, vui lòng thử lại!'
                     ]]);
                 }
+            }
+        }
+    }
+
+    public function checkPayment(Request $request)
+    {
+        $order_code = $request->input('order_code');
+        $order = Order::where('order_code',$order_code)->first();
+        if($order){
+            if($order->status == Beesquad::DONE){
+                return response()->json([
+                    'status'=>true,
+                    'message'=>'Đã thanh toán thành công'
+                ],200);
+            }
+            if($order->status == Beesquad::PENDING){
+                return response()->json([
+                    'status'=>false,
+                    'message'=>'Thanh toán của bạn đang trong quá trình xử lý'
+                ]);
             }
         }
     }
