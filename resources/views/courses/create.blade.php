@@ -38,13 +38,26 @@
                                             'id' => 'courseType',
                                         ]) !!}
                                     </div>
-                                    
+                                    @if ($errors->any())
+                                    <span id="error-name" style="color:red">
+                                        @error('is_free')
+                                            {{ $message }}
+                                        @enderror
+                                    </span><br>
+                                @endif
                                 </div>
                                 <div class="col-10 mt-2">
                                     <div>
                                         <label for="basiInput" class="form-label">Danh mục</label>
                                         {!! Form::select('category_id', $categories, null, ['name'=>'category_id','class'=>"form-select"]) !!}
                                     </div>
+                                    @if ($errors->any())
+                                    <span id="error-name" style="color:red">
+                                        @error('category_id')
+                                            {{ $message }}
+                                        @enderror
+                                    </span><br>
+                                @endif
                                 </div>
                                 {{-- Sử dụng file manager để upload ảnh --}}
                                 <div class="col-10 mt-2">
@@ -55,8 +68,16 @@
                                                 <i class="fa fa-picture-o"></i> Choose
                                             </button>
                                         </span>
-                                        <input id="thumbnail2" class="form-control" type="text" name="filepath">
+                                        <input id="thumbnail2" class="form-control" type="text" name="filepath"><br>
+                                        
                                     </div>
+                                    @if ($errors->any())
+                                        <span id="error-name" style="color:red">
+                                            @error('filepath')
+                                                {{ $message }}
+                                            @enderror
+                                        </span><br>
+                                    @endif
                                 </div>
                                 <!--end col-->
                                 <div class="col-10 price mt-2">
@@ -75,7 +96,7 @@
                                         <label for="iconrightInput" class="form-label">Giảm giá (đơn vị: %)</label>
                                         <div class="form-icon">
                                             <input type="number" class="form-control" id=""
-                                                 name="discount" value="{{old('discount')}}" step="5" max="100">
+                                                 name="discount" value="{{old('discount')}}" max="100">
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +110,14 @@
                                 <div class="col-12 mt-4 mb-5">
                                     <label class="label-control mb-2">Mô tả</label>
                                     {{-- <div >{!!old('content')!!}</div> --}}
-                                    <textarea name="content" id="content" class="my-editor">{!!old('content')!!}</textarea>
+                                    <textarea name="content" id="content" class="my-editor">{!!old('content')!!}</textarea><br>
+                                    @if ($errors->any())
+                                    <span id="error-name" style="color:red">
+                                        @error('content')
+                                            {{ $message }}
+                                        @enderror
+                                    </span><br>
+                                @endif
                                 </div>
                             </div>
                             <!--end col-->

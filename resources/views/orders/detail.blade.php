@@ -16,7 +16,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="card">
-                <div class="{{ ($order->status == 1) ? 'bg-success-subtle' : (($order->status == 2)?'bg-danger-subtle':'bg-warning-subtle') }} position-relative">
+                <div class="{{ ($order->status == 1) ? 'bg-success-subtle' : (($order->status == 3)?'bg-danger-subtle':'bg-warning-subtle') }} position-relative">
                     <div class="card-body p-5">
                         <div class="text-center">
                             <h3>Mã order: {{$order->order_code}}</h3>
@@ -78,7 +78,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle text-success icon-dual-success icon-xs"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                         </div>
                         <div class="flex-grow-1">
-                            <h5>Trạng thái order: <span class="fw-bold {{ ($order->status == 1) ? 'text-success' : (($order->status == 2)?'text-danger':'text-warning') }}">{{ ($order->status == 1) ? 'Payment' : (($order->status == 2)?'Canceled':'Pending') }}</span></h5>
+                            <h5>Trạng thái order: <span class="fw-bold {{ ($order->status == 1) ? 'text-success' : (($order->status == 3)?'text-danger':'text-warning') }}">{{ ($order->status == 1) ? 'Payment' : (($order->status == 3)?'Canceled':'Pending') }}</span></h5>
                         </div>
                     </div>
                     <div class="text-end">

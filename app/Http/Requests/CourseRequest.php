@@ -25,6 +25,11 @@ class CourseRequest extends FormRequest
     {
         return [
             'name'=>'required',
+            'is_free'=>'required',
+            'category_id'=>'required',
+            'filepath'=>'required',
+            'featured'=>'required',
+            'content'=>'required'
             //
         ];
     }
@@ -32,6 +37,11 @@ class CourseRequest extends FormRequest
     {
         return [
             'name.required'=>"Tên không được để trống",
+            'is_free.required'=>"Bạn chưa chọn loại khoá học",
+            'category_id.required'=>"Bạn chưa chọn danh mục",
+            'filepath.required'=>"Bạn chưa tải file",
+            'featured.required'=>"Mô tả chung không được để trống",
+            'content.required'=>"Mô tả không được để trống",
             //
         ];
     }

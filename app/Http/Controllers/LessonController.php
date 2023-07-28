@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LessonRequest;
+use App\Models\Beesquad;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Module;
@@ -14,10 +16,22 @@ use Illuminate\Support\Str;
 class LessonController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $lessons = Lesson::with('module','module')->latest()->paginate(5);
-        return view('lessons.list',compact('lessons'));
+        $keyword = '';
+        $lessons = Lesson::with('module','course');
+        if($request->get('keyword')){
+            $keyword = $request->get('keyword');
+            $lessons = $lessons->where('name','like',"%{$keyword}%")
+                            ->orWhereHas('course',function($q) use ($keyword){
+                                $q->where('name','like',"%{$keyword}%");
+                            })
+                            ->orWhereHas('module',function($q) use ($keyword){
+                                $q->where('name','like',"%{$keyword}%");
+                            });
+        }
+        $lessons = $lessons->orderBy('id','desc')->paginate(Beesquad::PAGINATE_BLOG);
+        return view('lessons.list',compact('lessons','keyword'));
     }
     public function create()
     {
@@ -29,7 +43,7 @@ class LessonController extends Controller
         $videos = json_decode($videos,TRUE);
         return view('lessons.create',$videos);
     }
-    public function store(Request $request)
+    public function store(LessonRequest $request)
     {
         $documentName = '';
             if($request->file('document') != ''){
@@ -50,7 +64,7 @@ class LessonController extends Controller
                 'is_trial_lesson'=>$request->is_trial_lesson
             ];
             Lesson::create($data);
-            return redirect()->route('lessons.list');
+            return redirect()->route('lessons.list')->with('message','Thêm thành công');
     }
     public function edit(Lesson $lesson)
     {

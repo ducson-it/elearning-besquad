@@ -22,7 +22,7 @@ window.addCate = ()=>{
         error:function(xhr,request,error){
             var err = eval("(" + xhr.responseText + ")");
             console.log(err.message)
-            $('#error').html(err.message);
+            $('#error-create').html(err.message);
 
      }
 
@@ -50,7 +50,7 @@ window.updateCate = (cate_id)=>{
         error:function(xhr,request,error){
             var err = eval("(" + xhr.responseText + ")");
             console.log(err.message)
-            $('#error').html(err.message);
+            $('#error-edit').html(err.message);
 
      }
 

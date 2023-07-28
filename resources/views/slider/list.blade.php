@@ -9,9 +9,6 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h1>
-                        <marquee class="text-danger">Quản lý slider</marquee>
-                    </h1>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="listjs-table" id="customerList">
@@ -19,7 +16,6 @@
                             <div class="col-sm-auto">
                                 <div>
                                     <button type="button" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i> <a href="{{route('slider.create')}}"> Add</a></button>
-                                    <button type="button" class="btn btn-primary"><a style="color: white" href="{{route('slider.list')}}">Danh sách</a></button>
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -37,11 +33,6 @@
                             <table class="table align-middle table-nowrap" id="customerTable">
                                 <thead class="table-light">
                                 <tr>
-                                    <th scope="col" style="width: 50px;">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                        </div>
-                                    </th>
                                     <th>Stt</th>
                                     <th>ID</th>
                                     <th>Name</th>
@@ -58,11 +49,6 @@
                                 <tbody class="list form-check-all">
                                 @foreach($sliders as $i => $slider )
                                     <tr>
-                                        <th scope="row">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                            </div>
-                                        </th>
                                         <td class="">{{$i+1}}</td>
                                         <td class="">{{$slider->id}}</td>
                                         <td class="">{{$slider->name}}</td>
