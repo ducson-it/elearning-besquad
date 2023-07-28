@@ -238,7 +238,7 @@
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Top 5 khoá học bán chạy nhất</h4>
-                            <div class="flex-shrink-0">
+                            {{-- <div class="flex-shrink-0">
                                 <div class="dropdown card-header-dropdown">
                                     <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
@@ -255,14 +255,14 @@
                                         <a class="dropdown-item" href="#">Last Month</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div><!-- end card header -->
 
                         <div class="card-body">
                             <div class="table-responsive table-card">
                                 <table class="table table-hover table-centered align-middle table-nowrap mb-0">
                                     <tbody>
-                                        @for ($i = 0; $i < 5; $i++)
+                                        @foreach ($top5_bestseller_courses as $bestseller_course)
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
@@ -273,25 +273,25 @@
                                                     <div>
                                                         <h5 class="fs-14 my-1"><a
                                                                 href="apps-ecommerce-product-details.html"
-                                                                class="text-reset">Branded T-Shirts</a></h5>
-                                                        <span class="text-muted">24 Apr 2021</span>
+                                                                class="text-reset">{{$bestseller_course->name}}</a></h5>
+                                                        <span class="text-muted">{{$bestseller_course->created_at}}</span>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                <h5 class="fs-14 my-1 fw-normal">$29.00</h5>
+                                                <h5 class="fs-14 my-1 fw-normal">{{number_format($bestseller_course->price, 0, ',', '.')}} đ</h5>
                                                 <span class="text-muted">Giá</span>
                                             </td>
                                             <td>
-                                                <h5 class="fs-14 my-1 fw-normal">62</h5>
+                                                <h5 class="fs-14 my-1 fw-normal">{{$bestseller_course->orders_count}}</h5>
                                                 <span class="text-muted">Đơn hàng</span>
                                             </td>
                                             <td>
-                                                <h5 class="fs-14 my-1 fw-normal">$1,798</h5>
+                                                <h5 class="fs-14 my-1 fw-normal">{{number_format($bestseller_course->orders_sum_amount, 0, ',', '.')}} đ</h5>
                                                 <span class="text-muted">Tổng doanh thu</span>
                                             </td>
                                         </tr>
-                                        @endfor
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
