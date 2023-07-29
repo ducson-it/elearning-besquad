@@ -68,7 +68,7 @@
                                         <td class="code">{{$voucher->code}}</td>
                                         <td class="value">{{$voucher->value}}</td>
                                         <td class="unit"><?= $voucher->unit == 'Percent' ? '%':  'Vnd' ?></td>
-                                        <td class="quantity"><?= $voucher->is_infinite == true ? 'Vô hạn' : '1 lần'  ?></td>
+                                        <td class="quantity"><?= $voucher->is_infinite == true ? 'Vô hạn' : $voucher->quantity?></td>
                                         <td class="created_at">{{$voucher->created_at}}</td>
                                         <td class="expired">{{$voucher->expired}}</td>
                                         <td>

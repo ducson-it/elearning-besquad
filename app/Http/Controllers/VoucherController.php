@@ -19,18 +19,21 @@ class VoucherController extends Controller
     public function storeVoucher(VoucherRequest $request)
     {
         $value = $request->unit === 'VND' ? $request->vnd_value : $request->percentage_value;
+        $option = $request->input('option');
+        $quantity = $request->input('quantity');
+        $isInfinite = $option === 'infinity' ? true : false;
 
         try {
-            $voucher = new Voucher([
+            $voucher = Voucher::create([
                 'name' => $request->name,
                 'code' => $request->code,
                 'value' => $value,
+                'quantity' => $isInfinite ? null : $quantity,
                 'unit' => $request->unit,
                 'expired' => $request->expired,
-                'is_infinite' => (int)$request->is_infinite,
+                'is_infinite' => $isInfinite,
             ]);
-
-            if ($voucher->save()) {
+            if ($voucher) {
                 return redirect()->route('show.voucher')->with('message', 'Thêm thành công');
             } else {
                 return redirect()->route('add.voucher')->with('message', 'Thêm thất bại');

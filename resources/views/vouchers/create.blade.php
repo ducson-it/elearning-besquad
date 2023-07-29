@@ -55,19 +55,22 @@
                                 <div class="col">
                                     <div class="col-11 mt-3">
                                         <label class="form-label">Giảm giá</label>
-                                        <div>
-                                            <!-- Input phần trăm -->
-                                            <input type="number" min="0" max="100" name="percentage_value" value="{{old('percentage_value')}}" id="percentage_value" class="form-control percentage-input " placeholder="Nhập mức giảm giá từ 0 -> 100 phần trăm" disabled>
-                                            @error('percentage_value')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                            <!-- Input giảm giá VND -->
-                                            <input type="number" min="0" name="vnd_value" id="vnd_value"  value="{{old('vnd_value')}}" class="form-control vnd-input " placeholder="Nhập số tiền giảm giá(VND)" disabled>
-                                            @error('vnd_value')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
+                                        <div class="row">
+                                            <div class="col">
+                                                <!-- Input phần trăm -->
+                                                <input type="number" min="0" max="100" name="percentage_value" value="{{old('percentage_value')}}" id="percentage_value" class="form-control percentage-input " placeholder="Nhập mức từ 0 -> 100 (%)" disabled>
+                                                @error('percentage_value')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="col">
+                                                <!-- Input giảm giá VND -->
+                                                <input type="number" min="0" name="vnd_value" id="vnd_value"  value="{{old('vnd_value')}}" class="form-control vnd-input " placeholder="Nhập số tiền giảm giá (VND)" disabled>
+                                                @error('vnd_value')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
-
                                     </div>
                                     <div class="col-11 mt-3">
                                         <div>
@@ -81,16 +84,18 @@
                                         </div>
                                     </div>
                                     <div class="col-11 mt-3">
-                                        <label for="basiInput" class="form-label">Số lần sử dụng</label>
+                                        <label for="basicInput" class="form-label">Số lượng áp dụng</label>
                                         <div>
-                                            <select name="is_infinite" class="form-control">
-                                                <option selected value="0">Giới hạn dùng 1 lần</option>
-                                                <option value="1">Vô hạn</option>
-                                            </select>
-                                            @error('unit')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
+                                            <input type="radio" name="option" value="infinity" id="radio1"> Vô hạn
+                                            <input type="radio" style="margin-left: 20px" name="option" value="limited" id="radio2"> Giới hạn số lượng
+                                            <div id="div1" class="bg-success rounded p-2" style="display: none;">
+                                                Bạn đã lựa chọn voucher có số lượng vô hạn cho tất cả user trong hệ thống.
+                                            </div>
+                                            <div id="div2" class=" " style="display: none;">
+                                                <input type="number" name="quantity" class="form-control p-2" style="padding-top: 10px" placeholder="nhập số lượng">
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
 
@@ -211,6 +216,81 @@
                 }
             }
         }
+        // Lấy tham chiếu đến các radio buttons và divs
+        const radio1 = document.getElementById('radio1');
+        const radio2 = document.getElementById('radio2');
+        const div1 = document.getElementById('div1');
+        const div2 = document.getElementById('div2');
+        const quantityInput = document.querySelector('#div2 input[type="number"]');
+
+        // Hàm để hiển thị lỗi
+        function showError() {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'text-danger';
+            errorDiv.textContent = 'Vui lòng nhập số lượng.';
+            div2.appendChild(errorDiv);
+        }
+
+        // Hàm để xóa lỗi
+        function removeError() {
+            const errorDiv = div2.querySelector('.text-danger');
+            if (errorDiv) {
+                div2.removeChild(errorDiv);
+            }
+        }
+
+        // Hàm để kiểm tra và hiển thị div tương ứng khi trang tải lại
+        function displayDivOnLoad() {
+            if (localStorage.getItem('radioChecked') === 'radio1') {
+                radio1.checked = true;
+                div1.style.display = 'block';
+                div2.style.display = 'none';
+            } else if (localStorage.getItem('radioChecked') === 'radio2') {
+                radio2.checked = true;
+                div2.style.display = 'block';
+                div1.style.display = 'none';
+            } else {
+                div1.style.display = 'none';
+                div2.style.display = 'none';
+            }
+            // Kiểm tra và hiển thị lỗi validate khi trang tải lại
+            if (radio2.checked && quantityInput.value.trim() === '') {
+                showError();
+            }
+        }
+
+        // Gọi hàm khi trang tải lại
+        window.addEventListener('load', displayDivOnLoad);
+
+        // Thêm sự kiện change vào cả hai radio buttons
+        radio1.addEventListener('change', function () {
+            localStorage.setItem('radioChecked', 'radio1');
+            div1.style.display = 'block';
+            div2.style.display = 'none';
+            removeError();
+        });
+
+        radio2.addEventListener('change', function () {
+            localStorage.setItem('radioChecked', 'radio2');
+            div2.style.display = 'block';
+            div1.style.display = 'none';
+            removeError();
+        });
+
+        // Thêm sự kiện input vào input số lượng để bắt validate
+        quantityInput.addEventListener('input', function () {
+            if (radio2.checked && quantityInput.value.trim() === '') {
+                showError();
+            } else {
+                removeError();
+            }
+        });
+
+        // Xóa LocalStorage khi submit form (đảm bảo các radio button mở và đóng đúng khi tải lại trang sau khi submit)
+        document.querySelector('form').addEventListener('submit', function () {
+            localStorage.removeItem('radioChecked');
+        });
+
     </script>
 
 @endsection
