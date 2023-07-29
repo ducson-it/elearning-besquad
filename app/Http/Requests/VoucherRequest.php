@@ -42,7 +42,7 @@ class VoucherRequest extends FormRequest
             $rules['percentage_value'] = 'required|min:0|max:100';
         }
         if ($this->getMethod() === 'POST') {
-            $rules['code'] = 'unique:vouchers,code';
+            $rules['code'] = 'required|unique:vouchers,code';
         }
         return $rules;
     }
