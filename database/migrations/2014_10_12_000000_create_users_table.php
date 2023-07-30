@@ -172,7 +172,7 @@ class CreateUsersTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->json('image');
-            $table->integer('view');
+            $table->integer('view')->nullable();
             $table->string('description_short');
             $table->text('content');
             $table->unsignedInteger('category_blog_id');

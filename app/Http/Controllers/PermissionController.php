@@ -15,8 +15,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::paginate(Beesquad::PAGINATE);
-        return view('permissions.list', compact('permissions'));
+        $groupPermissions = Permission::where('parent_id',0)->paginate(Beesquad::PAGINATE);
+        $permissions = Permission::where('parent_id', '!=', 0)->paginate(Beesquad::PAGINATE);
+        return view('permissions.list', compact('permissions','groupPermissions'));
     }
 
     /**
@@ -86,8 +87,15 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Permission $permission)
     {
-        //
+        $permission->delete();
+
+        return response([
+            'success' => true,
+            'data' => [
+                'message' => 'Xóa thành công!'
+            ]
+        ]);
     }
 }

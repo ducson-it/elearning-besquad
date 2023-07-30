@@ -52,7 +52,7 @@
                                     </div>
                                     <label for="" class="mt-3">Tải lên document (docx,pdf,...)</label><br>
                                     <div class="input-group">
-                                        <input type="file" class="form-control" name="document">
+                                        <input type="file" class="form-control" name="document" value="{{$lesson->document}}">
                                     </div>
                                 </div>
                             </div>

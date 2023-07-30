@@ -33,7 +33,14 @@
                                     <div>
                                         <label for="basiInput" class="form-label">Khoá học</label>
                                         <select name="course_id" id="course_id" class="form-control">
-                                        </select>
+                                        </select><br>
+                                        @if ($errors->any())
+                                            <span id="error-name" style="color:red">
+                                                @error('course_id')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span><br>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-10 mt-2">
@@ -51,6 +58,13 @@
                                     <div class="input-group">
                                         <input type="file" class="form-control" name="document" value="{{old('document')}}">
                                     </div>
+                                    @if ($errors->any())
+                                            <span id="error-name" style="color:red">
+                                                @error('document')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span><br>
+                                        @endif
                                 </div>
                                 {{-- upload video to sproud video --}}
                                 {{-- <div class="col-10">

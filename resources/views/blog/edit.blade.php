@@ -1,15 +1,6 @@
 @extends('layouts.master')
 @section('content')
     <div class="row">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
@@ -30,6 +21,7 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        <br>
                                         <div class="col-11">
                                             <div>
                                                 <label for="basiInput" class="form-label">Slug</label>
@@ -39,7 +31,9 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        <br>
                                         <div class="col-11">
+                                            <label for="basiInput" class="form-label">Chọn ảnh</label>
                                             <div class="input-group">
                                     <span class="input-group-btn">
                                         <button class="lfm btn btn-primary" data-input="thumbnail2"
@@ -53,6 +47,7 @@
                                                 <span class="text-danger">{{ $errors->first('image') }}</span>
                                             @endif
                                         </div>
+                                        <br>
                                         <div class="col-11">
                                             <div>
                                                 <label for="exampleFormControlTextarea5" class="form-label">Mô tả ngắn</label>
@@ -72,7 +67,8 @@
                                                 <span class="text-danger">{{ $errors->first('content') }}</span>
                                             @endif
                                         </div>
-                                        <div class="col-11" style="margin-top: 100px">
+                                        <br>
+                                        <div class="col-11">
                                             <div>
                                                 <label for="basiInput" class="form-label">Chủ đề</label>
                                                 <select name="category_blog_id" class="form-control ">
@@ -87,10 +83,10 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-11">
-                                            <label class="label-control mb-2">View</label>
-                                            <input type="number" class="form-control" name="view" value="{{ old('view', $blog->view) }}" >
-                                        </div>
+{{--                                        <div class="col-11">--}}
+{{--                                            <label class="label-control mb-2">View</label>--}}
+{{--                                            <input type="number" class="form-control" name="view" value="{{ old('view', $blog->view) }}" >--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
                                 <!--end col-->

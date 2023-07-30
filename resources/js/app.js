@@ -19,6 +19,7 @@ select2()
 import'./home';
 import './tag';
 import './user';
+import './voucher';
 import './notifycation';
 
 selectpicker();
@@ -30,6 +31,8 @@ import './module';
 import './courses';
 import './lessons';
 import './order';
+import './question';
+import './answer';
 //Destroy Quill Editor
 // import QuillMarkdown from 'quilljs-markdown';
 // var toolbarOptions =
