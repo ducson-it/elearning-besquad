@@ -58,6 +58,10 @@ Route::prefix('course')->group(function () {
     Route::get('historyCourse', [CourseController::class, 'historyCourse'])->middleware('auth:sanctum');
     Route::post('historyCourseUpdate', [CourseController::class, 'historyCourseUpdate'])->middleware('auth:sanctum');
     Route::get('{course}', [CourseController::class, 'detailCourse']);
+    //Payment by VNPay
+    Route::get('/vnpay/redirect-url', [CourseController::class, 'redirectUrl'])->middleware('auth:sanctum');
+    Route::get('/vnpay/callback', [CourseController::class, 'callback'])->name('callback');
+
 
     
 });
