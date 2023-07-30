@@ -13,8 +13,8 @@ class Course extends Model
     protected $table = 'courses';
     protected $fillable = ['name', 'slug', 'price', 'user_id', 'discount', 'status', 'featured', 'category_id', 'image', 'description', 'is_free','subscribe'];
     public static $courseType = [
-        '0'=>'Khoá học miễn phí',
-        '1'=>"Khoá học mất phí"
+        '1'=>'Khoá học miễn phí',
+        '0'=>"Khoá học mất phí"
     ];
     public function users()
     {

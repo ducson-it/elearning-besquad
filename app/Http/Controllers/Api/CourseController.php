@@ -265,6 +265,8 @@ class CourseController extends Controller
         ->count();
         $lesson_count = Lesson::where('course_id',$courseId)->count();
         if($lesson_count == 0){
+            $lesson = Lesson::where('course_id',$courseId)->first();
+            $history = $lesson;
             $complete_rate = round($lesson_history_count*100,2);
         }else{
             $complete_rate = round($lesson_history_count*100/$lesson_count,2);
@@ -280,12 +282,18 @@ class CourseController extends Controller
         $courseId = $request->input('course_id');
         $lessonId = $request->input('lesson_id');
         // Lấy thông tin người dùng từ mã token xác thực
-        $history = History::create([
-            'user_id' => Auth::id(),
-            'course_id' => $courseId,
-            'lesson_id' => $lessonId,
-            'status'=>1
-        ]);
+        $history = History::where('course_id',$courseId)
+            ->where('lesson_id',$lessonId)
+            ->where('user_id',Auth::id())
+            ->get();
+        if(!isset($history)){
+            $history = History::create([
+                'user_id' => Auth::id(),
+                'course_id' => $courseId,
+                'lesson_id' => $lessonId,
+                'status'=>1
+            ]);
+        }
         $lesson_history_count = History::where('user_id',Auth::id())
         ->where('course_id',$courseId)
         ->distinct('lesson_id')
