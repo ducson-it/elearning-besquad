@@ -43,5 +43,7 @@ require __DIR__ .'/tags.php';
 require __DIR__ .'/user.php';
 require __DIR__ .'/teacher.php';
 require __DIR__ .'/order.php';
+require __DIR__ .'/voucher.php';
+require __DIR__ .'/quiz.php';
 
 

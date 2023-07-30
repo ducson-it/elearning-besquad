@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LessonRequest extends FormRequest
+class QuizRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,21 +24,21 @@ class LessonRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required',
-            'document'=>'required|file|size:2048',
-            'course_id'=>'required',
-            'module_id'=>'required'
             //
+            'name'=>'required',
+            'course_id'=>'required',
+            'quiz_type'=>'required'
         ];
+
     }
     public function messages()
     {
         return [
-            'name.required'=>"Tên không được để trống",
-            'document.size'=>"Kích thước file quá lớn",
-            'document.required'=>"Bạn chưa tải file",
-            'course_id.required'=>"Bạn chưa chọn khoá học",
-            'module_id.required'=>"Bạn chưa chọn chủ đề"
+            //
+            'name.required'=>'Tên không được để trống',
+            'course_id.required'=>'Bạn chưa chọn khoá học',
+            'quiz_type.required'=>'Bạn chưa chọn loại đề'
         ];
+        
     }
 }

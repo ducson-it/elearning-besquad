@@ -86,11 +86,17 @@ class HomeController extends Controller
         })
             ->where('status',Beesquad::CANCEL)
             ->count();
-        $conversion_rate = round($order_payment*100/$order_all,2);
+        if($order_all == 0){
+            $conversion_rate = round($order_payment*100,2);
+        }else{
+            $conversion_rate = round($order_payment*100/$order_all,2);
+        }
+        //top 5 course bestseller
+        $top5_bestseller_courses = Course::where('is_free',Beesquad::TRUE)->withCount('orders')->withSum('orders','amount')->orderBy('orders_count','desc')->limit(5)->get();
         return view('home', compact
         ('recent_orders', 'total_earning_day', 'order_count_day', 'order_count_preDay', 'order_growth_rate',
         'users_count_day','users_growth_rate','total_number_courses','order_all','revenue_all','order_cancel',
-        'conversion_rate'
+        'conversion_rate','top5_bestseller_courses'
         ));
     }
     public function statistic(Request $request)
@@ -122,7 +128,11 @@ class HomeController extends Controller
             ->whereDate('created_at','>=',$preMonth)
             ->where('status',Beesquad::CANCEL)
             ->count();
-            $conversion_rate = round($order_payment*100/$order_all,2);
+            if($order_all == 0){
+                $conversion_rate = round($order_payment*100,2);
+            }else{
+                $conversion_rate = round($order_payment*100/$order_all,2);
+            }
         }
         //statistic in 6 month
         if($time ==6)
@@ -151,7 +161,11 @@ class HomeController extends Controller
             ->whereDate('created_at','>=',$preSixMonth )
             ->where('status',Beesquad::CANCEL)
             ->count();
-            $conversion_rate = round($order_payment*100/$order_all,2);
+            if($order_all == 0){
+                $conversion_rate = round($order_payment*100,2);
+            }else{
+                $conversion_rate = round($order_payment*100/$order_all,2);
+            }
         }
         //statistic in a year
         if($time == 12)
@@ -180,7 +194,11 @@ class HomeController extends Controller
             ->whereDate('created_at','>=',$preYear )
             ->where('status',Beesquad::CANCEL)
             ->count();
-            $conversion_rate = round($order_payment*100/$order_all,2);
+            if($order_all == 0){
+                $conversion_rate = round($order_payment*100,2);
+            }else{
+                $conversion_rate = round($order_payment*100/$order_all,2);
+            }
         }
         //statistic all
         if($time == 0)
@@ -203,7 +221,11 @@ class HomeController extends Controller
         })
             ->where('status',Beesquad::CANCEL)
             ->count();
-        $conversion_rate = round($order_payment*100/$order_all,2);
+            if($order_all == 0){
+                $conversion_rate = round($order_payment*100,2);
+            }else{
+                $conversion_rate = round($order_payment*100/$order_all,2);
+            }
         }
         return response()->json([
             'status'=>true,
@@ -215,7 +237,5 @@ class HomeController extends Controller
                 'conversion_rate'=>$conversion_rate
             ]
         ],200);
-        //top 5 course bestseller
-
     }
 }

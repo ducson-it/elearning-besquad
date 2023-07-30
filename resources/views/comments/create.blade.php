@@ -21,7 +21,7 @@
                                             <label class="form-label">Chọn các bài viết, bài học và khóa học liên quan:</label>
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="posts" name="tables[]" value="posts">
-                                                <label class="form-check-label" for="posts">Posts:</label>
+                                                <label class="form-check-label" for="posts">Bài viết</label>
                                                 <select name="post_id" class="form-select">
                                                     @foreach ($posts as $post)
                                                         <option value="{{ $post->id }}">{{ $post->content }}</option>
@@ -30,7 +30,7 @@
                                             </div>
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="courses" name="tables[]" value="courses">
-                                                <label class="form-check-label" for="courses">Courses:</label>
+                                                <label class="form-check-label" for="courses">Khóa học</label>
                                                 <select name="course_id" class="form-select">
                                                     @foreach ($courses as $course)
                                                         <option value="{{ $course->id }}">{{ $course->name }}</option>
@@ -39,7 +39,7 @@
                                             </div>
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="lessons" name="tables[]" value="lessons">
-                                                <label class="form-check-label" for="lessons">Lessons:</label>
+                                                <label class="form-check-label" for="lessons">Bài giảng</label>
                                                 <select name="lesson_id" class="form-select">
                                                     @foreach ($lessons as $lesson)
                                                         <option value="{{ $lesson->id }}">{{ $lesson->name }}</option>
