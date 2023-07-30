@@ -75,7 +75,7 @@
                                             <td class="price-discount">{{ $course->discount ? $course->discount : 0 }}%</td>
                                             <td class="cate">{{ $course->category->name }}</td>
                                             <td class="course_type"><span
-                                                    class="badge badge-soft-success text-uppercase">{{ $course->is_free == 1 ? 'Khoá học mất phí' : 'Khoá học miễn phí' }}</span>
+                                                    class="badge badge-soft-success text-uppercase">{{ $course->is_free == 0 ? 'Khoá học mất phí' : 'Khoá học miễn phí' }}</span>
                                             </td>
                                             <td class="status"><span
                                                     class="badge badge-soft-success text-uppercase">{{ $course->status == 1 ? 'Active' : 'Inactive' }}</span>
