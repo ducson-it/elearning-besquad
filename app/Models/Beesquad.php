@@ -16,6 +16,10 @@ class Beesquad extends Model
         'STUDENT' => 2,
         'TEACHER' => 3,
     ];
+    const QUIZ_TYPE = [
+        "0"=>"Theo chủ đề",
+        "1"=>"Theo khoá học"
+    ];
 
     const DONE = 1;
     const PENDING = 2;

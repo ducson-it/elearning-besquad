@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\UploadImageController;
 use App\Http\Controllers\Api\UserController;
-
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,7 +49,6 @@ Route::prefix('blog')->group(function () {
     Route::get('/category-blog', [BlogController::class, 'categoryBlog']);
     Route::get('/{blog}', [BlogController::class, 'detailBlog']);
 });
-
 Route::prefix('course')->group(function () {
     Route::get('category-course', [CourseController::class, 'categoryCourse']);
     Route::get('studies-course', [CourseController::class, 'getCourse'])->middleware('auth:sanctum');
