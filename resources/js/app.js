@@ -30,6 +30,8 @@ import './module';
 import './courses';
 import './lessons';
 import './order';
+import './question';
+import './answer';
 //Destroy Quill Editor
 // import QuillMarkdown from 'quilljs-markdown';
 // var toolbarOptions =
