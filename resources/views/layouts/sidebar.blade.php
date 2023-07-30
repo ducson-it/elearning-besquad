@@ -174,7 +174,11 @@
                         </ul>
                     </div>
                 </li>
-                
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('quiz.list')}}">
+                        <i class="ri-apps-2-line"></i> <span>Quản lý đề</span>
+                        </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('show.notify')}}">
                         <i class="ri-apps-2-line"></i> <span>Notifycation</span>
