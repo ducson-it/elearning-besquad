@@ -9,6 +9,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
+                    <h3>Quản lý sliders</h3>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="listjs-table" id="customerList">

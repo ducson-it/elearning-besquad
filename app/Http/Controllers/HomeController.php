@@ -91,10 +91,12 @@ class HomeController extends Controller
         }else{
             $conversion_rate = round($order_payment*100/$order_all,2);
         }
+        //top 5 course bestseller
+        $top5_bestseller_courses = Course::where('is_free',Beesquad::TRUE)->withCount('orders')->withSum('orders','amount')->orderBy('orders_count','desc')->limit(5)->get();
         return view('home', compact
         ('recent_orders', 'total_earning_day', 'order_count_day', 'order_count_preDay', 'order_growth_rate',
         'users_count_day','users_growth_rate','total_number_courses','order_all','revenue_all','order_cancel',
-        'conversion_rate'
+        'conversion_rate','top5_bestseller_courses'
         ));
     }
     public function statistic(Request $request)
@@ -235,7 +237,5 @@ class HomeController extends Controller
                 'conversion_rate'=>$conversion_rate
             ]
         ],200);
-        //top 5 course bestseller
-
     }
 }
