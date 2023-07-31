@@ -259,6 +259,7 @@ class CourseController extends Controller
         // Lấy thông tin người dùng từ mã token xác thực
         $history =History::where('user_id',Auth::id())
             ->where('course_id',$courseId)
+            ->orderBy('id','desc')
             ->get();
         $lesson_history_count = History::where('user_id',Auth::id())
         ->where('course_id',$courseId)
