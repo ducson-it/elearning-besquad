@@ -25,7 +25,7 @@ class LessonRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'document'=>'required|size:10240',
+            'document'=>'required',
             'course_id'=>'required',
             'module_id'=>'required'
             //
@@ -35,7 +35,6 @@ class LessonRequest extends FormRequest
     {
         return [
             'name.required'=>"Tên không được để trống",
-            'document.size'=>"Kích thước file quá lớn",
             'document.required'=>"Bạn chưa tải file",
             'course_id.required'=>"Bạn chưa chọn khoá học",
             'module_id.required'=>"Bạn chưa chọn chủ đề"
