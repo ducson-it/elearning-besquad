@@ -23,7 +23,7 @@ class CourseController extends Controller
 {
     public function categoryCourse()
     {
-        $courses = Course::with(['category','studies'])->get();
+        $courses = Category::with('courses')->get();
         if (!$courses) {
             return response()->json([
                 'code' => 404,
@@ -33,7 +33,7 @@ class CourseController extends Controller
         return response()->json([
             'code' => 200,
             'message' => 'success',
-            'data' =>$courses
+            'data' =>CategoryResource::collection($courses)
         ]);
     }
 
