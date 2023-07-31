@@ -94,11 +94,6 @@
                     </div>
                 </li>
                 <li class="nav-item">
-{{--                    <a class="nav-link menu-link" href="{{route('tags.list')}}">--}}
-{{--                        <i class="ri-apps-2-line"></i> <span>Quản lý tag</span>--}}
-{{--                    </a>--}}
-                </li>
-                <li class="nav-item">
                     <a class="nav-link menu-link" href="#user" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span>Quản lý user</span>
                     </a>
@@ -117,7 +112,7 @@
                         </ul>
                     </div>
                 </li>
-        
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('show.tag')}}">
                         <i class="ri-apps-2-line"></i> <span>Quản lý tag</span>
@@ -136,19 +131,9 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#vouchers" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                    <a class="nav-link menu-link" href="{{route('show.voucher')}}" >
                         <i class="ri-apps-2-line"></i> <span>Quản lý vouchers</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="vouchers">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="apps-calendar" class="nav-link">Tạo mới</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="apps-calendar" class="nav-link">Danh sách</a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('orders.list')}}">
@@ -179,11 +164,12 @@
                         <i class="ri-apps-2-line"></i> <span>Quản lý đề</span>
                         </a>
                 </li>
+                
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('show.notify')}}">
                         <i class="ri-apps-2-line"></i> <span>Notifycation</span>
                     </a>
-                   
+
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#">

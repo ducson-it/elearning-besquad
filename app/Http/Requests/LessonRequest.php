@@ -25,7 +25,7 @@ class LessonRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'document'=>'required|file|size:2048',
+            'document'=>'required|size:2048',
             'course_id'=>'required',
             'module_id'=>'required'
             //

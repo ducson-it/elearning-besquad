@@ -1,15 +1,6 @@
 @extends('layouts.master')
 @section('content')
 <div class="row">
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
         <div class="container">
             <div class="row">
                 <!-- Left column -->
@@ -25,14 +16,20 @@
                                     <div class="col-12">
                                         <div>
                                             <label for="basiInput" class="form-label">Tiêu đề</label>
-                                            <input type="text" class="form-control" name="title" id="name" oninput="generateSlug()">
+                                            <input type="text" class="form-control" name="title" id="name" oninput="generateSlug()" value="{{ old('title') }}">
                                         </div>
+                                        @error('title')
+                                        <div class="alert text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="col-12">
                                         <div>
                                             <label for="basiInput" class="form-label">Slug</label>
-                                            <input type="text" class="form-control" name="slug" id="slug">
+                                            <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') }}">
                                         </div>
+                                        @error('slug')
+                                        <div class="alert text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="col-12">
                                         <label>Images</label>
@@ -49,8 +46,11 @@
                                     <div class="col-12">
                                         <div>
                                             <label for="exampleFormControlTextarea5" class="form-label">Mô tả ngắn</label>
-                                            <textarea class="form-control" name="description_short" rows="3"></textarea>
+                                            <textarea class="form-control" name="description_short" rows="3" value="{{ old('description_short') }}"></textarea>
                                         </div>
+                                        @error('description_short')
+                                        <div class="alert text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <!--end col-->
@@ -65,24 +65,30 @@
                     <div class="card">
                         <div class="col-12">
                             <label class="label-control mb-2">Nội dung</label>
-                            <textarea name="content" id="content" class="d-none my-editor"></textarea>
+                            <textarea name="content" id="content" class="d-none my-editor" value="{{ old('content') }}"></textarea>
+                            @error('content')
+                            <div class="alert text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <br>
                         <div class="col-12">
                             <label for="basiInput" class="form-label">Chủ đề</label>
-                            <select name="category_blog_id" class="form-control">
-                                <option value="">-- Chọn danh mục --</option>
+                            <select name="category_blog_id" class="form-control" >
+                                <option value="{{ old('category_blog_id') }}" >-- Chọn danh mục --</option>
                                 @foreach ($category_blogs as $item)
                                     <option value="{{ $item->id }}">
                                         {{ $item->name }}</option>
                                 @endforeach
                             </select>
+                            @error('category_blog_id')
+                            <div class="alert text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <br>
-                        <div class="col-12">
-                            <label class="label-control mb-2">View</label>
-                            <input type="number" class="form-control" name="view">
-                        </div>
+{{--                        <div class="col-12">--}}
+{{--                            <label class="label-control mb-2">View</label>--}}
+{{--                            <input type="number" class="form-control" name="view">--}}
+{{--                        </div>--}}
                     </div>
                     <div class="mx-6 mt-3">
                         <div class="hstack gap-2 justify-content-end">
