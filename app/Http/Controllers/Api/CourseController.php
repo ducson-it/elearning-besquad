@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\History;
 use App\Models\Order;
+use App\Models\Study;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,7 @@ class CourseController extends Controller
 {
     public function categoryCourse()
     {
-        $courses = Course::with(['category','studies'])->get();
+        $courses = Category::with('courses')->get();
         if (!$courses) {
             return response()->json([
                 'code' => 404,
@@ -33,7 +34,7 @@ class CourseController extends Controller
         return response()->json([
             'code' => 200,
             'message' => 'success',
-            'data' =>$courses
+            'data' =>CategoryResource::collection($courses)
         ]);
     }
 
@@ -259,6 +260,7 @@ class CourseController extends Controller
         // Lấy thông tin người dùng từ mã token xác thực
         $history =History::where('user_id',Auth::id())
             ->where('course_id',$courseId)
+            ->orderBy('id','desc')
             ->get();
         $lesson_history_count = History::where('user_id',Auth::id())
         ->where('course_id',$courseId)
@@ -281,19 +283,13 @@ class CourseController extends Controller
     {
         $courseId = $request->input('course_id');
         $lessonId = $request->input('lesson_id');
-        // Lấy thông tin người dùng từ mã token xác thực
-        $history = History::where('course_id',$courseId)
-            ->where('lesson_id',$lessonId)
-            ->where('user_id',Auth::id())
-            ->get();
-        if(!isset($history)){
             $history = History::create([
                 'user_id' => Auth::id(),
                 'course_id' => $courseId,
                 'lesson_id' => $lessonId,
                 'status'=>1
             ]);
-        }
+
         $lesson_history_count = History::where('user_id',Auth::id())
         ->where('course_id',$courseId)
         ->distinct('lesson_id')
