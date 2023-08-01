@@ -315,7 +315,9 @@ class CourseController extends Controller
         }else{
             $history = History::where('user_id',Auth::id())
                 ->where('course_id',$courseId)
-                ->where('lesson_id',$lessonId);
+                ->where('lesson_id',$lessonId)
+                ->orderBy('id','desc')
+                ->first();
             $history->update([
                 'status' => 1
             ]);
