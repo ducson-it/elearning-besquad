@@ -276,7 +276,6 @@ class CourseController extends Controller
     public function historyCourse(Request $request)
     {
         $courseId = $request->get('course_id');
-        return response()->json($courseId);
         // Lấy thông tin người dùng từ mã token xác thực
         $history =History::where('user_id',Auth::id())
             ->where('course_id',$courseId)
