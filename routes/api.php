@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\UploadImageController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\VoucherController;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -58,15 +59,21 @@ Route::prefix('course')->group(function () {
     Route::get('historyCourse', [CourseController::class, 'historyCourse'])->middleware('auth:sanctum');
     Route::post('historyCourseUpdate', [CourseController::class, 'historyCourseUpdate'])->middleware('auth:sanctum');
     Route::get('{course}', [CourseController::class, 'detailCourse']);
+    //Payment by VNPay
+    Route::get('/vnpay/redirect-url', [CourseController::class, 'redirectUrl'])->middleware('auth:sanctum');
+    Route::get('/vnpay/callback', [CourseController::class, 'callback'])->name('callback');
 
-    
+
+
 });
 
 Route::prefix('lesson')->group(function () {
     Route::get('trial-lesson', [LessonController::class, 'trailLesson']);
     Route::get('{lesson}', [LessonController::class, 'detailLesson'])->middleware('auth:sanctum');
 });
-
+Route::prefix('voucher')->group(function () {
+    Route::get('list-system', [VoucherController::class, 'getVoucher'])->middleware('auth:sanctum');
+});
 Route::fallback(function () {
     return response()->json([
         'message' => 'API endpoint not found.',

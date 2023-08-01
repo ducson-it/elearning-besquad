@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('vouchers', function (Blueprint $table) {
             //
             $table->string('code');
-            $table->date('expired');
+            $table->dateTime('expired')->default('1000-01-01 00:00:00');
             $table->string('quantity')->nullable()->comment('số lượng giới hạn sử dụng voucher');
             $table->string('unit')->comment('Percent , VND');
             $table->boolean('is_infinite')->default(false)->comment('Xác định xem là có giới hạn số lượng sử dụng hay không');

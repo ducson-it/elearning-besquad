@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\History;
 use App\Models\Order;
+use App\Models\Study;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -21,23 +22,6 @@ use PHPUnit\Framework\Constraint\Count;
 
 class CourseController extends Controller
 {
-    //User login get courses in studies to check myCourse
-    public function getCourse()
-    {
-            $courses = Course::with(['category','studies'])->get();
-            if (!$courses) {
-                return response()->json([
-                    'code' => 404,
-                    'message' => 'note found'
-                ]);
-            }
-            return response()->json([
-                'code' => 200,
-                'message' => 'success',
-                'data' => $courses,
-            ]);
-    
-    }
     public function categoryCourse()
     {
         $courses = Category::with('courses')->get();
@@ -50,7 +34,7 @@ class CourseController extends Controller
         return response()->json([
             'code' => 200,
             'message' => 'success',
-            'data' => CategoryResource::collection($courses)
+            'data' =>CategoryResource::collection($courses)
         ]);
     }
 
@@ -156,7 +140,7 @@ class CourseController extends Controller
             }
         }
     }
-
+    // Pay by transfer
     public function checkPayment(Request $request)
     {
         $order_code = $request->input('order_code');
@@ -177,19 +161,118 @@ class CourseController extends Controller
         }
     }
 
+    //Pay by VNPay
+
+    public function redirectUrl(Request $request)
+    {
+        do {
+
+            $order_code ='BQ'.random_int(100000, 999999);
+
+        } while (Order::where("order_code", "=", $order_code)->first());
+        $data=[
+            'order_code'=>$order_code,
+            'user_id'=>Auth::id(),
+            'course_id'=>$request->input('course_id'),
+            'status'=>Beesquad::PENDING,
+            'amount'=>$request->input('amount')
+        ];
+        Order::create($data);
+        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+        $vnp_Returnurl = route('callback');
+        $vnp_TmnCode = "U4M0BXV2"; //Mã website tại VNPAY
+        $vnp_HashSecret = "NXKEEFRVGQPRIDNZPHFVRUNZRYDSSDLM"; //Chuỗi bí mật
+        $vnp_TxnRef = $order_code; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_OrderInfo = $request->input('course_id');
+        $vnp_OrderType = 1;
+        $vnp_Amount = $request->input('amount')*100;
+        $vnp_Locale = 'vn';
+        $vnp_BankCode = '';
+        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+//Add Params of 2.0.1 Version
+        $vnp_ExpireDate = date('YmdHis', strtotime('+2 days', strtotime(date('YmdHis'))));
+        $inputData = array(
+            "vnp_Version" => "2.1.0",
+            "vnp_TmnCode" => $vnp_TmnCode,
+            "vnp_Amount" => $vnp_Amount,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $vnp_IpAddr,
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" => $vnp_OrderInfo,
+            "vnp_OrderType" => $vnp_OrderType,
+            "vnp_ReturnUrl" => $vnp_Returnurl,
+            "vnp_TxnRef" => $vnp_TxnRef,
+            "vnp_ExpireDate" => $vnp_ExpireDate,
+        );
+        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+            $inputData['vnp_BankCode'] = $vnp_BankCode;
+        }
+        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+        }
+        ksort($inputData);
+        $query = "";
+        $i = 0;
+        $hashdata = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashdata .= urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
+
+        $vnp_Url = $vnp_Url . "?" . $query;
+        if (isset($vnp_HashSecret)) {
+            $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
+            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+        }
+        $returnData = array('code' => '00'
+            , 'message' => 'success'
+            , 'data' => $vnp_Url);
+            return response()->json(
+                [
+                    'data' => $vnp_Url,
+                ]
+                );
+
+    }
+    public function callback(Request $request) {
+        if($request->vnp_TransactionStatus == 0){
+            Order::where('order_code',$request->vnp_TxnRef)->update([
+                'status'=>Beesquad::DONE
+            ]);
+            return response()->json([
+                'status'=>true,
+                'message'=>'Thanh toán thành công'
+            ],200);
+        }
+    }
     
     public function historyCourse(Request $request)
     {
-        $courseId = $request->input('course_id');
+        $courseId = $request->get('course_id');
+        return response()->json($courseId);
         // Lấy thông tin người dùng từ mã token xác thực
         $history =History::where('user_id',Auth::id())
             ->where('course_id',$courseId)
+            ->orderBy('id','desc')
             ->get();
         $lesson_history_count = History::where('user_id',Auth::id())
         ->where('course_id',$courseId)
         ->count();
         $lesson_count = Lesson::where('course_id',$courseId)->count();
-        $complete_rate = round($lesson_history_count*100/$lesson_count,2);
+        if($lesson_count == 0){
+            $lesson = Lesson::where('course_id',$courseId)->first();
+            $history = $lesson;
+            $complete_rate = round($lesson_history_count*100,2);
+        }else{
+            $complete_rate = round($lesson_history_count*100/$lesson_count,2);
+        }
         return response()->json([
             'status' => true,
             'history' => $history,
@@ -200,13 +283,13 @@ class CourseController extends Controller
     {
         $courseId = $request->input('course_id');
         $lessonId = $request->input('lesson_id');
-        // Lấy thông tin người dùng từ mã token xác thực
-        $history = History::create([
-            'user_id' => Auth::id(),
-            'course_id' => $courseId,
-            'lesson_id' => $lessonId,
-            'status'=>1
-        ]);
+            $history = History::create([
+                'user_id' => Auth::id(),
+                'course_id' => $courseId,
+                'lesson_id' => $lessonId,
+                'status'=>1
+            ]);
+
         $lesson_history_count = History::where('user_id',Auth::id())
         ->where('course_id',$courseId)
         ->distinct('lesson_id')
