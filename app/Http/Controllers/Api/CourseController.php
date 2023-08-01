@@ -303,12 +303,23 @@ class CourseController extends Controller
     {
         $courseId = $request->input('course_id');
         $lessonId = $request->input('lesson_id');
+        $status = $request->input('status');
+        if($status ==0){
             $history = History::create([
                 'user_id' => Auth::id(),
                 'course_id' => $courseId,
                 'lesson_id' => $lessonId,
                 'status'=>1
             ]);
+        }else{
+            $history = History::where('user_id',Auth::id())
+                ->where('course_id',$courseId)
+                ->where('lesson_id',$lessonId);
+            $history->update([
+                'status' => 1
+            ]);
+            $history = $history->get();
+        }
 
         $lesson_history_count = History::where('user_id',Auth::id())
         ->where('course_id',$courseId)
