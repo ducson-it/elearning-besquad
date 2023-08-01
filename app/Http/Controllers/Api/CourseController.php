@@ -24,7 +24,7 @@ class CourseController extends Controller
 {
     public function categoryCourse()
     {
-        $courses = Category::with('courses')->get();
+        $courses = Category::with('courses', 'courses.users', 'courses.users.histories')->get();
         if (!$courses) {
             return response()->json([
                 'code' => 404,
@@ -76,7 +76,6 @@ class CourseController extends Controller
                     ->Where('course_id', $course->id)
                     ->Where('status', Beesquad::PENDING)
                     ->exists();
-
         if ($checkOrder) {
             return response(['success' => false, 'data' => [
                 'message' => 'Đơn hàng đang trong thời gian xử lý'
@@ -97,7 +96,16 @@ class CourseController extends Controller
                         'amount' => $course->price
                     ];
                     Order::create($data);
-                    $course->users()->attach($user->id);
+                    $checkStudy = Study::where('user_id',$user->id)
+                        ->where('course_id',$courseId)
+                        ->exists();
+                    if(!$checkStudy){
+                        Study::create([
+                            'user_id'=>$user->id,
+                            'course_id'=>$courseId
+                        ]);
+                    }
+                    // $course->users()->attach($user->id);
                     DB::commit();
                     return response(['success' => true, 'data' => [
                         'message' => 'Đăng ký thành công!'
@@ -243,16 +251,28 @@ class CourseController extends Controller
     }
     public function callback(Request $request) {
         if($request->vnp_TransactionStatus == 0){
-            Order::where('order_code',$request->vnp_TxnRef)->update([
+            $order = Order::where('order_code',$request->vnp_TxnRef);
+            $order->update([
                 'status'=>Beesquad::DONE
             ]);
+            $order = $order->first();
+            $checkStudy = Study::where('user_id',$order->user_id)
+                        ->where('course_id',$request->vnp_OrderInfo)
+                        ->exists();
+            if(!$checkStudy){
+                Study::create([
+                    'user_id'=>$order->user_id,
+                    'course_id'=>$request->vnp_OrderInfo,
+                    'status'=>0
+                ]);
+            }
             return response()->json([
                 'status'=>true,
-                'message'=>'Thanh toán thành công'
+                'message'=>'Thanh toán thành công',
             ],200);
         }
     }
-    
+    //get history
     public function historyCourse(Request $request)
     {
         $courseId = $request->get('course_id');

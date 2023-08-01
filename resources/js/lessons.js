@@ -21,6 +21,29 @@ $(document).ready(function(){
             }
         })
     })
+    function showModule(){
+        console.log('---fsdfds---')
+        var course_id = $('#course_id').val()
+        var module_id = $('#module_id').val()
+        var msg = ''
+        $.ajax({
+            type:"POST",
+            url:'/lessons/select/module',
+            data:{
+                'course_id':course_id
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                data.forEach(function(value){
+                    msg +=`<option value="${value.id}" ${value.id == module_id? 'selected':''}>${value.name}</option>`
+                })
+                $('#module_id').html(msg)
+            }
+        })
+    }
+    showModule()
 //     $('#uploadVideo').on('change',function(){
 //         const file_video = $("#uploadVideo");
 // var formData = new FormData();
@@ -40,6 +63,25 @@ $(document).ready(function(){
 //                 });
 
 //             })
+$('select#video').on('change',function(){
+    var video_id = $(this).val()
+        var msg = ''
+        $.ajax({
+            type:"GET",
+            url:'/lessons/select/video/'+video_id,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                msg = `
+                <div style="width:200px" id="showVideo">
+                    ${data.embed_code}
+                </div>
+                `
+                $('#showVideo').html(msg)
+            }
+        })
+})
 })
 //delete lesson
 window.deleteLesson = (lesson_id)=>{
