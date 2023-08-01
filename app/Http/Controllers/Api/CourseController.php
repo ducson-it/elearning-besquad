@@ -283,6 +283,8 @@ class CourseController extends Controller
             ->get();
         $lesson_history_count = History::where('user_id',Auth::id())
         ->where('course_id',$courseId)
+        ->where('status',1)
+        ->distinct('lesson_id')
         ->count();
         $lesson_count = Lesson::where('course_id',$courseId)->count();
         if($lesson_count == 0){
@@ -313,7 +315,9 @@ class CourseController extends Controller
         }else{
             $history = History::where('user_id',Auth::id())
                 ->where('course_id',$courseId)
-                ->where('lesson_id',$lessonId);
+                ->where('lesson_id',$lessonId)
+                ->orderBy('id','desc')
+                ->first();
             $history->update([
                 'status' => 1
             ]);
@@ -322,6 +326,7 @@ class CourseController extends Controller
 
         $lesson_history_count = History::where('user_id',Auth::id())
         ->where('course_id',$courseId)
+        ->where('status',1)
         ->distinct('lesson_id')
         ->count();
         $lesson_count = Lesson::where('course_id',$courseId)->count();
