@@ -56,7 +56,7 @@
                                 <div class="col-10">
                                     <label for="">Tải lên document (docx,pdf,...)</label><br>
                                     <div class="input-group">
-                                        <input type="file" class="form-control" name="document" value="{{old('document')}}">
+                                        <input type="file" class="form-control" name="document">
                                     </div>
                                     @if ($errors->any())
                                             <span id="error-name" style="color:red">
