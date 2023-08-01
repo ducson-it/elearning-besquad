@@ -308,7 +308,7 @@ class CourseController extends Controller
                 'user_id' => Auth::id(),
                 'course_id' => $courseId,
                 'lesson_id' => $lessonId,
-                'status'=>1
+                'status'=>0
             ]);
         }else{
             $history = History::where('user_id',Auth::id())
