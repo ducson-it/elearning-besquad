@@ -73,6 +73,7 @@ Route::prefix('lesson')->group(function () {
 });
 Route::prefix('voucher')->group(function () {
     Route::get('list-system', [VoucherController::class, 'getVoucher'])->middleware('auth:sanctum');
+    Route::post('checkVoucher', [VoucherController::class, 'checkVoucher'])->middleware('auth:sanctum');
 });
 Route::fallback(function () {
     return response()->json([
