@@ -187,7 +187,7 @@ class CourseController extends Controller
         ];
         Order::create($data);
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = 'http://localhost:4000/courses/'.$request->course_id;
+        $vnp_Returnurl = 'http://localhost:4000/paymentSuccess';
         $vnp_TmnCode = "U4M0BXV2"; //Mã website tại VNPAY
         $vnp_HashSecret = "NXKEEFRVGQPRIDNZPHFVRUNZRYDSSDLM"; //Chuỗi bí mật
         $vnp_TxnRef = $order_code; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
