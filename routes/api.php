@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VoucherController;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,9 +33,8 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanct
 Route::post('refresh-token', [AuthController::class, 'refresh'])->middleware('auth:sanctum')->name('token.refresh');
 
 //info
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('user', [AuthController::class, 'getUser'])->middleware('auth:sanctum');
+
 
 // change user
 Route::post('changeUser', [UserController::class, 'changeUser'])->middleware('auth:sanctum');
