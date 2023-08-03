@@ -15,9 +15,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $groupPermissions = Permission::where('parent_id',0)->paginate(Beesquad::PAGINATE);
-        $permissions = Permission::where('parent_id', '!=', 0)->paginate(Beesquad::PAGINATE);
-        return view('permissions.list', compact('permissions','groupPermissions'));
+        return view('permissions.list');
     }
 
     /**
