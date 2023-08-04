@@ -28,6 +28,7 @@ class CourseResource extends JsonResource
             'description' => $this->description,
             'is_free' => $this->is_free,
             'modules' => ModuleResource::collection($this->whenLoaded('modules')),
+            'users' => UserResource::collection($this->whenLoaded('users')),
         ];
     }
 }

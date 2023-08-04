@@ -24,7 +24,7 @@ class CourseController extends Controller
 {
     public function categoryCourse()
     {
-        $courses = Category::with('courses')->get();
+        $courses = Category::with('courses', 'courses.users', 'courses.users.histories')->get();
         if (!$courses) {
             return response()->json([
                 'code' => 404,
@@ -76,7 +76,6 @@ class CourseController extends Controller
                     ->Where('course_id', $course->id)
                     ->Where('status', Beesquad::PENDING)
                     ->exists();
-
         if ($checkOrder) {
             return response(['success' => false, 'data' => [
                 'message' => 'Đơn hàng đang trong thời gian xử lý'
@@ -97,7 +96,16 @@ class CourseController extends Controller
                         'amount' => $course->price
                     ];
                     Order::create($data);
-                    $course->users()->attach($user->id);
+                    $checkStudy = Study::where('user_id',$user->id)
+                        ->where('course_id',$courseId)
+                        ->exists();
+                    if(!$checkStudy){
+                        Study::create([
+                            'user_id'=>$user->id,
+                            'course_id'=>$courseId
+                        ]);
+                    }
+                    // $course->users()->attach($user->id);
                     DB::commit();
                     return response(['success' => true, 'data' => [
                         'message' => 'Đăng ký thành công!'
@@ -179,7 +187,7 @@ class CourseController extends Controller
         ];
         Order::create($data);
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = route('callback');
+        $vnp_Returnurl = 'http://localhost:4000/paymentSuccess';
         $vnp_TmnCode = "U4M0BXV2"; //Mã website tại VNPAY
         $vnp_HashSecret = "NXKEEFRVGQPRIDNZPHFVRUNZRYDSSDLM"; //Chuỗi bí mật
         $vnp_TxnRef = $order_code; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
@@ -243,20 +251,31 @@ class CourseController extends Controller
     }
     public function callback(Request $request) {
         if($request->vnp_TransactionStatus == 0){
-            Order::where('order_code',$request->vnp_TxnRef)->update([
+            $order = Order::where('order_code',$request->vnp_TxnRef);
+            $order->update([
                 'status'=>Beesquad::DONE
             ]);
+            $order = $order->first();
+            $checkStudy = Study::where('user_id',$order->user_id)
+                        ->where('course_id',$request->vnp_OrderInfo)
+                        ->exists();
+            if(!$checkStudy){
+                Study::create([
+                    'user_id'=>$order->user_id,
+                    'course_id'=>$request->vnp_OrderInfo,
+                    'status'=>0
+                ]);
+            }
             return response()->json([
                 'status'=>true,
-                'message'=>'Thanh toán thành công'
+                'message'=>'Thanh toán thành công',
             ],200);
         }
     }
-    
+    //get history
     public function historyCourse(Request $request)
     {
         $courseId = $request->get('course_id');
-        return response()->json($courseId);
         // Lấy thông tin người dùng từ mã token xác thực
         $history =History::where('user_id',Auth::id())
             ->where('course_id',$courseId)
@@ -264,6 +283,8 @@ class CourseController extends Controller
             ->get();
         $lesson_history_count = History::where('user_id',Auth::id())
         ->where('course_id',$courseId)
+        ->where('status',1)
+        ->distinct('lesson_id')
         ->count();
         $lesson_count = Lesson::where('course_id',$courseId)->count();
         if($lesson_count == 0){
@@ -283,15 +304,37 @@ class CourseController extends Controller
     {
         $courseId = $request->input('course_id');
         $lessonId = $request->input('lesson_id');
+        $status = $request->input('status');
+        if($status ==0){
             $history = History::create([
                 'user_id' => Auth::id(),
                 'course_id' => $courseId,
                 'lesson_id' => $lessonId,
-                'status'=>1
+                'status'=>$status
             ]);
+        }else{
+            $history = History::where('user_id',Auth::id())
+                ->where('course_id',$courseId)
+                ->where('lesson_id',$lessonId)
+                ->orderBy('id','desc')
+                ->first();
+            if($history->status == 1){
+                $history = History::create([
+                    'user_id' => Auth::id(),
+                    'course_id' => $courseId,
+                    'lesson_id' => $lessonId,
+                    'status'=>$status
+                ]);
+            }else{
+                $history->update([
+                    'status' => $status
+                ]);
+            }
+        }
 
         $lesson_history_count = History::where('user_id',Auth::id())
         ->where('course_id',$courseId)
+        ->where('status',1)
         ->distinct('lesson_id')
         ->count();
         $lesson_count = Lesson::where('course_id',$courseId)->count();

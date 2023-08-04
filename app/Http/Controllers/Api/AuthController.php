@@ -85,4 +85,10 @@ class AuthController extends Controller
             'expired'   => $refresh_expired
         ], 200);
     }
+    //get user infor
+    public function getUser(Request $request)
+    {
+        $user = User::with('histories')->find(Auth::id());
+        return response()->json($user);
+    }
 }
