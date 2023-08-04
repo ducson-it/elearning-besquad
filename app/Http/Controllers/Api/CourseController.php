@@ -49,7 +49,7 @@ class CourseController extends Controller
         return response()->json([
             'code' => 200,
             'message' => 'success',
-            'data' => new CourseResource($course->load('modules', 'modules.lessons'))
+            'data' => new CourseResource($course->load('modules', 'modules.lessons','modules.quiz','studies','modules.quiz.questions','modules.quiz.questions.answers'))
         ]);
     }
 

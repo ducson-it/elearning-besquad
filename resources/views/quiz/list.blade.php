@@ -65,7 +65,7 @@
                                     <td class="status"><span
                                         class="badge badge-soft-success text-uppercase">{{ $quiz->quiz_type == 0 ? 'Theo chủ đề' : 'Theo khoá học' }}</span>
                                 </td>
-                                    <td class="date">{{ $quiz->courses->name }}</td>
+                                    <td class="date">{{ isset($quiz->courses->name)?$quiz->courses->name:'' }}</td>
                                     <td class="date">{{ isset($quiz->modules->name)?$quiz->modules->name:'' }}</td>
                                     <td class="date">{{ $quiz->created_at}}</td>
                                     <td>
