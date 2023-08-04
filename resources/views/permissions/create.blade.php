@@ -1,99 +1,315 @@
 @extends('layouts.master')
 @section('content')
-    <div class="row">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Tạo mới slider</h4>
-                    </div><!-- end card header -->
-                    <div class="card-body">
-                        <div class="live-preview">
-                            <form action="{{route('slider.store')}}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row gy-4">
-                                    <div class="col-md-6">
-                                        <br>
-                                        <div class="col-11">
-                                            <div>
-                                                <label for="basiInput" class="form-label">Name</label>
-                                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="col-11">
-                                            <div>
-                                                <label for="basiInput" class="form-label">Content</label>
-                                                <input type="text" class="form-control @error('content') is-invalid @enderror" name="content" value="{{ old('content') }}">
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="col-11">
-                                            <div>
-                                                <label for="basiInput" class="form-label">Status</label>
-                                                <input type="text" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}">
-                                            </div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="col-11">
-                                            <label>Images</label>
-                                            <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button class="lfm btn btn-primary" data-input="thumbnail2"
-                                                data-preview="holder2" class="btn btn-primary text-white">
-                                            <i class="fa fa-picture-o"></i> Choose
-                                        </button>
-                                    </span>
-                                                <input id="thumbnail2" class="form-control" type="text" name="filepath">
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="col-11">
-                                            <div>
-                                                <label for="basiInput" class="form-label">Text-color</label>
-                                                <input type="text" class="form-control @error('text_color') is-invalid @enderror" name="text_color" value="{{ old('text_color') }}">
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="col-11">
-                                            <div>
-                                                <label for="basiInput" class="form-label">Url_btn</label>
-                                                <input type="text" class="form-control @error('url_btn') is-invalid @enderror" name="url_btn" value="{{ old('url_btn') }}">
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="col-11">
-                                            <div>
-                                                <label for="basiInput" class="form-label">Content_btn</label>
-                                                <input type="text" class="form-control @error('content_btn') is-invalid @enderror" name="content_btn" value="{{ old('content_btn') }}">
-                                            </div>
-                                        </div>
+    @if (Session::has('success'))
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+    @endif
+    <form class="forms-sample" action="" method="post">
+        @csrf
+        <div class="container-fluid">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Thông tin cơ bản</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class=" col-form-label">Tên nhóm quyền</label>
+                                    <div class="">
+                                        <input type="text" class="form-control group_permission_name" name="name"
+                                            maxlength="130" placeholder="Tên nhóm quyền" required>
                                     </div>
                                 </div>
-                                <!--end col-->
-                                <br>
-                                <div class="mx-6">
-                                    <div class="hstack gap-2 justify-content-end">
-                                        <button type="submit" class="btn btn-success" id="add-btn">Thêm</button>
-                                        <button type="button" class="btn btn-primary"><a style="color: white" href="{{route('slider.list')}}">Danh sách</a></button>
-                                    </div>
-                                </div>
-                            </form>
-                            <!--end row-->
+                            </div>
                         </div>
                     </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Phân quyền</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Tên quyền
+                                                </th>
+                                                <th>
+                                                    Mã quyền
+                                                </th>
+                                                <th>
+                                                    Hành động
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="permission-content">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col-md-4 ">
+                                        <div class="form-group">
+                                            <label>Tên quyền</label>
+                                            <input type="text" class="form-control permission_name"
+                                                placeholder="Tên quyền" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <div class="form-group">
+                                            <label>Mã quyền</label>
+                                            <input type="text" class="form-control permission_code"
+                                                placeholder="Mã quyền" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <button class="btn btn-info btn-fw mr-2 mt-4 permission_btn_add"> Thêm
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /.col-->
                 </div>
+                <!-- /.row-->
             </div>
-        <!--end col-->
-    </div>
+        </div>
+    </form>
+@endsection
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('.permission_btn_add').click(function(e) {
+                e.preventDefault();
+                var permission_name = $('.permission_name').val();
+                var permission_code = $('.permission_code').val();
+                var group_name = $('.group_permission_name').val();
+                var permission_content = $('.permission-content');
+
+                if (group_name == '') {
+                    Toastify({
+                        text: "Nhập tên nhóm quyền",
+                        duration: 3000,
+                        newWindow: true,
+                        close: true,
+                        position: "right",
+                        style: {
+                            background: "#FF0000",
+                        },
+                    }).showToast();
+                    return false;
+                }
+
+                if (permission_name == '' || permission_code == '') {
+                    Toastify({
+                        text: "Tên quyền + Mã quyền không được rỗng!",
+                        duration: 3000,
+                        newWindow: true,
+                        close: true,
+                        position: "right",
+                        style: {
+                            background: "#FF0000",
+                        },
+                    }).showToast();
+                    return false;
+                }
+
+                data = {
+                    name: permission_name,
+                    code: permission_code,
+                    group_name: group_name,
+                }
+
+                $.ajax({
+                    url: '/permissions',
+                    type: 'post',
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: data,
+                    success: function(res) {
+                        if (res.success == true) {
+                            Toastify({
+                                text: "Thêm thành công",
+                                duration: 3000,
+                                newWindow: true,
+                                close: true,
+                                position: "right",
+                                style: {
+                                    background: "#00CC33",
+                                },
+                            }).showToast();
+                            permission_content.append(`
+                                <tr>
+                                    <td>
+                                        ${permission_name}
+                                    </td>
+                                    <td>
+                                        ${permission_code}
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm permission_del" data-code="${permission_code}">Xóa</button>
+                                    </td>
+                                </tr>
+                            `)
+                            } else {
+                                Toastify({
+                                    text: "Thêm thất bại",
+                                    duration: 3000,
+                                    newWindow: true,
+                                    close: true,
+                                    position: "right",
+                                    style: {
+                                        background: "#FF0000",
+                                    },
+                                }).showToast();
+                            }
+                    },
+                    error: function(error) {
+                        Toastify({
+                            text: "Có lỗi xảy ra",
+                            duration: 3000,
+                            newWindow: true,
+                            close: true,
+                            position: "right",
+                            style: {
+                                background: "#FF0000",
+                            },
+                        }).showToast();
+                    }
+                });
+            });
+
+            $(document).on('click', '.permission_del', function(e) {
+                e.preventDefault();
+                var code = $(this).data('code');
+                if (confirm('Bạn có chắc muốn xóa quyền này không?')) {
+                    $.ajax({
+                        url: '/permissions/' + code,
+                        type: 'delete',
+                        headers: {
+                            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(res) {
+                            if (res.success == true) {
+                                Toastify({
+                                    text: "Xóa thành công",
+                                    duration: 3000,
+                                    newWindow: true,
+                                    close: true,
+                                    position: "right",
+                                    style: {
+                                        background: "#00CC33",
+                                    },
+                                }).showToast();
+                            } else {
+                                Toastify({
+                                    text: "Xóa thất bại",
+                                    duration: 3000,
+                                    newWindow: true,
+                                    close: true,
+                                    position: "right",
+                                    style: {
+                                        background: "#FF0000",
+                                    },
+                                }).showToast();
+                            }
+                        },
+                        error: function(error) {
+                            Toastify({
+                                text: "Có lỗi xảy ra",
+                                duration: 3000,
+                                newWindow: true,
+                                close: true,
+                                position: "right",
+                                style: {
+                                    background: "#FF0000",
+                                },
+                            }).showToast();
+                        }
+                    });
+
+                    $(this).parent().parent().remove();
+                }
+            });
+
+            $(document).on('click', '.permission_btn_save', function(e) {
+                e.preventDefault();
+                if (data.length <= 0) {
+                    Toastify({
+                        text: "Dữ liệu không tổn tại",
+                        duration: 3000,
+                        newWindow: true,
+                        close: true,
+                        position: "right",
+                        style: {
+                            background: "#FF0000",
+                        },
+                    }).showToast();
+                    return false;
+                }
+                $.ajax({
+                    url: '/permissions',
+                    type: 'post',
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: JSON.stringify(data),
+                    success: function(res) {
+                        if (res.success == true) {
+                            Toastify({
+                                text: "Thêm thành công",
+                                duration: 3000,
+                                newWindow: true,
+                                close: true,
+                                position: "right",
+                                style: {
+                                    background: "#00CC33",
+                                },
+                            }).showToast();
+                            setTimeout(function() {
+                                location.reload();
+                            }, 200)
+                        } else {
+                            Toastify({
+                                text: "Thêm thất bại",
+                                duration: 3000,
+                                newWindow: true,
+                                close: true,
+                                position: "right",
+                                style: {
+                                    background: "#FF0000",
+                                },
+                            }).showToast();
+                        }
+                    },
+                    error: function(error) {
+                        Toastify({
+                            text: "Có lỗi xảy ra",
+                            duration: 3000,
+                            newWindow: true,
+                            close: true,
+                            position: "right",
+                            style: {
+                                background: "#FF0000",
+                            },
+                        }).showToast();
+                    }
+                });
+            });
+
+            $(document).on('change', '.group_permission_name', function() {
+                $('.permission-content').html('');
+            });
+        })
+    </script>
 @endsection

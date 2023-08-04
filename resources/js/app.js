@@ -33,6 +33,11 @@ import './lessons';
 import './order';
 import './question';
 import './answer';
+import './toastMessage.js';
+
+
+
+
 //Destroy Quill Editor
 // import QuillMarkdown from 'quilljs-markdown';
 // var toolbarOptions =

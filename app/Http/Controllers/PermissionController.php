@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PermissionRequest;
 use App\Models\Beesquad;
+use App\Models\GroupPermission;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 
@@ -15,7 +17,6 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return view('permissions.list');
     }
 
     /**
@@ -25,7 +26,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        $groupPermissions = GroupPermission::all();
+        return view('permissions.create', compact('groupPermissions'));
     }
 
     /**
@@ -34,9 +36,24 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermissionRequest $request)
     {
-        Permission::create(['name' => $request->name, 'parent_id' => $request->parent_id]);
+
+        $groupPermission = GroupPermission::where([
+            'name' => $request->group_name
+        ])->first();
+
+        if (!$groupPermission) {
+            $groupPermission = GroupPermission::create([
+                'name' => $request->group_name
+            ]);
+        }
+
+        Permission::create([
+            'name' => $request->code,
+            'description' => $request->name,
+            'group_permission_id' => $groupPermission->id
+        ]);
         return response([
             'success' => true,
             'data' => [
@@ -64,7 +81,8 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $groupPermission = GroupPermission::find($id);
+        return view('permissions.edit', compact('groupPermission', 'id'));
     }
 
     /**
@@ -74,9 +92,45 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PermissionRequest $request, $id)
     {
-        //
+        $groupPermission = GroupPermission::find($id);
+        $permission = Permission::find($request->id);
+
+        if (!$groupPermission) {
+            return response([
+                'success' => false,
+                'data' => [
+                    'message' => 'Không tồn tại nhóm quyền!'
+                ]
+            ]);
+        }
+
+        if (!$permission) {
+            return response([
+                'success' => false,
+                'data' => [
+                    'message' => 'Không tồn tại quyền!'
+                ]
+            ]);
+        }
+
+        $groupPermission->update([
+            'name' => $request->group_name,
+        ]);
+
+        $permission->update([
+            'name' => $request->code,
+            'description' => $request->name,
+            'group_permission_id' => $groupPermission->id
+        ]);
+
+        return response([
+            'success' => true,
+            'data' => [
+                'message' => 'Sửa dữ liệu thành công!'
+            ]
+        ]);
     }
 
     /**
@@ -85,9 +139,17 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Permission $permission)
+    public function destroy($code)
     {
-        $permission->delete();
+        $deltePermission = Permission::where('name', $code)->first()->delete();
+        if (!$deltePermission) {
+            return response([
+                'success' => false,
+                'data' => [
+                    'message' => 'Không tồn tại quyền'
+                ]
+            ]);
+        }
 
         return response([
             'success' => true,

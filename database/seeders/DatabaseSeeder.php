@@ -33,22 +33,22 @@ class DatabaseSeeder extends Seeder
         // Role::factory()->count(10)->create();
         // Permission::factory()->count(10)->create();
         // RolePermission::factory()->count(10)->create();
-        Category::factory()->count(2)->create();
-        User::factory()->count(10)->create();
-        Voucher::factory()->count(10)->create();
-        UserVoucher::factory()->count(10)->create();
-        Course::factory()->count(10)->create();
-        Module::factory()->count(10)->create();
-        Lesson::factory()->count(10)->create();
-        Slider::factory()->count(10)->create();
-        CategoryBlog::factory()->count(10)->create();
-        Blog::factory()->count(10)->create();
-        Comment::factory()->count(10)->create();
-        Tag::factory()->count(10)->create();
-        Post::factory()->count(10)->create();
-        Taggable::factory()->count(10)->create();
-        // Order::factory()->count(10)->create();
-        Status::factory()->count(10)->create();
+        // Category::factory()->count(2)->create();
+        // User::factory()->count(10)->create();
+        // Voucher::factory()->count(10)->create();
+        // UserVoucher::factory()->count(10)->create();
+        // Course::factory()->count(10)->create();
+        // Module::factory()->count(10)->create();
+        // Lesson::factory()->count(10)->create();
+        // Slider::factory()->count(10)->create();
+        // CategoryBlog::factory()->count(10)->create();
+        // Blog::factory()->count(10)->create();
+        // Comment::factory()->count(10)->create();
+        // Tag::factory()->count(10)->create();
+        // Post::factory()->count(10)->create();
+        // Taggable::factory()->count(10)->create();
+        // // Order::factory()->count(10)->create();
+        // Status::factory()->count(10)->create();
         // Notification::factory()->count(10)->create();
         $this->call([
             UsersSeeder::class,
