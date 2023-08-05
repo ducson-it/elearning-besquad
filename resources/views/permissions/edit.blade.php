@@ -126,32 +126,32 @@
 
                 if (group_name == '') {
                     toastMessage('Nhập tên nhóm quyền');
-                    // Toastify({
-                    //     text: "Nhập tên nhóm quyền",
-                    //     duration: 3000,
-                    //     newWindow: true,
-                    //     close: true,
-                    //     position: "right",
-                    //     style: {
-                    //         background: "#FF0000",
-                    //     },
-                    // }).showToast();
-                    // return false;
+                    Toastify({
+                        text: "Nhập tên nhóm quyền",
+                        duration: 3000,
+                        newWindow: true,
+                        close: true,
+                        position: "right",
+                        style: {
+                            background: "#FF0000",
+                        },
+                    }).showToast();
+                    return false;
                 }
 
                 if (permission_name == '' || permission_code == '') {
                     toastMessage('Nhập tên nhóm quyền');
 
-                    // Toastify({
-                    //     text: "Tên quyền + Mã quyền không được rỗng!",
-                    //     duration: 3000,
-                    //     newWindow: true,
-                    //     close: true,
-                    //     position: "right",
-                    //     style: {
-                    //         background: "#FF0000",
-                    //     },
-                    // }).showToast();
+                    Toastify({
+                        text: "Tên quyền + Mã quyền không được rỗng!",
+                        duration: 3000,
+                        newWindow: true,
+                        close: true,
+                        position: "right",
+                        style: {
+                            background: "#FF0000",
+                        },
+                    }).showToast();
                     return false;
                 }
 
