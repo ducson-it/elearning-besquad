@@ -17,6 +17,7 @@ use App\Models\Study;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Laravel\Ui\Presets\React;
 use PHPUnit\Framework\Constraint\Count;
 
@@ -187,7 +188,7 @@ class CourseController extends Controller
         ];
         Order::create($data);
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = 'http://localhost:4000/paymentSuccess';
+        $vnp_Returnurl = route('callback');
         $vnp_TmnCode = "U4M0BXV2"; //Mã website tại VNPAY
         $vnp_HashSecret = "NXKEEFRVGQPRIDNZPHFVRUNZRYDSSDLM"; //Chuỗi bí mật
         $vnp_TxnRef = $order_code; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
@@ -266,10 +267,7 @@ class CourseController extends Controller
                     'status'=>0
                 ]);
             }
-            return response()->json([
-                'status'=>true,
-                'message'=>'Thanh toán thành công',
-            ],200);
+            return Redirect::to('http://localhost:4000/paymentSuccess');
         }
     }
     //get history
@@ -305,20 +303,16 @@ class CourseController extends Controller
         $courseId = $request->input('course_id');
         $lessonId = $request->input('lesson_id');
         $status = $request->input('status');
-        if($status ==0){
+        $quizId = $request->input('quiz_id');
+        if($quizId){
             $history = History::create([
-                'user_id' => Auth::id(),
-                'course_id' => $courseId,
-                'lesson_id' => $lessonId,
+                'user_id'=>Auth::id(),
+                'course_id'=>$courseId,
+                'quiz_id'=>$quizId,
                 'status'=>$status
             ]);
         }else{
-            $history = History::where('user_id',Auth::id())
-                ->where('course_id',$courseId)
-                ->where('lesson_id',$lessonId)
-                ->orderBy('id','desc')
-                ->first();
-            if($history->status == 1){
+            if($status ==0){
                 $history = History::create([
                     'user_id' => Auth::id(),
                     'course_id' => $courseId,
@@ -326,9 +320,23 @@ class CourseController extends Controller
                     'status'=>$status
                 ]);
             }else{
-                $history->update([
-                    'status' => $status
-                ]);
+                $history = History::where('user_id',Auth::id())
+                    ->where('course_id',$courseId)
+                    ->where('lesson_id',$lessonId)
+                    ->orderBy('id','desc')
+                    ->first();
+                if($history->status == 1){
+                    $history = History::create([
+                        'user_id' => Auth::id(),
+                        'course_id' => $courseId,
+                        'lesson_id' => $lessonId,
+                        'status'=>$status
+                    ]);
+                }else{
+                    $history->update([
+                        'status' => $status
+                    ]);
+                }
             }
         }
 
