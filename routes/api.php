@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\LessonController;
+use App\Http\Controllers\Api\QuizController;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\UploadImageController;
@@ -63,9 +64,12 @@ Route::prefix('course')->group(function () {
     Route::post('/vnpay/redirect-url', [CourseController::class, 'redirectUrl'])->middleware('auth:sanctum');
     Route::get('/vnpay/callback', [CourseController::class, 'callback'])->name('callback');
 
-
+    //quiz
+    Route::post('quiz/questions/answer-check',[QuizController::class,'answerCheck'])->middleware('auth:sanctum');
+    Route::post('quiz/questions/correct-answer',[QuizController::class,'viewAnswerCorrect'])->middleware('auth:sanctum');
 
 });
+
 
 Route::prefix('lesson')->group(function () {
     Route::get('trial-lesson', [LessonController::class, 'trailLesson']);
