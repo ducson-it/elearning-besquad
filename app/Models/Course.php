@@ -46,7 +46,7 @@ class Course extends Model
     }
     public function quiz()
     {
-        return $this->hasOne(Quiz::class,'course_id','id');
+        return $this->hasMany(Quiz::class,'course_id','id');
     }
 
     public function scopeFreeCourse(Builder $query): void
