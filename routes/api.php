@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\ForumCommentController;
 use App\Http\Controllers\Api\LessonController;
 use App\Http\Controllers\Api\QuizController;
 use App\Http\Controllers\Api\SearchController;
@@ -70,7 +71,6 @@ Route::prefix('course')->group(function () {
 
 });
 
-
 Route::prefix('lesson')->group(function () {
     Route::get('trial-lesson', [LessonController::class, 'trailLesson']);
     Route::get('{lesson}', [LessonController::class, 'detailLesson'])->middleware('auth:sanctum');
@@ -78,6 +78,25 @@ Route::prefix('lesson')->group(function () {
 Route::prefix('voucher')->group(function () {
     Route::get('list-system', [VoucherController::class, 'getVoucher'])->middleware('auth:sanctum');
     Route::post('checkVoucher', [VoucherController::class, 'checkVoucher'])->middleware('auth:sanctum');
+});
+Route::prefix('forum')->group(function () {
+    Route::prefix('forum-cmt')->group(function () {
+        Route::post('add', [ForumCommentController::class, 'addForumCmt'])->middleware('auth:sanctum');
+        Route::post('reply', [ForumCommentController::class, 'replyForumCmt'])->middleware('auth:sanctum');
+        Route::post('update/{id}', [ForumCommentController::class, 'updateForumCmt'])->middleware('auth:sanctum');
+        Route::delete('delete/{id}', [ForumCommentController::class, 'deleteForumCmt'])->middleware('auth:sanctum');
+    });
+   // api khóa học đề xuất
+    Route::get('/recommended-courses/{categoryId}',  [ForumCommentController::class, 'getRecommendedCourses'])->middleware('auth:sanctum');;
+    //api post mới nhất
+    Route::get('/latest-posts', [ForumCommentController::class, 'getLatestPosts'])->middleware('auth:sanctum');
+    //api post hay nhất
+    Route::get('/top-rated-posts', [ForumCommentController::class, 'getTopRatedPosts'])->middleware('auth:sanctum');
+    Route::get('/user-is-posts', [ForumCommentController::class, 'getUserPosts'])->middleware('auth:sanctum');
+    Route::post('/search-posts', [ForumCommentController::class, 'searchPosts'])->middleware('auth:sanctum');
+
+
+
 });
 Route::fallback(function () {
     return response()->json([
