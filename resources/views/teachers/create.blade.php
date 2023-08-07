@@ -123,8 +123,8 @@
                                     <div class="hstack gap-2 justify-content-end">
                                         <button type="submit" class="btn btn-success" id="add-btn">Thêm</button>
                                         <button type="button" class="btn btn-primary"><a style="color: white"
-                                                                                         href="{{route('show.user')}}">Danh
-                                                sách</a></button>
+                                                                                         href="{{route('show.user')}}">trở
+                                                về</a></button>
                                     </div>
                                 </div>
                                 <!--end col-->
