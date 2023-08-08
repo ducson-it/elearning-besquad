@@ -90,17 +90,6 @@ Route::prefix('forum')->group(function () {
         Route::post('update/{id}', [ForumCommentController::class, 'updateForumCmt'])->middleware('auth:sanctum');
         Route::delete('delete/{id}', [ForumCommentController::class, 'deleteForumCmt'])->middleware('auth:sanctum');
     });
-   // api khóa học đề xuất
-    Route::get('/recommended-courses/{categoryId}',  [ForumCommentController::class, 'getRecommendedCourses'])->middleware('auth:sanctum');;
-    //api post mới nhất
-    Route::get('/latest-posts', [ForumCommentController::class, 'getLatestPosts'])->middleware('auth:sanctum');
-    //api post hay nhất
-    Route::get('/top-rated-posts', [ForumCommentController::class, 'getTopRatedPosts'])->middleware('auth:sanctum');
-    Route::get('/user-is-posts', [ForumCommentController::class, 'getUserPosts'])->middleware('auth:sanctum');
-    Route::post('/search-posts', [ForumCommentController::class, 'searchPosts'])->middleware('auth:sanctum');
-
-
-
 });
 Route::fallback(function () {
     return response()->json([
