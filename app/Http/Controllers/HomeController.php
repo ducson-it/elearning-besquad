@@ -36,14 +36,14 @@ class HomeController extends Controller
         //count order in day
         $order_count_day = Order::with(['course'])
             ->whereHas('course', function ($q) {
-                $q->where('is_free', Beesquad::TRUE);
+                $q->where('is_free', Beesquad::FALSE);
             })
             ->whereDate('created_at', Carbon::today())
             ->count();
         //calculate order day growth rate
         $order_count_preDay = Order::with(['course'])
             ->whereHas('course', function ($q) {
-                $q->where('is_free', Beesquad::TRUE);
+                $q->where('is_free', Beesquad::FALSE);
             })
             ->whereDate('created_at', Carbon::yesterday())
             ->count();
@@ -70,19 +70,19 @@ class HomeController extends Controller
         //statistic business
         $order_all  = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
             })
             ->count();
         $order_payment = Order::with(['course'])
         ->whereHas('course', function ($q) {
-        $q->where('is_free', Beesquad::TRUE);
+        $q->where('is_free', Beesquad::FALSE);
         })
         ->where('status',Beesquad::DONE)
         ->count();
         $revenue_all = Order::sum('amount');
         $order_cancel = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
         })
             ->where('status',Beesquad::CANCEL)
             ->count();
@@ -91,10 +91,12 @@ class HomeController extends Controller
         }else{
             $conversion_rate = round($order_payment*100/$order_all,2);
         }
+        //top 5 course bestseller
+        $top5_bestseller_courses = Course::where('is_free',Beesquad::FALSE)->withCount('orders')->withSum('orders','amount')->orderBy('orders_count','desc')->limit(5)->get();
         return view('home', compact
         ('recent_orders', 'total_earning_day', 'order_count_day', 'order_count_preDay', 'order_growth_rate',
         'users_count_day','users_growth_rate','total_number_courses','order_all','revenue_all','order_cancel',
-        'conversion_rate'
+        'conversion_rate','top5_bestseller_courses'
         ));
     }
     public function statistic(Request $request)
@@ -105,14 +107,14 @@ class HomeController extends Controller
             $preMonth = Carbon::now()->subMonth();
             $order_all = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
             })
             ->whereDate('created_at','>=',$preMonth)
             ->count();
 
             $order_payment = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
             })
             ->whereDate('created_at','>=',$preMonth)
             ->where('status',Beesquad::DONE)
@@ -121,7 +123,7 @@ class HomeController extends Controller
             $revenue_all = Order::where('created_at','>=',$preMonth)->sum('amount');
             $order_cancel = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
             })
             ->whereDate('created_at','>=',$preMonth)
             ->where('status',Beesquad::CANCEL)
@@ -138,14 +140,14 @@ class HomeController extends Controller
             $preSixMonth = Carbon::now()->subMonth(6);
             $order_all = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
             })
             ->whereDate('created_at','>=',$preSixMonth )
             ->count();
 
             $order_payment = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
             })
             ->whereDate('created_at','>=',$preSixMonth )
             ->where('status',Beesquad::DONE)
@@ -154,7 +156,7 @@ class HomeController extends Controller
             $revenue_all = Order::where('created_at','>=',$preSixMonth )->sum('amount');
             $order_cancel = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
             })
             ->whereDate('created_at','>=',$preSixMonth )
             ->where('status',Beesquad::CANCEL)
@@ -171,14 +173,14 @@ class HomeController extends Controller
             $preYear = Carbon::now()->subMonth(12);
             $order_all = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
             })
             ->whereDate('created_at','>=',$preYear )
             ->count();
 
             $order_payment = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
             })
             ->whereDate('created_at','>=',$preYear )
             ->where('status',Beesquad::DONE)
@@ -187,7 +189,7 @@ class HomeController extends Controller
             $revenue_all = Order::where('created_at','>=',$preYear )->sum('amount');
             $order_cancel = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
             })
             ->whereDate('created_at','>=',$preYear )
             ->where('status',Beesquad::CANCEL)
@@ -203,19 +205,19 @@ class HomeController extends Controller
         {
             $order_all  = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
             })
             ->count();
         $order_payment = Order::with(['course'])
         ->whereHas('course', function ($q) {
-        $q->where('is_free', Beesquad::TRUE);
+        $q->where('is_free', Beesquad::FALSE);
         })
         ->where('status',Beesquad::DONE)
         ->count();
         $revenue_all = Order::sum('amount');
         $order_cancel = Order::with(['course'])
             ->whereHas('course', function ($q) {
-            $q->where('is_free', Beesquad::TRUE);
+            $q->where('is_free', Beesquad::FALSE);
         })
             ->where('status',Beesquad::CANCEL)
             ->count();
@@ -235,7 +237,5 @@ class HomeController extends Controller
                 'conversion_rate'=>$conversion_rate
             ]
         ],200);
-        //top 5 course bestseller
-
     }
 }

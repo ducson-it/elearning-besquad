@@ -21,7 +21,6 @@
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
-                                    <a href="{{route('show.user')}}"> <button class="rounded border-0 btn btn-warning">Danh sách</button></a>
                                     <form method="post" action="{{route('show.user')}}">
                                         @csrf
                                         <div class="search-box ms-2">

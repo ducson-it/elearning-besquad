@@ -3,7 +3,7 @@ $(document).ready(function () {
     function showPrice(){
         var type = $('#courseType').val()
         console.log(type);
-        if (type == 0) {
+        if (type == 1) {
             $('.price').hide()
             $('.price-sale').hide()
         } else {
@@ -18,6 +18,20 @@ $(document).ready(function () {
     //hiden error after enter value validation
     $('#name').on('change',function(){
         $('#error-name').hide();
+    })
+    //quiz type
+    function showModule(){
+        var type = $('#quizType').val()
+        console.log('----anhQuan----');
+        if (type ==1) {
+            $('.module').hide()
+        } else {
+            $('.module').show()
+        }
+    }
+    showModule()
+    $('#quizType').on("change", function () {
+        showModule()
     })
     //filter by categories
     $('select#selectCate').on('change',function(){
@@ -92,6 +106,44 @@ window.deleteCourse = (course_id) => {
                 },
                 processData: false,
                 url: 'courses/delete/' + course_id,
+                success: function (data) {
+                    if (data) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        ).then(function () {
+                            location.reload()
+                        })
+                    }
+
+                },
+
+            })
+        }
+    })
+}
+
+//Delete quiz
+
+window.deleteQuiz = (quiz_id) => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "DELETE",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                processData: false,
+                url: '/quiz/delete/' + quiz_id,
                 success: function (data) {
                     if (data) {
                         Swal.fire(

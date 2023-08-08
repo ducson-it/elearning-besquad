@@ -19,8 +19,9 @@ select2()
 import'./home';
 import './tag';
 import './user';
+import './voucher';
 import './notifycation';
-
+import './forum_cmt';
 selectpicker();
 //addTag();
 import Dropzone from "dropzone";
@@ -30,6 +31,8 @@ import './module';
 import './courses';
 import './lessons';
 import './order';
+import './question';
+import './answer';
 //Destroy Quill Editor
 // import QuillMarkdown from 'quilljs-markdown';
 // var toolbarOptions =

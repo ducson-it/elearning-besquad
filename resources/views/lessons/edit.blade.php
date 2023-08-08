@@ -52,7 +52,8 @@
                                     </div>
                                     <label for="" class="mt-3">Tải lên document (docx,pdf,...)</label><br>
                                     <div class="input-group">
-                                        <input type="file" class="form-control" name="document" value="{{$lesson->document}}">
+                                        <input type="hidden" name="document" value="{{$lesson->document}}">
+                                        <input type="file" class="form-control" name="document">
                                     </div>
                                 </div>
                             </div>
@@ -68,14 +69,14 @@
                                 {{-- Lựa chọn video khoá học --}}
                                 <div class="col-10">
                                     <label for="">Video</label><br>
-                                        <div style="width:200px">
+                                        <div style="width:200px" id="showVideo">
                                             {!!$video['embed_code']!!}
                                         </div>
                                         <label for="">Lựa chọn video</label><br>
                                     <div class="input-group">
                                         <select name="video_id" id="video" class="form-control">
                                             @foreach ($videos as $video)
-                                                <option value="{{$video['id']}}">{{$video['title']}}</option>
+                                                <option value="{{$video['id']}}" {{$video['id'] == $lesson->video_id?'selected':''}} >{{$video['title']}}</option>
                                             @endforeach
                                         </select>
                                     </div>

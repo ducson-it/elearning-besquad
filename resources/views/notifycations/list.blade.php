@@ -15,7 +15,6 @@
                                 </div>
                             </div>
                             <div class="col-sm">
-
                                 <div class="d-flex justify-content-sm-end">
                                     <form method="post" action="{{route('show.notify')}}">
                                         @csrf
