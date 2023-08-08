@@ -19,23 +19,26 @@
                                             @csrf
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Thêm thẻ tag</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="tag-name-input">
-                                                        <p>Name</p>
+                                                        <p>Tên thẻ </p>
                                                         <input type="text" id="tag-name-input" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="tag name">
                                                         <div id="error-messages" class="text-danger"></div>
+                                                        @error('name')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                     <div class="tag-description-input mt-3">
-                                                        <p>Description</p>
-                                                        <textarea id="tag-description-input"  class="form-control" name="tag_description" placeholder="mô tả"></textarea>
+                                                        <p>Mô tả</p>
+                                                        <textarea id="tag-description-input"  class="form-control" name="description" placeholder="mô tả">{{ old('description') }}</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    <button type="button" id="cancel-button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+                                                    <button type="submit" class="btn btn-primary">Thêm </button>
                                                 </div>
                                             </div>
                                         </form>
@@ -118,7 +121,7 @@
                                                                 <input type="hidden" value="{{$tag->id}}" id="tag-id-input-{{$tag->id}}" name="tag_id">
                                                                 <div class="tag-description-input mt-3">
                                                                     <p>Description</p>
-                                                                    <textarea id="tag-description-input-{{$tag->id}}"  class="form-control" name="tag_description" placeholder="mô tả">{{$tag->description}}</textarea>
+                                                                    <textarea id="tag-description-input-{{$tag->id}}"  class="form-control" name="description" placeholder="mô tả">{{$tag->description}}</textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -133,9 +136,9 @@
                                             <div class="remove">
                                                 <button class="btn btn-sm btn-danger remove-item-btn"  onclick="showDeleteConfirmation({{$tag->id}})" >Remove</button>
                                             </div>
-                                            <div class="detail">
-                                                <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('show.taggable',$tag->id)}}">Detail</a></button>
-                                            </div>
+{{--                                            <div class="detail">--}}
+{{--                                                <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('show.taggable',$tag->id)}}">Detail</a></button>--}}
+{{--                                            </div>--}}
                                         </div>
                                     </td>
                                 </tr>
@@ -151,7 +154,7 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-start">
+                    <div class="d-flex justify-content-end">
                         {{ $tags->links() }}
                     </div>
                 </div>
@@ -161,10 +164,10 @@
     </div>
     <!-- end col -->
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-
     $(document).ready(function() {
         $('#tag-form').submit(function(event) {
             event.preventDefault(); // Ngăn chặn hành vi mặc định của form (tải lại trang)
@@ -179,16 +182,16 @@
                 data: formData,
                 success: function(response) {
                     // Xử lý kết quả thành công
-                    console.log(response);
-
-                    $('#addTopic').modal('hide');
                     // Thực hiện các hành động khác sau khi gửi thành công
                     $('#tag-name-input').val('');
                     $('#tag-description-input').val('');
-                    // Hiển thị thông báo thành công trên giao diện
-                    // Hiển thị thông báo thành công (nếu cần)
-                    // ... // Hiển thị thông báo thành công trên giao diện
-                    $('#message-container').html('<div class="alert alert-success">' + response.message + '</div>');
+                    Swal.fire(
+                        'Thêm mới!',
+                        'Đã Thêm mới  thành công',
+                        'success'
+                    ).then(() => {
+                        window.location.href = '{{ route("show.tag") }}';
+                    });
                 },
                 error: function(response) {
                     // Xử lý lỗi
@@ -227,7 +230,6 @@
                         'Đã cập nhật thành công',
                         'success'
                     ).then(() => {
-                        // Chuyển hướng sau khi xóa thành công
                         window.location.href = '{{ route("show.tag") }}';
                     });
                     // Xử lý kết quả thành công
@@ -290,7 +292,10 @@
             }
         });
     }
-
+    // Load lại trang khi ấn nút "Thoát" trên modal
+    document.getElementById('cancel-button').addEventListener('click', function() {
+        document.getElementById('tag-form').reset();  // Load lại trang
+    });
 </script>
 @endsection
 

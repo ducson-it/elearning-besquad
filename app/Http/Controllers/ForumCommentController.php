@@ -10,7 +10,9 @@ class ForumCommentController extends Controller
 {
     //
     public function showForumCmt(Request $request){
-        $comments = ForumComment::where('content', 'LIKE', '%'.$request->search_forumCmt.'%')->paginate(10);
+        $comments = ForumComment::with(['user','post'])
+            ->where('content', 'LIKE', '%'.$request->search_forumCmt.'%')
+            ->paginate(8);
         return view('forum_comment.list',compact('comments'));
     }
     public function deleteForumCmt($id){
