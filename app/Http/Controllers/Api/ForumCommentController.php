@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ForumCommentController extends Controller
 {
-    //
-
-
+    //add cmt
     public function addForumCmt(Request $request){
         $user = Auth::user();
         if(!$user){
@@ -99,46 +97,5 @@ class ForumCommentController extends Controller
         }
     }
 
-    // post mới nhất
-    public function getLatestPosts()
-    {
-        $latestPosts = ForumPost::with('comments', 'category.courses')
-            ->orderBy('created_at', 'desc')
-            ->limit(10)
-            ->get();
 
-        return response()->json($latestPosts);
-    }
-    //api post hay nhất
-    public function getTopRatedPosts()
-    {
-        $topRatedPosts = ForumPost::with(['comments', 'category.courses'])
-            ->orderBy('view', 'desc')
-            ->orderBy('star', 'desc')
-            ->limit(10)
-            ->get();
-
-        return response()->json($topRatedPosts);
-    }
-    //API trả ra các bài post mà user đăng nhập đã tạo
-    public function getUserPosts()
-    {
-        $user = Auth::user();
-        if($user){
-            $userPosts = ForumPost::with(['comments', 'category.courses'])
-            ->where('user_id', $user->id)->get();
-            return response()->json($userPosts);
-        }
-
-        return response()->json(['message' => 'Unauthorized'], 403);
-    }
-    //API tìm kiếm bài post theo title
-    public function searchPosts(Request $request)
-    {
-        $query = $request->input('search_post');
-
-        $searchResults = ForumPost::where('title', 'like', '%' . $query . '%')->get();
-
-        return response()->json($searchResults);
-    }
 }

@@ -14,7 +14,9 @@ class TeacherController extends Controller
     //
     public function showListTeacher(Request $request)
     {
-        $list_teachers  = User::where([['name', 'LIKE', '%'.$request->search_teacher.'%'],[ 'role_id', '=',3 ]])->paginate(Beesquad::PAGINATE);
+        $list_teachers  = User::where([['name', 'LIKE', '%'.$request->search_teacher.'%'],[ 'role_id', '=',3 ]])
+            ->orderBy('id', 'desc')
+            ->paginate(Beesquad::PAGINATE);
         return view('teachers.list', compact('list_teachers'));
     }
     public function deleteUser($id)
