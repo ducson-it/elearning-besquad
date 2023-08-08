@@ -164,12 +164,17 @@
                         <i class="ri-apps-2-line"></i> <span>Quản lý đề</span>
                         </a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('show.notify')}}">
                         <i class="ri-apps-2-line"></i> <span>Notifycation</span>
                     </a>
 
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('show.forumCmt')}}">
+                        <i class="ri-apps-2-line"></i> <span>Quản lí Forum comment</span>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#">

@@ -81,8 +81,8 @@
                                     <div class="hstack gap-2 justify-content-end">
                                         <button type="submit" class="btn btn-success">Thêm</button>
                                         <button type="button" class="btn btn-primary"><a style="color: white"
-                                                                                         href="{{route('show.notify')}}">Danh
-                                                sách</a></button>
+                                                                                         href="{{route('show.notify')}}">trở
+                                                về</a></button>
                                     </div>
                                 </div>
                                 <!--end col-->

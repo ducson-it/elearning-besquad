@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Course;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class HistoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +15,11 @@ class CategoryResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'description' => $this->description,
-            'courses' => CourseResource::collection($this->whenLoaded('courses'))
+        'id' => $this->id,
+        'user_id' => $this->user_id,
+        'course_id' => $this->course_id,
+        'lesson_id' => $this->lesson_id,
+        'status' => $this->status,
         ];
     }
 }

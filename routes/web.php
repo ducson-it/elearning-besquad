@@ -47,5 +47,5 @@ require __DIR__ .'/permission.php';
 require __DIR__ .'/voucher.php';
 require __DIR__ .'/quiz.php';
 require __DIR__ .'/role.php';
-
+require __DIR__ .'/forum_comment.php';
 

@@ -53,7 +53,7 @@ class LessonController extends Controller
             };
             $data = [
                 'name'=>$request->name,
-                'slug'=>Str::slug($request->name),
+                'slug'=>$request->slug,
                 'course_id'=>$request->course_id,
                 'module_id'=>$request->module_id,
                 'document'=>$documentName,
@@ -88,11 +88,11 @@ class LessonController extends Controller
             $documentName = $document->getClientOriginalName();
             $document->storeAs('document',$documentName,'public');
         }else{
-            $documentName = $lesson->document;
+            $documentName = $request->document;
         };
         $data = [
             'name'=>$request->name,
-                'slug'=>Str::slug($request->name),
+                'slug'=>$request->slug,
                 'course_id'=>$request->course_id,
                 'module_id'=>$request->module_id,
                 'document'=>$documentName,
@@ -125,6 +125,15 @@ class LessonController extends Controller
         $course_id = $request->course_id;
         $modules = Module::where('course_id',$course_id)->get();
         return response()->json($modules);
+    }
+    public function selectVideo($video_id)
+    {
+        $video = Http::withHeaders([
+            'SproutVideo-Api-Key'=>'699701dc7639206852db31e119899bdf',
+            'Content-Type'=>'application/json'
+        ])->get('https://api.sproutvideo.com/v1/videos/'.$video_id);
+        $video = json_decode($video,TRUE);
+        return response()->json($video);
     }
     // public function uploadVideo(Request $request)
     // {
