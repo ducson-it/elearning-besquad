@@ -16,7 +16,7 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
                                 <div>
-                                    <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><a href="{{route('comment.create')}}"> Add</a></button>
+                                    <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><a href="{{route('comment.create')}}" style="color:white">Add</a></button>
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -24,6 +24,7 @@
                                     <div class="search-box ms-2">
                                         <form action="{{ route('comment.list') }}" method="GET">
                                             <input type="text" class="form-control search" placeholder="Search..." name="search">
+                                            <i class="ri-search-line search-icon"></i>
                                         </form>
                                     </div>
                                 </div>

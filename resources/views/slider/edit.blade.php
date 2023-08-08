@@ -77,8 +77,8 @@
                             <br>
                             <div class="mx-6">
                                 <div class="hstack gap-2 justify-content-end">
-                                    <button type="submit" class="btn btn-success">Cập nhật</button>
-                                    <button type="button" class="btn btn-light"><a href="{{route('slider.list')}}">Trở lại</a></button>
+                                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                    <button type="button" class="btn btn-primary"><a href="{{route('slider.list')}}">Trở lại</a></button>
                                 </div>
                             </div>
                         </div>
