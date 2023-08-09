@@ -10,7 +10,7 @@ class Notifycaton extends Controller
 {
     //
    public function getNotifys(){
-       $notifys = Notification::all();
+       $notifys = Notification::orderBy('id', 'desc')->get();
        return response()->json($notifys);
    }
 
