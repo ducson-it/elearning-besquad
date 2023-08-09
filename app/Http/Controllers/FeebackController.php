@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class FeebackController extends Controller
 {
-    public function index(){
-        $feedbacks = Feedback::paginate(5);
+    public function index(Request $request){
+        $search = $request->input('search');
+        $feedbacks = Feedback::where('content', 'like', '%' . $search . '%')->paginate(8);
         return view ('feedbacks.list',compact('feedbacks'));
     }
     public function create(){
