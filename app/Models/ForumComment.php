@@ -16,6 +16,7 @@ class ForumComment extends Model
         'user_id', 'content', 'status', 'post_id', 'parent_id','is_active'
     ];
 
+
     public function user()
     {
         return $this->belongsTo(User::class);
