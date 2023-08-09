@@ -25,7 +25,17 @@ class ForumPostController extends Controller
                 'id' => $post->id,
                 'title' => $post->title,
                 'content' => $post->content,
-                'comment_count' => $commentCount,
+                'view' => $post->view,
+                'user_id' => $post->user->name,
+                'star' => $post->star,
+                'is_active' => $post->is_active,
+                'type' => [
+                    'id' => $post->type,
+                    'description' => $post->type == 1 ? 'Thắc mắc'
+                        : ($post->type == 2 ? 'Câu hỏi'
+                            : ($post->type == 3 ? 'Thảo luận'
+                                : ($post->type == 4 ? 'Giải trí' : 'Không xác định')))
+                ],
                 'comments' => $formattedComments,
                 'category' => $post->category
                     ? [
@@ -44,11 +54,11 @@ class ForumPostController extends Controller
 
     public function detail($id)
     {
-        $forumpost = ForumPost::findOrFail($id);
+        $forumpost = ForumPost::with('comments')->findOrFail($id);
         return response()->json([
             'code' => 200,
             'message' => 'success',
-            'data'=> $forumpost
+            'data' => $forumpost
         ]);
     }
     public function clickStar(Request $request){
