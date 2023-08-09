@@ -18,7 +18,7 @@ class ForumPostController extends Controller
                 return [
                     'id' => $comment->id,
                     'content' => $comment->content,
-                    'user_id'=>$comment->user->name
+                    'user_id'=>$comment->user->name,
                 ];
             });
             return [
@@ -27,9 +27,14 @@ class ForumPostController extends Controller
                 'content' => $post->content,
                 'comment_count' => $commentCount,
                 'comments' => $formattedComments,
+                'category' => $post->category
+                    ? [
+                        'id' => $post->category->id,
+                        'name' => $post->category->name,
+                    ]
+                    : null,
             ];
         });
-
         return response()->json([
             'code' => 200,
             'message' => 'Thành công',
@@ -46,7 +51,8 @@ class ForumPostController extends Controller
             'data'=> $forumpost
         ]);
     }
-    public function clickStar(Request $request ,$id){
+    public function clickStar(Request $request){
+        $id = $request->input('id');
         $post = ForumPost::find($id);
         $user = Auth::user();
         if(!$post){
@@ -61,7 +67,7 @@ class ForumPostController extends Controller
             return response()->json([
                 'code' => 200,
                 'message' => 'success',
-                'data'=> $post, $user
+                'data' => ['post' => $post, 'user' => $user]
             ]);
         }
 
@@ -83,7 +89,7 @@ class ForumPostController extends Controller
             'is_active'=> 0,
             'star'=> 0,
             'category_id'=>$request->input('category_id'),
-            'type' => $request->input('type')
+            'type' => $request->input('type'),
         ];
         $resulf = ForumPost::create($data);
         if($resulf){
@@ -220,13 +226,18 @@ class ForumPostController extends Controller
         return response()->json(['message' => 'Unauthorized'], 403);
     }
     //API tìm kiếm bài post theo title
-    public function searchPosts(Request $request)
+    public function searchPosts(Request $request )
     {
-        $query = $request->input('search_post');
+        $key_word = $request->query('keyword');
 
-        $searchResults = ForumPost::where('title', 'like', '%' . $query . '%')->get();
+        $searchResults = ForumPost::with(['comments', 'category'])
+            ->where('title', 'like', '%' . $key_word . '%')
+            ->get();
 
-        return response()->json($searchResults);
+        return response()->json([
+            'search_results' => $searchResults,
+            'keyword' => $key_word,
+        ]);
     }
 
 }

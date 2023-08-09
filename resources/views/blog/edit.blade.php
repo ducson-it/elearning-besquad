@@ -94,7 +94,7 @@
                                 <div class="mx-6">
                                     <div class="hstack gap-2 justify-content-end">
                                         <button type="submit" class="btn btn-primary" >Update</button>
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><a href="{{route('blogs.list')}}">Trở lại</a></button>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><a href="{{route('blogs.list')}}" style="color: white">Trở lại</a></button>
                                     </div>
                                 </div>
                             </form>

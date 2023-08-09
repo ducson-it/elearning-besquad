@@ -32,6 +32,8 @@ class SliderRequest extends FormRequest
             'content_btn.required' => 'Vui lòng nhập nội dung cho nút.',
             'image.required' => 'Vui lòng chọn ảnh.',
             'image.image' => 'Tệp tải lên phải là hình ảnh.',
+            'status.required' => 'Vui lòng nhập trạng thái.',
+            'status.numeric' => 'Trạng thái phải là một số.',
             'status.check_status' => 'Trạng thái chỉ được nhập 0 hoặc 1.',        ];
     }
 }
