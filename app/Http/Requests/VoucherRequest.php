@@ -41,6 +41,10 @@ class VoucherRequest extends FormRequest
         if ($unit === 'Percent') {
             $rules['percentage_value'] = 'required|min:0|max:100';
         }
+        $option = $this->input('option');
+        if ($option === 'limited') {
+            $rules['quantity'] = 'required|integer|min:1'; // Đảm bảo là số nguyên dương
+        }
         if ($this->getMethod() === 'POST') {
             $rules['code'] = 'required|unique:vouchers,code';
         }
@@ -58,7 +62,10 @@ class VoucherRequest extends FormRequest
             'vnd_value.min'=>'Không được nhập số âm',
             'percentage_value.required'=>'Đây là trường bắt buộc không được để trống.',
             'percentage_value.min'=>'Không được nhập số âm',
-            'percentage_value.max'=>'Không được nhập quá 100'
+            'percentage_value.max'=>'Không được nhập quá 100',
+            'quantity.required' => 'Đây là trường bắt buộc không được để trống.',
+            'quantity.integer' => 'Số lượng phải là số nguyên.',
+            'quantity.min' => 'Số lượng phải lớn hơn hoặc bằng 1.',
         ];
     }
 }

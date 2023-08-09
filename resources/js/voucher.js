@@ -2,12 +2,11 @@ import Swal from 'sweetalert2';
 window.DeleteVoucher = (id) => {
     Swal.fire({
         title: 'Bạn có chắc chắn muốn xóa voucher này?',
-        text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Xóa'
     }).then((result) => {
         if (result.isConfirmed) {
             // Gửi yêu cầu xóa bằng Ajax

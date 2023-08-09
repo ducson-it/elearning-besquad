@@ -14,7 +14,7 @@
                                 <div class="col-10">
                                     <div>
                                         <label for="basiInput" class="form-label">Tên bài học</label>
-                                        <input type="text" class="form-control" id="name" name="name">
+                                        <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}">
                                         @if ($errors->any())
                                             <span id="error-name" style="color:red">
                                                 @error('name')
@@ -27,7 +27,7 @@
                                 <div class="mb-3 col-10">
                                     <label for="phone-field" class="form-label">Slug</label>
                                     <input type="text" class="form-control bg-light" readonly
-                                         name="slug" id="slug">
+                                         name="slug" id="slug" value="{{old('slug')}}">
                                 </div>
                                 <div class="col-10 mt-2">
                                     <div>
@@ -56,7 +56,7 @@
                                 <div class="col-10">
                                     <label for="">Tải lên document (docx,pdf,...)</label><br>
                                     <div class="input-group">
-                                        <input type="file" class="form-control" name="document" value="{{old('document')}}">
+                                        <input type="file" class="form-control" name="document">
                                     </div>
                                     @if ($errors->any())
                                             <span id="error-name" style="color:red">

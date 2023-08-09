@@ -14,7 +14,7 @@ class Category_BlogController extends Controller
     public function index(Request $request)
     {
             $search = $request->input('search');
-            $category_blogs = CategoryBlog::where('name', 'like', '%' . $search . '%')->paginate(10);
+            $category_blogs = CategoryBlog::where('name', 'like', '%' . $search . '%')->paginate(8);
         return view('category_blogs.list', compact('category_blogs'));
     }
 

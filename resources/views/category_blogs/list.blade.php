@@ -50,7 +50,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                                                         <button type="submit" class="btn btn-primary">Lưu</button>
                                                     </div>
                                                 </form>
@@ -77,7 +77,6 @@
                                     <th>Stt</th>
                                     <th>Name</th>
                                     <th>Slug</th>
-                                    <th>Description</th>
                                 </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
@@ -86,7 +85,6 @@
                                         <td class="">{{$i+1}}</td>
                                         <td class="">{{$category_blog->name}}</td>
                                         <td class="">{{$category_blog->slug}}</td>
-                                        <td class="">{{$category_blog->description}}</td>
                                         <td class="">{{$category_blog->created_at}}</td>
                                         <td>
                                             <div class="d-flex gap-2">

@@ -14,6 +14,7 @@ class TagController extends Controller
         $search = $request->input('search_tag', '');
 
         $tags = Tag::where('name', 'LIKE', '%' . $search . '%')
+            ->orderBy('id', 'desc')
             ->paginate(10);
 
         return view('tags.list', compact('tags', 'search'));
@@ -21,10 +22,9 @@ class TagController extends Controller
 
     public function storetag(TagRequest $request){
        $data = [
-           'name' => $request->input('name'),
-           'description' => $request->input('tag_description'),
+           'name' => $request->name,
+           'description' => $request->description,
        ];
-
        if ($request->ajax()) {
            try {
                Tag::create($data);
@@ -48,9 +48,9 @@ class TagController extends Controller
    }
    public function editTag(TagRequest $request,$id){
        $tag = Tag::find($id);
-      $update_tag =  $tag->update([
-           'name'=> $request->input('name'),
-            'description'=>$request->input('description')
+      $resulf =  $tag->update([
+           'name'=> $request->name,
+            'description'=>$request->description
        ]);
        return redirect()->route('show.tag')->with('message', 'Chỉnh sửa thành công');
    }

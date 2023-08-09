@@ -14,7 +14,7 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $blogs = Blog::where('title', 'like', '%' . $search . '%')->paginate(10);
+        $blogs = Blog::where('title', 'like', '%' . $search . '%')->paginate(8);
         return view('blog.list', compact('blogs'));
     }
 

@@ -21,7 +21,7 @@ import './tag';
 import './user';
 import './voucher';
 import './notifycation';
-
+import './forum_cmt';
 selectpicker();
 //addTag();
 import Dropzone from "dropzone";
