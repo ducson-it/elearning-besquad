@@ -16,7 +16,7 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
                                 <div>
-                                    <button type="button" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i> <a href="{{route('slider.create')}}"> Add</a></button>
+                                    <button class="btn btn-primary"><a href="{{route('slider.create')}}" style="color:white"> Add</a></button>
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -24,6 +24,7 @@
                                     <div class="search-box ms-2">
                                         <form action="{{ route('slider.list') }}" method="GET">
                                             <input type="text" class="form-control search" placeholder="Search..." name="search">
+                                            <i class="ri-search-line search-icon"></i>
                                         </form>
                                     </div>
 
