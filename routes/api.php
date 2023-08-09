@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\ForumCommentController;
 use App\Http\Controllers\Api\LessonController;
+use App\Http\Controllers\Api\Notifycaton;
 use App\Http\Controllers\Api\QuizController;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\SliderController;
@@ -90,6 +91,9 @@ Route::prefix('forum')->group(function () {
         Route::post('update/{id}', [ForumCommentController::class, 'updateForumCmt'])->middleware('auth:sanctum');
         Route::delete('delete/{id}', [ForumCommentController::class, 'deleteForumCmt'])->middleware('auth:sanctum');
     });
+});
+Route::prefix('notify')->group(function () {
+    Route::get('list', [Notifycaton::class, 'getNotifys'])->middleware('auth:sanctum');
 });
 Route::fallback(function () {
     return response()->json([
