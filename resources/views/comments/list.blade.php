@@ -41,6 +41,8 @@
                                     <th class="" data-sort="course">Thuộc danh mục</th>
                                     <th class="" data-sort="action">Thao tác</th>
                                     <th class="" data-sort="course">Status</th>
+                                    <th class="" data-sort="course">Trả lời</th>
+
                                 </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
@@ -67,7 +69,13 @@
                                                     {{$comment->status == 0 ? 'Inactive':'Active'}}
                                                 </button>
                                             </div>
-
+                                        </td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <div class="btn btn-sm">
+                                                    <button class="btn btn-sm btn-primary remove-item-btn">Trả lời</button>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

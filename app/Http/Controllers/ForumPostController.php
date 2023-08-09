@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CategoryBlog;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostForumRequest;
 use App\Models\ForumPost;
@@ -11,10 +12,12 @@ use Illuminate\Support\Facades\Auth;
 
 class ForumPostController extends Controller
 {
-    public function index(){
-        $forumposts = ForumPost::paginate(5);
-        return view ('post_forum.list',compact('forumposts'));
+    public function index(Request $request) {
+        $search = $request->input('search');
+        $forumposts = ForumPost::where('title', 'like', '%' . $search . '%')->paginate(8);
+        return view('post_forum.list', compact('forumposts'));
     }
+
     public function create(){
         $categories = Category::all();
         return view ('post_forum.create',compact('categories'));

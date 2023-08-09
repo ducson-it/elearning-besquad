@@ -36,7 +36,6 @@
                                 <thead class="table-light">
                                 <tr>
                                     <th>Stt</th>
-                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Content</th>
                                     <th>Text Color</th>
@@ -52,7 +51,6 @@
                                 @foreach($sliders as $i => $slider )
                                     <tr>
                                         <td class="">{{$i+1}}</td>
-                                        <td class="">{{$slider->id}}</td>
                                         <td class="">{{$slider->name}}</td>
                                         <td class="">{{$slider->content}}</td>
                                         <td class="">{{$slider->text_color}}</td>

@@ -100,7 +100,7 @@ Route::fallback(function () {
 Route::prefix('postforum')->group(function () {
     Route::get('/list', [ForumPostController::class, 'index'])->middleware('auth:sanctum');
     Route::get('/detail/{id}', [ForumPostController::class, 'detail'])->middleware('auth:sanctum');
-    Route::post('/clickstar/{id}', [ForumPostController::class, 'clickStar'])->middleware('auth:sanctum');
+    Route::post('/clickstar', [ForumPostController::class, 'clickStar'])->middleware('auth:sanctum');
     Route::post('/addpost', [ForumPostController::class, 'addpost'])->middleware('auth:sanctum');
     Route::post('/updatepost/{id}', [ForumPostController::class, 'updatepost'])->middleware('auth:sanctum');
     Route::delete('/delete/{id}', [ForumPostController::class, 'deletePost'])->middleware('auth:sanctum');
@@ -110,7 +110,8 @@ Route::prefix('postforum')->group(function () {
     //api post hay nhất
     Route::get('/top-rated-posts', [ForumPostController::class, 'getTopRatedPosts'])->middleware('auth:sanctum');
     Route::get('/user-is-posts', [ForumPostController::class, 'getUserPosts'])->middleware('auth:sanctum');
-    Route::post('/search-posts', [ForumPostController::class, 'searchPosts'])->middleware('auth:sanctum');
+    Route::get('/search-posts', [ForumPostController::class, 'searchPosts'])->middleware('auth:sanctum');
+
 });
 Route::prefix('feedbacks')->group(function () {
     Route::get('/list', [ForumFeedbackController::class, 'list'])->middleware('auth:sanctum');
