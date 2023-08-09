@@ -46,5 +46,6 @@ require __DIR__ .'/order.php';
 require __DIR__ .'/permission.php';
 require __DIR__ .'/voucher.php';
 require __DIR__ .'/quiz.php';
+require __DIR__ .'/role.php';
 
 

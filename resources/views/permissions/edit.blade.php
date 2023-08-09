@@ -126,11 +126,39 @@
 
                 if (group_name == '') {
                     toastMessage('Nhập tên nhóm quyền');
+<<<<<<< HEAD
+=======
+                    Toastify({
+                        text: "Nhập tên nhóm quyền",
+                        duration: 3000,
+                        newWindow: true,
+                        close: true,
+                        position: "right",
+                        style: {
+                            background: "#FF0000",
+                        },
+                    }).showToast();
+>>>>>>> cbec7092330c34cba3075c0b2656be565cf2165a
                     return false;
                 }
 
                 if (permission_name == '' || permission_code == '') {
+<<<<<<< HEAD
                     toastMessage('Mã quyền không được rỗng!', 'error');
+=======
+                    toastMessage('Nhập tên nhóm quyền');
+
+                    Toastify({
+                        text: "Tên quyền + Mã quyền không được rỗng!",
+                        duration: 3000,
+                        newWindow: true,
+                        close: true,
+                        position: "right",
+                        style: {
+                            background: "#FF0000",
+                        },
+                    }).showToast();
+>>>>>>> cbec7092330c34cba3075c0b2656be565cf2165a
                     return false;
                 }
 
