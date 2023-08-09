@@ -96,31 +96,12 @@
                 var permission_content = $('.permission-content');
 
                 if (group_name == '') {
-                    Toastify({
-                        text: "Nhập tên nhóm quyền",
-                        duration: 3000,
-                        newWindow: true,
-                        close: true,
-                        position: "right",
-                        style: {
-                            background: "#FF0000",
-                        },
-                    }).showToast();
+                    toastMessage('Nhập tên nhóm quyền', 'error');
                     return false;
                 }
 
                 if (permission_name == '' || permission_code == '') {
-                    Toastify({
-                        text: "Tên quyền + Mã quyền không được rỗng!",
-                        duration: 3000,
-                        newWindow: true,
-                        close: true,
-                        position: "right",
-                        style: {
-                            background: "#FF0000",
-                        },
-                    }).showToast();
-                    return false;
+                    toastMessage('Tên quyền + Mã quyền không được rỗng!', 'success');
                 }
 
                 data = {
@@ -138,16 +119,7 @@
                     data: data,
                     success: function(res) {
                         if (res.success == true) {
-                            Toastify({
-                                text: "Thêm thành công",
-                                duration: 3000,
-                                newWindow: true,
-                                close: true,
-                                position: "right",
-                                style: {
-                                    background: "#00CC33",
-                                },
-                            }).showToast();
+                            toastMessage('Thêm thành công', 'success');
                             permission_content.append(`
                                 <tr>
                                     <td>
@@ -161,30 +133,13 @@
                                     </td>
                                 </tr>
                             `)
-                            } else {
-                                Toastify({
-                                    text: "Thêm thất bại",
-                                    duration: 3000,
-                                    newWindow: true,
-                                    close: true,
-                                    position: "right",
-                                    style: {
-                                        background: "#FF0000",
-                                    },
-                                }).showToast();
-                            }
+                        } else {
+                            toastMessage('Thêm thất bại', 'error');
+                        }
                     },
                     error: function(error) {
-                        Toastify({
-                            text: "Có lỗi xảy ra",
-                            duration: 3000,
-                            newWindow: true,
-                            close: true,
-                            position: "right",
-                            style: {
-                                background: "#FF0000",
-                            },
-                        }).showToast();
+                        toastMessage('Có lỗi xảy ra', 'error');
+
                     }
                 });
             });
@@ -201,60 +156,23 @@
                         },
                         success: function(res) {
                             if (res.success == true) {
-                                Toastify({
-                                    text: "Xóa thành công",
-                                    duration: 3000,
-                                    newWindow: true,
-                                    close: true,
-                                    position: "right",
-                                    style: {
-                                        background: "#00CC33",
-                                    },
-                                }).showToast();
+                                toastMessage('Xóa thành công', 'success');
+                                $(this).parent().parent().remove();
                             } else {
-                                Toastify({
-                                    text: "Xóa thất bại",
-                                    duration: 3000,
-                                    newWindow: true,
-                                    close: true,
-                                    position: "right",
-                                    style: {
-                                        background: "#FF0000",
-                                    },
-                                }).showToast();
+                                toastMessage('Xóa thất bại', 'error');
                             }
                         },
                         error: function(error) {
-                            Toastify({
-                                text: "Có lỗi xảy ra",
-                                duration: 3000,
-                                newWindow: true,
-                                close: true,
-                                position: "right",
-                                style: {
-                                    background: "#FF0000",
-                                },
-                            }).showToast();
+                            toastMessage('Có lỗi xảy ra', 'error');
                         }
                     });
-
-                    $(this).parent().parent().remove();
                 }
             });
 
             $(document).on('click', '.permission_btn_save', function(e) {
                 e.preventDefault();
                 if (data.length <= 0) {
-                    Toastify({
-                        text: "Dữ liệu không tổn tại",
-                        duration: 3000,
-                        newWindow: true,
-                        close: true,
-                        position: "right",
-                        style: {
-                            background: "#FF0000",
-                        },
-                    }).showToast();
+                    toastMessage('Dữ liệu không tồn tại', 'error');
                     return false;
                 }
                 $.ajax({
@@ -266,43 +184,17 @@
                     data: JSON.stringify(data),
                     success: function(res) {
                         if (res.success == true) {
-                            Toastify({
-                                text: "Thêm thành công",
-                                duration: 3000,
-                                newWindow: true,
-                                close: true,
-                                position: "right",
-                                style: {
-                                    background: "#00CC33",
-                                },
-                            }).showToast();
+                            toastMessage('Thêm thành công', 'success');
                             setTimeout(function() {
                                 location.reload();
                             }, 200)
                         } else {
-                            Toastify({
-                                text: "Thêm thất bại",
-                                duration: 3000,
-                                newWindow: true,
-                                close: true,
-                                position: "right",
-                                style: {
-                                    background: "#FF0000",
-                                },
-                            }).showToast();
+                            toastMessage('Thêm thất bại', 'error');
+
                         }
                     },
                     error: function(error) {
-                        Toastify({
-                            text: "Có lỗi xảy ra",
-                            duration: 3000,
-                            newWindow: true,
-                            close: true,
-                            position: "right",
-                            style: {
-                                background: "#FF0000",
-                            },
-                        }).showToast();
+                        toastMessage('Có lỗi xảy ra', 'error');
                     }
                 });
             });

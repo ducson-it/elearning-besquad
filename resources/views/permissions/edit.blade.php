@@ -126,32 +126,11 @@
 
                 if (group_name == '') {
                     toastMessage('Nhập tên nhóm quyền');
-                    // Toastify({
-                    //     text: "Nhập tên nhóm quyền",
-                    //     duration: 3000,
-                    //     newWindow: true,
-                    //     close: true,
-                    //     position: "right",
-                    //     style: {
-                    //         background: "#FF0000",
-                    //     },
-                    // }).showToast();
-                    // return false;
+                    return false;
                 }
 
                 if (permission_name == '' || permission_code == '') {
-                    toastMessage('Nhập tên nhóm quyền');
-
-                    // Toastify({
-                    //     text: "Tên quyền + Mã quyền không được rỗng!",
-                    //     duration: 3000,
-                    //     newWindow: true,
-                    //     close: true,
-                    //     position: "right",
-                    //     style: {
-                    //         background: "#FF0000",
-                    //     },
-                    // }).showToast();
+                    toastMessage('Mã quyền không được rỗng!', 'error');
                     return false;
                 }
 
@@ -171,43 +150,16 @@
                     data: data,
                     success: function(res) {
                         if (res.success == true) {
-                            Toastify({
-                                text: "Sửa thành công",
-                                duration: 3000,
-                                newWindow: true,
-                                close: true,
-                                position: "right",
-                                style: {
-                                    background: "#00CC33",
-                                },
-                            }).showToast();
+                            toastMessage('Sửa thành công', 'success');
                             setTimeout(function() {
                                 location.reload();
                             }, 200)
                         } else {
-                            Toastify({
-                                text: "Sửa thất bại ",
-                                duration: 3000,
-                                newWindow: true,
-                                close: true,
-                                position: "right",
-                                style: {
-                                    background: "#FF0000",
-                                },
-                            }).showToast();
+                            toastMessage('Sửa thất bại', 'error');
                         }
                     },
                     error: function(error) {
-                        Toastify({
-                            text: "Có lỗi xảy ra",
-                            duration: 3000,
-                            newWindow: true,
-                            close: true,
-                            position: "right",
-                            style: {
-                                background: "#FF0000",
-                            },
-                        }).showToast();
+                        toastMessage('Có lỗi xảy ra', 'error');
                     }
                 });
             });
@@ -223,44 +175,18 @@
                         },
                         success: function(res) {
                             if (res.success == true) {
-                                Toastify({
-                                    text: "Xóa thành công",
-                                    duration: 3000,
-                                    newWindow: true,
-                                    close: true,
-                                    position: "right",
-                                    style: {
-                                        background: "#00CC33",
-                                    },
-                                }).showToast();
+                                toastMessage('Xóa thành công', 'success');
                                 setTimeout(function() {
                                     location.reload();
                                 }, 200)
                                 $(this).parent().parent().remove();
                             } else {
-                                Toastify({
-                                    text: "Xóa thất bại",
-                                    duration: 3000,
-                                    newWindow: true,
-                                    close: true,
-                                    position: "right",
-                                    style: {
-                                        background: "#FF0000",
-                                    },
-                                }).showToast();
+                                toastMessage('Xóa thất bại', 'error');
+
                             }
                         },
                         error: function(error) {
-                            Toastify({
-                                text: "Có lỗi xảy ra",
-                                duration: 3000,
-                                newWindow: true,
-                                close: true,
-                                position: "right",
-                                style: {
-                                    background: "#FF0000",
-                                },
-                            }).showToast();
+                            toastMessage('Có lỗi xảy ra', 'success');
                         }
                     });
                 }
