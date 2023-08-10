@@ -111,6 +111,7 @@ Route::prefix('postforum')->group(function () {
     Route::get('/top-rated-posts', [ForumPostController::class, 'getTopRatedPosts'])->middleware('auth:sanctum');
     Route::get('/user-is-posts', [ForumPostController::class, 'getUserPosts'])->middleware('auth:sanctum');
     Route::get('/search-posts', [ForumPostController::class, 'searchPosts'])->middleware('auth:sanctum');
+    Route::get('/postsCate', [ForumPostController::class, 'postsByCategory'])->middleware('auth:sanctum');
 
 });
 Route::prefix('feedbacks')->group(function () {

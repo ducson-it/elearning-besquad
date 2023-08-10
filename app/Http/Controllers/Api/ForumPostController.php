@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\ForumPost;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,14 @@ class ForumPostController extends Controller
                 'title' => $post->title,
                 'content' => $post->content,
                 'view' => $post->view,
-                'user_id' => $post->user->name,
+                'created_at'=>$post->created_at,
+                'updated_at'=>$post->updated_at,
+                'deleted_at'=>$post->deleted_at,
+                'user_id' => [
+                    'id'=>$post->user->id,
+                    'user'=> $post->user->name,
+                    'avatar' =>$post->user->avatar,
+                ],
                 'star' => $post->star,
                 'is_active' => $post->is_active,
                 'type' => [
@@ -205,24 +213,52 @@ class ForumPostController extends Controller
     // post mới nhất
     public function getLatestPosts()
     {
-        $latestPosts = ForumPost::with('comments', 'category.courses')
-            ->orderBy('created_at', 'desc')
-            ->limit(10)
+        $latestPosts = ForumPost::with('comments', 'category.courses', 'user') // Include the 'user' relationship
+        ->orderBy('created_at', 'desc')
+            ->limit(5)
             ->get();
-
-        return response()->json($latestPosts);
+        $formattedPosts = [];
+        foreach ($latestPosts as $post) {
+            $user = $post->user;
+            $formattedPosts[] = [
+                'id' => $post->id,
+                'title' => $post->title,
+                'content' => $post->content,
+                'created_at' => $post->created_at,
+                'user' => [
+                    'name' => $user->name,
+                    'avatar' => $user->avatar,
+                ],
+            ];
+        }
+        return response()->json($formattedPosts);
     }
     //api post hay nhất
     public function getTopRatedPosts()
     {
-        $topRatedPosts = ForumPost::with(['comments', 'category.courses'])
+        $topRatedPosts = ForumPost::with(['comments', 'category.courses', 'user'])
             ->orderBy('view', 'desc')
             ->orderBy('star', 'desc')
-            ->limit(10)
+            ->limit(5)
             ->get();
+        $formattedPosts = [];
+        foreach ($topRatedPosts as $post) {
+            $user = $post->user;
+            $formattedPosts[] = [
+                'id' => $post->id,
+                'title' => $post->title,
+                'content' => $post->content,
+                'created_at' => $post->created_at,
+                'user' => [
+                    'name' => $user->name,
+                    'avatar' => $user->avatar,
+                ],
+            ];
+        }
 
-        return response()->json($topRatedPosts);
+        return response()->json($formattedPosts);
     }
+
     //API trả ra các bài post mà user đăng nhập đã tạo
     public function getUserPosts()
     {
@@ -247,6 +283,70 @@ class ForumPostController extends Controller
         return response()->json([
             'search_results' => $searchResults,
             'keyword' => $key_word,
+        ]);
+    }
+
+    public function postsByCategory()
+    {
+        $allCategories = Category::all();
+        $formattedData = [];
+
+        foreach ($allCategories as $category) {
+            $categoryPosts = ForumPost::with(['comments', 'user'])
+                ->where('category_id', $category->id)
+                ->orderByDesc('star') // Sắp xếp theo trường 'star' giảm dần
+                ->get();
+
+            if ($categoryPosts->count() > 0) {
+                $formattedPosts = $categoryPosts->map(function ($post) {
+                    $formattedComments = $post->comments->map(function ($comment) {
+                        return [
+                            'id' => $comment->id,
+                            'content' => $comment->content,
+                            'user_id' => $comment->user->name,
+                        ];
+                    });
+
+                    return [
+                        'id' => $post->id,
+                        'title' => $post->title,
+                        'content' => $post->content,
+                        'view' => $post->view,
+                        'created_at' => $post->created_at,
+                        'updated_at' => $post->updated_at,
+                        'deleted_at' => $post->deleted_at,
+                        'user_id' => [
+                            'id' => $post->user->id,
+                            'user' => $post->user->name,
+                            'avatar' => $post->user->avatar,
+                        ],
+                        'star' => $post->star,
+                        'is_active' => $post->is_active,
+                        'type' => [
+                            'id' => $post->type,
+                            'description' => $post->type == 1 ? 'Thắc mắc'
+                                : ($post->type == 2 ? 'Câu hỏi'
+                                    : ($post->type == 3 ? 'Thảo luận'
+                                        : ($post->type == 4 ? 'Giải trí' : 'Không xác định')))
+                        ],
+                        'comments' => $formattedComments,
+                    ];
+                });
+
+                $formattedData[] = [
+                    'category' => [
+                        'id' => $category->id,
+                        'name' => $category->name,
+                    ],
+                    'posts' => $formattedPosts,
+                ];
+            }
+        }
+
+        return response()->json([
+            'code' => 200,
+            'message' => 'Thành công',
+            'data' => $formattedData,
         ]);
     }
 
