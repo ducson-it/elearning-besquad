@@ -10,7 +10,9 @@ class VoucherController extends Controller
 {
     //
     public function showVoucher(Request $request){
-        $list_vouchers = Voucher::where('name', 'LIKE', '%'.$request->search_voucher.'%')->paginate(10);
+        $list_vouchers = Voucher::where('name', 'LIKE', '%'.$request->search_voucher.'%')
+            ->orderBy('id', 'desc')
+            ->paginate(8);
         return view('vouchers.list',compact('list_vouchers'));
     }
     public function addVoucher(){
@@ -51,13 +53,17 @@ class VoucherController extends Controller
     public function updateVoucher(VoucherRequest  $request, $id){
         $voucher = Voucher::find($id);
         $value = $request->unit === 'VND' ? $request->vnd_value : $request->percentage_value;
+        $option = $request->input('option');
+        $quantity = $request->input('quantity');
+        $isInfinite = $option === 'infinity' ? true : false;
         $data = [
             'name' => $request->name,
             'code' => $request->code,
             'value' => $value,
+            'quantity' => $isInfinite ? null : $quantity,
             'unit' => $request->unit,
             'expired' => $request->expired,
-            'is_infinite' => (int)$request->is_infinite,
+            'is_infinite' => $isInfinite,
         ];
         $voucher->update($data);
 

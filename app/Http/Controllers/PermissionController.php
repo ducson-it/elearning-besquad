@@ -17,6 +17,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        $groupPermissions = GroupPermission::all();
+        return view('permissions.list', compact('groupPermissions'));
     }
 
     /**
@@ -38,7 +40,6 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request)
     {
-
         $groupPermission = GroupPermission::where([
             'name' => $request->group_name
         ])->first();
@@ -157,5 +158,12 @@ class PermissionController extends Controller
                 'message' => 'Xóa thành công!'
             ]
         ]);
+    }
+
+    public function destroyGroupPermission($id)
+    {
+        $groupPermission = GroupPermission::findByID($id);
+        $groupPermission->permissions()->delete();
+        return redirect()->back();
     }
 }
