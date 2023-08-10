@@ -25,7 +25,7 @@ class ForumPostController extends Controller
     public function store(PostForumRequest $request){
         $user = Auth::user();
         $data = $request->all();
-        $data['user_id'] = $user->id;
+        $data['user_id'] = $user->name;
         $data['view'] = 0;
         $data['star'] = 0;
         $data ['is_active'] = 0;
