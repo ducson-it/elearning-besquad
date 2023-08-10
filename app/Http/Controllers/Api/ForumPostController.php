@@ -14,9 +14,7 @@ class ForumPostController extends Controller
     {
         $forumposts = ForumPost::with(['comments' => function ($query) {
             $query->where('is_active', 1);
-        }])
-            ->where('is_active', 1)
-            ->get();
+        }])->get();
         $formattedData = $forumposts->map(function ($post) {
             $formattedComments = $post->comments->map(function ($comment) {
                 return [
