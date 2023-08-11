@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PermissionRequest;
-use App\Models\Beesquad;
+use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\GroupPermission;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
@@ -41,25 +41,25 @@ class PermissionController extends Controller
     public function store(PermissionRequest $request)
     {
         $groupPermission = GroupPermission::where([
-            'name' => $request->group_name
+            'name' => $request->group_name,
         ])->first();
 
         if (!$groupPermission) {
             $groupPermission = GroupPermission::create([
-                'name' => $request->group_name
+                'name' => $request->group_name,
             ]);
         }
 
         Permission::create([
             'name' => $request->code,
             'description' => $request->name,
-            'group_permission_id' => $groupPermission->id
+            'group_permission_id' => $groupPermission->id,
         ]);
         return response([
             'success' => true,
             'data' => [
-                'message' => 'Thêm dữ liệu thành công!'
-            ]
+                'message' => 'Thêm dữ liệu thành công!',
+            ],
         ]);
     }
 
@@ -93,7 +93,7 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PermissionRequest $request, $id)
+    public function update(UpdatePermissionRequest $request, $id)
     {
         $groupPermission = GroupPermission::find($id);
         $permission = Permission::find($request->id);
@@ -102,17 +102,8 @@ class PermissionController extends Controller
             return response([
                 'success' => false,
                 'data' => [
-                    'message' => 'Không tồn tại nhóm quyền!'
-                ]
-            ]);
-        }
-
-        if (!$permission) {
-            return response([
-                'success' => false,
-                'data' => [
-                    'message' => 'Không tồn tại quyền!'
-                ]
+                    'message' => 'Không tồn tại nhóm quyền!',
+                ],
             ]);
         }
 
@@ -120,17 +111,28 @@ class PermissionController extends Controller
             'name' => $request->group_name,
         ]);
 
-        $permission->update([
-            'name' => $request->code,
-            'description' => $request->name,
-            'group_permission_id' => $groupPermission->id
-        ]);
+        if (!empty($request->code) && !empty($request->name)) {
+            if (!$permission) {
+                return response([
+                    'success' => false,
+                    'data' => [
+                        'message' => 'Không tồn tại quyền!',
+                    ],
+                ]);
+            }
 
+            $permission->update([
+                'name' => $request->code,
+                'description' => $request->name,
+                'group_permission_id' => $groupPermission->id,
+            ]);
+        }
+        
         return response([
             'success' => true,
             'data' => [
-                'message' => 'Sửa dữ liệu thành công!'
-            ]
+                'message' => 'Sửa dữ liệu thành công!',
+            ],
         ]);
     }
 
@@ -147,16 +149,16 @@ class PermissionController extends Controller
             return response([
                 'success' => false,
                 'data' => [
-                    'message' => 'Không tồn tại quyền'
-                ]
+                    'message' => 'Không tồn tại quyền',
+                ],
             ]);
         }
 
         return response([
             'success' => true,
             'data' => [
-                'message' => 'Xóa thành công!'
-            ]
+                'message' => 'Xóa thành công!',
+            ],
         ]);
     }
 

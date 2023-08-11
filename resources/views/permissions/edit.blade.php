@@ -126,41 +126,13 @@
 
                 if (group_name == '') {
                     toastMessage('Nhập tên nhóm quyền');
-<<<<<<< HEAD
-=======
-                    Toastify({
-                        text: "Nhập tên nhóm quyền",
-                        duration: 3000,
-                        newWindow: true,
-                        close: true,
-                        position: "right",
-                        style: {
-                            background: "#FF0000",
-                        },
-                    }).showToast();
->>>>>>> cbec7092330c34cba3075c0b2656be565cf2165a
                     return false;
                 }
 
-                if (permission_name == '' || permission_code == '') {
-<<<<<<< HEAD
-                    toastMessage('Mã quyền không được rỗng!', 'error');
-=======
-                    toastMessage('Nhập tên nhóm quyền');
-
-                    Toastify({
-                        text: "Tên quyền + Mã quyền không được rỗng!",
-                        duration: 3000,
-                        newWindow: true,
-                        close: true,
-                        position: "right",
-                        style: {
-                            background: "#FF0000",
-                        },
-                    }).showToast();
->>>>>>> cbec7092330c34cba3075c0b2656be565cf2165a
-                    return false;
-                }
+                // if (permission_name == '' || permission_code == '') {
+                //     toastMessage('Mã quyền không được rỗng!', 'error');
+                //     return false;
+                // }
 
                 data = {
                     id : permission_id,
@@ -177,13 +149,14 @@
                     },
                     data: data,
                     success: function(res) {
+                        console.log(res);
                         if (res.success == true) {
                             toastMessage('Sửa thành công', 'success');
                             setTimeout(function() {
                                 location.reload();
                             }, 200)
                         } else {
-                            toastMessage('Sửa thất bại', 'error');
+                            toastMessage(res.message, 'error');
                         }
                     },
                     error: function(error) {
