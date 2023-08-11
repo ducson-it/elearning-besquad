@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Models\Comment;
 
 class ForumPostCollection extends ResourceCollection
 {
@@ -31,6 +32,7 @@ class ForumPostCollection extends ResourceCollection
                             : ($post->type == 3 ? 'Thảo luận'
                                 : ($post->type == 4 ? 'Giải trí' : 'Không xác định')))
                 ],
+                'comments' => CommentResource::collection($post->comments),
                 'category' => $post->category
                     ? [
                         'id' => $post->category->id,

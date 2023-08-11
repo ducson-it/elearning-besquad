@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\ForumPost;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ForumPostCollection;
+use App\Http\Resources\CategoryPostsResource;
 class ForumPostController extends Controller
 {
     public function index()
@@ -19,7 +20,6 @@ class ForumPostController extends Controller
         return new ForumPostCollection($forumposts);
 
     }
-
     public function detail($id)
     {
         $forumpost = ForumPost::with('comments')->findOrFail($id);
@@ -29,20 +29,18 @@ class ForumPostController extends Controller
             'data' => $forumpost
         ]);
     }
-
-    public function clickStar(Request $request)
-    {
+    public function clickStar(Request $request){
         $id = $request->input('id');
         $post = ForumPost::find($id);
         $user = Auth::user();
-        if (!$post) {
+        if(!$post){
             return response()->json([
-                'code' => 404,
-                'meesage' => 'Not found',
+                'code'=>404,
+                'meesage'=> 'Not found',
             ]);
-        } else {
-            $count = $post->star + 1;
-            $post->update(['star' => $count]);
+        }else{
+            $count = $post->star+ 1;
+            $post->update(['star'=>$count]);
             $user->update(['point' => $user->point + 10]);
             return response()->json([
                 'code' => 200,
@@ -53,40 +51,38 @@ class ForumPostController extends Controller
 
     }
 
-    public function addPost(Request $request)
-    {
+    public function addPost(Request $request){
         $user_id = Auth::user()->id;
-        if (!$user_id) {
+        if(!$user_id){
             return response()->json([
                 'status' => false,
-                'message' => 'Không tìm thấy người dùng đăng nhập vào hệ thống'
-            ], 404);
+                'message'=>'Không tìm thấy người dùng đăng nhập vào hệ thống'
+            ],404);
         }
         $data = [
             'title' => $request->input('title'),
-            'content' => $request->input('content'),
-            'view' => 0,
-            'user_id' => $user_id,
-            'is_active' => 0,
-            'star' => 0,
-            'category_id' => $request->input('category_id'),
+            'content'=> $request->input('content'),
+            'view'=>  0,
+            'user_id'=>$user_id,
+            'is_active'=> 0,
+            'star'=> 0,
+            'category_id'=>$request->input('category_id'),
             'type' => $request->input('type'),
         ];
         $resulf = ForumPost::create($data);
-        if ($resulf) {
+        if($resulf){
             return response()->json([
-                'status' => true,
-                'message' => 'Đã tạo post-forum  thành cong',
-                'data' => $data
-            ], 201);
-        } else {
+                'status'=> true,
+                'message'=>'Đã tạo post-forum  thành cong',
+                'data'=> $data
+            ],201);
+        }else{
             return response()->json([
-                'status' => false,
-                'message' => 'Đã gửi post-forum thất bại',
-            ], 500);
+                'status'=> false,
+                'message'=>'Đã gửi post-forum thất bại',
+            ],500);
         }
     }
-
     public function updatePost(Request $request, $id)
     {
         $user_id = Auth::user()->id;
@@ -177,36 +173,29 @@ class ForumPostController extends Controller
     // post mới nhất
     public function getLatestPosts()
     {
-        $latestPosts = ForumPost::with(['comments' => function ($query) {
-            $query->where('is_active', 1);
-        }, 'category.courses', 'user'])
-            ->where('is_active', 1) // Include the 'user' relationship
+        $latestPosts = ForumPost::with('comments', 'category.courses')
             ->orderBy('created_at', 'desc')
-            ->limit(5)
+            ->limit(10)
             ->get();
+
         return response()->json($latestPosts);
     }
-
     //api post hay nhất
     public function getTopRatedPosts()
     {
-        $topRatedPosts = ForumPost::with(['comments' => function ($query) {
-            $query->where('is_active', 1);
-        }, 'category.courses', 'user'])
-            ->where('is_active', 1)
+        $topRatedPosts = ForumPost::with(['comments', 'category.courses'])
             ->orderBy('view', 'desc')
             ->orderBy('star', 'desc')
-            ->limit(5)
+            ->limit(10)
             ->get();
 
         return response()->json($topRatedPosts);
     }
-
     //API trả ra các bài post mà user đăng nhập đã tạo
     public function getUserPosts()
     {
         $user = Auth::user();
-        if ($user) {
+        if($user){
             $userPosts = ForumPost::with(['comments', 'category.courses'])
                 ->where('user_id', $user->id)->get();
             return response()->json($userPosts);
@@ -214,18 +203,13 @@ class ForumPostController extends Controller
 
         return response()->json(['message' => 'Unauthorized'], 403);
     }
-
     //API tìm kiếm bài post theo title
-    public function searchPosts(Request $request)
+    public function searchPosts(Request $request )
     {
         $key_word = $request->query('keyword');
 
-        $searchResults = ForumPost::with(['comments' => function ($query) {
-            $query->where('is_active', 1);
-        }, 'category.courses', 'user'])
-            ->where('is_active', 1)
+        $searchResults = ForumPost::with(['comments', 'category'])
             ->where('title', 'like', '%' . $key_word . '%')
-            ->where('is_active', 1)
             ->get();
 
         return response()->json([
@@ -233,22 +217,22 @@ class ForumPostController extends Controller
             'keyword' => $key_word,
         ]);
     }
-
     public function postsByCategory()
     {
         $allCategories = Category::all();
         $formattedData = [];
-
         foreach ($allCategories as $category) {
             $categoryPosts = ForumPost::with(['comments', 'user'])
                 ->where('category_id', $category->id)
                 ->orderByDesc('star')
                 ->get();
-
             if ($categoryPosts->count() > 0) {
                 $formattedData[] = [
-                    'category' => $category->name,
-                    'posts' => $categoryPosts
+                    'category' => [
+                        'id' => $category->id,
+                        'name' => $category->name,
+                    ],
+                    'posts' => CategoryPostsResource::collection($categoryPosts),
                 ];
             }
         }
