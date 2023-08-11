@@ -7,60 +7,17 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\ForumPost;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Resources\ForumPostCollection;
 class ForumPostController extends Controller
 {
     public function index()
     {
         $forumposts = ForumPost::with(['comments' => function ($query) {
             $query->where('is_active', 1);
-        }])->get();
-        $formattedData = $forumposts->map(function ($post) {
-            $formattedComments = $post->comments->map(function ($comment) {
-                return [
-                    'id' => $comment->id,
-                    'content' => $comment->content,
-                    'user_id' => $comment->user->name,
-                    'parent_id' => $comment->parent_id,
-                    'is_active' => $comment->is_active,
-                ];
-            });
-            return [
-                'id' => $post->id,
-                'title' => $post->title,
-                'content' => $post->content,
-                'view' => $post->view,
-                'created_at' => $post->created_at,
-                'updated_at' => $post->updated_at,
-                'deleted_at' => $post->deleted_at,
-                'user_id' => [
-                    'id' => $post->user->id,
-                    'user' => $post->user->name,
-                    'avatar' => $post->user->avatar,
-                ],
-                'star' => $post->star,
-                'is_active' => $post->is_active,
-                'type' => [
-                    'id' => $post->type,
-                    'description' => $post->type == 1 ? 'Thắc mắc'
-                        : ($post->type == 2 ? 'Câu hỏi'
-                            : ($post->type == 3 ? 'Thảo luận'
-                                : ($post->type == 4 ? 'Giải trí' : 'Không xác định')))
-                ],
-                'comments' => $formattedComments,
-                'category' => $post->category
-                    ? [
-                        'id' => $post->category->id,
-                        'name' => $post->category->name,
-                    ]
-                    : null,
-            ];
-        });
-        return response()->json([
-            'code' => 200,
-            'message' => 'Thành công',
-            'data' => $formattedData,
-        ]);
+        }, 'user:id,name,avatar', 'category:id,name'])
+            ->get();
+        return new ForumPostCollection($forumposts);
+
     }
 
     public function detail($id)
@@ -281,51 +238,17 @@ class ForumPostController extends Controller
     {
         $allCategories = Category::all();
         $formattedData = [];
+
         foreach ($allCategories as $category) {
             $categoryPosts = ForumPost::with(['comments', 'user'])
                 ->where('category_id', $category->id)
-                ->orderByDesc('star') // Sắp xếp theo trường 'star' giảm dần
+                ->orderByDesc('star')
                 ->get();
+
             if ($categoryPosts->count() > 0) {
-                $formattedPosts = $categoryPosts->map(function ($post) {
-                    $formattedComments = $post->comments->map(function ($comment) {
-                        return [
-                            'id' => $comment->id,
-                            'content' => $comment->content,
-                            'user_id' => $comment->user->name,
-                        ];
-                    });
-                    return [
-                        'id' => $post->id,
-                        'title' => $post->title,
-                        'content' => $post->content,
-                        'view' => $post->view,
-                        'created_at' => $post->created_at,
-                        'updated_at' => $post->updated_at,
-                        'deleted_at' => $post->deleted_at,
-                        'user_id' => [
-                            'id' => $post->user->id,
-                            'user' => $post->user->name,
-                            'avatar' => $post->user->avatar,
-                        ],
-                        'star' => $post->star,
-                        'is_active' => $post->is_active,
-                        'type' => [
-                            'id' => $post->type,
-                            'description' => $post->type == 1 ? 'Thắc mắc'
-                                : ($post->type == 2 ? 'Câu hỏi'
-                                    : ($post->type == 3 ? 'Thảo luận'
-                                        : ($post->type == 4 ? 'Giải trí' : 'Không xác định')))
-                        ],
-                        'comments' => $formattedComments,
-                    ];
-                });
                 $formattedData[] = [
-                    'category' => [
-                        'id' => $category->id,
-                        'name' => $category->name,
-                    ],
-                    'posts' => $formattedPosts,
+                    'category' => $category->name,
+                    'posts' => $categoryPosts
                 ];
             }
         }
@@ -335,6 +258,5 @@ class ForumPostController extends Controller
             'data' => $formattedData,
         ]);
     }
-
 }
 
