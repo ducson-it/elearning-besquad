@@ -37,7 +37,7 @@ class LessonController extends Controller
     {
         //get video from sproud video
         $videos = Http::withHeaders([
-            'SproutVideo-Api-Key'=>'699701dc7639206852db31e119899bdf',
+            'SproutVideo-Api-Key'=>'4d42c4500b7735dec10c826fc6cd8a1e',
             'Content-Type'=>'application/json'
         ])->get('https://api.sproutvideo.com/v1/videos');
         $videos = json_decode($videos,TRUE);
