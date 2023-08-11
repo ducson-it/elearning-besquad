@@ -52,9 +52,8 @@ class AuthController extends Controller
     {
         $user = $request->user();
 
-        $user->tokens()->where('name', 'auth')->delete();
-        $user->tokens()->where('name', 'refresh')->delete();
-
+        // $user->tokens()->where('abilities', 'auth')->delete();
+        // $user->tokens()->where('abilities', 'refresh')->delete();
         $accessToken = $user->createAuthToken('auth');
 
         $response = [
