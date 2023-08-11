@@ -37,7 +37,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 //refresh token
-Route::post('refresh-token', [AuthController::class, 'refresh'])->middleware('auth:sanctum')->name('token.refresh');
+Route::post('refresh-token', [AuthController::class, 'refreshToken'])->middleware('auth:sanctum')->name('token.refresh');
 
 //info
 Route::get('user', [AuthController::class, 'getUser'])->middleware('auth:sanctum');
