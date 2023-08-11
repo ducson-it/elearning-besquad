@@ -52,9 +52,8 @@ class AuthController extends Controller
     {
         $user = $request->user();
 
-        $user->tokens()->where('name', 'auth')->delete();
-        $user->tokens()->where('name', 'refresh')->delete();
-
+        // $user->tokens()->where('abilities', 'auth')->delete();
+        // $user->tokens()->where('abilities', 'refresh')->delete();
         $accessToken = $user->createAuthToken('auth');
 
         $response = [
@@ -84,5 +83,11 @@ class AuthController extends Controller
             'refresh_token' => $refresh_token,
             'expired'   => $refresh_expired
         ], 200);
+    }
+    //get user infor
+    public function getUser(Request $request)
+    {
+        $user = User::with('histories')->find(Auth::id());
+        return response()->json($user);
     }
 }

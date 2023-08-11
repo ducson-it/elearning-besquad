@@ -16,7 +16,7 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
                                 <div>
-                                    <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><a href="{{route('comment.create')}}"> Add</a></button>
+                                    <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><a href="{{route('comment.create')}}" style="color:white">Add</a></button>
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -24,6 +24,7 @@
                                     <div class="search-box ms-2">
                                         <form action="{{ route('comment.list') }}" method="GET">
                                             <input type="text" class="form-control search" placeholder="Search..." name="search">
+                                            <i class="ri-search-line search-icon"></i>
                                         </form>
                                     </div>
                                 </div>
@@ -40,6 +41,8 @@
                                     <th class="" data-sort="course">Thuộc danh mục</th>
                                     <th class="" data-sort="action">Thao tác</th>
                                     <th class="" data-sort="course">Status</th>
+                                    <th class="" data-sort="course">Trả lời</th>
+
                                 </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
@@ -66,7 +69,13 @@
                                                     {{$comment->status == 0 ? 'Inactive':'Active'}}
                                                 </button>
                                             </div>
-
+                                        </td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <div class="btn btn-sm">
+                                                    <button class="btn btn-sm btn-primary remove-item-btn">Trả lời</button>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

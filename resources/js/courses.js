@@ -3,7 +3,7 @@ $(document).ready(function () {
     function showPrice(){
         var type = $('#courseType').val()
         console.log(type);
-        if (type == 0) {
+        if (type == 1) {
             $('.price').hide()
             $('.price-sale').hide()
         } else {

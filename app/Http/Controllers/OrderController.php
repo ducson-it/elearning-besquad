@@ -86,7 +86,12 @@ class OrderController extends Controller
                     'course_id'=>$order->course_id,
                     'status'=>0
                 ];
-                Study::create($data);
+                $checkStudy = Study::where('user_id',$order->user_id)
+                ->where('course_id',$order->course_id)
+                ->exists();
+                if(!$checkStudy){
+                    Study::create($data);
+                }
             }else{
                 //cancel order
                 $order->update([

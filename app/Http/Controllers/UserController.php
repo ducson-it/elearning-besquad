@@ -14,7 +14,9 @@ class UserController extends Controller
 {
     public function showListUser(Request $request)
     {
-        $list_users  = User::where([['name', 'LIKE', '%'.$request->search_user.'%'],[ 'role_id', '=',2 ]])->paginate(Beesquad::PAGINATE);
+        $list_users  = User::where([['name', 'LIKE', '%'.$request->search_user.'%'],[ 'role_id', '=',2 ]])
+            ->orderBy('id', 'desc')
+            ->paginate(Beesquad::PAGINATE);
         // var_dump($list_users);
         return view('users.list', compact('list_users'));
     }

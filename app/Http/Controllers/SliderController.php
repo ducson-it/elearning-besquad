@@ -11,7 +11,7 @@ class SliderController extends Controller
     public function index(Request $request)
     {
             $search = $request->input('search');
-            $sliders = Slider::where('name', 'like', '%' . $search . '%')->paginate(3);
+            $sliders = Slider::where('name', 'like', '%' . $search . '%')->paginate(8);
         return view('slider.list', compact('sliders'));
     }
     public function create(){
