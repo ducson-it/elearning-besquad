@@ -29,6 +29,15 @@
                                     <input type="text" class="form-control bg-light" readonly
                                          name="slug" id="slug" value="{{$lesson->slug}}">
                                 </div>
+                                <div class="col-10">
+                                    <div>
+                                        <label for="basiInput" class="form-label">Loại bài học</label>
+                                        <select name="lesson_type" id="lesson_type" class="form-control">
+                                            <option value="1" {{($lesson->lesson_type == 1?'selected':'')}}>Lý thuyết</option>
+                                            <option value="0" {{($lesson->lesson_type == 0?'selected':'')}}>Bài tập</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-10 mt-2">
                                     <div>
                                         <label for="basiInput" class="form-label">Khoá học</label>
@@ -67,11 +76,17 @@
                                     </div>
                                 </div> --}}
                                 {{-- Lựa chọn video khoá học --}}
-                                <div class="col-10">
+                                <div class="col-10" id="video-select">
                                     <label for="">Video</label><br>
-                                        <div style="width:200px" id="showVideo">
-                                            {{-- {!!$video['embed_code']!!} --}}
-                                        </div>
+                                    @if ((isset($video['embed_code'])))
+                                    <div style="width:200px" id="showVideo">
+                                        {!!$video['embed_code']!!}
+                                    </div>
+                                    @else
+                                    <div style="width:200px" id="showVideo">
+                                        
+                                    </div>
+                                    @endif
                                         <label for="">Lựa chọn video</label><br>
                                     <div class="input-group">
                                         <select name="video_id" id="video" class="form-control">
@@ -84,6 +99,14 @@
                                 <div class="col-10 mt-4 mb-5">
                                     <label class="label-control mb-2">Cho phép học thử?</label>
                                     {!! Form::select('is_trial_lesson', ["0"=>"Không học thử","1"=>"Cho phép học thử"], $lesson->is_trial_lesson, ['name'=>'is_trial_lesson','class'=>"form-control"]) !!}
+                                </div>
+                                <div class="col-10 mt-2">
+                                    <div>
+                                        <label for="basiInput" class="form-label">Bài tập</label>
+                                        <select name="quiz_id" id="quiz_id" class="form-control">
+                                            <option value="{{$lesson->quiz_id}}"></option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <!--end col-->
                                 <div class="col-12 mb-5">
