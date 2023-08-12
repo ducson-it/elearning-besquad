@@ -24,6 +24,15 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div class="col-10">
+                                    <div>
+                                        <label for="basiInput" class="form-label">Loại bài học</label>
+                                        <select name="lesson_type" id="lesson_type" class="form-control">
+                                            <option value="1">Lý thuyết</option>
+                                            <option value="0">Bài tập</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="mb-3 col-10">
                                     <label for="phone-field" class="form-label">Slug</label>
                                     <input type="text" class="form-control bg-light" readonly
@@ -74,8 +83,11 @@
                                     </div>
                                 </div> --}}
                                 {{-- Lựa chọn video khoá học --}}
-                                <div class="col-10">
+                                <div class="col-10" id="video-select">
                                     <label for="">Video</label><br>
+                                    <div style="width:200px" id="showVideo">
+                                        
+                                    </div>
                                     <div class="input-group">
                                         <select name="video_id" id="video" class="form-control">
                                             @foreach ($videos as $video)
@@ -83,6 +95,12 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                </div>
+                                <div class="col-10 mt-4 mb-5" id="quiz-select" style="display:none">
+                                    <label class="label-control mb-2">Chọn bài tập</label>
+                                    <select name="quiz_id" id="quiz_id" class="form-control">
+                                        <option></option>
+                                    </select>
                                 </div>
                                 <div class="col-10 mt-4 mb-5">
                                     <label class="label-control mb-2">Cho phép học thử?</label>

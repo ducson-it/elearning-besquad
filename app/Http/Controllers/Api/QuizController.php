@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\QuizResource;
 use App\Models\Answer;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -39,5 +41,18 @@ class QuizController extends Controller
             'status'=>true,
             'data'=>$correct_answer
         ],200);
+    }
+    public function showQuizDetail(Quiz $quiz){
+        if (!$quiz) {
+            return response()->json([
+                'code' => 404,
+                'message' => 'note found'
+            ]);
+        }
+        return response()->json([
+            'code' => 200,
+            'message' => 'success',
+            'data' =>new QuizResource($quiz->load('questions','questions.answers'))
+        ]);
     }
 }
