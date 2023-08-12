@@ -79,7 +79,6 @@ class LessonController extends Controller
             'Content-Type'=>'application/json'
         ])->get('https://api.sproutvideo.com/v1/videos/'.$lesson->video_id);
         $video = json_decode($video,TRUE);
-            dd($videos);
         return view('lessons.edit', compact('lesson','video','videos'));
     }
     public function update(LessonRequest $request,Lesson $lesson)
