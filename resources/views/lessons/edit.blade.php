@@ -70,7 +70,7 @@
                                 <div class="col-10">
                                     <label for="">Video</label><br>
                                         <div style="width:200px" id="showVideo">
-                                            {{-- {!!$video['embed_code']!!} --}}
+                                            {!!$video['embed_code']!!}
                                         </div>
                                         <label for="">Lựa chọn video</label><br>
                                     <div class="input-group">
