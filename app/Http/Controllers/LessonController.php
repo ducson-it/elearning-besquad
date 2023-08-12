@@ -69,17 +69,11 @@ class LessonController extends Controller
     public function edit(Lesson $lesson)
     {
         $videos = Http::withHeaders([
-            'SproutVideo-Api-Key'=>'699701dc7639206852db31e119899bdf',
+            'SproutVideo-Api-Key'=>'4d42c4500b7735dec10c826fc6cd8a1e',
             'Content-Type'=>'application/json'
         ])->get('https://api.sproutvideo.com/v1/videos');
         $videos = json_decode($videos,TRUE);
-        //get detail video
-        $video = Http::withHeaders([
-            'SproutVideo-Api-Key'=>'699701dc7639206852db31e119899bdf',
-            'Content-Type'=>'application/json'
-        ])->get('https://api.sproutvideo.com/v1/videos/'.$lesson->video_id);
-        $video = json_decode($video,TRUE);
-        return view('lessons.edit',compact('lesson','video'),$videos);
+        return view('lessons.edit', compact('lesson','video', 'videos'));
     }
     public function update(LessonRequest $request,Lesson $lesson)
     {
