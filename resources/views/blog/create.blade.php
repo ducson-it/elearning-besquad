@@ -92,7 +92,7 @@
                     </div>
                     <div class="mx-6 mt-3">
                         <div class="hstack gap-2 justify-content-end">
-                            <button type="submit" class="btn btn-success">Thêm</button>
+                            <button type="submit" class="btn btn-primary">Thêm</button>
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal"><a
                                     href="{{ route('blogs.list') }}">Trở lại</a></button>
                         </div>

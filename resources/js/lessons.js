@@ -3,10 +3,11 @@ import Swal from "sweetalert2"
 $(document).ready(function(){
     $('select#course_id').on('change',function(){
         var course_id = $(this).val()
-        var msg = ''
+        var msg = '';
+        var quiz = '';
         $.ajax({
             type:"POST",
-            url:'/lessons/select/module',
+            url:'/lessons/select/course',
             data:{
                 'course_id':course_id
             },
@@ -14,21 +15,28 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success:function(data){
-                data.forEach(function(value){
+                data.modules.forEach(function(value){
                     msg +=`<option value="${value.id}">${value.name}</option>`
                 })
-                $('#module_id').html(msg)
+                $('#module_id').html(msg);
+                data.quiz.forEach(function(value){
+                    quiz +=`<option value="${value.id}">${value.name}</option>`
+                })
+                $('#quiz_id').html(quiz)
             }
         })
     })
-    function showModule(){
+    function selectCourse(){
         console.log('---fsdfds---')
         var course_id = $('#course_id').val()
         var module_id = $('#module_id').val()
+        var quiz_id = $('#quiz_id').val()
+
         var msg = ''
+        var quiz = ''
         $.ajax({
             type:"POST",
-            url:'/lessons/select/module',
+            url:'/lessons/select/course',
             data:{
                 'course_id':course_id
             },
@@ -36,14 +44,18 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success:function(data){
-                data.forEach(function(value){
+                data.modules.forEach(function(value){
                     msg +=`<option value="${value.id}" ${value.id == module_id? 'selected':''}>${value.name}</option>`
                 })
                 $('#module_id').html(msg)
+                data.quiz.forEach(function(value){
+                    quiz +=`<option value="${value.id}" ${value.id == quiz_id? 'selected':''}>${value.name}</option>`
+                })
+                $('#quiz_id').html(quiz)
             }
         })
     }
-    showModule()
+    selectCourse()
 //     $('#uploadVideo').on('change',function(){
 //         const file_video = $("#uploadVideo");
 // var formData = new FormData();
@@ -65,6 +77,7 @@ $(document).ready(function(){
 //             })
 $('select#video').on('change',function(){
     var video_id = $(this).val()
+    console.log(video_id);
         var msg = ''
         $.ajax({
             type:"GET",
@@ -82,6 +95,21 @@ $('select#video').on('change',function(){
             }
         })
 })
+})
+function selectLessonType(){
+    var lesson_type = $(this).val();
+    if(lesson_type == 1){
+        $('#video-select').show();
+        $('#quiz-select').hide();
+    }else{
+        $('#quiz-select').show();
+        $('#video-select').hide();
+
+    }
+}
+selectLessonType();
+$('select#lesson_type').on('change',function(){
+    selectLessonType();
 })
 //delete lesson
 window.deleteLesson = (lesson_id)=>{

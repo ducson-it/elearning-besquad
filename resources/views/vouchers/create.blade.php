@@ -104,7 +104,7 @@
                                     <div class="hstack gap-2 justify-content-end">
                                         <button type="submit" class="btn btn-success" id="add-btn">Thêm</button>
                                         <button type="button" class="btn btn-primary">
-                                            <a style="color: white" href="{{route('show.voucher')}}">Danh sách</a>
+                                            <a style="color: white" href="{{route('show.voucher')}}">trở về</a>
                                         </button>
                                     </div>
                                 </div>
