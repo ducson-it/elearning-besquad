@@ -58,9 +58,9 @@
                                 </div>
                             </div>
                             <div class="row col-6 mt-5">
-                                
+
                                 {{-- upload video to sproud video --}}
-                                {{-- <div class="col-10">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                {{-- <div class="col-10">
                                     <label for="">Video</label><br>
                                     <div class="input-group">
                                         <input type="file" class="form-control" name="video", id="uploadVideo">
@@ -70,7 +70,7 @@
                                 <div class="col-10">
                                     <label for="">Video</label><br>
                                         <div style="width:200px" id="showVideo">
-                                            {!!$video['embed_code']!!}
+                                            {{-- {!!$video['embed_code']!!} --}}
                                         </div>
                                         <label for="">Lựa chọn video</label><br>
                                     <div class="input-group">
@@ -92,7 +92,7 @@
                                         {{-- <div >{!!old('content')!!}</div> --}}
                                         <textarea name="content" id="content" class="my-editor">{!!$lesson->description!!}</textarea>
                                 </div>
-                                
+
 
                             </div>
                             <!--end col-->
