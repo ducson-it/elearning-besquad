@@ -50,7 +50,7 @@
                                         <td class="">{{$i +1}}</td>
                                         <td class="title">{{$iteam->title}}</td>
                                         <td class="course">{{$iteam->view}}</td>
-                                        <td class="customer_name">{{$iteam->user_id}}</td>
+                                        <td class="customer_name">{{$iteam->user->name}}</td>
                                         <td class="course">{{$iteam->is_active}}</td>
                                         <td class="course">{{$iteam->star}}</td>
                                         <td class="course">{{$iteam->category?->name}}</td>

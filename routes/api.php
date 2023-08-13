@@ -110,7 +110,6 @@ Route::prefix('postforum')->group(function () {
     Route::post('/addpost', [ForumPostController::class, 'addpost'])->middleware('auth:sanctum');
     Route::post('/updatepost/{id}', [ForumPostController::class, 'updatepost'])->middleware('auth:sanctum');
     Route::delete('/delete/{id}', [ForumPostController::class, 'deletePost'])->middleware('auth:sanctum');
-
     //api post mới nhất
     Route::get('/latest-posts', [ForumPostController::class, 'getLatestPosts'])->middleware('auth:sanctum');
     //api post hay nhất
