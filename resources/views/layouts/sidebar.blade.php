@@ -117,10 +117,10 @@
                     <div class="collapse menu-dropdown" id="vouchers">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="apps-calendar" class="nav-link">Tạo mới</a>
+                                <a href="{{route('add.voucher')}}" class="nav-link">Tạo mới</a>
                             </li>
                             <li class="nav-item">
-                                <a href="apps-calendar" class="nav-link">Danh sách</a>
+                                <a href="{{route('show.voucher')}}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
@@ -153,6 +153,13 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('show.notify')}}">
                         <i class="ri-apps-2-line"></i> <span>Notifycation</span>
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('show.forumCmt')}}">
+                        <i class="ri-apps-2-line"></i> <span>Forum comment</span>
                     </a>
 
                 </li>
