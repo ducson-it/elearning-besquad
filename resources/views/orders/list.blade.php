@@ -17,13 +17,13 @@
                                 <div>
                                     <button type="button" class="btn btn-success add-btn"><i
                                         class="ri-add-line align-bottom me-1"></i> <a
-                                        href="{{ route('orders.create') }}">Add</a></button>
+                                        href="{{ route('orders.create') }}">Thêm</a></button>
                                 </div>
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
-                                        <input type="text" class="form-control search" placeholder="Search...">
+                                        <input type="text" class="form-control search" placeholder="Tìm kiếm...">
                                         <i class="ri-search-line search-icon"></i>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
                                                     <div class="edit">
                                                         <button class="btn btn-sm btn-info edit-item-btn"><a
                                                                 href="{{ route('orders.detail', $order->id) }}" class="text-light">Detail</a></button>
-                                                                
+
                                                     </div>
                                                     @if ($order->status == 2)
                                                     <div class="active">
