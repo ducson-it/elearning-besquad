@@ -252,11 +252,11 @@ class CourseController extends Controller
     }
     public function callback(Request $request) {
         if($request->vnp_TransactionStatus == 0){
-            $order = Order::where('order_code',$request->vnp_TxnRef);
+            $order = Order::where('order_code',$request->vnp_TxnRef)->first();
             $order->update([
                 'status'=>Beesquad::DONE
             ]);
-            $order = $order->first();
+            // $order = $order->first();
             $checkStudy = Study::where('user_id',$order->user_id)
                         ->where('course_id',$request->vnp_OrderInfo)
                         ->exists();

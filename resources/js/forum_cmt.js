@@ -14,7 +14,7 @@ window.DeleteForumCmt = (id) => {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Xóa'
+        confirmButtonText: 'Đồng ý xóa!'
     }).then((result) => {
         if (result.isConfirmed) {
             // Gửi yêu cầu xóa bằng Ajax
@@ -26,9 +26,7 @@ window.DeleteForumCmt = (id) => {
                 },
                 success: function (response) {
                     Swal.fire(
-                        'Deleted!',
-                        'Đã xóa thành công !',
-                        'success'
+                        'Đã xóa thành công!',
                     ).then(() => {
                         // Chuyển hướng sau khi xóa thành công
                         window.location.reload();
@@ -36,9 +34,7 @@ window.DeleteForumCmt = (id) => {
                 },
                 error: function (xhr) {
                     Swal.fire(
-                        'Error!',
                         'Đã xảy ra lỗi khi xóa.',
-                        'error'
                     );
                 }
             });
@@ -48,8 +44,8 @@ window.DeleteForumCmt = (id) => {
 
 window.activeForumCmt = (id) => {
     Swal.fire({
-        title: ' Bạn có chắc chắn ? ',
-        text: "Thay đổi trạng thái  ?",
+        title: ' Bạn có chắc chắc? ',
+        text: "Thay đổi trạng thái?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -66,8 +62,8 @@ window.activeForumCmt = (id) => {
                 },
                 success: function (response) {
                     Swal.fire(
-                        'Updated!',
-                        'Đã cập nhật  active thành công',
+                        'Đã cập nhật!',
+                        'Kịch hoạt thành công',
                         'success'
                     ).then(() => {
                         // Chuyển hướng sau khi xóa thành công
@@ -77,7 +73,7 @@ window.activeForumCmt = (id) => {
                 error: function (xhr) {
                     Swal.fire(
                         'Error!',
-                        'Không thể cập nhật trường active.',
+                        'Kích hoạt không thành công.',
                         'error'
                     );
                 }

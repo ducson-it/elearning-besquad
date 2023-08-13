@@ -23,7 +23,7 @@
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
                                         <form action="{{ route('slider.list') }}" method="GET">
-                                            <input type="text" class="form-control search" placeholder="Search..." name="search">
+                                            <input type="text" class="form-control search" placeholder="Tìm kiếm..." name="search">
                                             <i class="ri-search-line search-icon"></i>
                                         </form>
                                     </div>

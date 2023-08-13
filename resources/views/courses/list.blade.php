@@ -18,16 +18,16 @@
                                     <a href="{{ route('courses.create') }}">
                                         <button type="button" class="btn btn-success add-btn"><i
                                             class="ri-add-line align-bottom me-1"></i>
-                                            Add</button>
+                                            Thêm</button>
                                     </a>
-                                    
+
                                 </div>
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="col-sm-2">
                                         <select name="category_id" id="selectCate" class="form-select">
-                                            <option value="">All</option>
+                                            <option value="">Tất cả</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
@@ -35,10 +35,10 @@
                                     </div>
                                     <div class="search-box ms-2">
                                         <form action="" method="GET">
-                                            <input type="text" class="form-control search" placeholder="Search..." name="keyword">
+                                            <input type="text" class="form-control search" placeholder="Tìm kiếm..." name="keyword">
                                         <i class="ri-search-line search-icon"></i>
                                         </form>
-                                        
+
                                     </div>
                                 </div>
                             </div>

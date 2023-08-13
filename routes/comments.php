@@ -8,4 +8,6 @@ Route::group(['prefix' =>'comment'], function () {
     Route::post('/store', [CommentController::class, 'store'])->name('comment.store');
     Route::post('/update/{id}', [CommentController::class, 'update'])->name('comment.update');
     Route::get('/delete/{id}', [CommentController::class, 'delete'])->name('comment.destroy');
+    Route::post('/repcomment/{id}', [CommentController::class, 'rep_comment'])->name('comment.repcomment');
+
 });

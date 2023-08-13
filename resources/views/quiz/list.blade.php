@@ -26,7 +26,7 @@
                             <div class="d-flex justify-content-sm-end">
                                 <div class="search-box ms-2">
                                     <form action="" method="GET">
-                                        <input type="text" class="form-control search" placeholder="Search..." name="keyword">
+                                        <input type="text" class="form-control search" placeholder="Tìm kiếm..." name="keyword">
                                     <i class="ri-search-line search-icon"></i>
                                     </form>
                                 </div>
@@ -105,6 +105,6 @@
             </div><!-- end card -->
         </div>
         <!-- end col -->
-    </div>  
+    </div>
 </div>
 @endsection

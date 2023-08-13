@@ -7,6 +7,7 @@ use App\Models\Beesquad;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Module;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -37,7 +38,7 @@ class LessonController extends Controller
     {
         //get video from sproud video
         $videos = Http::withHeaders([
-            'SproutVideo-Api-Key'=>'699701dc7639206852db31e119899bdf',
+            'SproutVideo-Api-Key'=>'edef51d0ff16fefbc31d0299be677548',
             'Content-Type'=>'application/json'
         ])->get('https://api.sproutvideo.com/v1/videos');
         $videos = json_decode($videos,TRUE);
@@ -54,10 +55,12 @@ class LessonController extends Controller
             $data = [
                 'name'=>$request->name,
                 'slug'=>$request->slug,
+                'lesson_type'=>$request->lesson_type,
                 'course_id'=>$request->course_id,
                 'module_id'=>$request->module_id,
                 'document'=>$documentName,
                 'video_id'=>$request->video_id,
+                'quiz_id'=>$request->quiz_id,
                 'status'=>1,
                 'description'=>$request->content,
                 'view'=>0,
@@ -69,13 +72,13 @@ class LessonController extends Controller
     public function edit(Lesson $lesson)
     {
         $videos = Http::withHeaders([
-            'SproutVideo-Api-Key'=>'699701dc7639206852db31e119899bdf',
+            'SproutVideo-Api-Key'=>'edef51d0ff16fefbc31d0299be677548',
             'Content-Type'=>'application/json'
         ])->get('https://api.sproutvideo.com/v1/videos');
         $videos = json_decode($videos,TRUE);
         //get detail video
         $video = Http::withHeaders([
-            'SproutVideo-Api-Key'=>'699701dc7639206852db31e119899bdf',
+            'SproutVideo-Api-Key'=>'edef51d0ff16fefbc31d0299be677548',
             'Content-Type'=>'application/json'
         ])->get('https://api.sproutvideo.com/v1/videos/'.$lesson->video_id);
         $video = json_decode($video,TRUE);
@@ -93,12 +96,14 @@ class LessonController extends Controller
         $data = [
             'name'=>$request->name,
                 'slug'=>$request->slug,
+                'lesson_key'=>$request->lesson_type,
                 'course_id'=>$request->course_id,
                 'module_id'=>$request->module_id,
                 'document'=>$documentName,
                 'video_id'=>$request->video_id,
                 'status'=>1,
                 'description'=>$request->content,
+                'quiz_id'=>$request->quiz_id,
                 'view'=>0,
                 'is_trial_lesson'=>$request->is_trial_lesson
         ];
@@ -120,16 +125,21 @@ class LessonController extends Controller
         $path = 'storage/document/'.$file;
         return response()->download($path);
     }
-    public function selectModule(Request $request)
+    public function selectCourse(Request $request)
     {
         $course_id = $request->course_id;
         $modules = Module::where('course_id',$course_id)->get();
-        return response()->json($modules);
+        $quiz = Quiz::where('course_id',$course_id)->get();
+        return response()->json([
+            'status'=>true,
+            'modules'=>$modules,
+            'quiz'=>$quiz
+        ]);
     }
     public function selectVideo($video_id)
     {
         $video = Http::withHeaders([
-            'SproutVideo-Api-Key'=>'699701dc7639206852db31e119899bdf',
+            'SproutVideo-Api-Key'=>'edef51d0ff16fefbc31d0299be677548',
             'Content-Type'=>'application/json'
         ])->get('https://api.sproutvideo.com/v1/videos/'.$video_id);
         $video = json_decode($video,TRUE);

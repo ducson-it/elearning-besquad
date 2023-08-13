@@ -29,13 +29,7 @@ class ForumPostController extends Controller
         $data['view'] = 0;
         $data['star'] = 0;
         $data ['is_active'] = 0;
-        $type = [
-            '1' => 1, // Thắc mắc
-            '2' => 2, // Câu hỏi
-            '3' => 3, // Thảo luận
-            '4' => 4, // Giải trí
-        ];
-        $data['type'] = $type[$data['type']];
+        $data['type'] = $request->input('type');
         ForumPost::create($data);
         return redirect()->route('forum.list')->with('success', 'Thêm forumpost thành công');
     }

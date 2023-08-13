@@ -22,7 +22,7 @@
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
                                         <form action="{{ route('forum.list') }}" method="GET">
-                                            <input type="text" class="form-control search" placeholder="Search..." name="search">
+                                            <input type="text" class="form-control search" placeholder="Tìm kiếm..." name="search">
                                             <i class="ri-search-line search-icon"></i>
                                         </form>
                                     </div>
@@ -50,7 +50,7 @@
                                         <td class="">{{$i +1}}</td>
                                         <td class="title">{{$iteam->title}}</td>
                                         <td class="course">{{$iteam->view}}</td>
-                                        <td class="customer_name">{{$iteam->user_id}}</td>
+                                        <td class="customer_name">{{$iteam->user->name}}</td>
                                         <td class="course">{{$iteam->is_active}}</td>
                                         <td class="course">{{$iteam->star}}</td>
                                         <td class="course">{{$iteam->category?->name}}</td>

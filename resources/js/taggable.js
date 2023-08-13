@@ -8,12 +8,12 @@ import Swal from "sweetalert2"
 window.showDeleteTaggable = (id) => {
     Swal.fire({
         title: 'Bạn chắc chắn muốn xóa?',
-        text: "You won't be able to revert this!",
+        text: "Bạn không thể lấy lại dữ liệu đã xóa!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Đồng ý xóa!'
     }).then((result) => {
         if (result.isConfirmed) {
             // Gửi yêu cầu xóa bằng Ajax
@@ -25,9 +25,7 @@ window.showDeleteTaggable = (id) => {
                 },
                 success: function (response) {
                     Swal.fire(
-                        'Deleted!',
                         'Đã xóa thành công.',
-                        'success'
                     ).then(() => {
                         // Chuyển hướng sau khi xóa thành công
                         window.location.reload();
@@ -35,9 +33,7 @@ window.showDeleteTaggable = (id) => {
                 },
                 error: function (xhr) {
                     Swal.fire(
-                        'Error!',
-                        'Xóa thất bại.',
-                        'error'
+                        'Xảy ra lỗi trong quá trình xóa.',
                     );
                 }
             });

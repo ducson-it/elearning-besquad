@@ -31,13 +31,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.deleteModule = (module_id)=>{
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Bạn có chắc chắn xóa?',
+        text: "Bạn không thể lấy lại dữ liệu đã xóa!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Đồng ý xóa!'
       }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -50,16 +50,14 @@ window.deleteModule = (module_id)=>{
                 success: function (data) {
                     if(data){
                         Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
+                            'Dữ liệu đã được xóa.',
                           ).then(function(){
                             location.reload()
                           })
                     }
-                
+
                 },
-        
+
             })
         }
       })

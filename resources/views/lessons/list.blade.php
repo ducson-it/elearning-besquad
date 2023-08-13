@@ -18,7 +18,7 @@
                                 <a href="{{ route('lessons.create') }}">
                                     <button type="button" class="btn btn-success add-btn"><i
                                         class="ri-add-line align-bottom me-1"></i>
-                                        Add</button>
+                                        Thêm</button>
                                 </a>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                             <div class="d-flex justify-content-sm-end">
                                 <div class="search-box ms-2">
                                     <form action="" method="GET">
-                                        <input type="text" class="form-control search" placeholder="Search..." name="keyword">
+                                        <input type="text" class="form-control search" placeholder="Tìm kiếm..." name="keyword">
                                     <i class="ri-search-line search-icon"></i>
                                     </form>
                                 </div>
