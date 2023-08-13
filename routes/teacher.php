@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\TeacherController;
 
-Route::group(['prefix' => 'teacher'], function () {
+Route::group(['prefix' => 'teacher','middleware' => ['auth:sanctum']], function () {
     Route::match(['get', 'delete','put','post'],'/list',[TeacherController::class,'showListTeacher'])->name('show.teacher');
     Route::delete('/delete-teacher/{id}',[TeacherController::class,'deleteTeacher'])->name('delete.teacher');
     Route::get('/teacher-add',[TeacherController::class,'addTeacher'])->name('add.teacher');

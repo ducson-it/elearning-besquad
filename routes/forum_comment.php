@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\ForumCommentController;
 
-Route::group(['prefix' => 'forum-comment'], function () {
+Route::group(['prefix' => 'forum-comment','middleware' => ['auth:sanctum']], function () {
 Route::match(['get', 'delete','put','post'],'/list',[ForumCommentController::class,'showForumCmt'])->name('show.forumCmt');
 Route::delete('/forumCmt-delete/{id}',[ForumCommentController::class,'deleteForumCmt'])->name('delete.forumCmt');
+Route::post('/forumCmt-reply',[ForumCommentController::class,'replyForumCmt'])->name('reply.forumCmt');
 Route::get('/forumCmt-add',[ForumCommentController::class,'addForumCmt'])->name('add.forumCmt');
 Route::get('/forumCmt-edit/{id}',[ForumCommentController::class,'editForumCmt'])->name('edit.forumCmt');
 Route::post('/forumCmt-update/{id}',[ForumCommentController::class,'updateForumCmt'])->name('update.forumCmt');
