@@ -182,6 +182,7 @@ window.deletepostForum = (id) => {
 };
 // xóa feedbacks
 window.deletepostFeedback = (id) => {
+    event.preventDefault();
     Swal.fire({
         icon: 'warning',
         title: 'Xóa',
