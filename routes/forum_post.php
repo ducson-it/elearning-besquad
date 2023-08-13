@@ -8,5 +8,9 @@ Route::group(['prefix'=>"forum"],function(){
     Route::get('/edit{id}',[ForumPostController::class,'edit'])->name('forum.edit');
     Route::post('/update{id}',[ForumPostController::class,'update'])->name('forum.update');
     Route::get('/delete/{id}',[ForumPostController::class,'delete'])->name('forum.delete');
+    Route::post('/status/{id}',[ForumPostController::class,'status'])->name('forum.status');
+
+
+
 });
 

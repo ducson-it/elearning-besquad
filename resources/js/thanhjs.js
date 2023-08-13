@@ -124,6 +124,45 @@ window.activeComment = (id) => {
         }
     });
 }
+//Active status post forum
+window.active = (id) => {
+    Swal.fire({
+        title: ' Bạn chắc chắn ? ',
+        text: "Thay đổi trạng thái bài viết ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/forum/status/' + id,
+                type: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    Swal.fire(
+                        'Ẩn / Hiện bài viết!',
+                        'Đã thay đổi trạng thái bài viết',
+                        'success'
+                    ).then(() => {
+                        window.location.reload();
+                    });
+                },
+                error: function (xhr) {
+                    Swal.fire(
+                        'Error!',
+                        'Không thể cập nhật trạng thái',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+}
+
 
 //xóa slider
 window.deletesliders = (id) => {
