@@ -13,8 +13,6 @@ window.addAnswer = ()=>{
         success: function (data) {
             Swal.fire(
                 'Bạn đã thêm thành công',
-                'You clicked the button!',
-                'success'
               ).then(function(){
                 location.reload();
               })
@@ -42,8 +40,6 @@ window.updateAnswer = (answer_id)=>{
             if(data.status){
                 Swal.fire(
                     'Bạn đã cập nhật thành công',
-                    'You clicked the button!',
-                    'success'
                   ).then(function(){
                     location.reload();
                   })
@@ -61,13 +57,13 @@ window.updateAnswer = (answer_id)=>{
 //delete question
 window.deleteAnswer=(answer_id)=>{
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Bạn có chắc chắn xóa?',
+        text: "Bạn không thể lấy lại dữ liệu đã xóa!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Đồng ý xóa!'
       }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -79,9 +75,7 @@ window.deleteAnswer=(answer_id)=>{
                 url: 'answers/delete/'+answer_id,
                 success: function (data) {
                     Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
+                        'Dữ liệu đã được xóa.',
                       ).then(function(){
                         location.reload()
                       })

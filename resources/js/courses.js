@@ -22,7 +22,6 @@ $(document).ready(function () {
     //quiz type
     function showModule(){
         var type = $('#quizType').val()
-        console.log('----anhQuan----');
         if (type ==1) {
             $('.module').hide()
         } else {
@@ -85,18 +84,18 @@ $(document).ready(function () {
                     $('#course-content-list').replaceWith(`<tbody class="list form-check-all" id="course-content-list">${msg}</tbody>`)
                 }
             })
-        
+
     })
 })
 window.deleteCourse = (course_id) => {
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Bạn có chắc chắn xóa?',
+        text: "Bạn không thể lấy lại dữ liệu đã xóa!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Đồng ý xóa!'
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -109,9 +108,7 @@ window.deleteCourse = (course_id) => {
                 success: function (data) {
                     if (data) {
                         Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
+                            'Xóa thành công'
                         ).then(function () {
                             location.reload()
                         })
@@ -128,13 +125,13 @@ window.deleteCourse = (course_id) => {
 
 window.deleteQuiz = (quiz_id) => {
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Bạn có chắc chắn xóa?',
+        text: "Bạn không thể lấy lại dữ liệu đã xóa!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Đồng ý xóa!'
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -147,9 +144,7 @@ window.deleteQuiz = (quiz_id) => {
                 success: function (data) {
                     if (data) {
                         Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
+                            'Xóa thành công'
                         ).then(function () {
                             location.reload()
                         })

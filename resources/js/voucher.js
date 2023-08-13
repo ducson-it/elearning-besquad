@@ -6,7 +6,7 @@ window.DeleteVoucher = (id) => {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Xóa'
+        confirmButtonText: 'Đồng ý xóa!'
     }).then((result) => {
         if (result.isConfirmed) {
             // Gửi yêu cầu xóa bằng Ajax
@@ -18,9 +18,7 @@ window.DeleteVoucher = (id) => {
                 },
                 success: function (response) {
                     Swal.fire(
-                        'Deleted!',
-                        'Đã xóa thành công !',
-                        'success'
+                        'Đã xóa thành công!',
                     ).then(() => {
                         // Chuyển hướng sau khi xóa thành công
                         window.location.reload();
@@ -28,9 +26,7 @@ window.DeleteVoucher = (id) => {
                 },
                 error: function (xhr) {
                     Swal.fire(
-                        'Error!',
-                        'Đã xảy ra lỗi khi xóa voucher.',
-                        'error'
+                        'Xảy ra lỗi trong quá trình xóa!.',
                     );
                 }
             });
