@@ -22,14 +22,10 @@ class AuthController extends Controller
         }
         $user = Auth::getUser();
         $access_token = $user->createAuthToken('web')->plainTextToken;
-        $refresh = $user->createRefreshToken('web');
-        $refresh_token = $refresh->plainTextToken;
-        $refresh_expired = $refresh->accessToken->expired_at;
+        $refresh_token = $user->createRefreshToken('web')->plainTextToken;
         return response()->json([
             'access_token' => $access_token,
             'refresh_token' => $refresh_token,
-            'expired'   => $refresh_expired
-
         ], 200);
     }
 
@@ -51,17 +47,13 @@ class AuthController extends Controller
     public function refreshToken(Request $request)
     {
         $user = $request->user();
-
-        $user->tokens()->where('name', 'auth')->delete();
-        $user->tokens()->where('name', 'refresh')->delete();
-
-        $accessToken = $user->createAuthToken('auth');
-
-        $response = [
-                'access_token' => $accessToken->plainTextToken,
-        ];
-
-        return response()->json($response, 200);
+        $user->tokens()->delete();
+        $access_token = $user->createAuthToken('web')->plainTextToken;
+        $refresh_token = $user->createRefreshToken('web')->plainTextToken;
+        return response()->json([
+            'access_token' => $access_token,
+            'refresh_token' => $refresh_token
+        ], 200);
     }
 
     public function register(RegisterRequest $request)
@@ -73,16 +65,13 @@ class AuthController extends Controller
         ]);
 
         $access_token = $user->createAuthToken('web')->plainTextToken;
-        $refresh = $user->createRefreshToken('web');
-        $refresh_token = $refresh->plainTextToken;
-        $refresh_expired = $refresh->accessToken->expired_at;
+        $refresh_token = $user->createRefreshToken('web')->plainTextToken;
 
         return response()->json([
             'status' => 200,
             'message' => 'User Created Successfully',
             'access_token' => $access_token,
             'refresh_token' => $refresh_token,
-            'expired'   => $refresh_expired
         ], 200);
     }
     //get user infor

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\CommentRequest;
+use App\Mail\CommentReplied;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
@@ -9,13 +10,15 @@ use App\Models\Post;
 use App\Models\Course;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 
 class CommentController extends Controller
 {
     public function index(Request $request)
     {
             $search = $request->input('search');
-            $comments = Comment::where('content', 'like', '%' . $search . '%')->paginate(10);
+            $comments = Comment::where('content', 'like', '%' . $search . '%')->paginate(8);
         return view('comments.list', compact('comments'));
     }
     public function create(){
@@ -87,5 +90,26 @@ class CommentController extends Controller
             return response()->json(['message' => 'Xóa bản ghi thành công'], 200);
         }
         return response()->json(['message' => 'Xóa bản ghi thất bại'], 500);
+    }
+
+    public function rep_comment(Request $request){
+        $replyContent = $request->input('rep_comment');
+        $commentId = $request->input('comment_id');
+        $comment = Comment::find($commentId);
+        if (!$comment) {
+            return redirect()->back()->with('error', 'Không tìm thấy comment');
+        }
+        $reply = Comment::create([
+            'content' => $replyContent,
+            'user_id' => Auth::id(),
+            'commentable_id' => $comment->id,
+            'commentable_type' => Comment::class,
+            'status' => 1,
+        ]);
+        $originalCommentUser = User::find($comment->user_id);
+        if ($originalCommentUser) {
+            Mail::to($originalCommentUser->email)->send(new CommentReplied($reply));
+        }
+        return redirect()->back()->with('success', 'Reply thành công');
     }
 }

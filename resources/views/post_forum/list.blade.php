@@ -21,8 +21,10 @@
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
-                                        <input type="text"  class="form-control" placeholder="tìm kiếm" id="searchBlogInput">
-                                        <i class="ri-search-line search-icon"></i>
+                                        <form action="{{ route('forum.list') }}" method="GET">
+                                            <input type="text" class="form-control search" placeholder="Search..." name="search">
+                                            <i class="ri-search-line search-icon"></i>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +50,7 @@
                                         <td class="">{{$i +1}}</td>
                                         <td class="title">{{$iteam->title}}</td>
                                         <td class="course">{{$iteam->view}}</td>
-                                        <td class="customer_name">{{$iteam->user_id}}</td>
+                                        <td class="customer_name">{{$iteam->user->name}}</td>
                                         <td class="course">{{$iteam->is_active}}</td>
                                         <td class="course">{{$iteam->star}}</td>
                                         <td class="course">{{$iteam->category?->name}}</td>

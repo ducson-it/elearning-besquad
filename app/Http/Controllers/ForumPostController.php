@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CategoryBlog;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostForumRequest;
 use App\Models\ForumPost;
@@ -11,10 +12,12 @@ use Illuminate\Support\Facades\Auth;
 
 class ForumPostController extends Controller
 {
-    public function index(){
-        $forumposts = ForumPost::paginate(5);
-        return view ('post_forum.list',compact('forumposts'));
+    public function index(Request $request) {
+        $search = $request->input('search');
+        $forumposts = ForumPost::where('title', 'like', '%' . $search . '%')->paginate(8);
+        return view('post_forum.list', compact('forumposts'));
     }
+
     public function create(){
         $categories = Category::all();
         return view ('post_forum.create',compact('categories'));
@@ -26,13 +29,7 @@ class ForumPostController extends Controller
         $data['view'] = 0;
         $data['star'] = 0;
         $data ['is_active'] = 0;
-        $type = [
-            '1' => 1, // Thắc mắc
-            '2' => 2, // Câu hỏi
-            '3' => 3, // Thảo luận
-            '4' => 4, // Giải trí
-        ];
-        $data['type'] = $type[$data['type']];
+        $data['type'] = $request->input('type');
         ForumPost::create($data);
         return redirect()->route('forum.list')->with('success', 'Thêm forumpost thành công');
     }

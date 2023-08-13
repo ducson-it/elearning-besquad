@@ -9,7 +9,7 @@ Route::group(['prefix'=>"lessons","as"=>"lessons."],function(){
         Route::get('/edit/{lesson}',[LessonController::class,'edit'])->name('edit');
         Route::put('/update/{lesson}',[LessonController::class,'update'])->name('update');
         Route::delete('/delete/{lesson_id}',[LessonController::class,'destroy'])->name('delete');
-        Route::post('/select/module',[LessonController::class,'selectModule']);
+        Route::post('/select/course',[LessonController::class,'selectCourse']);
         Route::get('/select/video/{video_id}',[LessonController::class,'selectVideo']);
         //video
         Route::post('/video/upload',[LessonController::class,'uploadVideo'])->name('uploadVideo');

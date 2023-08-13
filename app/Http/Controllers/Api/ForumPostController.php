@@ -3,50 +3,36 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\ForumPost;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Resources\ForumPostCollection;
+use App\Http\Resources\CategoryPostsResource;
+use App\Http\Resources\ForumPostResource;
 class ForumPostController extends Controller
 {
     public function index()
     {
-        $forumposts = ForumPost::with('comments')->get();
-        $formattedData = $forumposts->map(function ($post) {
-            $commentCount = $post->comments->count();
-            $formattedComments = $post->comments->map(function ($comment) {
-                return [
-                    'id' => $comment->id,
-                    'content' => $comment->content,
-                    'user_id'=>$comment->user->name
-                ];
-            });
-            return [
-                'id' => $post->id,
-                'title' => $post->title,
-                'content' => $post->content,
-                'comment_count' => $commentCount,
-                'comments' => $formattedComments,
-            ];
-        });
+        $forumposts = ForumPost::with(['comments' => function ($query) {
+            $query->where('is_active', 1);
+        }, 'user:id,name,avatar', 'category:id,name'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return new ForumPostCollection($forumposts);
 
-        return response()->json([
-            'code' => 200,
-            'message' => 'Thành công',
-            'data' => $formattedData,
-        ]);
     }
-
     public function detail($id)
     {
-        $forumpost = ForumPost::findOrFail($id);
+        $forumpost = ForumPost::with('comments')->findOrFail($id);
         return response()->json([
             'code' => 200,
             'message' => 'success',
-            'data'=> $forumpost
+            'data' => $forumpost
         ]);
     }
-    public function clickStar(Request $request ,$id){
+    public function clickStar(Request $request){
+        $id = $request->input('id');
         $post = ForumPost::find($id);
         $user = Auth::user();
         if(!$post){
@@ -61,7 +47,7 @@ class ForumPostController extends Controller
             return response()->json([
                 'code' => 200,
                 'message' => 'success',
-                'data'=> $post, $user
+                'data' => ['post' => $post, 'user' => $user]
             ]);
         }
 
@@ -83,7 +69,7 @@ class ForumPostController extends Controller
             'is_active'=> 0,
             'star'=> 0,
             'category_id'=>$request->input('category_id'),
-            'type' => $request->input('type')
+            'type' => $request->input('type'),
         ];
         $resulf = ForumPost::create($data);
         if($resulf){
@@ -184,8 +170,6 @@ class ForumPostController extends Controller
             ], 500);
         }
     }
-
-
     // post mới nhất
     public function getLatestPosts()
     {
@@ -193,8 +177,7 @@ class ForumPostController extends Controller
             ->orderBy('created_at', 'desc')
             ->limit(10)
             ->get();
-
-        return response()->json($latestPosts);
+        return ForumPostResource::collection($latestPosts);
     }
     //api post hay nhất
     public function getTopRatedPosts()
@@ -205,7 +188,7 @@ class ForumPostController extends Controller
             ->limit(10)
             ->get();
 
-        return response()->json($topRatedPosts);
+        return ForumPostResource::collection($topRatedPosts);
     }
     //API trả ra các bài post mà user đăng nhập đã tạo
     public function getUserPosts()
@@ -216,18 +199,45 @@ class ForumPostController extends Controller
                 ->where('user_id', $user->id)->get();
             return response()->json($userPosts);
         }
-
         return response()->json(['message' => 'Unauthorized'], 403);
     }
     //API tìm kiếm bài post theo title
-    public function searchPosts(Request $request)
+    public function searchPosts(Request $request )
     {
-        $query = $request->input('search_post');
+        $key_word = $request->query('keyword');
+        $searchResults = ForumPost::with(['comments', 'category'])
+            ->where('title', 'like', '%' . $key_word . '%')
+            ->get();
 
-        $searchResults = ForumPost::where('title', 'like', '%' . $query . '%')->get();
-
-        return response()->json($searchResults);
+        return response()->json([
+            'search_results' => $searchResults,
+            'keyword' => $key_word,
+        ]);
     }
-
+    public function postsByCategory()
+    {
+        $allCategories = Category::all();
+        $formattedData = [];
+        foreach ($allCategories as $category) {
+            $categoryPosts = ForumPost::with(['comments', 'user'])
+                ->where('category_id', $category->id)
+                ->orderByDesc('star')
+                ->get();
+            if ($categoryPosts->count() > 0) {
+                $formattedData[] = [
+                    'category' => [
+                        'id' => $category->id,
+                        'name' => $category->name,
+                    ],
+                    'posts' => CategoryPostsResource::collection($categoryPosts),
+                ];
+            }
+        }
+        return response()->json([
+            'code' => 200,
+            'message' => 'Thành công',
+            'data' => $formattedData,
+        ]);
+    }
 }
 
