@@ -18,6 +18,13 @@ class ForumPostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'content' => $this->content,
+            'type' => [
+                'id' => $this->type,
+                'type' => $this->type == 1 ? 'Thắc mắc'
+                    : ($this->type == 2 ? 'Câu hỏi'
+                        : ($this->type == 3 ? 'Thảo luận'
+                            : ($this->type == 4 ? 'Giải trí' : 'Không xác định')))
+            ],
             'created_at' => $this->created_at,
             'user' => UserResource::make($this->user),
             'category' => CategoryResource::make($this->category),

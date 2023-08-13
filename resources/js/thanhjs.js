@@ -154,7 +154,6 @@ window.deletesliders = (id) => {
     });
 };
 //xóa bài viết post forum
-
 window.deletepostForum = (id) => {
     Swal.fire({
         icon: 'warning',
@@ -164,7 +163,7 @@ window.deletepostForum = (id) => {
     }).then(res => {
         if (res.isConfirmed) {
             // Gọi API để xóa
-            axios.get('/forum/destroy/' + id)
+            axios.get('/forum/delete/' + id)
                 .then(apiRes => {
                     Swal.fire({
                         icon: 'success',
@@ -177,7 +176,6 @@ window.deletepostForum = (id) => {
                 })
                 .catch(err => {
                     console.error(err);
-
                 });
         }
     });
@@ -192,7 +190,7 @@ window.deletepostFeedback = (id) => {
     }).then(res => {
         if (res.isConfirmed) {
             // Gọi API để xóa
-            axios.get('/feedback/destroy/' + id)
+            axios.get('/feedback/delete/' + id)
                 .then(apiRes => {
                     Swal.fire({
                         icon: 'success',
@@ -205,7 +203,6 @@ window.deletepostFeedback = (id) => {
                 })
                 .catch(err => {
                     console.error(err);
-
                 });
         }
     });

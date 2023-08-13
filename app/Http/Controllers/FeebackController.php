@@ -40,10 +40,11 @@ class FeebackController extends Controller
         $feedback->update($data);
         return redirect()->route('feedbacks.list')->with('success', 'Cập nhật đánh giá thành công');
     }
-
     public function destroy($id){
-        $feedback = Feedback::find($id);
-        $feedback->delete();
-        return redirect()->route('feedbacks.list')->with('success', 'Cập nhật đánh giá thành công');
+        $feedback = Feedback::findOrFail($id);
+        if($feedback->delete()){
+            return response()->json(['message' => 'Xóa bản ghi thành công'], 200);
+        }
+        return redirect()->route('feedbacks.list')->with('success', 'Xóa đánh giá thành công');
     }
 }
