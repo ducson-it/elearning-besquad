@@ -69,7 +69,7 @@ class ForumPostController extends Controller
     {
         $forumPost = ForumPost::findOrFail($id);
         if($forumPost->delete()){
-            return response()->json(['message' => 'Xóa bản ghi thành công'], 200);
+            return response()->json(['message' => 'Xóa bản ghi thất bại'], 200);
         }
         return redirect()->route('forum.list')->with('success', 'Xóa bài viết thành công');
     }

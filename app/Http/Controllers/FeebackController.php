@@ -43,7 +43,7 @@ class FeebackController extends Controller
     public function destroy($id){
         $feedback = Feedback::findOrFail($id);
         if($feedback->delete()){
-            return response()->json(['message' => 'Xóa bản ghi thành công'], 200);
+            return response()->json(['message' => 'Xóa đánh giá thất bại '], 200);
         }
         return redirect()->route('feedbacks.list')->with('success', 'Xóa đánh giá thành công');
     }
