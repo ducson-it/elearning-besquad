@@ -175,7 +175,7 @@ class ForumPostController extends Controller
     {
         $latestPosts = ForumPost::with('comments', 'category.courses')
             ->orderBy('created_at', 'desc')
-            ->limit(10)
+            ->limit(5)
             ->get();
         return ForumPostResource::collection($latestPosts);
     }
@@ -185,7 +185,7 @@ class ForumPostController extends Controller
         $topRatedPosts = ForumPost::with(['comments', 'category.courses'])
             ->orderBy('view', 'desc')
             ->orderBy('star', 'desc')
-            ->limit(10)
+            ->limit(5)
             ->get();
 
         return ForumPostResource::collection($topRatedPosts);

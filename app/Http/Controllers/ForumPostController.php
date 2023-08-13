@@ -67,8 +67,10 @@ class ForumPostController extends Controller
 
     public function delete($id)
     {
-        $forumPost = ForumPost::find($id);
-        $forumPost->delete();
+        $forumPost = ForumPost::findOrFail($id);
+        if($forumPost->delete()){
+            return response()->json(['message' => 'Xóa bản ghi thành công'], 200);
+        }
         return redirect()->route('forum.list')->with('success', 'Xóa bài viết thành công');
     }
 
