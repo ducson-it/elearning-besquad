@@ -69,7 +69,7 @@
                                             </button>
                                         </span>
                                         <input id="thumbnail2" class="form-control" type="text" name="filepath"><br>
-                                        
+
                                     </div>
                                     @if ($errors->any())
                                         <span id="error-name" style="color:red">
@@ -102,7 +102,7 @@
                                 </div>
                                 <!--end col-->
                                 <div class="col-12 mt-2">
-                                    <div>   
+                                    <div>
                                         <label for="exampleFormControlTextarea5" class="form-label">Mô tả chung</label>
                                         <textarea class="form-control" id="exampleFormControlTextarea5" rows="3" name="featured">{{old('featured')}}</textarea>
                                     </div>

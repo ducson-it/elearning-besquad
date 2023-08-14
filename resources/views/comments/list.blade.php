@@ -5,6 +5,11 @@
             {{ Session::get('success') }}
         </div>
     @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -16,14 +21,14 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
                                 <div>
-                                    <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><a href="{{route('comment.create')}}" style="color:white">Add</a></button>
+                                    <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><a href="{{route('comment.create')}}" style="color:white">Thêm</a></button>
                                 </div>
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
                                         <form action="{{ route('comment.list') }}" method="GET">
-                                            <input type="text" class="form-control search" placeholder="Search..." name="search">
+                                            <input type="text" class="form-control search" placeholder="Tìm kiếm..." name="search">
                                             <i class="ri-search-line search-icon"></i>
                                         </form>
                                     </div>
@@ -73,9 +78,35 @@
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="btn btn-sm">
-                                                    <button class="btn btn-sm btn-primary remove-item-btn">Trả lời</button>
+                                                    <button class="btn btn-sm btn-primary remove-item-btn" data-bs-toggle="modal" data-bs-target="#replyModal{{$comment->id}}">Trả lời</button>
                                                 </div>
                                             </div>
+
+                                            <form action="{{ route('comment.repcomment', ['id' => $comment->id]) }}" method="POST">
+                                                @csrf
+                                                <!-- Modal for reply -->
+                                                <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                                                <div class="modal fade" id="replyModal{{$comment->id}}" aria-hidden="true" aria-labelledby="replyModalLabel{{$comment->id}}" tabindex="-1">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="replyModalLabel{{$comment->id}}">Trả lời</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Nội dung trả lời</label>
+                                                                    <input type="text" class="form-control" name="rep_comment" placeholder="Nhập nội dung trả lời">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

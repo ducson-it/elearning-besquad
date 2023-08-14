@@ -26,12 +26,12 @@ if (UserUpload) {
 window.DeleteUser = (id) => {
     Swal.fire({
         title: 'Bạn có chắc chắn muốn xóa?',
-        text: "You won't be able to revert this!",
+        text: "Bạn không thể lấy lại dữ liệu đã xóa!!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Đồng ý xóa!'
     }).then((result) => {
         if (result.isConfirmed) {
             // Gửi yêu cầu xóa bằng Ajax
@@ -43,7 +43,7 @@ window.DeleteUser = (id) => {
                 },
                 success: function (response) {
                     Swal.fire(
-                        'Deleted!',
+                        'Đã xóa!',
                         'Đã xóa thành công !',
                         'success'
                     ).then(() => {
@@ -66,8 +66,8 @@ window.DeleteUser = (id) => {
 window.activeUser = (id) => {
     console.log(id)
     Swal.fire({
-        title: ' Bạn chắc chắn ? ',
-        text: "Thay đổi trạng thái tài khoản này ?",
+        title: ' Bạn chắc chắn? ',
+        text: "Thay đổi trạng thái tài khoản này?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -84,7 +84,7 @@ window.activeUser = (id) => {
                 },
                 success: function (response) {
                     Swal.fire(
-                        'Updated!',
+                        'Đã cập nhât!',
                         'Đã cập nhật trường active thành công',
                         'success'
                     ).then(() => {
@@ -124,16 +124,14 @@ window.deleteUserCheckbox = (selectedIds) => {
             });
             selectedIds = [];
             Swal.fire(
-                'Deleted!',
-                'Your records have been deleted.',
+                'Đã xóa!',
+                'Bạn đã xóa.',
                 'success'
             );
         },
         error: function (xhr) {
             Swal.fire(
-                'Error!',
-                'An error occurred while deleting the records.',
-                'error'
+                'Xảy ra lỗi trong quá trình xóa.',
             );
         }
     });

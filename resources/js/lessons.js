@@ -77,7 +77,6 @@ $(document).ready(function(){
 //             })
 $('select#video').on('change',function(){
     var video_id = $(this).val()
-    console.log(video_id);
         var msg = ''
         $.ajax({
             type:"GET",
@@ -97,7 +96,7 @@ $('select#video').on('change',function(){
 })
 })
 function selectLessonType(){
-    var lesson_type = $(this).val();
+    var lesson_type = $('#lesson_type').val();
     if(lesson_type == 1){
         $('#video-select').show();
         $('#quiz-select').hide();
@@ -113,15 +112,14 @@ $('select#lesson_type').on('change',function(){
 })
 //delete lesson
 window.deleteLesson = (lesson_id)=>{
-    console.log('----quan--------')
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Bạn có chắc chắn xóa?',
+        text: "Bạn không thể lấy lại dữ liệu đã xóa!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Đồng ý xóa!'
       }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -134,16 +132,14 @@ window.deleteLesson = (lesson_id)=>{
                 success: function (data) {
                     if(data){
                         Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
+                            'Dữ liệu đã được xóa.'
                           ).then(function(){
                             location.reload()
                           })
                     }
-                
+
                 },
-        
+
             })
         }
       })

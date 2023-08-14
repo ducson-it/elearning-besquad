@@ -85,8 +85,7 @@ window.PaymentVerify = (order_id,type)=>{
             if(data.status == true){
                 Swal.fire(
                     data.message,
-                    'Your file has been deleted.',
-                    'success'
+                    'Dữ liệu đã được xóa.',
                 ).then(function () {
                     location.reload()
                 })

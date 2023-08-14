@@ -110,13 +110,13 @@ Route::prefix('postforum')->group(function () {
     Route::post('/addpost', [ForumPostController::class, 'addpost'])->middleware('auth:sanctum');
     Route::post('/updatepost/{id}', [ForumPostController::class, 'updatepost'])->middleware('auth:sanctum');
     Route::delete('/delete/{id}', [ForumPostController::class, 'deletePost'])->middleware('auth:sanctum');
-
     //api post mới nhất
     Route::get('/latest-posts', [ForumPostController::class, 'getLatestPosts'])->middleware('auth:sanctum');
     //api post hay nhất
     Route::get('/top-rated-posts', [ForumPostController::class, 'getTopRatedPosts'])->middleware('auth:sanctum');
     Route::get('/user-is-posts', [ForumPostController::class, 'getUserPosts'])->middleware('auth:sanctum');
     Route::get('/search-posts', [ForumPostController::class, 'searchPosts'])->middleware('auth:sanctum');
+    Route::get('/postsCate', [ForumPostController::class, 'postsByCategory'])->middleware('auth:sanctum');
 
 });
 Route::prefix('feedbacks')->group(function () {

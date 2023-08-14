@@ -14,7 +14,7 @@
                                 <div>
                                     <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal"
                                         id="create-btn" data-bs-target="#showModal"><i
-                                            class="ri-add-line align-bottom me-1"></i> Add</button>
+                                            class="ri-add-line align-bottom me-1"></i> Thêm</button>
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-light" data-bs-dismiss="modal"><a
@@ -25,7 +25,7 @@
                                 <div class="d-flex justify-content-sm-end">
                                     {{-- <div class="search-box ms-2">
                                         <form action="" method="GET">
-                                            <input type="text" class="form-control search" placeholder="Search..." name="keyword">
+                                            <input type="text" class="form-control search" placeholder="Tìm kiếm..." name="keyword">
                                         <i class="ri-search-line search-icon"></i>
                                         </form>
                                     </div> --}}

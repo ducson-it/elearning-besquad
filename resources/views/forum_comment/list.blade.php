@@ -18,7 +18,7 @@
                                         @csrf
                                         <div class="search-box ms-2">
                                             <input type="text" class="form-control search " name="search_forumCmt"
-                                                   placeholder="Search...">
+                                                   placeholder="Tìm kiếm...">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
 
@@ -42,6 +42,7 @@
                                     <th class="sort" data-sort="user">Người comment</th>
                                     <th class="sort" data-sort="">Thuộc bài post</th>
                                     <th class="sort" data-sort="">Trạng thái</th>
+                                    <th class="sort" data-sort="">Cấp</th>
                                     <th class="sort" data-sort="">Ngày tạo</th>
                                     <th class="sort" data-sort="">Lựa chọn</th>
                                 </tr>
@@ -62,13 +63,18 @@
                                         <td class="user_id">{{$comment->user->name}}</td>
                                         <td class="post_id">{{$comment->post->title}}</td>
                                         <td class="active">{{$comment->is_active == 1 ? 'Active': 'Inactive'}}</td>
+                                        <td class="post_id">{{$comment->parent_id  ? 'Cấp 2':'Cấp 1'}}</td>
                                         <td class="created_at">{{$comment->created_at}}</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="remove">
+                                                    <button class="btn btn-sm btn-warning remove-item-btn"
+                                                            data-bs-toggle="modal" id="create-btn" data-bs-target="#reply" onclick="">
+                                                        Trả lời
+                                                    </button>
                                                     <button class="btn btn-sm btn-danger remove-item-btn"
                                                             onclick="DeleteForumCmt({{$comment->id}})">
-                                                        Remove
+                                                        Xóa
                                                     </button>
                                                 </div>
                                                 <div class="detail">
@@ -80,6 +86,32 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    <div class="modal fade" id="reply" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <form id="reply_form" action="{{route('reply.forumCmt')}}" method="post">
+                                                @csrf
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Trả lời comment</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="tag-description-input mt-3">
+                                                            <p>Nội dung phản hồi </p>
+                                                            <input type="hidden" name="parent_id" value="{{$comment->id}}">
+                                                            <input type="hidden" name="post_id">
+                                                            <textarea id="cmt-content-input"  cols="30" rows="12" class="form-control" name="content" placeholder="mô tả">{{ old('content') }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" id="cancel-button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+                                                        <button type="submit" class="btn btn-primary">Trả lời </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
                                 @endforeach
                                 </tbody>
                             </table>
