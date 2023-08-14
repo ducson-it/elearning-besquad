@@ -15,34 +15,34 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        // Table: roles
-        Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('description');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // // Table: roles
+        // Schema::create('roles', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('name');
+        //     $table->string('description');
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
 
-        // Table: permissions
-        Schema::create('permissions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('description');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // // Table: permissions
+        // Schema::create('permissions', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('name');
+        //     $table->string('description');
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
 
-        // Table: role_permission
-        Schema::create('role_permission', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('role_id');
-            $table->unsignedInteger('permission_id');
-            $table->timestamps();
-            $table->softDeletes();
-            // $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-            // $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
-        });
+        // // Table: role_permission
+        // Schema::create('role_permission', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->unsignedInteger('role_id');
+        //     $table->unsignedInteger('permission_id');
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        //     // $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+        //     // $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
+        // });
 
         // Table: categories
         Schema::create('categories', function (Blueprint $table) {

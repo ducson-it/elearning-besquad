@@ -10,10 +10,7 @@ use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Module;
 use App\Models\Notification;
-use App\Models\Permission;
 use App\Models\Post;
-use App\Models\Role;
-use App\Models\RolePermission;
 use App\Models\Slider;
 use App\Models\Tag;
 use App\Models\Taggable;
@@ -33,29 +30,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Role::factory()->count(10)->create();
-        Permission::factory()->count(10)->create();
-        RolePermission::factory()->count(10)->create();
-        Category::factory()->count(2)->create();
-        User::factory()->count(10)->create();
-        Voucher::factory()->count(10)->create();
-        UserVoucher::factory()->count(10)->create();
-        Course::factory()->count(10)->create();
-        Module::factory()->count(10)->create();
-        Lesson::factory()->count(10)->create();
-        Slider::factory()->count(10)->create();
-        CategoryBlog::factory()->count(10)->create();
-        Blog::factory()->count(10)->create();
-        Comment::factory()->count(10)->create();
-        Tag::factory()->count(10)->create();
-        Post::factory()->count(10)->create();
-        Taggable::factory()->count(10)->create();
-        // Order::factory()->count(10)->create();
-        Status::factory()->count(10)->create();
+        // Role::factory()->count(10)->create();
+        // Permission::factory()->count(10)->create();
+        // RolePermission::factory()->count(10)->create();
+        // Category::factory()->count(2)->create();
+        // User::factory()->count(10)->create();
+        // Voucher::factory()->count(10)->create();
+        // UserVoucher::factory()->count(10)->create();
+        // Course::factory()->count(10)->create();
+        // Module::factory()->count(10)->create();
+        // Lesson::factory()->count(10)->create();
+        // Slider::factory()->count(10)->create();
+        // CategoryBlog::factory()->count(10)->create();
+        // Blog::factory()->count(10)->create();
+        // Comment::factory()->count(10)->create();
+        // Tag::factory()->count(10)->create();
+        // Post::factory()->count(10)->create();
+        // Taggable::factory()->count(10)->create();
+        // // Order::factory()->count(10)->create();
+        // Status::factory()->count(10)->create();
         // Notification::factory()->count(10)->create();
         $this->call([
             UsersSeeder::class,
-            RolesSeeder::class
         ]);
     }
 }
