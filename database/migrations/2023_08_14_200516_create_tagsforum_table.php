@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('history', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedBigInteger('course_id');
-            $table->unsignedBigInteger('lesson_id');
-            $table->unsignedBigInteger('user_id');
-            $table->timestamp('time')->nullable();
-            $table->timestamp('stop_time_video')->default(now());
+        Schema::create('tagsforum', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->unsignedBigInteger('post_id');
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('post_id')->references('id')->on('posts');
         });
     }
 
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('history');
+        Schema::dropIfExists('tagsforum');
     }
 };

@@ -25,19 +25,19 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
                                 <div>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Thêm</button>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Add</button>
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <form action="{{ route('category_blog.store') }}" method="POST">
                                                     @csrf
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Thêm Category_Blogs</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Thêm chủ đề blog</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="mb-3">
-                                                            <label for="recipient-name" class="col-form-label">Name</label>
+                                                            <label for="recipient-name" class="col-form-label">Tên</label>
                                                             <input type="text" class="form-control" id="name" name="name" oninput="generateSlug()">
                                                         </div>
                                                         <div class="mb-3">
@@ -45,12 +45,12 @@
                                                             <input type="text" class="form-control" id="slug" name="slug">
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="message-text" class="col-form-label">Description</label>
+                                                            <label for="message-text" class="col-form-label">Mô tả</label>
                                                             <textarea class="form-control" id="message-text" name="description"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
                                                         <button type="submit" class="btn btn-primary">Lưu</button>
                                                     </div>
                                                 </form>

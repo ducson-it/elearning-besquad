@@ -31,7 +31,7 @@ class ForumPostController extends Controller
         $data ['is_active'] = 0;
         $data['type'] = $request->input('type');
         ForumPost::create($data);
-        return redirect()->route('forum.list')->with('success', 'Thêm baài viết thành công');
+        return redirect()->route('forum.list')->with('success', 'Thêm bài viết thành công');
     }
     public function edit($id)
     {
@@ -39,7 +39,6 @@ class ForumPostController extends Controller
         $categories = Category:: all();
         return view('post_forum.edit', compact('forumPost','categories'));
     }
-
     public function update(PostForumRequest $request, $id)
     {
         $post = ForumPost::find($id);
@@ -67,14 +66,12 @@ class ForumPostController extends Controller
             return redirect()->back()->with('error', 'Thất bại');
         }
     }
-
     public function delete($id)
     {
         $forumPost = ForumPost::findOrFail($id);
         if($forumPost->delete()){
-            return response()->json(['message' => 'Xóa bản ghi thất bại'], 200);
+            return redirect()->route('forum.list')->with('success',"Xóa thành công");
         }
-        return redirect()->route('forum.list')->with('success', 'Xóa bài viết thành công');
+        return redirect()->route('forum.list')->with('error',"Xóa thành công");
     }
-
 }

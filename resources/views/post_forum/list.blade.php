@@ -98,22 +98,4 @@
         </div>
         <!-- end col -->
     </div>
-{{--    <script>--}}
-{{--        function active(id) {--}}
-{{--            $.ajax({--}}
-{{--                url: '/forum/status/' + id,--}}
-{{--                type: 'POST',--}}
-{{--                data: {--}}
-{{--                    _token: $('meta[name="csrf-token"]').attr('content')--}}
-{{--                },--}}
-{{--                success: function (response) {--}}
-{{--                    location.reload();--}}
-{{--                },--}}
-{{--                error: function (xhr) {--}}
-{{--                    console.error(xhr);--}}
-{{--                }--}}
-{{--            });--}}
-{{--        }--}}
-
-{{--    </script>--}}
 @endsection
