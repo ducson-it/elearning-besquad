@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('post_id');
             $table->timestamps();
-            $table->softDeletes();
-            $table->foreign('post_id')->references('id')->on('posts');
         });
     }
 
