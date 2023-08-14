@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FeebackController;
 
 Route::group(['prefix' => "feedback"], function () {
@@ -7,7 +8,7 @@ Route::group(['prefix' => "feedback"], function () {
     Route::post('/store', [FeebackController::class, 'store'])->name('feedbacks.store');
     Route::get('/edit/{id}', [FeebackController::class, 'edit'])->name('feedbacks.edit');
     Route::post('/update/{id}', [FeebackController::class, 'update'])->name('feedbacks.update');
-    Route::delete('/destroy/{id}', [FeebackController::class, 'destroy'])->name('feedbacks.delete');
+    Route::get('/delete/{id}', [FeebackController::class, 'destroy'])->name('feedbacks.delete');
 });
 ?>
 

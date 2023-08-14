@@ -50,6 +50,9 @@
                                                 Tên vai trò
                                             </th>
                                             <th scope="col">
+                                                Tên quyền
+                                            </th>
+                                            <th scope="col">
                                                 Hành động
                                             </th>
                                         </tr>
@@ -64,9 +67,16 @@
                                                     <td>
                                                         {{ $role->name }}
                                                     </td>
+                                                    <td>
+                                                        <ul>
+                                                            @foreach ($role->permissions as $permission)
+                                                                <li> <span style="color: red;">{{ $permission->name }}</span> ({{ $permission->description }}) </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </td>
                                                     <td class="text-center">
-                                                        <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-outline-warning btn-sm"><i class="fa fa-pencil"></i>Chỉnh sửa</a>
-                                                        <button class="btn btn-outline-danger btn-sm"> <i class="ace-icon fa  fa-lock bigger-120"></i>Xóa</button>
+                                                        <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-success edit-item-btn"><i class="fa fa-pencil"></i>Chỉnh sửa</a>
+                                                        <button class="btn btn-sm btn-danger remove-item-btn"> <i class="ace-icon fa  fa-lock bigger-120"></i>Xóa</button>
                                                     </td>
                                                 </tr>
                                             @endforeach

@@ -45,12 +45,12 @@
                                                     </td>
                                                     <td class="d-flex justify-content-center align-items-center">
                                                         <a href="{{ route('permissions.edit', $groupPermission->id) }}"
-                                                            class="text-warning btn btn-sm text-nowrap btn-outline-warning"><i
+                                                            class="btn btn-sm btn-success edit-item-btn"><i
                                                                 class="fa fa-pencil-square-o icon-sm"
                                                                 aria-hidden="true"></i> Chỉnh sửa</a>
                                                             <br>
                                                         <a href="javascript:void(0)" data-id="{{ $groupPermission->id }}"
-                                                            class="text-danger rm_group_btn btn btn-sm text-nowrap btn-outline-danger"><i
+                                                            class="btn btn-sm btn-danger remove-item-btn"><i
                                                                 class="fa fa-trash icon-sm" aria-hidden="true"></i> Xóa
                                                             quyền </a>
                                                     </td>
