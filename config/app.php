@@ -179,7 +179,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        \MohamedGaber\SanctumRefreshToken\SanctumRefreshTokenServiceProvider::class
+        \MohamedGaber\SanctumRefreshToken\SanctumRefreshTokenServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*
