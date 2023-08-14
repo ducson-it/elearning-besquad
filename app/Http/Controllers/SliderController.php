@@ -44,6 +44,4 @@ class SliderController extends Controller
             }
             return response()->json(['message' => 'Xóa bản ghi thất bại'], 500);
     }
-
-
 }

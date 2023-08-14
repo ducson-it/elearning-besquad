@@ -10,7 +10,6 @@
                     <div class="listjs-table" id="customerList">
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
-
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">

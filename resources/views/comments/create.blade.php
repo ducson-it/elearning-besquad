@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">Thêm comment</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">Thêm bình luận</h4>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
@@ -14,7 +14,7 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="mb-3">
-                                            <label for="content" class="form-label">Nội dung comment:</label>
+                                            <label for="content" class="form-label">Nội dung bình luận:</label>
                                             <textarea id="content" name="content" class="form-control" rows="4" cols="50"></textarea>
                                         </div>
                                         <div class="mb-3">
