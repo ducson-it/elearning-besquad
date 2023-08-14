@@ -30,24 +30,25 @@ Route::post('/blogs/upload3',[\App\Http\Controllers\Controller::class,'mediaUplo
 
 
 Route::post('/media/upload',[\App\Http\Controllers\Controller::class,'mediaUpload'])->name('media.upload');
-require __DIR__ .'/categories.php';
-require __DIR__ .'/course.php';
-require __DIR__ .'/module.php';
-require __DIR__ .'/lessons.php';
-require __DIR__ .'/slider.php';
-require __DIR__ .'/categories_blog.php';
-require __DIR__ .'/blog.php';
-require __DIR__ .'/comments.php';
-require __DIR__ .'/notify.php';
-require __DIR__ .'/tags.php';
-require __DIR__ .'/user.php';
-require __DIR__ .'/teacher.php';
-require __DIR__ .'/order.php';
-require __DIR__ .'/permission.php';
-require __DIR__ .'/voucher.php';
-require __DIR__ .'/quiz.php';
-require __DIR__ .'/role.php';
-require __DIR__ .'/feedbacks.php';
-require __DIR__ .'/forum_post.php';
-require __DIR__ .'/forum_comment.php';
 
+Route::group(['middleware'=>['auth']],function (){
+    require __DIR__ .'/categories.php';
+    require __DIR__ .'/course.php';
+    require __DIR__ .'/module.php';
+    require __DIR__ .'/lessons.php';
+    require __DIR__ .'/slider.php';
+    require __DIR__ .'/categories_blog.php';
+    require __DIR__ .'/blog.php';
+    require __DIR__ .'/comments.php';
+    require __DIR__ .'/notify.php';
+    require __DIR__ .'/tags.php';
+    require __DIR__ .'/user.php';
+    require __DIR__ .'/teacher.php';
+    require __DIR__ .'/order.php';
+    require __DIR__ .'/voucher.php';
+    require __DIR__ .'/quiz.php';
+    require __DIR__ .'/feedbacks.php';
+    require __DIR__ .'/forum_post.php';
+    require __DIR__ .'/forum_comment.php';
+
+});
