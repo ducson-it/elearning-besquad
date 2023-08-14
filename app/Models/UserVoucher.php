@@ -10,7 +10,7 @@ class UserVoucher extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'user_voucher';
-    protected $fillable = ['user_id', 'voucher_id'];
+    protected $fillable = ['user_id', 'voucher_code'];
 
     public function user()
     {
