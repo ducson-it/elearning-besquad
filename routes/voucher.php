@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\VoucherController;
 
-Route::group(['prefix' => 'voucher','middleware' => ['auth:sanctum']], function () {
+Route::group(['prefix' => 'voucher'], function () {
     Route::match(['get', 'delete','put','post'],'/list',[VoucherController::class,'showVoucher'])->name('show.voucher');
     Route::delete('/voucher-delete/{id}',[VoucherController::class,'deleteVoucher'])->name('delete.voucher');
     Route::get('/voucher-add',[VoucherController::class,'addVoucher'])->name('add.voucher');

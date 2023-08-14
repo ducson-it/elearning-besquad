@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VoucherRequest;
+use App\Jobs\SendVoucherEmail;
+use App\Mail\VoucherSystemMail;
+use App\Models\Notification;
+use App\Models\User;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class VoucherController extends Controller
 {
@@ -35,6 +40,27 @@ class VoucherController extends Controller
                 'expired' => $request->expired,
                 'is_infinite' => $isInfinite,
             ]);
+             $discount  = $value . ($isInfinite ? null : $quantity);
+
+            Notification::create([
+                'title' => 'Thông báo nhận voucher miễn phí từ hệ thống',
+                'content' => "Bạn đã nhận được voucher miễn phí. " . ($isInfinite ? "" : $quantity) . " Mã code là: " . $request->code,
+                'is_read' => 0,
+                'is_deleted' => 0,
+                'priority' => 'high',
+                'notification_type' => 'hệ thống',
+                'send_to' => 'system',
+                'expired' => $request->expired,
+                'send_user' => 'admin'
+            ]);
+            $list_users = User::where('role_id', '>', 1)
+                ->where('active', '>', 1)
+                ->get();
+
+            // Lấy  thông tin user đang thực hiện thao tác
+            foreach ($list_users as $user) {
+                SendVoucherEmail::dispatch($user, $request->code, $discount, $request->expired);
+            }
             if ($voucher) {
                 return redirect()->route('show.voucher')->with('message', 'Thêm thành công');
             } else {
