@@ -152,7 +152,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('show.notify')}}">
-                        <i class="ri-apps-2-line"></i> <span>Notifycation</span>
+                        <i class="ri-apps-2-line"></i> <span>Quản lí thông báo</span>
                     </a>
 
                 </li>
