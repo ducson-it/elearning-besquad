@@ -81,7 +81,7 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{route('categories')}}">
-                                    </i> <span>Danh mục</span>
+                                    <i><span>Danh mục</span></i>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -116,10 +116,10 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#forum" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                    <a class="nav-link menu-link" href="" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span>Quản lý forum</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="forum">
+                    <div class="collapse menu-dropdown" >
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{route('forum.list')}}">
@@ -170,7 +170,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#vouchers" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                    <a class="nav-link menu-link" href="" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="vouchers">
                         <i class="ri-apps-2-line"></i> <span>Quản lý vouchers</span>
                     </a>
                     <div class="collapse menu-dropdown" id="vouchers">
