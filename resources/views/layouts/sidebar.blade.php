@@ -163,7 +163,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{route('comment.list')}}">
-                                    </i><span>Bình luận</span>
+                                    <i><span>Bình luận</span><i>
                                 </a>
                             </li>
                         </ul>

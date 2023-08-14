@@ -10,7 +10,7 @@ class Notifycaton extends Controller
 {
     //
    public function getNotifys(){
-       $notifys = Notification::orderBy('id', 'desc')->get();
+       $notifys = Notification::Where('send_user','admin')->orderBy('id', 'desc')->get();
        return response()->json($notifys);
    }
 
