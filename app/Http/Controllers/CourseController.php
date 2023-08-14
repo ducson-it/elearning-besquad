@@ -34,7 +34,7 @@ class CourseController extends Controller
         return view('courses.create',compact('courseTypes','categories'));
     }
     public function store(CourseRequest $request){
-        if($request->is_free == 0){
+        if($request->is_free == 1){
             $request->price = 0;
             $request->discount = 0;
         };

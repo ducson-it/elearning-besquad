@@ -13,14 +13,14 @@
                                 <div>
                                     <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal"
                                         id="create-btn" data-bs-target="#showModal"><i
-                                            class="ri-add-line align-bottom me-1"></i> Add</button>
+                                            class="ri-add-line align-bottom me-1"></i> Thêm</button>
                                 </div>
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
                                         <form action="" method="GET">
-                                            <input type="text" class="form-control search" placeholder="Search..." name="keyword">
+                                            <input type="text" class="form-control search" placeholder="Tìm kiếm..." name="keyword">
                                         <i class="ri-search-line search-icon"></i>
                                         </form>
                                     </div>
@@ -118,16 +118,6 @@
 
                                 </tbody>
                             </table>
-                            <div class="noresult" style="display: none">
-                                <div class="text-center">
-                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
-                                        colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px">
-                                    </lord-icon>
-                                    <h5 class="mt-2">Sorry! No Result Found</h5>
-                                    <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any
-                                        orders for you search.</p>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="d-flex justify-content-end">
@@ -167,18 +157,18 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="phone-field" class="form-label">Tên danh mục</label>
-                        <input type="text"  class="form-control" id="name" placeholder="Enter name"
+                        <input type="text"  class="form-control" id="name" placeholder="Nhập tên"
                              name="name">
                         <span class="text-danger" id="error-create"></span>
                     </div>
                     <div class="mb-3">
                         <label for="phone-field" class="form-label">Slug</label>
-                        <input type="text" class="form-control bg-light" readonly
+                        <input type="text" class="form-control bg-light" placeholder="Nhập slug" readonly
                              name="slug" id="slug">
                     </div>
                     <div class="mb-3">
                         <label for="phone-field" class="form-label">Mô tả</label>
-                        <textarea rows="8" cols="3" class="form-control" placeholder="Enter name"
+                        <textarea rows="8" cols="3" class="form-control" placeholder="Nhập miêu tả"
                             name="description"></textarea>
                     </div>
                 </div>

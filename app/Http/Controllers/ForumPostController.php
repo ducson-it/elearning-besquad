@@ -31,7 +31,7 @@ class ForumPostController extends Controller
         $data ['is_active'] = 0;
         $data['type'] = $request->input('type');
         ForumPost::create($data);
-        return redirect()->route('forum.list')->with('success', 'Thêm forumpost thành công');
+        return redirect()->route('forum.list')->with('success', 'Thêm bài viết thành công');
     }
     public function edit($id)
     {
@@ -39,37 +39,39 @@ class ForumPostController extends Controller
         $categories = Category:: all();
         return view('post_forum.edit', compact('forumPost','categories'));
     }
-
     public function update(PostForumRequest $request, $id)
     {
-        $user = Auth::user();
         $post = ForumPost::find($id);
         if (!$post) {
             return redirect()->route('forum.list')->with('error', 'Bài viết không tồn tại');
         }
         $data = $request->all();
-        if (isset($data['is_active']) && in_array($data['is_active'], [0, 1])) {
-            $post->is_active = $data['is_active'];
-        }
-        $type = [
-            '1' => 1, // Thắc mắc
-            '2' => 2, // Câu hỏi
-            '3' => 3, // Thảo luận
-            '4' => 4, // Giải trí
-        ];
-        // Kiểm tra và cập nhật kiểu bài viết
-        if (isset($data['type']) && array_key_exists($data['type'], $type)) {
-            $post->type = $type[$data['type']];
-        }
         $post->update($data);
-        return redirect()->route('forum.list')->with('success', 'Sửa forumpost thành công');
+        return redirect()->route('forum.list')->with('success', 'Sửa bài viết thành công');
     }
-
+    public function status($id){
+        $status = ForumPost::find($id);
+        try{
+            if($status->is_active == 0){
+                $status->update([
+                    'is_active' => 1
+                ]);
+            }else{
+                $status->update([
+                    'is_active' => 0
+                ]);
+            }
+            return redirect()->route('comment.list')->with('success', ' Thành công');
+        }catch (\Exception $e){
+            return redirect()->back()->with('error', 'Thất bại');
+        }
+    }
     public function delete($id)
     {
-        $forumPost = ForumPost::find($id);
-        $forumPost->delete();
-        return redirect()->route('forum.list')->with('success', 'Xóa bài viết thành công');
+        $forumPost = ForumPost::findOrFail($id);
+        if($forumPost->delete()){
+            return redirect()->route('forum.list')->with('success',"Xóa thành công");
+        }
+        return redirect()->route('forum.list')->with('error',"Xóa thành công");
     }
-
 }

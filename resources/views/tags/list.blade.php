@@ -53,7 +53,7 @@
                                     @csrf
                                     <div class="search-box ms-2">
                                         <input type="text" class="form-control search " name="search_tag"
-                                               placeholder="Search...">
+                                               placeholder="Tìm kiếm...">
                                         <i class="ri-search-line search-icon"></i>
                                     </div>
 
@@ -255,7 +255,7 @@
 
     function showDeleteConfirmation(id) {
         Swal.fire({
-            title: 'Are you sure?',
+            title: 'Bạn có chắc chắn xóa?',
             text: "You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,

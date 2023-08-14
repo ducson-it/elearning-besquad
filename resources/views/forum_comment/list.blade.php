@@ -10,7 +10,6 @@
                     <div class="listjs-table" id="customerList">
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
-
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
@@ -18,7 +17,7 @@
                                         @csrf
                                         <div class="search-box ms-2">
                                             <input type="text" class="form-control search " name="search_forumCmt"
-                                                   placeholder="Search...">
+                                                   placeholder="Tìm kiếm...">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
 
@@ -63,13 +62,15 @@
                                         <td class="user_id">{{$comment->user->name}}</td>
                                         <td class="post_id">{{$comment->post->title}}</td>
                                         <td class="active">{{$comment->is_active == 1 ? 'Active': 'Inactive'}}</td>
-                                        <td class="post_id">{{$comment->parent_id  ? 'Cấp 2':'Cấp 1'}}</td>
+                                        <td class="parent_id">{{$comment->parent_id  ? 'Cấp 2':'Cấp 1'}}</td>
                                         <td class="created_at">{{$comment->created_at}}</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="remove">
                                                     <button class="btn btn-sm btn-warning remove-item-btn"
-                                                            data-bs-toggle="modal" id="create-btn" data-bs-target="#reply" onclick="">
+                                                            data-bs-toggle="modal" data-bs-target="#reply_{{$comment->id}}"
+                                                            data-comment-id="{{$comment->id}}"
+                                                            data-post-id="{{$comment->post_id}}">
                                                         Trả lời
                                                     </button>
                                                     <button class="btn btn-sm btn-danger remove-item-btn"
@@ -77,18 +78,13 @@
                                                         Xóa
                                                     </button>
                                                 </div>
-                                                <div class="detail">
-                                                    <button onclick="activeForumCmt({{$comment->id}})"
-                                                            class="btn btn-sm  edit-item-btn <?= $comment->is_active == 0 ? 'btn-success' : 'btn-primary'?>">
-                                                            <?= $comment->is_active == 0 ? 'Active' : 'Inactive' ?>
-                                                    </button>
-                                                </div>
+                                                <!-- ... -->
                                             </div>
                                         </td>
                                     </tr>
-                                    <div class="modal fade" id="reply" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="reply_{{$comment->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form id="reply_form" action="{{route('reply.forumCmt')}}" method="post">
+                                            <form id="reply_form_{{$comment->id}}" action="{{route('reply.forumCmt')}}" method="post">
                                                 @csrf
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -99,20 +95,20 @@
                                                         <div class="tag-description-input mt-3">
                                                             <p>Nội dung phản hồi </p>
                                                             <input type="hidden" name="parent_id" value="{{$comment->id}}">
-                                                            <input type="hidden" name="post_id">
-                                                            <textarea id="cmt-content-input"  cols="30" rows="12" class="form-control" name="content" placeholder="mô tả">{{ old('content') }}</textarea>
+                                                            <input type="hidden" name="post_id" value="{{$comment->post_id}}">
+                                                            <textarea id="cmt-content-input" cols="30" rows="12" class="form-control" name="content" placeholder="mô tả">{{ old('content') }}</textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" id="cancel-button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
-                                                        <button type="submit" class="btn btn-primary">Trả lời </button>
+                                                        <button type="submit" class="btn btn-primary">Trả lời</button>
                                                     </div>
                                                 </div>
                                             </form>
-
                                         </div>
                                     </div>
                                 @endforeach
+
                                 </tbody>
                             </table>
                             <div class="noresult" style="display: none">
@@ -127,7 +123,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-start">
+                        <div class="d-flex justify-content-end">
                             {{ $comments->links() }}
                         </div>
                     </div>
@@ -137,4 +133,24 @@
         </div>
         <!-- end col -->
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const replyButtons = document.querySelectorAll('.remove-item-btn');
+
+            replyButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const commentId = this.getAttribute('data-comment-id');
+                    const postId = this.getAttribute('data-post-id');
+
+                    const form = document.getElementById(`reply_form_{{$comment->id}}`);
+                    const parentIdInput = form.querySelector('[name="parent_id"]');
+                    const postIdInput = form.querySelector('[name="post_id"]');
+
+                    parentIdInput.value = commentId;
+                    postIdInput.value = postId;
+                });
+            });
+        });
+    </script>
+
 @endsection

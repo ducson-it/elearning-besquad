@@ -32,12 +32,12 @@
                                                 <form action="{{ route('category_blog.store') }}" method="POST">
                                                     @csrf
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Thêm Category_Blogs</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Thêm chủ đề blog</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="mb-3">
-                                                            <label for="recipient-name" class="col-form-label">Name</label>
+                                                            <label for="recipient-name" class="col-form-label">Tên</label>
                                                             <input type="text" class="form-control" id="name" name="name" oninput="generateSlug()">
                                                         </div>
                                                         <div class="mb-3">
@@ -45,12 +45,12 @@
                                                             <input type="text" class="form-control" id="slug" name="slug">
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="message-text" class="col-form-label">Description</label>
+                                                            <label for="message-text" class="col-form-label">Mô tả</label>
                                                             <textarea class="form-control" id="message-text" name="description"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
                                                         <button type="submit" class="btn btn-primary">Lưu</button>
                                                     </div>
                                                 </form>
@@ -63,7 +63,7 @@
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
                                         <form action="{{ route('category_blog.list') }}" method="GET">
-                                            <input type="text" class="form-control search" placeholder="Search..." name="search">
+                                            <input type="text" class="form-control search" placeholder="Tìm kiếm..." name="search">
                                             <i class="ri-search-line search-icon"></i>
                                         </form>
                                     </div>

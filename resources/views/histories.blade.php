@@ -10,13 +10,13 @@
                     <div class="listjs-table" id="customerList">
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
-                                
+
                             </div>
                             <div class="col-sm">
                                 {{-- <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
                                         <form action="" method="GET">
-                                            <input type="text" class="form-control search" placeholder="Search..." name="keyword">
+                                            <input type="text" class="form-control search" placeholder="Tìm kiếm..." name="keyword">
                                         <i class="ri-search-line search-icon"></i>
                                         </form>
                                     </div>
@@ -50,7 +50,7 @@
                                                 class="badge badge-soft-success text-uppercase">{{ $history->status == 1 ? 'Đã hoàn thành' : 'Chưa hoàn thành' }}</span>
                                             </td>
                                             <td class="date">{{ $history->created_at }}</td>
-                                            
+
                                         </tr>
 
                                     @endforeach

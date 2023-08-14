@@ -124,6 +124,45 @@ window.activeComment = (id) => {
         }
     });
 }
+//Active status post forum
+window.active = (id) => {
+    Swal.fire({
+        title: ' Bạn chắc chắn ? ',
+        text: "Thay đổi trạng thái bài viết ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/forum/status/' + id,
+                type: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    Swal.fire(
+                        'Ẩn / Hiện bài viết!',
+                        'Đã thay đổi trạng thái bài viết',
+                        'success'
+                    ).then(() => {
+                        window.location.reload();
+                    });
+                },
+                error: function (xhr) {
+                    Swal.fire(
+                        'Error!',
+                        'Không thể cập nhật trạng thái',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+}
+
 
 //xóa slider
 window.deletesliders = (id) => {
@@ -154,7 +193,6 @@ window.deletesliders = (id) => {
     });
 };
 //xóa bài viết post forum
-
 window.deletepostForum = (id) => {
     Swal.fire({
         icon: 'warning',
@@ -164,7 +202,7 @@ window.deletepostForum = (id) => {
     }).then(res => {
         if (res.isConfirmed) {
             // Gọi API để xóa
-            axios.get('/forum/destroy/' + id)
+            axios.get('/forum/delete/' + id)
                 .then(apiRes => {
                     Swal.fire({
                         icon: 'success',
@@ -177,13 +215,13 @@ window.deletepostForum = (id) => {
                 })
                 .catch(err => {
                     console.error(err);
-
                 });
         }
     });
 };
 // xóa feedbacks
 window.deletepostFeedback = (id) => {
+    event.preventDefault();
     Swal.fire({
         icon: 'warning',
         title: 'Xóa',
@@ -192,7 +230,7 @@ window.deletepostFeedback = (id) => {
     }).then(res => {
         if (res.isConfirmed) {
             // Gọi API để xóa
-            axios.get('/feedback/destroy/' + id)
+            axios.get('/feedback/delete/' + id)
                 .then(apiRes => {
                     Swal.fire({
                         icon: 'success',
@@ -205,7 +243,6 @@ window.deletepostFeedback = (id) => {
                 })
                 .catch(err => {
                     console.error(err);
-
                 });
         }
     });

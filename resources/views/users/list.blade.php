@@ -25,7 +25,7 @@
                                         @csrf
                                         <div class="search-box ms-2">
                                             <input type="text" class="form-control search " name="search_user"
-                                                   placeholder="Search...">
+                                                   placeholder="Tìm kiếm...">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
 

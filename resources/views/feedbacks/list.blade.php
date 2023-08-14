@@ -22,7 +22,7 @@
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
                                         <form action="{{ route('feedbacks.list') }}" method="GET">
-                                            <input type="text" class="form-control search" placeholder="Search...content" name="search">
+                                            <input type="text" class="form-control search" placeholder="Tìm kiếm...content" name="search">
                                             <i class="ri-search-line search-icon"></i>
                                         </form>
                                     </div>
@@ -55,7 +55,7 @@
                                                     <button class="btn btn-sm btn-success edit-item-btn"> <a href="{{route('feedbacks.edit',$iteam->id)}}">Edit</a></button>
                                                 </div>
                                                 <div class="remove">
-                                                    <button onclick="event.preventDefault(); deletepostFeedback({{ $iteam->id }})" class="btn btn-sm btn-danger remove-item-btn">Remove</button>
+                                                    <button onclick="deletepostFeedback({{ $iteam->id }})" class="btn btn-sm btn-danger remove-item-btn">Remove</button>
                                                 </div>
                                             </div>
                                         </td>

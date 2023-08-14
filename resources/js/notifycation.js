@@ -11,12 +11,12 @@ window.selectpicker = () => {
 window.DeleteNotify = (id) => {
     Swal.fire({
         title: 'Bạn chắc chắn muốn xóa?',
-        text: "You won't be able to revert this!",
+        text: "Bạn không thể lấy lại dữ liệu đã xóa!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Bạn thực sự muốn xóa?'
     }).then((result) => {
         if (result.isConfirmed) {
             // Gửi yêu cầu xóa bằng Ajax
@@ -28,9 +28,7 @@ window.DeleteNotify = (id) => {
                 },
                 success: function (response) {
                     Swal.fire(
-                        'Deleted!',
                         'Đã xóa thành công.',
-                        'success'
                     ).then(() => {
                         // Chuyển hướng sau khi xóa thành công
                         window.location.reload();
@@ -38,9 +36,7 @@ window.DeleteNotify = (id) => {
                 },
                 error: function (xhr) {
                     Swal.fire(
-                        'Error!',
-                        'Đã gặp lỗi khi xóa.',
-                        'error'
+                        'Xảy ra lỗi trong quá trình xóa.',
                     );
                 }
             });
@@ -68,16 +64,12 @@ window.deleteNotifyCheckbox = (selectedIds) => {
             });
 
             Swal.fire(
-                'Deleted!',
                 'Đã xóa thành công.',
-                'success'
             );
         },
         error: function (xhr) {
             Swal.fire(
-                'Error!',
-                'Đã gặp lỗi khi thực hiện xóa.',
-                'error'
+                'Xảy ra lỗi trong quá trình xóa.',
             );
         }
     });
@@ -104,27 +96,27 @@ window.deleteMultipleNotify = () => {
     deleteNotifyCheckbox(selectedIds);
 }
 
-window.clickIread = () => {
-    $('.form-check-input').on('change', function () {
-        var notifyId = $(this).data('notify-id'); // Lấy id của thông báo từ data-attribute
-        var isChecked = $(this).prop('checked'); // Kiểm tra trạng thái tích/nhấp vào checkbox
-        updateIread(notifyId, isChecked);
-    });
+// window.clickIread = () => {
+//     $('.form-check-input').on('change', function () {
+//         var notifyId = $(this).data('notify-id'); // Lấy id của thông báo từ data-attribute
+//         var isChecked = $(this).prop('checked'); // Kiểm tra trạng thái tích/nhấp vào checkbox
+//         updateIread(notifyId, isChecked);
+//     });
 
-    function updateIread(notifyId, isChecked) {
-        // Gửi yêu cầu cập nhật thông báo đã đọc thông qua Ajax
-        axios.post(`/notify/update-isread/${notifyId}`, {is_read: isChecked})
-            .then(response => {
-                if (response.data.success) {
-                    // Cập nhật thành công (không cần làm gì)
-                    window.location.reload();
-                } else {
-                    console.log(response.data.message);
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
-};
-window.clickIread();
+//     function updateIread(notifyId, isChecked) {
+//         // Gửi yêu cầu cập nhật thông báo đã đọc thông qua Ajax
+//         axios.post(`/notify/update-isread/${notifyId}`, {is_read: isChecked})
+//             .then(response => {
+//                 if (response.data.success) {
+//                     // Cập nhật thành công (không cần làm gì)
+//                     window.location.reload();
+//                 } else {
+//                     console.log(response.data.message);
+//                 }
+//             })
+//             .catch(error => {
+//                 console.log(error);
+//             });
+//     }
+// };
+// window.clickIread();
