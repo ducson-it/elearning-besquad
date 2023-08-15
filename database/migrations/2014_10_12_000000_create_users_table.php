@@ -83,7 +83,7 @@ class CreateUsersTable extends Migration
         // Table: user_voucher
         Schema::create('user_voucher', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('voucher_id');
+            $table->string('voucher_code');
             $table->unsignedInteger('user_id');
             $table->timestamps();
             $table->softDeletes();
