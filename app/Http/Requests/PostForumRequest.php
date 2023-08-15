@@ -28,6 +28,7 @@ class PostForumRequest extends FormRequest
             'content' => 'required',
             'category_id' => 'required',
             'type' => 'required',
+            'tag_id'=>'required',
         ];
     }
     public function messages()
@@ -37,6 +38,7 @@ class PostForumRequest extends FormRequest
             'content.required' => "Không được để trống nội dung",
             'category_id.required' => "Không được để trống danh mục",
             'type.required' => "Không được để trống kiểu",
+            'tag_id.required' => "Không được để trống thẻ tags"
         ];
     }
 }

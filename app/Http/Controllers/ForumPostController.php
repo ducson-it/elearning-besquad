@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoryBlog;
 use App\Models\Comment;
+use App\Models\TagsForum;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostForumRequest;
 use App\Models\ForumPost;
@@ -20,7 +21,8 @@ class ForumPostController extends Controller
 
     public function create(){
         $categories = Category::all();
-        return view ('post_forum.create',compact('categories'));
+        $tagsforum = TagsForum::all();
+        return view ('post_forum.create',compact('categories','tagsforum'));
     }
     public function store(PostForumRequest $request){
         $user = Auth::user();
@@ -30,6 +32,7 @@ class ForumPostController extends Controller
         $data['star'] = 0;
         $data ['is_active'] = 0;
         $data['type'] = $request->input('type');
+        $data['tag_id'] = $request->input('tag_id');
         ForumPost::create($data);
         return redirect()->route('forum.list')->with('success', 'Thêm bài viết thành công');
     }
@@ -37,7 +40,8 @@ class ForumPostController extends Controller
     {
         $forumPost = ForumPost::findOrFail($id);
         $categories = Category:: all();
-        return view('post_forum.edit', compact('forumPost','categories'));
+        $tagsforum = TagsForum::all();
+        return view('post_forum.edit', compact('forumPost','categories','tagsforum'));
     }
     public function update(PostForumRequest $request, $id)
     {
