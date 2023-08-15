@@ -11,8 +11,13 @@
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="card">
-                        <div class="card-header">
-                            <strong>Danh sách quyền</strong>
+                        <div class="card-header d-flex justify-content-between">
+                            <div>
+                                <strong>Danh sách quyền</strong>
+                            </div>
+                            <div>
+                                <a href="{{ route('permissions.create') }}" class="btn btn-primary role_btn_add">Thêm</a>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
