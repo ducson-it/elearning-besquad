@@ -24,12 +24,12 @@ class ForumPostController extends Controller
                 $query->where('is_active', 1);
             },
             'user:id,name,avatar',
-            'category:id,name'
+            'category:id,name',
+            'tagsforum:id,name'
         ])
             ->orderBy('created_at', 'desc')
-            ->get();
-
-        return $forumposts;
+            ->paginate(5);
+        return new ForumPostCollection($forumposts);
     }
     public function detail($id)
     {
@@ -61,7 +61,6 @@ class ForumPostController extends Controller
         }
 
     }
-
     public function addPost(Request $request){
         $user_id = Auth::user()->id;
         if(!$user_id){

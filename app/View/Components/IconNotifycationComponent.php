@@ -18,8 +18,8 @@ class IconNotifycationComponent extends Component
     public function __construct()
     {
         //
-        $this->countIsreadNotify = Notification::where('send_user','<>','admin')->Where('is_read',false)->count();
-        $this->listNotifys = Notification::where('send_user','<>','admin')->Where('is_read','<>',true)->paginate(3);
+        $this->countIsreadNotify = Notification::where('send_user','<>','admin')->count();
+        $this->listNotifys = Notification::where('send_user', '<>', 'admin')->paginate(3);
     }
 
     /**

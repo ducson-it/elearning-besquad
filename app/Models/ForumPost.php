@@ -14,7 +14,7 @@ class ForumPost extends Model
 
     // Các trường có thể gán giá trị
     protected $fillable = [
-        'title', 'content', 'view', 'user_id', 'is_active', 'star', 'category_id', 'type'
+        'title', 'content', 'view', 'user_id', 'is_active', 'star', 'category_id', 'type','tag_id'
     ];
 
     // Quan hệ với model User (một bài viết thuộc về một user)
@@ -34,4 +34,9 @@ class ForumPost extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function tagsforum()
+    {
+        return $this->belongsTo(TagsForum::class, 'tag_id');
+    }
+
 }

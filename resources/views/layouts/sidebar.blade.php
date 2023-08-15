@@ -116,10 +116,10 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                    <a class="nav-link menu-link" href="#forum" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span>Quản lý forum</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarApps">
+                    <div class="collapse menu-dropdown" id="forum" >
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{route('forum.list')}}">
@@ -136,10 +136,16 @@
                                    <span>Bình luận</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{route('tagsforum.list')}}">
+                                    <span>Danh sách thẻ tags</span>
+                                </a>
+                            </li>
+
                         </ul>
                     </div>
-
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#blog" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i><span>Quản lý Blog</span>
@@ -205,6 +211,11 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('orders.list')}}">
                         <i class="ri-apps-2-line"></i><span>Quản lý order</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('comment.list')}}">
+                        <i class="ri-apps-2-line"></i><span>Quản lý Bình luận</span>
                     </a>
                 </li>
                 <li class="nav-item">

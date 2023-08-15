@@ -13,21 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->string('rep_comment')->nullable();
+        Schema::table('tagsforum', function (Blueprint $table) {
+            $table->dropColumn('post_id');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn('rep_comment');
+        Schema::table('tagsforum', function (Blueprint $table) {
+            $table->unsignedBigInteger('post_id')->after('name');
         });
     }
-
 };
