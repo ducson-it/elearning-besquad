@@ -58,7 +58,7 @@ class ForumCommentController extends Controller
         $comment_content = $data['content'];
         $comment_post = $userComment->post->title;
         $time = now();
-
+       dd($userComment->user->email);
         Mail::to($userComment->user->email)->send(new ReplyForumComment($user_name, $comment_content, $comment_post, $time));
         if( $newComment){
             return redirect()->back()->with('success', 'Trả lời comment thành công.');

@@ -74,7 +74,6 @@ Route::prefix('course')->group(function () {
     Route::post('quiz/questions/correct-answer',[QuizController::class,'viewAnswerCorrect'])->middleware('auth:sanctum');
     Route::get('quiz/{quiz}',[QuizController::class,'showQuizDetail'])->middleware('auth:sanctum');
 
-
 });
 
 Route::prefix('lesson')->group(function () {
