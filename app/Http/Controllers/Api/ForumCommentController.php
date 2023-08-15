@@ -49,6 +49,7 @@ class ForumCommentController extends Controller
             'parent_id'=> $request->input('parent_id'),
         ];
         $resulf = ForumComment::create($data);
+
         if($resulf){
             return response()->json([
                 'status'=> true,
