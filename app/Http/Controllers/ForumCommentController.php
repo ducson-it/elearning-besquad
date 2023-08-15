@@ -39,22 +39,27 @@ class ForumCommentController extends Controller
 //            'parent_id' => 'required|integer',
 //            'description' => 'required|string',
 //        ]);
+
         $data = [
             'user_id' => Auth::user()->id,
             'content' => $request->input('content'),
             'is_active' => 1,
             'post_id' => $request->input('post_id'),
-            'parent_id' => $request->input('parent_id'),
         ];
+        if($request->parent_id !== null){
+            $data['parent_id'] = $request->input('parent_id');
+        }else{
+            $data['parent_id'] = $request->input('comment_id');
+        }
         $newComment=  ForumComment::create($data);
         // send email
-        $userComment = ForumComment::find($request->input('parent_id')) ;
+        $userComment = ForumComment::find($request->input('comment_id')) ;
         $user_name = Auth::user()->name; // Tên người gửi email (có thể thay đổi)
         $comment_content = $data['content'];
         $comment_post = $userComment->post->title;
         $time = now();
 
-        Mail::to('hoangxuan27022001@gmail.com')->send(new ReplyForumComment($user_name, $comment_content, $comment_post, $time));
+        Mail::to($userComment->user->email)->send(new ReplyForumComment($user_name, $comment_content, $comment_post, $time));
         if( $newComment){
             return redirect()->back()->with('success', 'Trả lời comment thành công.');
         }else{

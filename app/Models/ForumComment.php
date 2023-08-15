@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Support\Collection;
 class ForumComment extends Model
 {
     use HasFactory;
     use SoftDeletes;
     protected $table = 'forum_comments';
-
+    protected $hidden = ['child_comments'];
     protected $fillable = [
         'user_id', 'content', 'status', 'post_id', 'parent_id','is_active'
     ];
