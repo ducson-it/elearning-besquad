@@ -75,8 +75,10 @@
                                 <thead class="table-light">
                                 <tr>
                                     <th>Stt</th>
-                                    <th>Name</th>
+                                    <th>Tên</th>
                                     <th>Slug</th>
+                                    <th>Ngày tạo</th>
+
                                 </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
@@ -93,7 +95,7 @@
                                                     <form action="{{ route('category_blog.update',$category_blog->id) }}" method="POST">
                                                         @csrf
                                                     <button type="button" class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$category_blog->id}}">
-                                                        Edit
+                                                        Sửa
                                                     </button>
                                                     <div class="modal fade" id="staticBackdrop{{$category_blog->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
@@ -104,7 +106,7 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <div class="mb-3">
-                                                                        <label for="recipient-name" class="col-form-label">Name</label>
+                                                                        <label for="recipient-name" class="col-form-label">Tên</label>
                                                                         <input type="text" class="form-control" id="name" name="name" oninput="generateSlug()" value="{{$category_blog->name}}">
                                                                     </div>
                                                                     <div class="mb-3">
@@ -112,13 +114,13 @@
                                                                         <input type="text" class="form-control" id="slug" name="slug" value="{{$category_blog->slug}}">
                                                                     </div>
                                                                     <div class="mb-3">
-                                                                        <label for="message-text" class="col-form-label">Description</label>
+                                                                        <label for="message-text" class="col-form-label">Mô tả</label>
                                                                         <textarea class="form-control" id="message-text" name="description">{{$category_blog->description}}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                                    <button type="submit" class="btn btn-primary">Cập nhật</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -126,7 +128,7 @@
                                                     </form>
                                                 </div>
                                                 <div class="remove">
-                                                    <button onclick="deletecategory_blog({{ $category_blog->id }})" class="btn btn-sm btn-danger remove-item-btn">Remove</button>
+                                                    <button onclick="deletecategory_blog({{ $category_blog->id }})" class="btn btn-sm btn-danger remove-item-btn">Xóa</button>
                                                 </div>
                                             </div>
                                         </td>

@@ -42,7 +42,7 @@
                                     <th class="" data-sort="customer_name">STT</th>
                                     <th class="" data-sort="customer_name"> Người bình luận</th>
                                     <th class="" data-sort="course">Nội dung</th>
-                                    <th class="" data-sort="course">Thuộc bài viết  </th>
+{{--                                    <th class="" data-sort="course">Thuộc bài viết  </th>--}}
                                     <th class="" data-sort="course">Thuộc danh mục</th>
                                     <th class="" data-sort="action">Thao tác</th>
                                     <th class="" data-sort="course">Trạng thái</th>
@@ -56,7 +56,7 @@
                                         <td class="customer_name">{{$i +1}}</td>
                                         <td class="customer_name">{{$comment->user?->name}}</td>
                                         <td class="course">{{$comment->content}}</td>
-                                        <td class="course">{{$comment->commentable_id}}
+{{--                                        <td class="course">{{$comment->commentable_id}}--}}
                                         </td>
                                         <td class="course">{{$comment->commentable_type}}
                                         </td>
@@ -95,7 +95,7 @@
                                                             <div class="modal-body">
                                                                 <div class="mb-3">
                                                                     <label class="form-label">Nội dung trả lời</label>
-                                                                    <input type="text" class="form-control" name="rep_comment" placeholder="Nhập nội dung trả lời">
+                                                                    <input type="text" class="form-control" name="content" placeholder="Nhập nội dung trả lời">
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">

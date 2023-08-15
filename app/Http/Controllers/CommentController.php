@@ -19,6 +19,7 @@ class CommentController extends Controller
     {
             $search = $request->input('search');
             $comments = Comment::where('content', 'like', '%' . $search . '%')->paginate(8);
+//            dd($comments);
         return view('comments.list', compact('comments'));
     }
     public function create(){
@@ -39,7 +40,6 @@ class CommentController extends Controller
         $comment->content = $commentContent;
         $comment->user_id = Auth::id();
         $comment->status = 0;
-
         // Thiết lập giá trị "commentable_type" tùy thuộc vào checkbox được chọn
         if (in_array('posts', $selectedTables)) {
             $commentable = Post::find($request->input('post_id'));
@@ -92,18 +92,20 @@ class CommentController extends Controller
         return response()->json(['message' => 'Xóa bản ghi thất bại'], 500);
     }
 
-    public function rep_comment(Request $request){
-        $replyContent = $request->input('rep_comment');
+    public function rep_comment(Request $request) {
+        $replyContent = $request->input('content');
         $commentId = $request->input('comment_id');
         $comment = Comment::find($commentId);
         if (!$comment) {
             return redirect()->back()->with('error', 'Không tìm thấy comment');
         }
+        $parent_id = $comment->parent_id ?? $comment->id; // Lấy giá trị parent_id hoặc nếu không có, lấy id của comment gốc
         $reply = Comment::create([
             'content' => $replyContent,
             'user_id' => Auth::id(),
             'commentable_id' => $comment->id,
             'commentable_type' => Comment::class,
+            'parent_id' => $parent_id, // Sử dụng giá trị parent_id
             'status' => 1,
         ]);
         $originalCommentUser = User::find($comment->user_id);

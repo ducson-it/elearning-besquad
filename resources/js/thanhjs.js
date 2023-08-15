@@ -247,4 +247,33 @@ window.deletepostFeedback = (id) => {
         }
     });
 };
+// xóa tagsforum
+
+window.deletecTagsforum = (id) => {
+    event.preventDefault();
+    Swal.fire({
+        icon: 'warning',
+        title: 'Xóa',
+        showConfirmButton: true,
+        showCancelButton: true
+    }).then(res => {
+        if (res.isConfirmed) {
+            // Gọi API để xóa
+            axios.get('/tagsforum/delete/' + id)
+                .then(apiRes => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Deleted',
+                        text: 'successfully!',
+                        showConfirmButton: true
+                    }).then(() => {
+                        location.reload();
+                    });
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        }
+    });
+};
 
