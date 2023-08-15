@@ -61,7 +61,6 @@ class ForumPostController extends Controller
         }
 
     }
-
     public function addPost(Request $request){
         $user_id = Auth::user()->id;
         if(!$user_id){

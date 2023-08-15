@@ -14,8 +14,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VoucherController;
 use App\Http\Controllers\Api\ForumPostController;
 use App\Http\Controllers\Api\ForumFeedbackController;
-
-
+use App\Http\Controllers\Api\CommentController;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -124,6 +123,13 @@ Route::prefix('feedbacks')->group(function () {
     Route::post('/addfeedback', [ForumFeedbackController::class, 'addfeedback'])->middleware('auth:sanctum');
     Route::post('/edit/{id}', [ForumFeedbackController::class, 'edit'])->middleware('auth:sanctum');
     Route::delete('/delete/{id}', [ForumFeedbackController::class, 'delete'])->middleware('auth:sanctum');
+});
+Route::prefix('comments')->group(function () {
+    Route::get('/list', [CommentController::class, 'index']);
+    Route::post('/addcomment', [CommentController::class, 'store'])->middleware('auth:sanctum');
+    Route::post('/edit/{id}', [CommentController::class, 'update']);
+    Route::delete('/delete/{id}', [CommentController::class, 'destroy'])->middleware('auth:sanctum');
+
 });
 
 
