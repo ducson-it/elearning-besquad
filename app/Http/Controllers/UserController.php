@@ -7,11 +7,20 @@ use App\Models\Beesquad;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:super-admin', ['only' => ['showListUser']]);
+        //  $this->middleware('permission:admin create', ['only' => ['create','store']]);
+        //  $this->middleware('permission:admin delete', ['only' => ['edit','update']]);
+        //  $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+    }
+
     public function showListUser(Request $request)
     {
         $list_users  = User::where([['name', 'LIKE', '%'.$request->search_user.'%'],[ 'role_id', '=',2 ]])
@@ -65,7 +74,7 @@ class UserController extends Controller
                 'password' => bcrypt($request->password),
                 'phone' => $request->phone,
                 'point' => 0,
-                'role_id' => intval($request->role_id),
+                // 'role_id' => intval($request->role_id),
                 'active' => $request->active,
                 'avatar' => $request->filepath,
                 'address' => $request->address,
@@ -77,6 +86,8 @@ class UserController extends Controller
             } else {
                 return redirect()->route('addUser')->with('message', 'Thêm thất bại');
             }
+
+            $user->hasRole('1');
         } catch (QueryException $e) {
             // Xử lý lỗi cụ thể cho các ngoại lệ của truy vấn cơ sở dữ liệu
             return redirect()->route('addUser')->with('message', 'Lỗi khi thêm người dùng vào cơ sở dữ liệu: ' . $e->getMessage());

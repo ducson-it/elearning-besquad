@@ -53,3 +53,7 @@ Route::group(['middleware'=>['auth']],function (){
    require __DIR__ .'/permission.php';
     require __DIR__ .'/role.php';
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

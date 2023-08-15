@@ -54,6 +54,7 @@
                     </div>
 
                 </li>
+                @can('super-admin')
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#user" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span>Quản lý user</span>
@@ -73,6 +74,7 @@
                         </ul>
                     </div>
                 </li>
+                @endcan
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#course" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span>Quản lý khoá học</span>

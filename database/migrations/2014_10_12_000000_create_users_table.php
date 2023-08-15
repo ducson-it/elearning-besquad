@@ -64,7 +64,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->nullable();
             $table->string('address')->nullable();
             $table->integer('point')->default(0);
-            $table->unsignedInteger('role_id')->comment('1->admin, 2->member,3->teacher')->default(2);
+            // $table->unsignedInteger('role_id')->comment('1->admin, 2->member,3->teacher')->default(2);
             $table->integer('active')->default(1)->comment('0->inactive, 1->active');
             $table->timestamps();
             $table->softDeletes();

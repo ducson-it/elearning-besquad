@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Laravel\Ui\Presets\React;
+use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
 {
@@ -53,13 +54,15 @@ class HomeController extends Controller
             $order_growth_rate =  round(($order_count_day - $order_count_preDay) * 100 / $order_count_preDay, 2);
         }
         //count user active in day
-        $users_count_day = User::where('role_id',2)
-            ->whereDate('created_at', Carbon::today())
-            ->count();
+        // $users_count_day = User::where('role_id',2)
+        //     ->whereDate('created_at', Carbon::today())
+        //     ->count();
+            $users_count_day = Role::findById(2)->users()->whereDate('created_at', Carbon::today())->count();
         //calculate user day growth rate
-        $users_count_preDay = User::where('role_id',2)
-            ->whereDate('created_at', Carbon::yesterday())
-            ->count();
+        // $users_count_preDay = User::where('role_id',2)
+        //     ->whereDate('created_at', Carbon::yesterday())
+        //     ->count();
+            $users_count_preDay =  Role::findById(2)->users()->whereDate('created_at', Carbon::yesterday())->count();
         if( $users_count_preDay == 0){
             $users_growth_rate = round(($users_count_day - $users_count_preDay) * 100, 2);
         }else{
