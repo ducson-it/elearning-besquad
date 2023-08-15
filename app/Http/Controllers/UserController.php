@@ -52,9 +52,9 @@ class UserController extends Controller
 
     public function addUser()
     {
-        $roles = Role::all();
-        return view('users.create',compact('roles'));
-
+//        $roles = Role::all();
+//        return view('users.create',compact('roles'));
+        return view('users.create');
     }
     public function storeUser(UserRequest $request)
     {
