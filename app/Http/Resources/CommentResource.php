@@ -21,6 +21,7 @@ class CommentResource extends JsonResource
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'chillden'=>$this->childComments,
         ];
     }
 }
