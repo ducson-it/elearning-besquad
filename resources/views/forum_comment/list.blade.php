@@ -94,7 +94,8 @@
                                                     <div class="modal-body">
                                                         <div class="tag-description-input mt-3">
                                                             <p>Nội dung phản hồi </p>
-                                                            <input type="hidden" name="parent_id" value="{{$comment->id}}">
+                                                            <input type="hidden" name="parent_id" value="{{$comment->parent_id}}">
+                                                            <input type="hidden" name="comment_id" value="{{$comment->id}}">
                                                             <input type="hidden" name="post_id" value="{{$comment->post_id}}">
                                                             <textarea id="cmt-content-input" cols="30" rows="12" class="form-control" name="content" placeholder="mô tả">{{ old('content') }}</textarea>
                                                         </div>
