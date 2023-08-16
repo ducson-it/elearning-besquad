@@ -17,11 +17,10 @@ class ForumPostController extends Controller
         $forumposts = ForumPost::with([
             'comments' => function ($query) {
                 $query->where('is_active', 1)
-                    ->whereNull('parent_id')
-                    ->with('childComments');
-            },
-            'comments.childComments' => function ($query) {
-                $query->where('is_active', 1);
+                    ->with(['user:id,name,avatar', 'childComments' => function ($query) {
+                        $query->where('is_active', 1)
+                            ->with('user:id,name,avatar');
+                    }]);
             },
             'user:id,name,avatar',
             'category:id,name',
