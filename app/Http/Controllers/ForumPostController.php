@@ -22,6 +22,7 @@ class ForumPostController extends Controller
         $categories = Category::all();
         return view ('post_forum.create',compact('categories'));
     }
+
     public function store(PostForumRequest $request){
         $user = Auth::user();
         $data = $request->all();
