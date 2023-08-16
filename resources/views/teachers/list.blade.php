@@ -67,7 +67,7 @@
                                         <td class="customer_name">{{$teacher->name}}</td>
                                         <td class="email">{{$teacher->email}}</td>
                                         <td class="phone">{{$teacher->phone}}</td>
-                                        <td class="role_name">{{$teacher->role->name}}</td>
+                                        <td class="role_name">Giảng viên</td>
                                         <td class="active">{{$teacher->active == 1 ? 'Active': 'Inactive'}}</td>
                                         <td class="created_at">{{$teacher->created_at}}</td>
                                         <td>
