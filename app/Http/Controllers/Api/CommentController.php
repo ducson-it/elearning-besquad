@@ -14,32 +14,45 @@ class CommentController extends Controller
 {
     public function index()
     {
-        $comments = Comment::with('replies')->get();
-
+        $comments = Comment::with('replies','user','course')->get();
         $commentArray = [];
-
         foreach ($comments as $comment) {
             if ($comment->parent_id === null) {
                 $commentItem = [
                     'id' => $comment->id,
                     'content' => $comment->content,
-                    'user_id' => $comment->user_id,
+                    'user' => [
+                        'id' => $comment->user->id,
+                        'name' => $comment->user->name,
+                    ],
+                    'course' => $comment->course
+                        ? [
+                            'id' => $comment->course->id,
+                            'name' => $comment->course->name,
+                        ]
+                        : null,
                     'replies' => [],
                 ];
-
                 foreach ($comment->replies as $reply) {
                     // Không thêm mảng replies cho comment con
                     $commentItem['replies'][] = [
                         'id' => $reply->id,
                         'content' => $reply->content,
-                        'user_id' => $reply->user_id,
+                        'user' => [
+                            'id' => $comment->user->id,
+                            'name' => $comment->user->name,
+                        ],
+                        'course' => $comment->course
+                            ? [
+                                'id' => $comment->course->id,
+                                'name' => $comment->course->name,
+                            ]
+                            : null,
                     ];
                 }
-
                 $commentArray[] = $commentItem;
             }
         }
-
         return response()->json(['comments' => $commentArray], 200);
     }
 
@@ -72,9 +85,7 @@ class CommentController extends Controller
     {
         $replyContent = $request->input('content');
         $userId = $request->input('user_id');
-
         $reply = Comment::findOrFail($id);
-
         // Kiểm tra xem user_id của reply có trùng với user_id trong request không
         if ($reply->user_id != $userId) {
             return response()->json(['error' => 'Bạn không có quyền cập nhật comment này'], 403);
