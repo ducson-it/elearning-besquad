@@ -34,7 +34,7 @@ class CommentController extends Controller
                     'replies' => [],
                 ];
                 foreach ($comment->replies as $reply) {
-                    // Không thêm mảng replies cho comment con
+                  //comment con ko có replies nhé
                     $commentItem['replies'][] = [
                         'id' => $reply->id,
                         'content' => $reply->content,
@@ -55,7 +55,6 @@ class CommentController extends Controller
         }
         return response()->json(['comments' => $commentArray], 200);
     }
-
     public function store(Request $request)
     {
         $replyContent = $request->input('content');
@@ -74,8 +73,8 @@ class CommentController extends Controller
         $userName = $reply->user->name;
         if ($comment) {
             $reply->parent_id = $comment->id;
-            $reply->save();
         }
+        $reply->save();
         return response()->json([
             'success' => 'Comment thành công',
             'reply' => ['user_name' => $userName,
