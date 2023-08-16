@@ -15,11 +15,15 @@ use Illuminate\Support\Str;
 class VoucherController extends Controller
 {
     //
-    public function getVoucher(){
+    public function getVoucher(Request $request){
         $currentTime = Carbon::now();
+        $user_id = $request->input('user_id');
         $vouchers = Voucher::where('expired', '>', $currentTime)
-            ->Where('owner',)
-            ->Where('is_infinite',true)->get();
+            ->where(function ($query) use ($user_id) {
+                $query->where('owner', $user_id)
+                    ->orWhereNull('owner');
+            })
+            ->get();
 
         return response()->json($vouchers);
     }
