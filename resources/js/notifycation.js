@@ -96,27 +96,27 @@ window.deleteMultipleNotify = () => {
     deleteNotifyCheckbox(selectedIds);
 }
 
-window.clickIread = () => {
-    $('.form-check-input').on('change', function () {
-        var notifyId = $(this).data('notify-id'); // Lấy id của thông báo từ data-attribute
-        var isChecked = $(this).prop('checked'); // Kiểm tra trạng thái tích/nhấp vào checkbox
-        updateIread(notifyId, isChecked);
-    });
+// window.clickIread = () => {
+//     $('.form-check-input').on('change', function () {
+//         var notifyId = $(this).data('notify-id'); // Lấy id của thông báo từ data-attribute
+//         var isChecked = $(this).prop('checked'); // Kiểm tra trạng thái tích/nhấp vào checkbox
+//         updateIread(notifyId, isChecked);
+//     });
 
-    function updateIread(notifyId, isChecked) {
-        // Gửi yêu cầu cập nhật thông báo đã đọc thông qua Ajax
-        axios.post(`/notify/update-isread/${notifyId}`, {is_read: isChecked})
-            .then(response => {
-                if (response.data.success) {
-                    // Cập nhật thành công (không cần làm gì)
-                    window.location.reload();
-                } else {
-                    console.log(response.data.message);
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
-};
-window.clickIread();
+//     function updateIread(notifyId, isChecked) {
+//         // Gửi yêu cầu cập nhật thông báo đã đọc thông qua Ajax
+//         axios.post(`/notify/update-isread/${notifyId}`, {is_read: isChecked})
+//             .then(response => {
+//                 if (response.data.success) {
+//                     // Cập nhật thành công (không cần làm gì)
+//                     window.location.reload();
+//                 } else {
+//                     console.log(response.data.message);
+//                 }
+//             })
+//             .catch(error => {
+//                 console.log(error);
+//             });
+//     }
+// };
+// window.clickIread();

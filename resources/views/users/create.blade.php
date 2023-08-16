@@ -60,7 +60,7 @@
                                                 <i class="fa fa-picture-o"></i> Choose
                                             </button>
                                         </span>
-                                            <input id="thumbnail2" class="form-control" type="text" name="filepath">
+                                            <input id="thumbnail2" class="form-control" type="text" name="filepath"><br>
                                         </div>
                                     </div>
                                 </div>

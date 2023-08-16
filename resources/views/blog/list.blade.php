@@ -32,12 +32,12 @@
                             <thead class="table-light">
                                 <tr>
                                     <th class="" data-sort="customer_name">STT</th>
-                                    <th class="" data-sort="customer_name">Title</th>
+                                    <th class="" data-sort="customer_name">Tiêu đề</th>
                                     <th class="" data-sort="course">Slug</th>
-                                    <th class="" data-sort="status">Images</th>
-                                    <th class="" data-sort="author">View</th>
+                                    <th class="" data-sort="status">Ảnh</th>
+                                    <th class="" data-sort="author">Lượt xem</th>
                                     <th class="" data-sort="action">Tác giả</th>
-                                    <th class="" data-sort="action">Category_blog</th>
+                                    <th class="" data-sort="action">Chủ đề blog</th>
                                     <th class="" data-sort="action">Thao tác</th>
                                 </tr>
                             </thead>

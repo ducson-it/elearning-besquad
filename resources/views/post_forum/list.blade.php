@@ -37,11 +37,12 @@
                                     <th class="" data-sort="customer_name">Title</th>
                                     <th class="" data-sort="author">View</th>
                                     <th class="" data-sort="action">Người viết</th>
-                                    <th class="" data-sort="action">Trạng thái</th>
                                     <th class="" data-sort="action">Số sao</th>
                                     <th class="" data-sort="action">Thuộc danh mục</th>
                                     <th class="" data-sort="action">Kiểu post</th>
                                     <th class="" data-sort="action">Thao tác</th>
+                                    <th class="" data-sort="action">Trạng thái</th>
+
                                 </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
@@ -51,7 +52,6 @@
                                         <td class="title">{{$iteam->title}}</td>
                                         <td class="course">{{$iteam->view}}</td>
                                         <td class="customer_name">{{$iteam->user->name}}</td>
-                                        <td class="course">{{$iteam->is_active}}</td>
                                         <td class="course">{{$iteam->star}}</td>
                                         <td class="course">{{$iteam->category?->name}}</td>
                                         <td class="course">
@@ -75,6 +75,12 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        <td class="course">
+                                            <button class="btn btn-sm {{$iteam->is_active == 0 ? 'btn-warning':'btn-success'}} edit-item-btn"
+                                                    onclick="active({{$iteam->id}})">
+                                                {{$iteam->is_active == 0 ? 'Inactive':'Active'}}
+                                            </button>
+                                            </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

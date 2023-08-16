@@ -21,7 +21,7 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
                                 <div>
-                                    <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><a href="{{route('comment.create')}}" style="color:white">Thêm</a></button>
+                                    <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#addTopic"><a href="{{route('comment.create')}}" style="color:white">Add</a></button>
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -40,12 +40,12 @@
                                 <thead class="table-light">
                                 <tr>
                                     <th class="" data-sort="customer_name">STT</th>
-                                    <th class="" data-sort="customer_name"> Người comment</th>
-                                    <th class="" data-sort="course">Content</th>
+                                    <th class="" data-sort="customer_name"> Người bình luận</th>
+                                    <th class="" data-sort="course">Nội dung</th>
                                     <th class="" data-sort="course">Thuộc bài viết  </th>
                                     <th class="" data-sort="course">Thuộc danh mục</th>
                                     <th class="" data-sort="action">Thao tác</th>
-                                    <th class="" data-sort="course">Status</th>
+                                    <th class="" data-sort="course">Trạng thái</th>
                                     <th class="" data-sort="course">Trả lời</th>
 
                                 </tr>
@@ -81,7 +81,6 @@
                                                     <button class="btn btn-sm btn-primary remove-item-btn" data-bs-toggle="modal" data-bs-target="#replyModal{{$comment->id}}">Trả lời</button>
                                                 </div>
                                             </div>
-
                                             <form action="{{ route('comment.repcomment', ['id' => $comment->id]) }}" method="POST">
                                                 @csrf
                                                 <!-- Modal for reply -->

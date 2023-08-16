@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\Beesquad;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -52,9 +52,9 @@ class UserController extends Controller
 
     public function addUser()
     {
-        $roles = Role::all();
-        return view('users.create',compact('roles'));
-
+//        $roles = Role::all();
+//        return view('users.create',compact('roles'));
+        return view('users.create');
     }
     public function storeUser(UserRequest $request)
     {

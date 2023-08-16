@@ -18,8 +18,8 @@ class UserFactory extends Factory
     {
         $name = $this->faker->realText(50);
         $name = Str::limit($name, 30);
-        $roleIds = Role::pluck('id')->toArray();
-        $roleId = $this->faker->randomElement($roleIds);
+        // $roleIds = Role::pluck('id')->toArray();
+        // $roleId = $this->faker->randomElement($roleIds);
 
         return [
             'name' => $name,
@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
             'point' => $this->faker->numberBetween(0, 100),
-            'role_id' => $roleId,
+            'role_id' => 2,
             'active' => 1,
         ];
     }

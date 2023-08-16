@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\UserController;
 
-Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function () {
+Route::group(['prefix' => 'user'], function () {
     Route::match(['get', 'delete','put','post'],'/list',[UserController::class,'showListUser'])->name('show.user');
     Route::delete('/delete-user/{user_id}',[UserController::class,'deleteUser'])->name('deleteUser');
     Route::get('/user-add',[UserController::class,'addUser'])->name('addUser');

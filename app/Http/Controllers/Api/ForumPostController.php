@@ -14,13 +14,22 @@ class ForumPostController extends Controller
 {
     public function index()
     {
-        $forumposts = ForumPost::with(['comments' => function ($query) {
-            $query->where('is_active', 1);
-        }, 'user:id,name,avatar', 'category:id,name'])
+        $forumposts = ForumPost::with([
+            'comments' => function ($query) {
+                $query->where('is_active', 1)
+                    ->whereNull('parent_id')
+                    ->with('childComments');
+            },
+            'comments.childComments' => function ($query) {
+                $query->where('is_active', 1);
+            },
+            'user:id,name,avatar',
+            'category:id,name'
+        ])
             ->orderBy('created_at', 'desc')
             ->get();
-        return new ForumPostCollection($forumposts);
 
+        return $forumposts;
     }
     public function detail($id)
     {
@@ -173,9 +182,20 @@ class ForumPostController extends Controller
     // post mới nhất
     public function getLatestPosts()
     {
-        $latestPosts = ForumPost::with('comments', 'category.courses')
+        $latestPosts =  ForumPost::with([
+            'comments' => function ($query) {
+                $query->where('is_active', 1)
+                    ->whereNull('parent_id')
+                    ->with('childComments');
+            },
+            'comments.childComments' => function ($query) {
+                $query->where('is_active', 1);
+            },
+            'user:id,name,avatar',
+            'category:id,name'
+        ])
             ->orderBy('created_at', 'desc')
-            ->limit(10)
+            ->limit(5)
             ->get();
         return ForumPostResource::collection($latestPosts);
     }
@@ -185,7 +205,7 @@ class ForumPostController extends Controller
         $topRatedPosts = ForumPost::with(['comments', 'category.courses'])
             ->orderBy('view', 'desc')
             ->orderBy('star', 'desc')
-            ->limit(10)
+            ->limit(5)
             ->get();
 
         return ForumPostResource::collection($topRatedPosts);

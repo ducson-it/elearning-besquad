@@ -38,7 +38,7 @@
                                     <span class="input-group-btn">
                                         <button class="lfm btn btn-primary" data-input="thumbnail2"
                                                 data-preview="holder2" class="btn btn-primary text-white">
-                                            <i class="fa fa-picture-o"></i> Choose
+                                            <i class="fa fa-picture-o"></i> Chọn
                                         </button>
                                     </span>
                                                 <input id="thumbnail2" class="form-control" type="text" name="filepath" value="{{$blog->image}}">
