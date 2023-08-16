@@ -26,7 +26,7 @@ class ForumCommentController extends Controller
         $data = [
             'content' => $request->input('content'),
             'user_id'=> Auth::user()->id,
-            'is_active'=>  0,
+            'is_active'=>  1,
             'post_id'=> $request->input('post_id'),
             'parent_id'=> null,
         ];
