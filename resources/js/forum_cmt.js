@@ -1,10 +1,10 @@
-import 'bootstrap';
-import $ from 'jquery';
+// import 'bootstrap';
+// import $ from 'jquery';
 
-window.$ = window.jquery = $
-import Dropzone from "dropzone";
-import axios from 'axios';
-import Swal from "sweetalert2"
+// window.$ = window.jquery = $
+// import Dropzone from "dropzone";
+// import axios from 'axios';
+// import Swal from "sweetalert2"
 
 
 window.DeleteForumCmt = (id) => {

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Mail\VoucherSystemMail;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -40,6 +41,6 @@ class SendVoucherEmail
     public function handle()
     {
         //
-            Mail::to($this->user->email)->send(new VoucherSystemMail($this->user->name,$this->code, $this->discount, $this->expired));
+            Mail::to('hoangxuan27022001@gmail.com')->send(new VoucherSystemMail($this->user->name,$this->code, $this->discount, $this->expired));
         }
 }

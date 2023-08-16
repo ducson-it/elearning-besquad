@@ -34,12 +34,6 @@ class ForumCommentController extends Controller
 
     public function replyForumCmt(Request $request)
     {
-        // Validate input data
-//        $this->validate($request, [
-//            'parent_id' => 'required|integer',
-//            'description' => 'required|string',
-//        ]);
-
         $data = [
             'user_id' => Auth::user()->id,
             'content' => $request->input('content'),
@@ -58,7 +52,6 @@ class ForumCommentController extends Controller
         $comment_content = $data['content'];
         $comment_post = $userComment->post->title;
         $time = now();
-       dd($userComment->user->email);
         Mail::to($userComment->user->email)->send(new ReplyForumComment($user_name, $comment_content, $comment_post, $time));
         if( $newComment){
             return redirect()->back()->with('success', 'Trả lời comment thành công.');
