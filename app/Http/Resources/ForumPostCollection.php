@@ -24,7 +24,6 @@ class ForumPostCollection extends ResourceCollection
                     'user' => $post->user?->name,
                     'avatar' => $post->user?->avatar,
                 ],
-
                 'star' => $post->star,
                 'is_active' => $post->is_active,
                 'type' => [

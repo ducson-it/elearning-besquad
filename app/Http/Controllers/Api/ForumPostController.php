@@ -33,12 +33,22 @@ class ForumPostController extends Controller
     }
     public function detail($id)
     {
-        $forumpost = ForumPost::with('comments')->findOrFail($id);
-        return response()->json([
-            'code' => 200,
-            'message' => 'success',
-            'data' => $forumpost
-        ]);
+        $forumpost = ForumPost::with([
+            'comments' => function ($query) {
+                $query->where('is_active', 1)
+                    ->whereNull('parent_id')
+                    ->with('childComments');
+            },
+            'comments.childComments' => function ($query) {
+                $query->where('is_active', 1);
+            },
+            'user:id,name,avatar',
+            'category:id,name',
+            'tagsforum:id,name'
+        ])
+            ->findOrFail($id);
+
+        return new ForumPostResource($forumpost);
     }
     public function clickStar(Request $request){
         $id = $request->input('id');
