@@ -86,6 +86,7 @@ class ForumPostController extends Controller
             'star'=> 0,
             'category_id'=>$request->input('category_id'),
             'type' => $request->input('type'),
+            'tag_id'=>$request->input('tag_id'),
         ];
         $resulf = ForumPost::create($data);
         if($resulf){

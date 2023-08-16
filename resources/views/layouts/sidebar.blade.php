@@ -123,7 +123,7 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{route('forum.list')}}">
-                                    <span>Danh sách</span>
+                                    <span>Quản lý post</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -133,7 +133,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{route('show.forumCmt')}}">
-                                   <span>Bình luận</span>
+                                  <span>Bình luận</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -141,7 +141,6 @@
                                     <span>Danh sách thẻ tags</span>
                                 </a>
                             </li>
-
                         </ul>
                     </div>
                 </li>
@@ -216,11 +215,6 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('comment.list')}}">
                         <i class="ri-apps-2-line"></i><span>Quản lý Bình luận</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('show.forumCmt')}}">
-                        <i class="ri-apps-2-line"></i><span>Quản lý Forum comment</span>
                     </a>
                 </li>
                 <li class="nav-item">

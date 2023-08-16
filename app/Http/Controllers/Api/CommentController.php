@@ -73,8 +73,8 @@ class CommentController extends Controller
         $userName = $reply->user->name;
         if ($comment) {
             $reply->parent_id = $comment->id;
+            $reply->save();
         }
-        $reply->save();
         return response()->json([
             'success' => 'Comment thành công',
             'reply' => ['user_name' => $userName,
