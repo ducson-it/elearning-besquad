@@ -12,7 +12,7 @@ class ForumComment extends Model
     use SoftDeletes;
     protected $table = 'forum_comments';
     protected $fillable = [
-        'user_id', 'content', 'status', 'post_id', 'parent_id','is_active'
+        'user_id', 'content', 'post_id', 'parent_id','is_active'
     ];
 
 
