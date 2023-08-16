@@ -40,7 +40,6 @@
                                     <th class="" data-sort="action">Số sao</th>
                                     <th class="" data-sort="action">Thuộc danh mục</th>
                                     <th class="" data-sort="action">Kiểu post</th>
-                                    <th class="" data-sort="action">Thuộc tags</th>
                                     <th class="" data-sort="action">Thao tác</th>
                                     <th class="" data-sort="action">Trạng thái</th>
 
@@ -66,7 +65,6 @@
                                                 Giải trí
                                             @endif
                                         </td>
-                                        <td class="course">{{$iteam->tagsforum?->name}}</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="detail">

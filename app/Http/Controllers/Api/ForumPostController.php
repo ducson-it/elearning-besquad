@@ -46,7 +46,6 @@ class ForumPostController extends Controller
             'tagsforum:id,name'
         ])
             ->findOrFail($id);
-
         return new ForumPostResource($forumpost);
     }
     public function clickStar(Request $request){
