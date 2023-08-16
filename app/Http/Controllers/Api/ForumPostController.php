@@ -24,7 +24,6 @@ class ForumPostController extends Controller
             },
             'user:id,name,avatar',
             'category:id,name',
-            'tagsforum:id,name'
         ])
             ->orderBy('created_at', 'desc')
             ->paginate(5);
@@ -43,7 +42,6 @@ class ForumPostController extends Controller
             },
             'user:id,name,avatar',
             'category:id,name',
-            'tagsforum:id,name'
         ])
             ->findOrFail($id);
         return new ForumPostResource($forumpost);
