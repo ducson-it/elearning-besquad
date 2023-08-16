@@ -9,9 +9,7 @@ use Illuminate\Notifications\Notifiable;
 // use Laravel\Sanctum\HasApiTokens;
 use MohamedGaber\SanctumRefreshToken\Traits\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
-
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
@@ -53,10 +51,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function role()
-    {
-        return $this->belongsTo(Role::class,'role_id');
-    }
+    // public function role()
+    // {
+    //     return $this->belongsTo(Role::class,'role_id');
+    // }
 
     public function vouchers()
     {
