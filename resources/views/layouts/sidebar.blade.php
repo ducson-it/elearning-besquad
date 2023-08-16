@@ -136,11 +136,6 @@
                                   <span>Bình luận</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="{{route('tagsforum.list')}}">
-                                    <span>Danh sách thẻ tags</span>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </li>
