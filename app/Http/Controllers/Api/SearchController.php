@@ -26,8 +26,8 @@ class SearchController extends Controller
 
             return response([
                 'data' => [
-                    'categories' => CourseResource::collection($categories),
-                    'courses' => CategoryResource::collection($courses),
+                    'courses' => CourseResource::collection($courses),
+                    'categories' => CategoryResource::collection($categories),
                     'blogs' => BlogResource::collection($blogs),
                 ],
             ], 200);
