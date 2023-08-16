@@ -37,20 +37,7 @@
                                         <div class="alert text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-12">
-                                        <div>
-                                            <label for="exampleFormControlTextarea5" class="form-label"> Thuộc tags </label>
-                                            <select name="tag_id" class="form-control" >
-                                                <option value="{{ old('tag_id') }}" >-- Chọn danh mục bài viết --</option>
-                                                @foreach ($tagsforum as $item)
-                                                    <option value="{{ $item->id }}">
-                                                        {{ $item->name }}</option>
-                                                @endforeach
-                                            </select>                            </div>
-                                        @error('tag_id')
-                                        <div class="alert text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+
                                     <div class="col-12">
                                         <div>
                                             <label for="exampleFormControlTextarea5" class="form-label"> Category </label>

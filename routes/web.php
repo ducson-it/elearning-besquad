@@ -52,6 +52,5 @@ Route::group(['middleware'=>['auth']],function (){
     require __DIR__ .'/forum_comment.php';
    require __DIR__ .'/permission.php';
     require __DIR__ .'/role.php';
-    require __DIR__ .'/tagsforum.php';
 
 });
