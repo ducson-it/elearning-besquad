@@ -81,8 +81,9 @@ Route::prefix('lesson')->group(function () {
     Route::get('{lesson}', [LessonController::class, 'detailLesson'])->middleware('auth:sanctum');
 });
 Route::prefix('voucher')->group(function () {
-    Route::get('list-system', [VoucherController::class, 'getVoucher'])->middleware('auth:sanctum');
+    Route::post('list-system', [VoucherController::class, 'getVoucher'])->middleware('auth:sanctum');
     Route::post('checkVoucher', [VoucherController::class, 'checkVoucher'])->middleware('auth:sanctum');
+    Route::post('redeem-voucher', [VoucherController::class, 'redeemVoucher'])->middleware('auth:sanctum');
 });
 Route::prefix('forum')->group(function () {
     Route::prefix('forum-cmt')->group(function () {
@@ -95,6 +96,7 @@ Route::prefix('forum')->group(function () {
 Route::prefix('notify')->group(function () {
     Route::get('list', [Notifycaton::class, 'getNotifys']);
 });
+
 Route::fallback(function () {
     return response()->json([
         'message' => 'API endpoint not found.',
