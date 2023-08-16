@@ -26,25 +26,22 @@ class VoucherController extends Controller
     public function storeVoucher(VoucherRequest $request)
     {
         $value = $request->unit === 'VND' ? $request->vnd_value : $request->percentage_value;
-        $option = $request->input('option');
-        $quantity = $request->input('quantity');
-        $isInfinite = $option === 'infinity' ? true : false;
 
         try {
             $voucher = Voucher::create([
                 'name' => $request->name,
                 'code' => $request->code,
                 'value' => $value,
-                'quantity' => $isInfinite ? null : $quantity,
+                'quantity' => 0,
                 'unit' => $request->unit,
                 'expired' => $request->expired,
-                'is_infinite' => $isInfinite,
+                'is_infinite' => 1,
             ]);
-             $discount  = $value . ($isInfinite ? null : $quantity);
+             $discount  = $value . ($request->unit == 'Percent' ? "%" : "VND" );
 
             Notification::create([
                 'title' => 'Thông báo nhận voucher miễn phí từ hệ thống',
-                'content' => "Bạn đã nhận được voucher miễn phí. " . ($isInfinite ? "" : $quantity) . " Mã code là: " . $request->code,
+                'content' => "Bạn đã nhận được voucher miễn phí. " . $discount . " Mã code là: " . $request->code,
                 'is_read' => 0,
                 'is_deleted' => 0,
                 'priority' => 'high',
@@ -54,9 +51,8 @@ class VoucherController extends Controller
                 'send_user' => 'admin'
             ]);
             $list_users = User::where('role_id', '>', 1)
-                ->where('active', '>', 1)
+                ->where('active', 1)
                 ->get();
-
             // Lấy  thông tin user đang thực hiện thao tác
             foreach ($list_users as $user) {
                 SendVoucherEmail::dispatch($user, $request->code, $discount, $request->expired);

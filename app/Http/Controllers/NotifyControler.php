@@ -13,13 +13,9 @@ use Illuminate\Support\Facades\Log;
 class NotifyControler extends Controller
 {
     public function showNotify(Request $request){
-        $notifycations = Notification::paginate(10);
-        if($request->input('search_notify')){
             $search = $request->input('search_notify');
-            $notifycations  = Notification::where('title', 'LIKE', '%'.$search.'%')->paginate(8);
-        }else{
-            $search = "";
-        }
+            $notifycations  = Notification::where('title', 'LIKE', '%'.$search.'%')->orderBy('id', 'desc')->paginate(8);
+
         return view('notifycations.list',compact('notifycations','search'));
     }
    public function addNotify(){
