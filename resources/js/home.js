@@ -54,3 +54,22 @@ window.Statistic = (time)=>{
             }
         })
 }
+$(document).ready(function(){
+    $('select#top-course').on('change',function(){
+        var course_type = $(this).val();
+        var msg = '';
+        $.ajax({
+            type:"POST",
+            url:'/top-course',
+            data:{
+                'course_type':course_type
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                console.log(data);
+            }
+        })
+    })
+})
