@@ -97,6 +97,9 @@
                     </div>
                 </li>
                 <li class="nav-item">
+<<<<<<< HEAD
+                    <a class="nav-link menu-link" href="" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+=======
                     <a class="nav-link menu-link" href="#studies" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span>Quản lý học tập</span>
                     </a>
@@ -117,6 +120,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#forum" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="forum">
+>>>>>>> 86c0fa0a6b9f2f163e5670fa2aaecb720d51b3b8
                         <i class="ri-apps-2-line"></i> <span>Quản lý forum</span>
                     </a>
                     <div class="collapse menu-dropdown" id="forum" >
