@@ -35,6 +35,10 @@ class ForumFeedbackController extends Controller
         $data = [
             'content'=> $request->input('content'),
             'title'=>$request->input('title'),
+//            'user' => [
+//                'id' => $user->id,
+//                'name' => $user->name
+//            ],
             'user_id' => $user->id,
             'name' => $user->name,
             'view'=>  0,
