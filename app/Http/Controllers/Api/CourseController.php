@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Models\History;
 use App\Models\Order;
 use App\Models\Study;
+use App\Models\UserVoucher;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -134,6 +135,13 @@ class CourseController extends Controller
                         'amount' => $request->input('amount')
                     ];
                     Order::create($data);
+                    if($request->get('voucher_code')!= null){
+                        UserVoucher::create([
+                            'user_id'=>$user->id,
+                            'voucher_code'=>$request->get('voucher_code'),
+                            'is_used'=>0
+                        ]);
+                    };
                     DB::commit();
                     return response([
                         'success' => true, 'data' => [
@@ -186,6 +194,13 @@ class CourseController extends Controller
             'status'=>Beesquad::PENDING,
             'amount'=>$request->input('amount')
         ];
+        // if($request->get('voucher_code')!= null){
+        //     UserVoucher::create([
+        //         'user_id'=>Auth::id(),
+        //         'voucher_code'=>$request->get('voucher_code'),
+        //         'is_used'=>0
+        //     ]);
+        // };
         Order::create($data);
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = route('callback');

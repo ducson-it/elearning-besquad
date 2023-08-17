@@ -238,4 +238,15 @@ class HomeController extends Controller
             ]
         ],200);
     }
+    public function topCourse(Request $request){
+        $course_type = $request->course_type;
+        //top 5 course bestseller
+        if(!$course_type){
+            $top5_bestseller_courses = Course::where('is_free',Beesquad::TRUE)->withCount('orders')->withSum('orders','amount')->orderBy('orders_count','desc')->limit(5)->get();
+        }else{
+            $top5_bestseller_courses = Course::where('is_free',Beesquad:FALSE)->withCount('orders')->withSum('orders','amount')->orderBy('orders_count','desc')->limit(5)->get();
+
+        }
+        return response()->json($top5_bestseller_courses);
+    }
 }
