@@ -11,6 +11,7 @@ Route::group(['prefix'=>"lessons","as"=>"lessons."],function(){
         Route::delete('/delete/{lesson_id}',[LessonController::class,'destroy'])->name('delete');
         Route::post('/select/course',[LessonController::class,'selectCourse']);
         Route::get('/select/video/{video_id}',[LessonController::class,'selectVideo']);
+
         //video
         Route::post('/video/upload',[LessonController::class,'uploadVideo'])->name('uploadVideo');
         Route::get('/download/{file}',[LessonController::class,'downloadDoc'])->name('downloadDoc');

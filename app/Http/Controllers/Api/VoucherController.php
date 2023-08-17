@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\RedeemVoucher;
 use App\Models\Notification;
 use App\Models\User;
+use App\Models\UserVoucher;
 use App\Models\Voucher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,6 +32,7 @@ class VoucherController extends Controller
         $voucher = $request->input('voucher');
         $checkVoucher = Voucher::where('code',$voucher)->exists();
         $system_voucher = Voucher::where('code',$voucher)->first();
+        $checkUserVoucher = UserVoucher::where('voucher_code',$voucher)->exists();
         if(!$checkVoucher){
             return response()->json([
                 'status'=>false,
@@ -41,6 +43,12 @@ class VoucherController extends Controller
             return response()->json([
                 'status'=>false,
                 'message'=>'Voucher đã hết hạn, vui lòng thử lại voucher khác'
+            ]);
+        }
+        if(!$checkUserVoucher){
+            return response()->json([
+                'status'=>false,
+                'message'=>'Voucher đã được sử dụng, vui lòng chọn voucher khác'
             ]);
         }
         return response()->json([

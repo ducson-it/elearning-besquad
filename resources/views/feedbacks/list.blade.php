@@ -34,7 +34,8 @@
                                 <thead class="table-light">
                                 <tr>
                                     <th class="" data-sort="customer_name">STT</th>
-                                    <th class="" data-sort="customer_name">Content</th>
+                                    <th class="" data-sort="customer_name">Tiêu đề</th>
+                                    <th class="" data-sort="customer_name">Nội dung</th>
                                     <th class="" data-sort="action">Người viết</th>
                                     <th class="" data-sort="author">View</th>
                                     <th class="" data-sort="action">Số sao</th>
@@ -45,7 +46,8 @@
                                 @foreach($feedbacks as $i =>$iteam)
                                     <tr>
                                         <td class="">{{$i +1}}</td>
-                                        <td class="title">{{$iteam->content}}</td>
+                                        <td class="course">{{$iteam->title}}</td>
+                                        <td class="title">{!! $iteam->content !!}</td>
                                         <td class="customer_name">{{$iteam->user->name}}</td>
                                         <td class="course">{{$iteam->view}}</td>
                                         <td class="course">{{$iteam->star}}</td>

@@ -11,6 +11,8 @@
                                 <h4 class="fs-16 mb-1">Chào buổi sáng, {{Auth::user()->name}}!</h4>
                                 <p class="text-muted mb-0">Chúc bạn có một ngày làm việc hiệu quả và may mắn!</p>
                             </div>
+                            <div>
+                            </div>
                             <div class="mt-3 mt-lg-0">
                                 <form action="javascript:void(0);">
                                     <div class="row g-3 mb-0 align-items-center">
@@ -29,13 +31,17 @@
                                     </div>
                                     <!--end row-->
                                 </form>
+
                             </div>
                         </div><!-- end card header -->
                     </div>
                     <!--end col-->
                 </div>
                 <!--end row-->
+                <div>
+                    <h6>TODAY</h6>
 
+                </div>
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
                         <!-- card -->
@@ -307,8 +313,8 @@ opacity: 0.45;
                 <!-- end col -->
                 <div>
                     <div class="card">
-                        <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Top 5 khoá học bán chạy nhất</h4>
+                        <div class="card-header align-items-center d-flex" style="justify-content: space-between;">
+                            <div><h4 class="card-title mb-0 flex-grow-1">Top 5 khoá học bán chạy nhất</h4></div>
                             {{-- <div class="flex-shrink-0">
                                 <div class="dropdown card-header-dropdown">
                                     <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
@@ -327,6 +333,12 @@ opacity: 0.45;
                                     </div>
                                 </div>
                             </div> --}}
+                        <div>
+                            <select name="top-course" id="top-course" class="form-select">
+                                <option value="0">Khoá mất phí</option>
+                                <option value="1">Khoá miễn phí</option>                           
+                            </select>
+                        </div>
                         </div><!-- end card header -->
 
                         <div class="card-body">
