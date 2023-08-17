@@ -97,25 +97,6 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#studies" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-apps-2-line"></i> <span>Quản lý học tập</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="studies">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="{{route('studies.list')}}">
-                                    <span>Đăng ký khoá học</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="{{route('histories.list')}}">
-                                    <span>Lịch sử học</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link menu-link" href="" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span>Quản lý forum</span>
                     </a>
