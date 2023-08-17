@@ -11,7 +11,7 @@ class Course extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'courses';
-    protected $fillable = ['name', 'slug', 'price', 'user_id', 'discount', 'status', 'featured', 'category_id', 'image', 'description', 'is_free','subscribe'];
+    protected $fillable = ['name', 'slug', 'price', 'user_id', 'discount', 'status', 'featured', 'category_id', 'image', 'description', 'is_free','subscribe', 'teacher_id', 'playlist_id'];
     public static $courseType = [
         '1'=>'Khoá học miễn phí',
         '0'=>"Khoá học mất phí"
@@ -61,5 +61,10 @@ class Course extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(User::class, 'teacher_id');
     }
 }

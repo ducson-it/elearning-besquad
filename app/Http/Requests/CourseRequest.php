@@ -29,7 +29,9 @@ class CourseRequest extends FormRequest
             'category_id'=>'required',
             'filepath'=>'required',
             'featured'=>'required',
-            'content'=>'required'
+            'content'=>'required',
+            'teacher_id'=>'required',
+            'playlist_id'=>'required'
             //
         ];
     }
@@ -42,6 +44,8 @@ class CourseRequest extends FormRequest
             'filepath.required'=>"Bạn chưa tải file",
             'featured.required'=>"Mô tả chung không được để trống",
             'content.required'=>"Mô tả không được để trống",
+            'teacher_id.required'=>"Chọn giảng viên",
+            'playlist_id.required'=>"Chọn playlist khóa học",
             //
         ];
     }
