@@ -81,7 +81,7 @@ Route::prefix('lesson')->group(function () {
     Route::get('{lesson}', [LessonController::class, 'detailLesson'])->middleware('auth:sanctum');
 });
 Route::prefix('voucher')->group(function () {
-    Route::post('list-system', [VoucherController::class, 'getVoucher'])->middleware('auth:sanctum');
+    Route::get('list-system/{user_id}', [VoucherController::class, 'getVoucher'])->middleware('auth:sanctum');
     Route::post('checkVoucher', [VoucherController::class, 'checkVoucher'])->middleware('auth:sanctum');
     Route::post('redeem-voucher', [VoucherController::class, 'redeemVoucher'])->middleware('auth:sanctum');
 });

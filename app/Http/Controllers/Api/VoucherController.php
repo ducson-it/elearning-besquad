@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\RedeemVoucher;
 use App\Models\Notification;
 use App\Models\User;
+use App\Models\UserVoucher;
 use App\Models\Voucher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,9 +16,8 @@ use Illuminate\Support\Str;
 class VoucherController extends Controller
 {
     //
-    public function getVoucher(Request $request){
+    public function getVoucher($user_id){
         $currentTime = Carbon::now();
-        $user_id = $request->input('user_id');
         $vouchers = Voucher::where('expired', '>', $currentTime)
             ->where(function ($query) use ($user_id) {
                 $query->where('owner', $user_id)
@@ -28,9 +28,12 @@ class VoucherController extends Controller
         return response()->json($vouchers);
     }
     public function checkVoucher(Request $request){
-        $voucher = $request->input('voucher');
+        $user_id = $request->user_id;
+        $voucher = $request->input('code');
         $checkVoucher = Voucher::where('code',$voucher)->exists();
         $system_voucher = Voucher::where('code',$voucher)->first();
+        $voucher_user = UserVoucher::where('voucher_code',$voucher)
+            ->Where('user_id',$user_id)->first();
         if(!$checkVoucher){
             return response()->json([
                 'status'=>false,
@@ -41,6 +44,19 @@ class VoucherController extends Controller
             return response()->json([
                 'status'=>false,
                 'message'=>'Voucher đã hết hạn, vui lòng thử lại voucher khác'
+            ]);
+        }
+        if ($voucher_user) {
+            if ($voucher_user->is_used == 1) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Voucher đã áp dụng rồi, mời bạn nhập mã code voucher khác'
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Không tìm thấy thông tin về voucher'
             ]);
         }
         return response()->json([
