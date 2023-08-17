@@ -43,7 +43,6 @@
                                     <th class="sort" >STT</th>
                                     <th class="sort" data-sort="title">Title</th>
                                     <th class="sort" data-sort="content">Content</th>
-                                    <th class="sort" data-sort="is_processed">Trạng thái</th>
                                     <th class="sort" data-sort="is_send_email">Ngày tạo</th>
                                     <th class="sort" data-sort="created_at">Ngày hết hạn</th>
                                     <th class="sort" data-sort="action">Lựa chọn</th>
@@ -60,7 +59,6 @@
                                         <td>{{$start + $key}}</td>
                                         <td class="title">{{$notifycation->title}}</td>
                                         <td class="content">{{ Str::limit($notifycation->content, 50) }}</td>
-                                        <td class="is_processed"><?= $notifycation->is_processed == false ? 'Chưa xử lí': 'Đã xử lí'  ?></td>
                                         <td class="created_at">{{$notifycation->created_at}}</td>
                                         <td class="expired">{{$notifycation->expired}}</td>
 

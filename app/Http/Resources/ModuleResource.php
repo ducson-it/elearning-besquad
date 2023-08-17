@@ -21,7 +21,6 @@ class ModuleResource extends JsonResource
             'course_id' => $this->course_id,
             'description' => $this->description,
             'lessons' => LessonResource::collection($this->whenLoaded('lessons')),
-            'quiz'=> new QuizResource($this->whenLoaded('quiz'))
         ];
     }
 }

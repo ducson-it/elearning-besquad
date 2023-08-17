@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->string('rep_comment')->nullable();
+        Schema::table('vouchers', function (Blueprint $table) {
+            //
+            $table->dateTime('expired')->nullable()->change();
         });
     }
 
@@ -25,9 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn('rep_comment');
+        Schema::table('vouchers', function (Blueprint $table) {
+            //
+            $table->dateTime('expired')->default('1000-01-01 00:00:00')->change(); // Khôi phục giá trị mặc định
         });
     }
-
 };

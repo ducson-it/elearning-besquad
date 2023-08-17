@@ -37,6 +37,7 @@
                                         <div class="alert text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+
                                     <div class="col-12">
                                         <div>
                                             <label for="exampleFormControlTextarea5" class="form-label"> Category </label>

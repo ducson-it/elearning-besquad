@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>Quản lý post_forum</h3>
+                    <h3>Quản lý bài viết diễn đàn</h3>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="listjs-table" id="customerList">
@@ -51,7 +51,7 @@
                                         <td class="">{{$i +1}}</td>
                                         <td class="title">{{$iteam->title}}</td>
                                         <td class="course">{{$iteam->view}}</td>
-                                        <td class="customer_name">{{$iteam->user->name}}</td>
+                                        <td class="customer_name">{{$iteam->user?->name}}</td>
                                         <td class="course">{{$iteam->star}}</td>
                                         <td class="course">{{$iteam->category?->name}}</td>
                                         <td class="course">

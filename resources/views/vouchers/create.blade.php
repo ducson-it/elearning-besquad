@@ -83,20 +83,20 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-11 mt-3">
-                                        <label for="basicInput" class="form-label">Số lượng áp dụng</label>
-                                        <div>
-                                            <input type="radio" name="option" value="infinity" id="radio1"> Vô hạn
-                                            <input type="radio" style="margin-left: 20px" name="option" value="limited" id="radio2"> Giới hạn số lượng
-                                            <div id="div1" class="bg-success rounded p-2" style="display: none;">
-                                                Bạn đã lựa chọn voucher có số lượng vô hạn cho tất cả user trong hệ thống.
-                                            </div>
-                                            <div id="div2" class=" " style="display: none;">
-                                                <input type="number" name="quantity" class="form-control p-2" style="padding-top: 10px" placeholder="nhập số lượng">
-                                            </div>
-                                        </div>
+{{--                                    <div class="col-11 mt-3">--}}
+{{--                                        <label for="basicInput" class="form-label">Số lượng áp dụng</label>--}}
+{{--                                        <div>--}}
+{{--                                            <input type="radio" name="option" value="infinity" id="radio1"> Vô hạn--}}
+{{--                                            <input type="radio" style="margin-left: 20px" name="option" value="limited" id="radio2"> Giới hạn số lượng--}}
+{{--                                            <div id="div1" class="bg-success rounded p-2" style="display: none;">--}}
+{{--                                                Bạn đã lựa chọn voucher có số lượng vô hạn cho tất cả user trong hệ thống.--}}
+{{--                                            </div>--}}
+{{--                                            <div id="div2" class=" " style="display: none;">--}}
+{{--                                                <input type="number" name="quantity" class="form-control p-2" style="padding-top: 10px" placeholder="nhập số lượng">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
 
-                                    </div>
+{{--                                    </div>--}}
                                 </div>
 
                                 <!--end col-->
