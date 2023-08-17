@@ -56,44 +56,34 @@
                                 <div class="col">
                                     <div class="col-11 mt-3">
                                         <label class="form-label">Giảm giá</label>
-                                        <div>
-                                            <!-- Input phần trăm -->
-                                            <input type="number" min="0" max="100" value="<?= $voucher->unit == 'Percent' ? $voucher->value: '' ?>" name="percentage_value" id="percentage_value" class="form-control percentage-input " placeholder="Nhập mức giảm giá từ 0 -> 100 phần trăm" disabled>
-                                            @error('percentage_value')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                            <!-- Input giảm giá VND -->
-                                            <input type="number" min="0" name="vnd_value" value="<?= $voucher->unit == 'VND' ? $voucher->value: '' ?>" id="vnd_value" class="form-control vnd-input " placeholder="Nhập số tiền giảm giá(VND)" disabled>
-                                            @error('vnd_value')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
+                                        <div class="row">
+                                            <div class="col">
+                                                <!-- Input phần trăm -->
+                                                <input type="number" min="0" max="100" value="<?= $voucher->unit == 'Percent' ? $voucher->value: '' ?>" name="percentage_value" id="percentage_value" class="form-control percentage-input " placeholder="Nhập mức giảm giá từ 0 -> 100 phần trăm" disabled>
+                                                @error('percentage_value')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="col">
+                                                <!-- Input giảm giá VND -->
+                                                <input type="number" min="0" name="vnd_value" value="<?= $voucher->unit == 'VND' ? $voucher->value: '' ?>" id="vnd_value" class="form-control vnd-input " placeholder="Nhập số tiền giảm giá(VND)" disabled>
+                                                @error('vnd_value')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
 
                                     </div>
                                     <div class="col-11 mt-3">
-                                        <div>
+                                        <div >
                                             <label for="basiInput" class="form-label">Ngày hết hạn</label>
-                                            <input type="date" name="expired" value="<?= $voucher->expired ?>"
+                                            <input type="date" name="expired" value="{{$formattedExpired}}"
                                                    class="form-control @error('expired') is-invalid @enderror"
-                                                   value="{{old('expired')}}" placeholder="Ngày hết hạn">
+                                                    placeholder="Ngày hết hạn">
                                             @error('expired')
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                    </div>
-                                    <div class="col-11 mt-3">
-                                        <label for="basicInput" class="form-label">Số lượng áp dụng</label>
-                                        <div>
-                                            <input type="radio" name="option" value="infinity" id="radio1"> Vô hạn
-                                            <input type="radio" style="margin-left: 20px" name="option" value="limited" id="radio2"> Giới hạn số lượng
-                                            <div id="div1" class="bg-success rounded p-2" style="display: none;">
-                                                Bạn đã lựa chọn voucher có số lượng vô hạn cho tất cả user trong hệ thống.
-                                            </div>
-                                            <div id="div2" class=" " style="display: none;">
-                                                <input type="number" name="quantity" value="<?= $voucher->is_infinite == 0 ? $voucher->quantity : ''  ?>" class="form-control p-2" style="padding-top: 10px" placeholder="nhập số lượng">
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
 
