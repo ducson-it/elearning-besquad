@@ -58,4 +58,8 @@ class Course extends Model
     {
         $query->where('is_free', 1);
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

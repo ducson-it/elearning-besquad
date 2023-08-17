@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use App\Models\Comment;
+use App\Models\ForumPost;
 
 class ForumPostCollection extends ResourceCollection
 {
@@ -19,9 +19,9 @@ class ForumPostCollection extends ResourceCollection
                 'updated_at' => $post->updated_at,
                 'deleted_at' => $post->deleted_at,
                 'user_id' => [
-                    'id' => $post->user->id,
-                    'user' => $post->user->name,
-                    'avatar' => $post->user->avatar,
+                    'id' => $post->user?->id,
+                    'user' => $post->user?->name,
+                    'avatar' => $post->user?->avatar,
                 ],
                 'star' => $post->star,
                 'is_active' => $post->is_active,

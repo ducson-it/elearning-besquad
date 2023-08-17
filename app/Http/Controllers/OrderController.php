@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\Order;
 use App\Models\Study;
 use App\Models\User;
+use App\Models\UserVoucher;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Nette\Utils\Random;
@@ -92,6 +93,10 @@ class OrderController extends Controller
                 if(!$checkStudy){
                     Study::create($data);
                 }
+                $userVoucher = UserVoucher::where('voucher_code',$order->voucher_code)->first();
+                $userVoucher->update([
+                    'is_used'=>1
+                ]);
             }else{
                 //cancel order
                 $order->update([

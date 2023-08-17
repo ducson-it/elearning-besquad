@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tagsforum', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('post_id');
-            $table->timestamps();
+        Schema::table('vouchers', function (Blueprint $table) {
+            $table->string('owner')->nullable()->after('code'); // Thêm cột 'owner' vào bảng 'vouchers'
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tagsforum');
+        Schema::table('vouchers', function (Blueprint $table) {
+            $table->dropColumn('owner'); // Xóa cột 'owner'
+        });
     }
 };

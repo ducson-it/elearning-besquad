@@ -14,8 +14,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VoucherController;
 use App\Http\Controllers\Api\ForumPostController;
 use App\Http\Controllers\Api\ForumFeedbackController;
-
-
+use App\Http\Controllers\Api\CommentController;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,7 +74,6 @@ Route::prefix('course')->group(function () {
     Route::post('quiz/questions/correct-answer',[QuizController::class,'viewAnswerCorrect'])->middleware('auth:sanctum');
     Route::get('quiz/{quiz}',[QuizController::class,'showQuizDetail'])->middleware('auth:sanctum');
 
-
 });
 
 Route::prefix('lesson')->group(function () {
@@ -83,8 +81,9 @@ Route::prefix('lesson')->group(function () {
     Route::get('{lesson}', [LessonController::class, 'detailLesson'])->middleware('auth:sanctum');
 });
 Route::prefix('voucher')->group(function () {
-    Route::get('list-system', [VoucherController::class, 'getVoucher'])->middleware('auth:sanctum');
+    Route::post('list-system', [VoucherController::class, 'getVoucher'])->middleware('auth:sanctum');
     Route::post('checkVoucher', [VoucherController::class, 'checkVoucher'])->middleware('auth:sanctum');
+    Route::post('redeem-voucher', [VoucherController::class, 'redeemVoucher'])->middleware('auth:sanctum');
 });
 Route::prefix('forum')->group(function () {
     Route::prefix('forum-cmt')->group(function () {
@@ -95,8 +94,9 @@ Route::prefix('forum')->group(function () {
     });
 });
 Route::prefix('notify')->group(function () {
-    Route::get('list', [Notifycaton::class, 'getNotifys'])->middleware('auth:sanctum');
+    Route::get('list', [Notifycaton::class, 'getNotifys']);
 });
+
 Route::fallback(function () {
     return response()->json([
         'message' => 'API endpoint not found.',
@@ -104,26 +104,33 @@ Route::fallback(function () {
 });
 // forum
 Route::prefix('postforum')->group(function () {
-    Route::get('/list', [ForumPostController::class, 'index'])->middleware('auth:sanctum');
-    Route::get('/detail/{id}', [ForumPostController::class, 'detail'])->middleware('auth:sanctum');
+    Route::get('/list', [ForumPostController::class, 'index']);
+    Route::get('/detail/{id}', [ForumPostController::class, 'detail']);
     Route::post('/clickstar', [ForumPostController::class, 'clickStar'])->middleware('auth:sanctum');
     Route::post('/addpost', [ForumPostController::class, 'addpost'])->middleware('auth:sanctum');
     Route::post('/updatepost/{id}', [ForumPostController::class, 'updatepost'])->middleware('auth:sanctum');
     Route::delete('/delete/{id}', [ForumPostController::class, 'deletePost'])->middleware('auth:sanctum');
     //api post mới nhất
-    Route::get('/latest-posts', [ForumPostController::class, 'getLatestPosts'])->middleware('auth:sanctum');
+    Route::get('/latest-posts', [ForumPostController::class, 'getLatestPosts']);
     //api post hay nhất
-    Route::get('/top-rated-posts', [ForumPostController::class, 'getTopRatedPosts'])->middleware('auth:sanctum');
-    Route::get('/user-is-posts', [ForumPostController::class, 'getUserPosts'])->middleware('auth:sanctum');
-    Route::get('/search-posts', [ForumPostController::class, 'searchPosts'])->middleware('auth:sanctum');
-    Route::get('/postsCate', [ForumPostController::class, 'postsByCategory'])->middleware('auth:sanctum');
+    Route::get('/top-rated-posts', [ForumPostController::class, 'getTopRatedPosts']);
+    Route::get('/user-is-posts', [ForumPostController::class, 'getUserPosts']);
+    Route::get('/search-posts', [ForumPostController::class, 'searchPosts']);
+    Route::get('/postsCate', [ForumPostController::class, 'postsByCategory']);
 });
 Route::prefix('feedbacks')->group(function () {
-    Route::get('/list', [ForumFeedbackController::class, 'list'])->middleware('auth:sanctum');
-    Route::get('/detail/{id}', [ForumFeedbackController::class, 'detail'])->middleware('auth:sanctum');
+    Route::get('/list', [ForumFeedbackController::class, 'list']);
+    Route::get('/detail/{id}', [ForumFeedbackController::class, 'detail']);
     Route::post('/addfeedback', [ForumFeedbackController::class, 'addfeedback'])->middleware('auth:sanctum');
     Route::post('/edit/{id}', [ForumFeedbackController::class, 'edit'])->middleware('auth:sanctum');
     Route::delete('/delete/{id}', [ForumFeedbackController::class, 'delete'])->middleware('auth:sanctum');
+});
+Route::prefix('comments')->group(function () {
+    Route::get('/list', [CommentController::class, 'index']);
+    Route::post('/addcomment', [CommentController::class, 'store'])->middleware('auth:sanctum');
+    Route::post('/edit/{id}', [CommentController::class, 'update']);
+    Route::delete('/delete/{id}', [CommentController::class, 'destroy'])->middleware('auth:sanctum');
+
 });
 
 

@@ -17,6 +17,23 @@ class ForumPostController extends Controller
         $forumposts = ForumPost::with([
             'comments' => function ($query) {
                 $query->where('is_active', 1)
+                    ->with(['user:id,name,avatar', 'childComments' => function ($query) {
+                        $query->where('is_active', 1)
+                            ->with('user:id,name,avatar');
+                    }]);
+            },
+            'user:id,name,avatar',
+            'category:id,name',
+        ])
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+        return new ForumPostCollection($forumposts);
+    }
+    public function detail($id)
+    {
+        $forumpost = ForumPost::with([
+            'comments' => function ($query) {
+                $query->where('is_active', 1)
                     ->whereNull('parent_id')
                     ->with('childComments');
             },
@@ -24,21 +41,10 @@ class ForumPostController extends Controller
                 $query->where('is_active', 1);
             },
             'user:id,name,avatar',
-            'category:id,name'
+            'category:id,name',
         ])
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return $forumposts;
-    }
-    public function detail($id)
-    {
-        $forumpost = ForumPost::with('comments')->findOrFail($id);
-        return response()->json([
-            'code' => 200,
-            'message' => 'success',
-            'data' => $forumpost
-        ]);
+            ->findOrFail($id);
+        return new ForumPostResource($forumpost);
     }
     public function clickStar(Request $request){
         $id = $request->input('id');
@@ -61,7 +67,6 @@ class ForumPostController extends Controller
         }
 
     }
-
     public function addPost(Request $request){
         $user_id = Auth::user()->id;
         if(!$user_id){
