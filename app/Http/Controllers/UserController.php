@@ -23,22 +23,23 @@ class UserController extends Controller
 
     public function showListUser(Request $request)
     {
-        $list_users  = User::where([['name', 'LIKE', '%'.$request->search_user.'%'],[ 'role_id', '=',2 ]])
-            ->orderBy('id', 'desc')
-            ->paginate(Beesquad::PAGINATE);
+        // $list_users  = User::where([['name', 'LIKE', '%'.$request->search_user.'%'],[ 'role_id', '=',2 ]])
+        //     ->orderBy('id', 'desc')
+        //     ->paginate(Beesquad::PAGINATE);
         // var_dump($list_users);
+        $list_users = Role::findById(2)->users()->where('name', 'LIKE', '%'.$request->search_user.'%')->orderBy('id', 'desc')->paginate(Beesquad::PAGINATE);
         return view('users.list', compact('list_users'));
     }
     public function deleteUser($id)
     {
-        $user = User::find($id)->delete();
-
+        $user = User::find($id);
         if ($user) {
-            return redirect('/user/list')->with('message', 'Xóa thành công');
+            $user->syncRoles([]);
+            $user->delete();
+            return redirect('/teacher/list')->with('message', 'Xóa thành công');
         } else {
-            return redirect('/user/list')->with('message', 'Xóa thất bại');
+            return redirect('/teacher/list')->with('message', 'Xóa thất bại');
         }
-
     }
 
     public function deleteCheckbox(Request $request)
@@ -79,13 +80,12 @@ class UserController extends Controller
             ];
 
             $user = new User($data);
+            $user->assignRole(2);
             if ($user->save()) {
                 return redirect()->route('show.user')->with('message', 'Thêm thành công');
             } else {
                 return redirect()->route('addUser')->with('message', 'Thêm thất bại');
             }
-
-            $user->hasRole('1');
         } catch (QueryException $e) {
             // Xử lý lỗi cụ thể cho các ngoại lệ của truy vấn cơ sở dữ liệu
             return redirect()->route('addUser')->with('message', 'Lỗi khi thêm người dùng vào cơ sở dữ liệu: ' . $e->getMessage());
@@ -122,12 +122,13 @@ class UserController extends Controller
             'name' => $request->name,
             'password' => bcrypt($request->password),
             'phone' => $request->phone,
-            'role_id' => intval($request->role_id),
+            // 'role_id' => intval($request->role_id),
             'active' => $request->active,
             'avatar' =>$request->filepath,
             'address' => $request->address,
         ];
         $user->update($data);
+        $user->syncRoles($request->role_id);
 
         // Lưu category vào cơ sở dữ liệu
         return redirect()->route('show.user')->with('message', 'sửa user thành công');

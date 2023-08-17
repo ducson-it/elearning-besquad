@@ -20,7 +20,7 @@
                                     <label class=" col-form-label">Tên vai trò</label>
                                     <div class="">
                                         <input type="text" class="form-control role_name" name="name" maxlength="130"
-                                            placeholder="Tên nhóm quyền" required>
+                                            placeholder="Tên vai trò" required>
                                     </div>
                                     @error('name')
                                         <div style="color:red">{{ $message }}</div>

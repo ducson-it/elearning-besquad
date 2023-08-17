@@ -29,7 +29,7 @@ class User extends Authenticatable
         'username',
         'address',
         'point',
-        'role_id',
+        // 'role_id',
         'active'
     ];
 

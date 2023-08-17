@@ -14,16 +14,19 @@ class TeacherController extends Controller
     //
     public function showListTeacher(Request $request)
     {
-        $list_teachers  = User::where([['name', 'LIKE', '%'.$request->search_teacher.'%'],[ 'role_id', '=',3 ]])
-            ->orderBy('id', 'desc')
-            ->paginate(Beesquad::PAGINATE);
+        // $list_teachers  = User::where([['name', 'LIKE', '%'.$request->search_teacher.'%'],[ 'role_id', '=',3 ]])
+        //     ->orderBy('id', 'desc')
+        //     ->paginate(Beesquad::PAGINATE);
+        $list_teachers = Role::findById(3)->users()->where('name', 'LIKE', '%'.$request->search_user.'%')->orderBy('id', 'desc')->paginate(Beesquad::PAGINATE);
+
         return view('teachers.list', compact('list_teachers'));
     }
     public function deleteUser($id)
     {
-        $user = User::find($id)->delete();
-
+        $user = User::find($id);
         if ($user) {
+            $user->syncRoles([]);
+            $user->delete();
             return redirect('/teacher/list')->with('message', 'Xóa thành công');
         } else {
             return redirect('/teacher/list')->with('message', 'Xóa thất bại');
@@ -63,13 +66,14 @@ class TeacherController extends Controller
                 'password' => bcrypt($request->password),
                 'phone' => $request->phone,
                 'point' => 0,
-                'role_id' => 3,
+                // 'role_id' => 3,
                 'active' => $request->active,
                 'avatar' => $request->filepath,
                 'address' => $request->address,
             ];
 
             $user = new User($data);
+            $user->assignRole(3);
             if ($user->save()) {
                 return redirect()->route('show.teacher')->with('message', 'Thêm thành công');
             } else {
@@ -111,13 +115,13 @@ class TeacherController extends Controller
             'name' => $request->name,
             'password' => bcrypt($request->password),
             'phone' => $request->phone,
-            'role_id' => intval($request->role_id),
+            // 'role_id' => intval($request->role_id),
             'active' => $request->active,
             'avatar' =>$request->filepath,
             'address' => $request->address,
         ];
         $user->update($data);
-
+        $user->syncRoles($request->role_id);
         // Lưu category vào cơ sở dữ liệu
         return redirect()->route('show.teacher')->with('message', 'sửa user thành công');
 
