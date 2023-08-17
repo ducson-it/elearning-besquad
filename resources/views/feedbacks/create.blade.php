@@ -11,8 +11,17 @@
                         <div class="card-body">
                             <form method="POST" enctype="multipart/form-data" action="{{ route('feedbacks.store') }}">
                                 @csrf
+                                <div class="col-12">
+                                    <div>
+                                        <label for="basiInput" class="form-label">Title</label>
+                                        <input type="text" class="form-control" name="title" value="{{ old('title') }}">
+                                    </div>
+                                    @error('title')
+                                    <div class="alert text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                         <div class="col-12">
-                            <label class="label-control mb-2">Content</label>
+                            <label class="label-control mb-2">Nội dung</label>
                             <textarea name="content" class="d-none my-editor" value="{{ old('content') }}"></textarea>
                             @error('content')
                             <div class="alert text-danger">{{ $message }}</div>

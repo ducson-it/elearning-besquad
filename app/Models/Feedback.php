@@ -12,7 +12,7 @@ class Feedback extends Model
     use SoftDeletes;
     protected $table = 'feedbacks';
     protected $fillable = [
-        'content', 'user_id', 'view', 'star','is_active'
+        'content', 'user_id', 'view', 'star','is_active','title'
     ];
 
     public function user()
