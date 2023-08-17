@@ -81,7 +81,7 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{route('categories')}}">
-                                    <span>Danh mục</span></i>
+                                    <span>Danh mục</span>
                                 </a>
                             </li>
                             <li class="nav-item">

@@ -44,6 +44,12 @@
                                             <input id="thumbnail2" class="form-control" type="text" name="filepath">
                                         </div>
                                     </div>
+                                    <div class="col-11 mt-3">
+                                        <div>
+                                            <label for="basiInput" class="form-label">Point</label>
+                                            <input type="number" class="form-control" min="0" value="{{$user->point}}"  name="point" >
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col">
 

@@ -48,6 +48,7 @@
                                     <th class="sort" data-sort="action">Giảm giá</th>
                                     <th class="sort" data-sort="action">Đơn vị</th>
                                     <th class="sort" data-sort="action">Giới hạn sử dụng</th>
+                                    <th class="sort" data-sort="action">user_id</th>
                                     <th class="sort" data-sort="action">Ngày tạo</th>
                                     <th class="sort" data-sort="action">Ngày hết hạn</th>
                                     <th class="sort" data-sort="action">Lựa chọn</th>
@@ -69,6 +70,7 @@
                                         <td class="value">{{$voucher->value}}</td>
                                         <td class="unit"><?= $voucher->unit == 'Percent' ? '%':  'Vnd' ?></td>
                                         <td class="quantity"><?= $voucher->is_infinite == true ? 'Vô hạn' : $voucher->quantity?></td>
+                                        <td class="value">{{$voucher->owner ? $voucher->owner: "public"}}</td>
                                         <td class="created_at">{{$voucher->created_at}}</td>
                                         <td class="expired">{{$voucher->expired}}</td>
                                         <td>
