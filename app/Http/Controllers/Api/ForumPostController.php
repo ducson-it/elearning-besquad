@@ -42,6 +42,7 @@ class ForumPostController extends Controller
             },
             'user:id,name,avatar',
             'category:id,name',
+            'user:id,name,avatar',
         ])
             ->findOrFail($id);
         return new ForumPostResource($forumpost);
@@ -264,5 +265,6 @@ class ForumPostController extends Controller
             'data' => $formattedData,
         ]);
     }
+
 }
 

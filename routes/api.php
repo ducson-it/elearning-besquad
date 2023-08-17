@@ -124,6 +124,8 @@ Route::prefix('feedbacks')->group(function () {
     Route::post('/addfeedback', [ForumFeedbackController::class, 'addfeedback'])->middleware('auth:sanctum');
     Route::post('/edit/{id}', [ForumFeedbackController::class, 'edit'])->middleware('auth:sanctum');
     Route::delete('/delete/{id}', [ForumFeedbackController::class, 'delete'])->middleware('auth:sanctum');
+    Route::post('/addview', [ForumFeedbackController::class, 'addview'])->middleware('auth:sanctum');
+
 });
 Route::prefix('comments')->group(function () {
     Route::get('/list', [CommentController::class, 'index']);

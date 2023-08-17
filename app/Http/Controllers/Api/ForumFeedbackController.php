@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\ForumPost;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Feedback;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class ForumFeedbackController extends Controller
 {
     public function list(){
-        $feedbacks = Feedback::all();
+        $feedbacks = Feedback::with('user:id,name')->get();
         return response()->json([
             'code' => 200,
             'message' => 'Thành công',
@@ -21,7 +22,7 @@ class ForumFeedbackController extends Controller
 
     public function detail($id)
     {
-        $feedbacks = Feedback::findOrFail($id);
+        $feedbacks = Feedback::with('user:id,name')->findOrFail($id);
         return response()->json([
             'code' => 200,
             'message' => 'success',
@@ -29,16 +30,13 @@ class ForumFeedbackController extends Controller
         ]);
     }
     public function addfeedback(Request $request){
-        $user_id = Auth::user()->id;
-        if(!$user_id){
-            return response()->json([
-                'status' => false,
-                'message'=>'Bạn không phải người dùng của hệ thống'
-            ],404);
-        }
+        $userId = $request->input('user_id');
+        $user = User::find($userId);
         $data = [
             'content'=> $request->input('content'),
-            'user_id'=>$user_id,
+            'title'=>$request->input('title'),
+            'user_id' => $user->id,
+            'name' => $user->name,
             'view'=>  0,
             'star'=> 0,
         ];
@@ -58,8 +56,8 @@ class ForumFeedbackController extends Controller
     }
     public function edit(Request $request, $id)
     {
-        $user_id = Auth::user()->id;
-        if (!$user_id) {
+        $userId = $request->input('user_id');
+        if (!$userId) {
             return response()->json([
                 'status' => false,
                 'message' => 'Bạn không phải người dùng của hệ thống'
@@ -76,7 +74,7 @@ class ForumFeedbackController extends Controller
         }
 
         // Đảm bảo chỉ người tạo phản hồi mới được phép sửa
-        if ($feedback->user_id !== $user_id) {
+        if ($feedback->user_id !== $userId) {
             return response()->json([
                 'status' => false,
                 'message' => 'Bạn không được phép sửa phản hồi của người khác'
@@ -103,18 +101,16 @@ class ForumFeedbackController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete(Request $request ,$id)
     {
-        $user_id = Auth::user()->id;
-        if (!$user_id) {
+        $userId = $request->input('user_id');
+        if (!$userId) {
             return response()->json([
                 'status' => false,
                 'message' => 'Bạn không phải người dùng của hệ thống'
             ], 404);
         }
-
         $feedback = Feedback::find($id);
-
         if (!$feedback) {
             return response()->json([
                 'status' => false,
@@ -123,7 +119,7 @@ class ForumFeedbackController extends Controller
         }
 
         // Đảm bảo chỉ người tạo phản hồi mới được phép xóa
-        if ($feedback->user_id !== $user_id) {
+        if ($feedback->user_id !== $userId) {
             return response()->json([
                 'status' => false,
                 'message' => 'Bạn không được phép xóa phản hồi của người khác'
@@ -132,7 +128,6 @@ class ForumFeedbackController extends Controller
 
         // Thực hiện xóa phản hồi
         $result = $feedback->delete();
-
         if ($result) {
             return response()->json([
                 'status' => true,
@@ -144,6 +139,27 @@ class ForumFeedbackController extends Controller
                 'message' => 'Xóa phản hồi thất bại',
             ], 500);
         }
+    }
+
+    public function addview(Request $request){
+        $id = $request->input('post_id');
+        $post = ForumPost::find($id);
+        $user = Auth::user();
+        if(!$post){
+            return response()->json([
+                'code'=>404,
+                'meesage'=> 'Not found',
+            ]);
+        }else{
+            $count = $post->view+ 1;
+            $post->update(['view'=>$count]);
+            return response()->json([
+                'code' => 200,
+                'message' => 'success',
+                'data' => ['post' => $post, 'user' => $user]
+            ]);
+        }
+
     }
 
 
