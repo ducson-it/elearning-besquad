@@ -15,6 +15,7 @@ class FeedbackRequest extends FormRequest
     {
         return [
             'content' => 'required',
+            'title'=>'required'
         ];
     }
 
@@ -22,6 +23,7 @@ class FeedbackRequest extends FormRequest
     {
         return [
             'content.required' => 'Nội dung phản hồi là bắt buộc.',
+            'title.required' => 'Tiêu đề là bắt buộc.',
         ];
     }
 }

@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('vouchers', function (Blueprint $table) {
-            //
-            $table->dateTime('expired')->nullable()->change();
+        Schema::table('feedbacks', function (Blueprint $table) {
+            $table->string('title')->after('content');
         });
     }
 
@@ -26,9 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('vouchers', function (Blueprint $table) {
-            //
-            $table->dateTime('expired')->default('1000-01-01 00:00:00')->change(); // Khôi phục giá trị mặc định
+        Schema::table('feedbacks', function (Blueprint $table) {
+            $table->dropColumn('title');
         });
     }
 };
