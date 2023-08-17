@@ -27,7 +27,7 @@ class VoucherRequest extends FormRequest
         $rules =  [
             //
             'name' => 'required',
-            'code' => 'required',
+            'code' => 'required|unique:vouchers,code',
             'expired' => 'required',
             'unit' => 'required',
 
