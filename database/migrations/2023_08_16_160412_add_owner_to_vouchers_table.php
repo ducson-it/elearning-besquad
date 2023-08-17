@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('forum_posts', function (Blueprint $table) {
-            $table->unsignedBigInteger('tag_id')->after('type');
+        Schema::table('vouchers', function (Blueprint $table) {
+            $table->string('owner')->nullable()->after('code'); // Thêm cột 'owner' vào bảng 'vouchers'
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('forum_posts', function (Blueprint $table) {
-            $table->dropColumn('tag_id');
+        Schema::table('vouchers', function (Blueprint $table) {
+            $table->dropColumn('owner'); // Xóa cột 'owner'
         });
     }
 };

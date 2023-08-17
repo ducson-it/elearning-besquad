@@ -61,8 +61,6 @@ class UserController extends Controller
 
     public function addUser()
     {
-//        $roles = Role::all();
-//        return view('users.create',compact('roles'));
         return view('users.create');
     }
     public function storeUser(UserRequest $request)
@@ -116,10 +114,9 @@ class UserController extends Controller
     }
     public function editUser($id){
         $user = User::find($id);
-        $roles = Role::all();
-        return view('users.edit',compact('user','roles'));
+        return view('users.edit',compact('user'));
     }
-    public function updateUser(UserRequest  $request,$id){
+    public function updateUser(UserRequest $request,$id){
         $user = User::find($id);
         $data = [
             'name' => $request->name,

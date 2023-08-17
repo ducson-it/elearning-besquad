@@ -15,7 +15,6 @@ class ForumPostCollection extends ResourceCollection
                 'title' => $post->title,
                 'content' => $post->content,
                 'view' => $post->view,
-                'tagsforum'=>$post->tagsforum->name,
                 'created_at' => $post->created_at,
                 'updated_at' => $post->updated_at,
                 'deleted_at' => $post->deleted_at,

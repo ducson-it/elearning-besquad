@@ -51,8 +51,7 @@ class TeacherController extends Controller
 
     public function addTeacher()
     {
-        $roles = Role::all();
-        return view('teachers.create',compact('roles'));
+        return view('teachers.create');
 
     }
     public function storeTeacher(UserRequest $request)
@@ -64,7 +63,7 @@ class TeacherController extends Controller
                 'password' => bcrypt($request->password),
                 'phone' => $request->phone,
                 'point' => 0,
-                'role_id' => intval($request->role_id),
+                'role_id' => 3,
                 'active' => $request->active,
                 'avatar' => $request->filepath,
                 'address' => $request->address,
@@ -104,8 +103,7 @@ class TeacherController extends Controller
     }
     public function editTeacher($id){
         $user = User::find($id);
-        $roles = Role::all();
-        return view('teachers.edit',compact('user','roles'));
+        return view('teachers.edit',compact('user'));
     }
     public function updateTeacher(UserRequest  $request,$id){
         $user = User::find($id);

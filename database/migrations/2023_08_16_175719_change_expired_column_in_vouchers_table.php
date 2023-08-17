@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tagsforum', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('post_id');
-            $table->timestamps();
+        Schema::table('vouchers', function (Blueprint $table) {
+            //
+            $table->dateTime('expired')->nullable()->change();
         });
     }
 
@@ -28,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tagsforum');
+        Schema::table('vouchers', function (Blueprint $table) {
+            //
+            $table->dateTime('expired')->default('1000-01-01 00:00:00')->change(); // Khôi phục giá trị mặc định
+        });
     }
 };
