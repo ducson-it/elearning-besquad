@@ -132,7 +132,6 @@ Route::prefix('comments')->group(function () {
     Route::post('/addcomment', [CommentController::class, 'store'])->middleware('auth:sanctum');
     Route::post('/edit/{id}', [CommentController::class, 'update']);
     Route::delete('/delete/{id}', [CommentController::class, 'destroy'])->middleware('auth:sanctum');
-
 });
 
 

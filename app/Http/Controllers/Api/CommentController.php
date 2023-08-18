@@ -99,11 +99,9 @@ class CommentController extends Controller
     {
         $userId = $request->input('user_id');
         $comment = Comment::findOrFail($id);
-        // Kiểm tra xem user_id của comment có trùng với user_id trong request không
         if ($comment->user_id != $userId) {
             return response()->json(['error' => 'Bạn không có quyền xóa comment này'], 403);
         }
-        // Nếu comment cha bị xóa, xóa cả các comment con có parent_id là id của comment cha
         if ($comment->parent_id === null) {
             Comment::where('parent_id', $comment->id)->delete();
         }
