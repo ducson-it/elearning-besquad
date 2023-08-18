@@ -50,6 +50,7 @@
                                     <th class="sort" data-sort="action">Điện thoại</th>
                                     <th class="sort" data-sort="action">Loại tài khoản</th>
                                     <th class="sort" data-sort="action">Trạng thái</th>
+                                    <th class="sort" data-sort="action">Point</th>
                                     <th class="sort" data-sort="action">Ngày tạo</th>
                                     <th class="sort" data-sort="action">Lựa chọn</th>
                                 </tr>
@@ -75,6 +76,7 @@
                                             @endforeach
                                         </td>
                                         <td class="active">{{$user->active == 1 ? 'Active': 'Inactive'}}</td>
+                                        <td class="phone">{{$user->point}}</td>
                                         <td class="created_at">{{$user->created_at}}</td>
                                         <td>
                                             <div class="d-flex gap-2">

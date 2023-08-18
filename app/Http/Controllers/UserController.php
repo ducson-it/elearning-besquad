@@ -124,6 +124,7 @@ class UserController extends Controller
             'phone' => $request->phone,
             // 'role_id' => intval($request->role_id),
             'active' => $request->active,
+            'point' => $request->point,
             'avatar' =>$request->filepath,
             'address' => $request->address,
         ];
