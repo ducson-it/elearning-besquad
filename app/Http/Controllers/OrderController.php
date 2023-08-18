@@ -93,10 +93,13 @@ class OrderController extends Controller
                 if(!$checkStudy){
                     Study::create($data);
                 }
+                $userVoucher = UserVoucher::where('voucher_code',$order->voucher_code)->exists();
+                if($userVoucher){
                 $userVoucher = UserVoucher::where('voucher_code',$order->voucher_code)->first();
                 $userVoucher->update([
                     'is_used'=>1
                 ]);
+                }
             }else{
                 //cancel order
                 $order->update([
