@@ -27,4 +27,5 @@ class Beesquad extends Model
     const TRUE = 1;
     const FALSE = 0;
     const PAGINATE =10;
+    const CONFIG_MAIL = ['admin@beesquad.com','doxuanhoang802@gmail.com','dinhhuuthanh99@gmail.com','tranghant2006@gmail.com'];
 }

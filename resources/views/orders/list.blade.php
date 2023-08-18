@@ -40,6 +40,7 @@
                                         <th class="sort" data-sort="customer_name">Mã order</th>
                                         <th class="sort" data-sort="price">User</th>
                                         <th class="sort" data-sort="price-discount">Khoá học</th>
+                                        <th class="sort" data-sort="price-discount">Loại khoá học</th>
                                         <th class="sort" data-sort="status">Trạng thái</th>
                                         <th class="sort" data-sort="price-discount">Tổng giá</th>
                                         <th class="sort" data-sort="date">Ngày tạo</th>
@@ -55,6 +56,9 @@
                                             <td class="customer_name">{{ $order->order_code }}</td>
                                             <td class="course-price">{{ $order->user->name }}</td>
                                             <td class="price-discount">{{ $order->course->name }}</td>
+                                            <td class="course_type"><span
+                                                class="badge badge-soft-success text-uppercase">{{ $order->course->is_free == 0 ? 'Khoá học mất phí' : 'Khoá học miễn phí' }}</span>
+                                        </td>
                                             <td class="status"><span
                                                     class="badge badge-soft-success text-uppercase {{ ($order->status == 1) ? 'text-success' : (($order->status == 3)?'text-danger':'text-warning') }}">{{ ($order->status == 1) ? 'Payment' : (($order->status == 3)?'Canceled':'Pending') }}</span>
                                             </td>

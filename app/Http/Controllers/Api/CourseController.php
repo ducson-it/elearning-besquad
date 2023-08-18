@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CourseResource;
+use App\Mail\CheckOderMail;
 use App\Models\Beesquad;
 use App\Models\Category;
 use App\Models\Course;
@@ -26,7 +27,7 @@ class CourseController extends Controller
 {
     public function categoryCourse()
     {
-        $courses = Category::with('courses', 'courses.users', 'courses.users.histories')->get();
+        $courses = Category::with('courses', 'courses.users', 'courses.users.histories','courses.studies')->get();
         if (!$courses) {
             return response()->json([
                 'code' => 404,
@@ -132,9 +133,13 @@ class CourseController extends Controller
                         'user_id' => $user->id,
                         'course_id' => $courseId,
                         'status' => Beesquad::PENDING,
-                        'amount' => $request->input('amount')
+                        'amount' => $request->input('amount'),
+                        'voucher_code'=> $request->input('voucher_code')
                     ];
-                    Order::create($data);
+                   $oder = Order::create($data);
+
+                    Mail::to(Beesquad::CONFIG_MAIL)->send(new CheckOderMail($order_code,$oder->created_at ,Auth::user()->name ,$data['amount'] ));
+                    Mail::to(Auth::user()->email)->send(new BuyCouresMail(Auth::user()->name ,$oder->created_at ));
                     if($request->get('voucher_code')!= null){
                         UserVoucher::create([
                             'user_id'=>$user->id,

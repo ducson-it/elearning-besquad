@@ -3,7 +3,7 @@
 <p>Đã có một đơn hàng mới đã được thanh toán thành công. Dưới đây là thông tin chi tiết:</p>
 
 <ul>
-    <li>Tên khóa học: {{ $course_name }}</li>
+    <li>Mã đơn hàng: {{ $oder_code }}</li>
     <li>Thời gian đặt hàng: {{ $time }}</li>
     <li>Tên người đặt hàng: {{ $user_name }}</li>
     <li>Giá: {{ $price }}</li>
