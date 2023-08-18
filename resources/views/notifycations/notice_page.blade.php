@@ -55,12 +55,7 @@
                                             <span><i class="mdi mdi-clock-outline"></i> 48 min ago</span>
                                         </p>
                                     </div>
-                                    <div class="px-2 fs-15">
-                                        <div class="form-check notification-check">
-                                            <input class="form-check-input" name="updateIsread" type="checkbox" data-notify-id="{{ $listNotify->id }}">
-                                            <label class="form-check-label" for="all-notification-check02"></label>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         @endforeach
