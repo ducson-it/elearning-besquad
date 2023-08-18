@@ -35,10 +35,6 @@ class ForumFeedbackController extends Controller
         $data = [
             'content'=> $request->input('content'),
             'title'=>$request->input('title'),
-//            'user' => [
-//                'id' => $user->id,
-//                'name' => $user->name
-//            ],
             'user_id' => $user->id,
             'name' => $user->name,
             'view'=>  0,
@@ -84,13 +80,12 @@ class ForumFeedbackController extends Controller
                 'message' => 'Bạn không được phép sửa phản hồi của người khác'
             ], 403);
         }
-
         $data = [
-            'content' => $request->input('content', $feedback->content)
+            'content' => $request->input('content', $feedback->content),
+             'title' => $request->input('title', $feedback->title)
         ];
 
         $result = $feedback->update($data);
-
         if ($result) {
             return response()->json([
                 'status' => true,
@@ -108,12 +103,6 @@ class ForumFeedbackController extends Controller
     public function delete(Request $request ,$id)
     {
         $userId = $request->input('user_id');
-        if (!$userId) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Bạn không phải người dùng của hệ thống'
-            ], 404);
-        }
         $feedback = Feedback::find($id);
         if (!$feedback) {
             return response()->json([
@@ -121,8 +110,6 @@ class ForumFeedbackController extends Controller
                 'message' => 'Phản hồi không tồn tại'
             ], 404);
         }
-
-        // Đảm bảo chỉ người tạo phản hồi mới được phép xóa
         if ($feedback->user_id !== $userId) {
             return response()->json([
                 'status' => false,
