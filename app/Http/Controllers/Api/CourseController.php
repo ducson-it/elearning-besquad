@@ -26,7 +26,7 @@ class CourseController extends Controller
 {
     public function categoryCourse()
     {
-        $courses = Category::with('courses', 'courses.users', 'courses.users.histories')->get();
+        $courses = Category::with('courses', 'courses.users', 'courses.users.histories','courses.studies')->get();
         if (!$courses) {
             return response()->json([
                 'code' => 404,
