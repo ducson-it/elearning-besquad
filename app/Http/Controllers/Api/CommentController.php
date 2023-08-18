@@ -93,11 +93,9 @@ class CommentController extends Controller
         $reply->save();
         return response()->json(['success' => 'Cập nhật comment thành công', 'reply' => $reply], 200);
     }
-
-
-    public function destroy( Request $request , $id)
+    public function destroy($id)
     {
-        $userId = $request->input('user_id');
+        $userId =Auth::user()->id;
         $comment = Comment::findOrFail($id);
         if ($comment->user_id != $userId) {
             return response()->json(['error' => 'Bạn không có quyền xóa comment này'], 403);
