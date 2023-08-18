@@ -19,8 +19,7 @@ class NotifyControler extends Controller
         return view('notifycations.list',compact('notifycations','search'));
     }
    public function addNotify(){
-       $list_users = User::with('role')->Where('role_id', '<>', 1)->get();
-       return view('notifycations.create', compact('list_users'));
+       return view('notifycations.create');
    }
     public function storeNotify(NotifycationRequest $request)
     {

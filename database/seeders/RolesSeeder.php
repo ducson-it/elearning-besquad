@@ -26,5 +26,7 @@ class RolesSeeder extends Seeder
         Role::create(
             ['name' => 'teacher'],
         );
+
+        Role::findById(1)->syncPermissions([1]);
     }
 }

@@ -62,6 +62,42 @@
                                     <input id="thumbnail2" class="form-control" type="text" name="filepath" value="{{$course->image}}">
                                 </div>
                             </div>
+                            <div class="col-10 mt-3">
+                                <div>
+                                    <label for="basiInput" class="form-label">Giảng viên</label>
+                                    <select class="form-select mb-3" name="teacher_id" aria-label="Default select example">
+                                        <option value="">--Chọn--</option>
+                                        @foreach ($teachers as $teacher)
+                                            <option value="{{ $teacher->id }}" {{ $course->teacher_id == $teacher->id ? "selected" : "" }}>{{ $teacher->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->any())
+                                    <span id="error-name" style="color:red">
+                                        @error('teacher_id')
+                                            {{ $message }}
+                                        @enderror
+                                    </span><br>
+                                @endif
+                                </div>
+                            </div>
+                            <div class="col-10 mt-3">
+                                <div>
+                                    <label for="basiInput" class="form-label">Chọn playlist</label>
+                                    <select class="form-select mb-3" name="playlist_id" aria-label="Default select example">
+                                        <option value="">--Chọn--</option>
+                                        @foreach ($playLists['playlists'] as $playList)
+                                            <option value="{{ $playList['id'] }}" {{ $course->playlist_id == $playList['id'] ? "selected" : "" }}>{{ $playList['title'] }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->any())
+                                    <span id="error-name" style="color:red">
+                                        @error('playlist_id')
+                                            {{ $message }}
+                                        @enderror
+                                    </span><br>
+                                @endif
+                                </div>
+                            </div>
                         </div>
                         <div class="row col-6 mt-5">
                             <div class="col-12 price mt-2">
@@ -107,7 +143,7 @@
                                     </span><br>
                                 @endif
                             </div>
-                        
+
                         </div>
                         <!--end col-->
                         <div class="" style="margin-top: 60px;">
