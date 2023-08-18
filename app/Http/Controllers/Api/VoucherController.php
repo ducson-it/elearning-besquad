@@ -91,13 +91,13 @@ class VoucherController extends Controller
 
         if ($exchange_rate == 1) {
             $discount = 10;
-            $requiredPoints = 50;
+            $requiredPoints = 500;
         } elseif ($exchange_rate == 2) {
             $discount = 20;
-            $requiredPoints = 100;
+            $requiredPoints = 1000;
         } else {
             $discount = 30;
-            $requiredPoints = 150;
+            $requiredPoints = 1500;
         }
 
         if ($user->point < $requiredPoints) {
