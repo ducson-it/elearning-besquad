@@ -57,6 +57,7 @@ class ForumFeedbackController extends Controller
     public function edit(Request $request, $id)
     {
         $userId = $request->input('user_id');
+        return ($userId);
         if (!$userId) {
             return response()->json([
                 'status' => false,
@@ -100,9 +101,9 @@ class ForumFeedbackController extends Controller
         }
     }
 
-    public function delete(Request $request ,$id)
+    public function delete($id)
     {
-        $userId = $request->input('user_id');
+        $userId = Auth::user()->id;
         $feedback = Feedback::find($id);
         if (!$feedback) {
             return response()->json([
@@ -116,7 +117,6 @@ class ForumFeedbackController extends Controller
                 'message' => 'Bạn không được phép xóa phản hồi của người khác'
             ], 403);
         }
-
         // Thực hiện xóa phản hồi
         $result = $feedback->delete();
         if ($result) {
