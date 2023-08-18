@@ -19,9 +19,8 @@ class BuyCouresMail extends Mailable
      * @return void
      */
     public $user_name;
-    public $course_name;
     public $time;
-    public function __construct($user_name,$course_name,$time)
+    public function __construct($user_name,$time)
     {
         //
         $this->user_name = $user_name;
