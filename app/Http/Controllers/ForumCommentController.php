@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Beesquad;
 use App\Models\ForumComment;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -46,6 +47,13 @@ class ForumCommentController extends Controller
             $data['parent_id'] = $request->input('comment_id');
         }
         $newComment=  ForumComment::create($data);
+        Notification::create([
+            'title'=>'Quản trị viên đã phản hồi tin nhắn của bạn',
+            'content'=>$request->input('content'),
+            'priority'=> 'hight',
+            'send_to' => 'group_users',
+            ''
+        ]);
         // send email
         $userComment = ForumComment::find($request->input('comment_id')) ;
         $user_name = Auth::user()->name; // Tên người gửi email (có thể thay đổi)

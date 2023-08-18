@@ -30,39 +30,57 @@ class VoucherController extends Controller
     public function checkVoucher(Request $request){
         $user_id = $request->user_id;
         $voucher = $request->input('code');
-        $checkVoucher = Voucher::where('code',$voucher)->exists();
         $system_voucher = Voucher::where('code',$voucher)->first();
-        $voucher_user = UserVoucher::where('voucher_code',$voucher)
-            ->Where('user_id',$user_id)->first();
-        if(!$checkVoucher){
+        if(!$system_voucher){
             return response()->json([
                 'status'=>false,
                 'message'=>'Voucher không tồn tại trong hệ thống'
             ]);
         }
+
         if(Carbon::now() > $system_voucher->expired){
             return response()->json([
                 'status'=>false,
                 'message'=>'Voucher đã hết hạn, vui lòng thử lại voucher khác'
             ]);
         }
-        if ($voucher_user) {
-            if ($voucher_user->is_used == 1) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Voucher đã áp dụng rồi, mời bạn nhập mã code voucher khác'
-                ]);
-            }
-        } else {
+
+        ///
+        if ($system_voucher->owner === null) {
             return response()->json([
-                'status' => false,
-                'message' => 'Không tìm thấy thông tin về voucher'
+                'status' => true,
+                'data' => $system_voucher
             ]);
+        }else{
+            if($system_voucher->owner !== $user_id){
+                return response()->json([
+                    'status'=>false,
+                    'message'=>'Voucher này bạn không được phép sử dụng'
+                ]);
+            }else{
+                $voucher_user = UserVoucher::where('voucher_code', $voucher)
+                    ->where('user_id', $user_id)->first();
+                if(!$voucher_user ){
+                    return response()->json([
+                        'status' => true,
+                        'data' => $system_voucher
+                    ]);
+                }else{
+                    if($voucher_user->is_used === 0){
+                        return response()->json([
+                            'status' => true,
+                            'data' => $system_voucher
+                        ]);
+                    }else{
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Voucher này đã được áp dụng , mời nhập voucher khác'
+                        ]);
+                    }
+                }
+            }
         }
-        return response()->json([
-            'status'=>true,
-            'data'=>$system_voucher
-        ],200);
+
     }
     public function redeemVoucher(Request $request)
     {
