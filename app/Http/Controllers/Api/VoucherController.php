@@ -18,7 +18,10 @@ class VoucherController extends Controller
     //
     public function getVoucher($user_id){
         $currentTime = Carbon::now();
-        $vouchers = Voucher::where('expired', '>', $currentTime)
+        $vouchers = Voucher::where(function ($query) use ($currentTime, $user_id) {
+            $query->where('expired', '>', $currentTime)
+                ->orWhereNull('expired');
+        })
             ->where(function ($query) use ($user_id) {
                 $query->where('owner', $user_id)
                     ->orWhereNull('owner');
