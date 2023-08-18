@@ -63,9 +63,7 @@ class ForumFeedbackController extends Controller
                 'message' => 'Bạn không phải người dùng của hệ thống'
             ], 404);
         }
-
         $feedback = Feedback::find($id);
-
         if (!$feedback) {
             return response()->json([
                 'status' => false,
