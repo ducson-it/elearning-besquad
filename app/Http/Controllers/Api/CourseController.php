@@ -133,7 +133,8 @@ class CourseController extends Controller
                         'user_id' => $user->id,
                         'course_id' => $courseId,
                         'status' => Beesquad::PENDING,
-                        'amount' => $request->input('amount')
+                        'amount' => $request->input('amount'),
+                        'voucher_code'=> $request->input('voucher_code')
                     ];
                    $oder = Order::create($data);
 
