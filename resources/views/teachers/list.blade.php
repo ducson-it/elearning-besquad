@@ -49,6 +49,7 @@
                                     <th class="sort" data-sort="action">Điện thoại</th>
                                     <th class="sort" data-sort="action">Loại tài khoản</th>
                                     <th class="sort" data-sort="action">Trạng thái</th>
+                                    <th class="sort" data-sort="action">Point</th>
                                     <th class="sort" data-sort="action">Ngày tạo</th>
                                     <th class="sort" data-sort="action">Lựa chọn</th>
                                 </tr>
@@ -69,6 +70,7 @@
                                         <td class="phone">{{$teacher->phone}}</td>
                                         <td class="role_name">Giảng viên</td>
                                         <td class="active">{{$teacher->active == 1 ? 'Active': 'Inactive'}}</td>
+                                        <td class="phone">{{$teacher->point}}</td>
                                         <td class="created_at">{{$teacher->created_at}}</td>
                                         <td>
                                             <div class="d-flex gap-2">

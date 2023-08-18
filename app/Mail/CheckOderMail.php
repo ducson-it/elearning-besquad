@@ -18,14 +18,14 @@ class CheckOderMail extends Mailable
      *
      * @return void
      */
-    public $course_name;
+    public $oder_code;
     public $time;
     public $user_name;
     public $price;
-    public function __construct($course_name, $time,$user_name,$price)
+    public function __construct($oder_code, $time,$user_name,$price)
     {
         //
-        $this->course_name = $course_name;
+        $this->oder_code = $oder_code;
         $this->time = $time;
         $this->user_name = $user_name;
         $this->price = $price;

@@ -81,7 +81,7 @@ Route::prefix('lesson')->group(function () {
     Route::get('{lesson}', [LessonController::class, 'detailLesson'])->middleware('auth:sanctum');
 });
 Route::prefix('voucher')->group(function () {
-    Route::post('list-system', [VoucherController::class, 'getVoucher'])->middleware('auth:sanctum');
+    Route::get('list-system/{user_id}', [VoucherController::class, 'getVoucher'])->middleware('auth:sanctum');
     Route::post('checkVoucher', [VoucherController::class, 'checkVoucher'])->middleware('auth:sanctum');
     Route::post('redeem-voucher', [VoucherController::class, 'redeemVoucher'])->middleware('auth:sanctum');
 });
@@ -124,13 +124,14 @@ Route::prefix('feedbacks')->group(function () {
     Route::post('/addfeedback', [ForumFeedbackController::class, 'addfeedback'])->middleware('auth:sanctum');
     Route::post('/edit/{id}', [ForumFeedbackController::class, 'edit'])->middleware('auth:sanctum');
     Route::delete('/delete/{id}', [ForumFeedbackController::class, 'delete'])->middleware('auth:sanctum');
+    Route::post('/addview', [ForumFeedbackController::class, 'addview'])->middleware('auth:sanctum');
+
 });
 Route::prefix('comments')->group(function () {
     Route::get('/list', [CommentController::class, 'index']);
     Route::post('/addcomment', [CommentController::class, 'store'])->middleware('auth:sanctum');
     Route::post('/edit/{id}', [CommentController::class, 'update']);
     Route::delete('/delete/{id}', [CommentController::class, 'destroy'])->middleware('auth:sanctum');
-
 });
 
 

@@ -16,10 +16,12 @@ use Illuminate\Support\Str;
 class VoucherController extends Controller
 {
     //
-    public function getVoucher(Request $request){
+    public function getVoucher($user_id){
         $currentTime = Carbon::now();
-        $user_id = $request->input('user_id');
-        $vouchers = Voucher::where('expired', '>', $currentTime)
+        $vouchers = Voucher::where(function ($query) use ($currentTime, $user_id) {
+            $query->where('expired', '>', $currentTime)
+                ->orWhereNull('expired');
+        })
             ->where(function ($query) use ($user_id) {
                 $query->where('owner', $user_id)
                     ->orWhereNull('owner');
@@ -29,32 +31,59 @@ class VoucherController extends Controller
         return response()->json($vouchers);
     }
     public function checkVoucher(Request $request){
-        $voucher = $request->input('voucher');
-        $checkVoucher = Voucher::where('code',$voucher)->exists();
+        $user_id = $request->user_id;
+        $voucher = $request->input('code');
         $system_voucher = Voucher::where('code',$voucher)->first();
-        $checkUserVoucher = UserVoucher::where('voucher_code',$voucher)->exists();
-        if(!$checkVoucher){
+        if(!$system_voucher){
             return response()->json([
                 'status'=>false,
                 'message'=>'Voucher không tồn tại trong hệ thống'
             ]);
         }
+
         if(Carbon::now() > $system_voucher->expired){
             return response()->json([
                 'status'=>false,
                 'message'=>'Voucher đã hết hạn, vui lòng thử lại voucher khác'
             ]);
         }
-        if(!$checkUserVoucher){
+
+        ///
+        if ($system_voucher->owner === null) {
             return response()->json([
-                'status'=>false,
-                'message'=>'Voucher đã được sử dụng, vui lòng chọn voucher khác'
+                'status' => true,
+                'data' => $system_voucher
             ]);
+        }else{
+            if($system_voucher->owner !== $user_id){
+                return response()->json([
+                    'status'=>false,
+                    'message'=>'Voucher này bạn không được phép sử dụng'
+                ]);
+            }else{
+                $voucher_user = UserVoucher::where('voucher_code', $voucher)
+                    ->where('user_id', $user_id)->first();
+                if(!$voucher_user ){
+                    return response()->json([
+                        'status' => true,
+                        'data' => $system_voucher
+                    ]);
+                }else{
+                    if($voucher_user->is_used === 0){
+                        return response()->json([
+                            'status' => true,
+                            'data' => $system_voucher
+                        ]);
+                    }else{
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Voucher này đã được áp dụng , mời nhập voucher khác'
+                        ]);
+                    }
+                }
+            }
         }
-        return response()->json([
-            'status'=>true,
-            'data'=>$system_voucher
-        ],200);
+
     }
     public function redeemVoucher(Request $request)
     {
@@ -65,13 +94,13 @@ class VoucherController extends Controller
 
         if ($exchange_rate == 1) {
             $discount = 10;
-            $requiredPoints = 50;
+            $requiredPoints = 500;
         } elseif ($exchange_rate == 2) {
             $discount = 20;
-            $requiredPoints = 100;
+            $requiredPoints = 1000;
         } else {
             $discount = 30;
-            $requiredPoints = 150;
+            $requiredPoints = 1500;
         }
 
         if ($user->point < $requiredPoints) {
