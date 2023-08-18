@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CourseResource;
+use App\Mail\CheckOderMail;
 use App\Models\Beesquad;
 use App\Models\Category;
 use App\Models\Course;
@@ -134,7 +135,10 @@ class CourseController extends Controller
                         'status' => Beesquad::PENDING,
                         'amount' => $request->input('amount')
                     ];
-                    Order::create($data);
+                   $oder = Order::create($data);
+
+                    Mail::to(Beesquad::CONFIG_MAIL)->send(new CheckOderMail($order_code,$oder->created_at ,Auth::user()->name ,$data['amount'] ));
+                    Mail::to(Auth::user()->email)->send(new BuyCouresMail(Auth::user()->name ,$oder->created_at ));
                     if($request->get('voucher_code')!= null){
                         UserVoucher::create([
                             'user_id'=>$user->id,

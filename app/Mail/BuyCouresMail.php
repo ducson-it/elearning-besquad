@@ -25,7 +25,6 @@ class BuyCouresMail extends Mailable
     {
         //
         $this->user_name = $user_name;
-        $this->course_name =  $course_name;
         $this->time = $time;
     }
 
