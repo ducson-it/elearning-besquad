@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+Route::group(['middleware'=>['auth','role:admin|teacher']],function (){
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
-Route::get('/statistic-business', [App\Http\Controllers\HomeController::class, 'statistic'])->middleware('auth');
-Route::get('/top-course', [App\Http\Controllers\HomeController::class, 'topCourse'])->middleware('auth');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/statistic-business', [App\Http\Controllers\HomeController::class, 'statistic']);
+Route::get('/top-course', [App\Http\Controllers\HomeController::class, 'topCourse']);
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web','auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -32,8 +32,6 @@ Route::post('/blogs/upload3',[\App\Http\Controllers\Controller::class,'mediaUplo
 
 
 Route::post('/media/upload',[\App\Http\Controllers\Controller::class,'mediaUpload'])->name('media.upload');
-
-Route::group(['middleware'=>['auth']],function (){
     require __DIR__ .'/categories.php';
     require __DIR__ .'/course.php';
     require __DIR__ .'/module.php';
@@ -54,9 +52,7 @@ Route::group(['middleware'=>['auth']],function (){
     require __DIR__ .'/forum_comment.php';
    require __DIR__ .'/permission.php';
     require __DIR__ .'/role.php';
-
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
