@@ -57,7 +57,6 @@ class ForumFeedbackController extends Controller
     public function edit(Request $request, $id)
     {
         $userId = $request->input('user_id');
-        return ($userId);
         if (!$userId) {
             return response()->json([
                 'status' => false,
