@@ -139,35 +139,35 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#blog" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-apps-2-line"></i><span>Quản lý Blog</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="blog">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="{{route('blogs.list')}}">
-                                    <span>Danh sách</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="{{route('category_blog.list')}}">
-                                 <span>Danh sách chủ đề</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="{{route('show.tag')}}">
-                                    <span>Tag</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="{{route('comment.list')}}">
-                                    <span>Bình luận</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link menu-link" href="#blog" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">--}}
+{{--                        <i class="ri-apps-2-line"></i><span>Quản lý Blog</span>--}}
+{{--                    </a>--}}
+{{--                    <div class="collapse menu-dropdown" id="blog">--}}
+{{--                        <ul class="nav nav-sm flex-column">--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link menu-link" href="{{route('blogs.list')}}">--}}
+{{--                                    <span>Danh sách</span>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link menu-link" href="{{route('category_blog.list')}}">--}}
+{{--                                 <span>Danh sách chủ đề</span>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link menu-link" href="{{route('show.tag')}}">--}}
+{{--                                    <span>Tag</span>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link menu-link" href="{{route('comment.list')}}">--}}
+{{--                                    <span>Bình luận</span>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--                </li>--}}
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#vouchers" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span>Quản lý voucher</span>
