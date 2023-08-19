@@ -86,10 +86,13 @@
                                     </div>
 {{--                                    <div class="col-11 mt-3">--}}
 {{--                                        <div>--}}
-{{--                                            <label for="basiInput" class="form-label">Password</label>--}}
-{{--                                            <input type="text" class="form-control" min="0" value=""  name="password" >--}}
+{{--                                            <label for="basiInput" class="form-label">Mật khẩu mới</label>--}}
+{{--                                            <input type="password" class="form-control" min="0" value=""  name="password" >--}}
 {{--                                        </div>--}}
 {{--                                    </div>--}}
+                                    @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <!--end col-->
                             </div>
