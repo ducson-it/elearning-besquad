@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QuizResource;
+use App\Mail\CompletedCourse;
 use App\Models\Answer;
+use App\Models\Course;
 use App\Models\Quiz;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class QuizController extends Controller
 {
@@ -14,6 +19,7 @@ class QuizController extends Controller
     public function answerCheck(Request $request)
     {
         $data = [];
+        $course = Course::find($request->course_id);
         $correct_answer = Answer
         ::where('correct_answer',1)
         ->get()->pluck('id')->toArray();
@@ -21,6 +27,9 @@ class QuizController extends Controller
             if(!in_array($value['answer_choose'],$correct_answer)){
                 array_push($data,$value['question_id']);
             }
+        }
+        if(empty($data)){
+            Mail::to(Auth::user()->email)->send(new CompletedCourse(Auth::user()->name,$course->name,Carbon::now()));
         }
         return response()->json([
             'status'=>true,
