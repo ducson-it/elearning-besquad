@@ -25,8 +25,7 @@ class UserRequest extends FormRequest
     {
         $rules = [
             'name' => 'required',
-            'phone' => 'required|min:10',
-            'address' => 'required',
+            'phone' => 'min:10',
             'role_id' => 'required',
             'active' => 'required',
         ];

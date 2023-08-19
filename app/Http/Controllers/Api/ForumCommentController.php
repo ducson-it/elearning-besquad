@@ -17,7 +17,8 @@ class ForumCommentController extends Controller
 {
     //add cmt
     public function addForumCmt(Request $request){
-       $user_id = $request->input('user_id');
+//       $user_id = $request->input('user_id');
+        $user_id = Auth::user()->id;
         $data = [
             'content' => $request->input('content'),
             'user_id'=> $user_id,
