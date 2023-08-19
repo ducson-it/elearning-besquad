@@ -138,8 +138,8 @@ class CourseController extends Controller
                     ];
                    $oder = Order::create($data);
 
-                    Mail::to(Beesquad::CONFIG_MAIL)->send(new CheckOderMail($order_code,$oder->created_at ,Auth::user()->name ,$data['amount'] ));
-                    Mail::to(Auth::user()->email)->send(new BuyCouresMail(Auth::user()->name ,$oder->created_at ));
+                    // Mail::to(Beesquad::CONFIG_MAIL)->send(new CheckOderMail($order_code,$oder->created_at ,Auth::user()->name ,$data['amount'] ));
+                    // Mail::to(Auth::user()->email)->send(new BuyCouresMail(Auth::user()->name ,$oder->created_at ));
                     if($request->get('voucher_code')!= null){
                         UserVoucher::create([
                             'user_id'=>$user->id,
@@ -156,7 +156,7 @@ class CourseController extends Controller
                 } catch (\Throwable $th) {
                     DB::rollBack();
                     return response(['success' => false, 'data' => [
-                        'message' => 'Đơn hàng đang trong thời gian xử lý, vui lòng thử lại!'
+                        'message' => 'Đặt hàng không thành công, vui lòng thử lại!'
                     ]]);
                 }
             }
