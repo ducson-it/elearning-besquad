@@ -6,6 +6,7 @@ use App\Http\Requests\RoleRequest;
 use App\Http\Requests\RoleUpdateRequest;
 use App\Models\GroupPermission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -40,7 +41,7 @@ class RoleController extends Controller
     public function store(RoleRequest $request)
     {
         $role = new Role();
-        $role->fill($request->all())->save();
+        $role->create(['name' => $request->name]);
 
         return redirect()->back()->with('success', 'Thêm thành công');
     }
@@ -82,7 +83,7 @@ class RoleController extends Controller
         ]);
 
         if ($request->permission) {
-            $role->permissions()->sync($request->permission);
+            $role->syncPermissions($request->permission);
         }
 
         return redirect()->route('roles.index')->with('success', 'Cập nhật thành công');
@@ -96,6 +97,35 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $role = Role::find($id);
+
+            if ($role) {
+                foreach ($role->permissions as $permission) {
+                    $role->revokePermissionTo($permission);
+                    $permission->delete();
+                }
+                $role->delete();
+                DB::commit();
+                return response([
+                    'success' => true,
+                    'message' => 'Xóa vai trò thành công!'
+                ]);
+            } else {
+                DB::rollBack();
+                return response([
+                    'success' => false,
+                    'message' => 'Không tìm thấy vai trò!'
+                ]);
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response([
+                'success' => false,
+                'message' => 'Có lỗi xảy ra!'
+            ]);
+        }
     }
 }
