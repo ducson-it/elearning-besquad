@@ -1,33 +1,33 @@
 import Swal from "sweetalert2"
-document.addEventListener('DOMContentLoaded', function () {
-    $(function () {
-        $('#course_id').select2({
-            placeholder: 'Select...',
-            allowClear: true,
-            ajax: {
-                delay: 230,
-                url: '/modules/search/course',
-                dataType: 'json',
-                data: function (params) {
-                    return {
-                        search: params.term
-                    };
-                },
-                processResults: function (data) {
-                    return {
-                        results: $.map(data, function (course) {
-                            return {
-                                text: `${course.name}`,
-                                id: `${course.id}`,
-                            }
-                        }),
-                    };
-                },
-                cache: true
-            },
-        });
-    });
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//     $(function () {
+//         $('#course_id').select2({
+//             placeholder: 'Select...',
+//             allowClear: true,
+//             ajax: {
+//                 delay: 230,
+//                 url: '/modules/search/course',
+//                 dataType: 'json',
+//                 data: function (params) {
+//                     return {
+//                         search: params.term
+//                     };
+//                 },
+//                 processResults: function (data) {
+//                     return {
+//                         results: $.map(data, function (course) {
+//                             return {
+//                                 text: `${course.name}`,
+//                                 id: `${course.id}`,
+//                             }
+//                         }),
+//                     };
+//                 },
+//                 cache: true
+//             },
+//         });
+//     });
+// });
 
 window.deleteModule = (module_id)=>{
     Swal.fire({

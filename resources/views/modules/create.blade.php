@@ -31,7 +31,10 @@
                                 <div class="col-10 mt-2">
                                     <div>
                                         <label for="basiInput" class="form-label">Khoá học</label>
-                                        <select name="course_id" id="course_id" class="form-select">
+                                        <select name="course_id" id="course_id" class="form-select js-example-templating">
+                                            @foreach ($courses as $course)
+                                            <option value="{{$course->id}}">{{$course->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -61,4 +64,11 @@
         </div>
         <!--end col-->
     </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function() {
+        $(".js-example-templating").select2();
+    });
+</script>
 @endsection
