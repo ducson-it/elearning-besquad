@@ -10,6 +10,7 @@ use App\Models\UserVoucher;
 use App\Models\Voucher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -87,7 +88,7 @@ class VoucherController extends Controller
     }
     public function redeemVoucher(Request $request)
     {
-        $user = User::find($request->input('user_id'));
+        $user = Auth::user();
         $exchange_rate = $request->input('exchange_rate');
         $discount = 0;
         $requiredPoints = 0;
@@ -102,7 +103,6 @@ class VoucherController extends Controller
             $discount = 30;
             $requiredPoints = 1500;
         }
-
         if ($user->point < $requiredPoints) {
             return response()->json([
                 'status' => false,
