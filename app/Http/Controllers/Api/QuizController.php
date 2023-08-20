@@ -8,6 +8,7 @@ use App\Mail\CompletedCourse;
 use App\Models\Answer;
 use App\Models\Course;
 use App\Models\Quiz;
+use App\Models\Study;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,14 @@ class QuizController extends Controller
             }
         }
         if(empty($data)){
+            $study = Study::where('user_id',Auth::id())
+                ->where('course_id',$request->course_id)
+                ->first();
+                $study->update(
+                    [
+                        'status'=>1
+                    ]
+                    );
             Mail::to(Auth::user()->email)->send(new CompletedCourse(Auth::user()->name,$course->name,Carbon::now()));
         }
         return response()->json([
