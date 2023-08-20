@@ -59,7 +59,7 @@ class CourseController extends Controller
     public function myCourse()
     {
         $userId = Auth::id();
-        $courses =  User::find($userId)->courses()->with(['modules', 'modules.lessons', 'category'])->get();
+        $courses =  User::find($userId)->courses()->with(['modules', 'modules.lessons', 'category','studies'])->get();
         return response()->json([
             'success' => true,
             'courses' => $courses
