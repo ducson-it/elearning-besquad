@@ -19,6 +19,6 @@ return [
     | considered expired.
     |
     */
-     'auth_token_expiration'    => 100,
-     'refresh_token_expiration' => 200,
+     'auth_token_expiration'    => 1,
+     'refresh_token_expiration' => 2,
 ];

@@ -20,7 +20,7 @@ class LessonResource extends JsonResource
             'slug' => $this->slug,
             'course_id' => $this->course_id,
             'module_id' => $this->module_id,
-            'document' => $this->document,
+            'document' => '/storage/document/'.$this->document,
             'video_id' => $this->video_id,
             'status' => $this->status,
             'description' => $this->description,
