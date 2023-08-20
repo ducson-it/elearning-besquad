@@ -84,7 +84,12 @@
                                             </select>
                                         </div>
                                     </div>
-
+{{--                                    <div class="col-11 mt-3">--}}
+{{--                                        <div>--}}
+{{--                                            <label for="basiInput" class="form-label">Password</label>--}}
+{{--                                            <input type="text" class="form-control" min="0" value=""  name="password" >--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 </div>
                                 <!--end col-->
                             </div>
