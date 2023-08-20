@@ -93,7 +93,7 @@ $('select#video').on('change',function(){
                 $('#showVideo').html(msg)
                 $('#time').html(
                     `
-                    <input class="form-control" type="hidden" name="time" value="${data.plays}">
+                    <input class="form-control" type="hidden" name="time" value="${data.duration}">
                     `
                 )
             }
