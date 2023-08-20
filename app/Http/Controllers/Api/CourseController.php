@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CourseResource;
+use App\Mail\BuyCouresMail;
 use App\Mail\CheckOderMail;
 use App\Models\Beesquad;
 use App\Models\Category;
@@ -21,6 +22,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Laravel\Ui\Presets\React;
 use PHPUnit\Framework\Constraint\Count;
@@ -140,10 +142,9 @@ class CourseController extends Controller
                         'amount' => $request->input('amount'),
                         'voucher_code'=> $request->input('voucher_code')
                     ];
-                   $oder = Order::create($data);
-
-                    // Mail::to(Beesquad::CONFIG_MAIL)->send(new CheckOderMail($order_code,$oder->created_at ,Auth::user()->name ,$data['amount'] ));
-                    // Mail::to(Auth::user()->email)->send(new BuyCouresMail(Auth::user()->name ,$oder->created_at ));
+                   $order = Order::create($data);
+                     Mail::to(Beesquad::MAIL_ADMIN)->send(new CheckOderMail($order_code,$order->created_at ,Auth::user()->name ,$data['amount'] ));
+                    Mail::to(Auth::user()->email)->send(new BuyCouresMail(Auth::user()->name ,$order->created_at ));
                     if($request->get('voucher_code')!= null){
                         UserVoucher::create([
                             'user_id'=>$user->id,
