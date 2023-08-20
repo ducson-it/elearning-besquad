@@ -140,7 +140,7 @@ class CourseController extends Controller
                     ];
                    $order = Order::create($data);
                      Mail::to(Beesquad::MAIL_ADMIN)->send(new CheckOderMail($order_code,$order->created_at ,Auth::user()->name ,$data['amount'] ));
-                    Mail::to('doxuanhoang802@gmail.com')->send(new BuyCouresMail(Auth::user()->name ,$order->created_at ));
+                    Mail::to(Auth::user()->email)->send(new BuyCouresMail(Auth::user()->name ,$order->created_at ));
                     if($request->get('voucher_code')!= null){
                         UserVoucher::create([
                             'user_id'=>$user->id,
