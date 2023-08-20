@@ -111,10 +111,10 @@ Route::prefix('postforum')->group(function () {
     Route::post('/updatepost/{id}', [ForumPostController::class, 'updatepost'])->middleware('auth:sanctum');
     Route::delete('/delete/{id}', [ForumPostController::class, 'deletePost'])->middleware('auth:sanctum');
     //api post mới nhất
-    Route::get('/latest-posts', [ForumPostController::class, 'getLatestPosts']);
+    Route::get('/latest-posts', [ForumPostController::class, 'getLatestPosts'])->middleware('auth:sanctum');
     //api post hay nhất
     Route::get('/top-rated-posts', [ForumPostController::class, 'getTopRatedPosts']);
-    Route::get('/user-is-posts', [ForumPostController::class, 'getUserPosts']);
+    Route::get('/user-is-posts', [ForumPostController::class, 'getUserPosts'])->middleware('auth:sanctum');
     Route::get('/search-posts', [ForumPostController::class, 'searchPosts']);
     Route::get('/postsCate', [ForumPostController::class, 'postsByCategory']);
 });
