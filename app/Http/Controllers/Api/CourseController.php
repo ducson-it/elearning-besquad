@@ -17,6 +17,8 @@ use App\Models\Order;
 use App\Models\Study;
 use App\Models\UserVoucher;
 use Carbon\Carbon;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -59,7 +61,9 @@ class CourseController extends Controller
     public function myCourse()
     {
         $userId = Auth::id();
-        $courses =  User::find($userId)->courses()->with(['modules', 'modules.lessons', 'category','studies'])->get();
+        $courses =  User::find($userId)->courses()->with(['modules', 'modules.lessons', 'category','studies'=>function(Builder $query){
+            $query->where('user_id',Auth::id());
+        }])->get();
         return response()->json([
             'success' => true,
             'courses' => $courses
