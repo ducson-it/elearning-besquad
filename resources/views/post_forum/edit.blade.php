@@ -44,22 +44,6 @@
                                     </div>
                                     <div class="col-12">
                                         <div>
-                                            <label for="exampleFormControlTextarea5" class="form-label"> Thuộc tags </label>
-                                            <select name="tag_id" class="form-control" >
-                                                <option value="" >-- Chọn bài post forum --</option>
-                                                @foreach ($tagsforum as $item)
-                                                    <option value="{{ $item->id }}"
-                                                        {{ $item->id == old('tag_id', $forumPost->tag_id) ? 'selected' : '' }}>
-                                                        {{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('tag_id')
-                                        <div class="alert text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-12">
-                                        <div>
                                             <label for="exampleFormControlTextarea5" class="form-label">Danh mục</label>
                                             <select name="category_id" class="form-control">
                                                 <option value="">-- Chọn danh mục bài viết --</option>
