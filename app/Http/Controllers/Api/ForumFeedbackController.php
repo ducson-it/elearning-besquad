@@ -133,7 +133,7 @@ class ForumFeedbackController extends Controller
         $user = Auth::user();
         if(!$feedback){
             return response()->json([
-                'status'=>403,
+                'status'=>false,
                 'meesage'=> 'không tồn tại feedback này',
             ]);
         }else{
