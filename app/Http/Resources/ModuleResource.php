@@ -20,6 +20,7 @@ class ModuleResource extends JsonResource
             'slug' => $this->slug,
             'course_id' => $this->course_id,
             'description' => $this->description,
+            'time'=>$this->time,
             'lessons' => LessonResource::collection($this->whenLoaded('lessons')),
         ];
     }

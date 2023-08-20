@@ -27,6 +27,7 @@ class CourseResource extends JsonResource
             'image' => $this->image,
             'description' => $this->description,
             'is_free' => $this->is_free,
+            'study_count'=>$this->studies->count(),
             'modules' => ModuleResource::collection($this->whenLoaded('modules')),
             'users' => UserResource::collection($this->whenLoaded('users')),
             'studies'=>StudyResource::collection($this->whenLoaded('studies')),

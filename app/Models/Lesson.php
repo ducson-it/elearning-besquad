@@ -13,7 +13,7 @@ class Lesson extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'lessons';
-    protected $fillable = ['name', 'slug','quiz_id','lesson_type','course_id', 'module_id', 'document', 'video_id', 'status', 'description', 'is_trial_lesson','view'];
+    protected $fillable = ['name', 'slug','quiz_id','lesson_type','course_id', 'module_id', 'document', 'video_id', 'status', 'description', 'is_trial_lesson','view','time'];
 
     public function course()
     {

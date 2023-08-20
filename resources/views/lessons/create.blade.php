@@ -88,6 +88,9 @@
                                     <div style="width:200px" id="showVideo">
                                         
                                     </div>
+                                    <div id="time">
+                                        <input class="form-control" type="hidden" name="time">
+                                    </div>
                                     <div class="input-group">
                                         <select name="video_id" id="video" class="form-control">
                                             @foreach ($videos as $video)
