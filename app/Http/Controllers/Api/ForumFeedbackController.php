@@ -134,7 +134,7 @@ class ForumFeedbackController extends Controller
         if(!$feedback){
             return response()->json([
                 'code'=>404,
-                'meesage'=> 'Not found',
+                'meesage'=> 'không tồn tại feedback này',
             ]);
         }else{
             $count = $feedback->view+ 1;
