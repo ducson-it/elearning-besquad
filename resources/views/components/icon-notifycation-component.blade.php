@@ -15,9 +15,6 @@
                     <div class="col">
                         <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
                     </div>
-                    <div class="col-auto dropdown-tabs">
-                        <span class="badge badge-soft-light fs-13"> {{$countIsreadNotify}} New</span>
-                    </div>
                 </div>
             </div>
 
@@ -27,14 +24,10 @@
                     <li class="nav-item waves-effect waves-light">
                         <a class="nav-link active" data-bs-toggle="tab" href="#all-noti-tab" role="tab"
                            aria-selected="true">
-                            All ({{$countIsreadNotify}})
+                            Tất cả ({{$countIsreadNotify}})
                         </a>
                     </li>
-                    <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link" data-bs-toggle="tab" href="#messages-tab" role="tab" aria-selected="false">
-                            Messages
-                        </a>
-                    </li>
+
                 </ul>
             </div>
 
@@ -47,7 +40,7 @@
                     @foreach($listNotifys as $listNotify)
                         <div class="text-reset notification-item d-block dropdown-item position-relative">
                             <div class="d-flex">
-                                <img src="{{URL::asset('assets/images/users/avatar-2.jpg')}}"
+                                <img src="{{URL::asset('assets/images/companies/img-3.png')}}"
                                      class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                 <div class="flex-1">
                                     <a href="#!" class="stretched-link">
@@ -57,14 +50,8 @@
                                         <p class="mb-1">{{$listNotify->content}} 🔔.</p>
                                     </div>
                                     <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                        <span><i class="mdi mdi-clock-outline"></i> 48 min ago</span>
+                                        <span><i class="mdi mdi-clock-outline"></i> {{$listNotify->created_at}}</span>
                                     </p>
-                                </div>
-                                <div class="px-2 fs-15">
-                                    <div class="form-check notification-check">
-                                        <input class="form-check-input" name="updateIsread" type="checkbox" data-notify-id="{{ $listNotify->id }}">
-                                        <label class="form-check-label" for="all-notification-check02"></label>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,43 +67,6 @@
 
             </div>
 
-            <div class="tab-pane fade py-2 ps-2" id="messages-tab" role="tabpanel" aria-labelledby="messages-tab">
-                <div data-simplebar style="max-height: 300px;" class="pe-2">
-                    @foreach($listNotifys as $listNotify)
-                        <div class="text-reset notification-item d-block dropdown-item">
-                            <div class="d-flex">
-                                <img src="{{URL::asset('assets/images/users/avatar-3.jpg')}}"
-                                     class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                <div class="flex-1">
-                                    <a href="#!" class="stretched-link">
-                                        <h6 class="mt-0 mb-1 fs-13 fw-semibold">{{$listNotify->title}}</h6>
-                                    </a>
-                                    <div class="fs-13 text-muted">
-                                        <p class="mb-1">{{$listNotify->content}}</p>
-                                    </div>
-                                    <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                        <span><i class="mdi mdi-clock-outline"></i> 30 min ago</span>
-                                    </p>
-                                </div>
-                                <div class="px-2 fs-15">
-                                    <div class="form-check notification-check">
-                                        <input class="form-check-input" name="updateIsread" type="checkbox" data-notify-id="{{ $listNotify->id }}">
-                                        <label class="form-check-label" for="messages-notification-check01"></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-
-                    <div class="my-3 text-center view-all">
-                        <a href="{{route('show.notice_page')}}">
-                            <button type="button" class="btn btn-soft-success waves-effect waves-light">View
-                                All Messages <i class="ri-arrow-right-line align-middle"></i></button>
-                        </a>
-
-                    </div>
-                </div>
-            </div>
             <div class="tab-pane fade p-4" id="alerts-tab" role="tabpanel" aria-labelledby="alerts-tab"></div>
 
             <div class="notification-actions" id="notification-actions">
