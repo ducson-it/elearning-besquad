@@ -86,6 +86,7 @@
                                     <div style="width:200px" id="showVideo">
                                         
                                     </div>
+                                    
                                     @endif
                                         <label for="">Lựa chọn video</label><br>
                                     <div class="input-group">
@@ -95,6 +96,9 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                </div>
+                                <div id="time">
+                                    <input class="form-control" type="hidden" name="time" value="{{ $lesson->time }}">
                                 </div>
                                 <div class="col-10 mt-4 mb-5">
                                     <label class="label-control mb-2">Cho phép học thử?</label>
