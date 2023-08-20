@@ -128,28 +128,24 @@ class ForumFeedbackController extends Controller
             ], 500);
         }
     }
-
-    public function addview(Request $request){
-        $id = $request->input('post_id');
-        $post = ForumPost::find($id);
+    public function addview($id){
+        $feedback = Feedback::find($id);
         $user = Auth::user();
-        if(!$post){
+        if(!$feedback){
             return response()->json([
                 'code'=>404,
                 'meesage'=> 'Not found',
             ]);
         }else{
-            $count = $post->view+ 1;
-            $post->update(['view'=>$count]);
+            $count = $feedback->view+ 1;
+            $feedback->update(['view'=>$count]);
             return response()->json([
                 'code' => 200,
                 'message' => 'success',
-                'data' => ['post' => $post, 'user' => $user]
+                'data' => ['feedback' => $feedback, 'user' => $user]
             ]);
         }
 
     }
-
-
 
 }
