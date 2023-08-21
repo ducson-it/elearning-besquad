@@ -10,6 +10,13 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:categories|categories-store|categories-update|categories-destroy', ['only' => ['index']]);
+        $this->middleware('permission:categories-store', ['only' => ['create', 'store']]);
+        $this->middleware('permission:categories-update', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:categories-destroy', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -127,7 +134,7 @@ class PermissionController extends Controller
                 'group_permission_id' => $groupPermission->id,
             ]);
         }
-        
+
         return response([
             'success' => true,
             'data' => [
@@ -164,8 +171,24 @@ class PermissionController extends Controller
 
     public function destroyGroupPermission($id)
     {
-        $groupPermission = GroupPermission::findByID($id);
-        $groupPermission->permissions()->delete();
-        return redirect()->back();
+        try {
+            $groupPermission = GroupPermission::find($id);
+            $groupPermission->permissions()->delete();
+            $groupPermission->delete();
+
+        } catch (\Throwable $th) {
+            return response([
+                'success' => true,
+                'data' => [
+                    'message' => 'Có lỗi xảy ra!',
+                ],
+            ]);
+        }
+        return response([
+            'success' => true,
+            'data' => [
+                'message' => 'Xóa thành công!',
+            ],
+        ]);
     }
 }

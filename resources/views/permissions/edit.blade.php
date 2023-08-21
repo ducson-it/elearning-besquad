@@ -180,7 +180,6 @@
                                 setTimeout(function() {
                                     location.reload();
                                 }, 200)
-                                $(this).parent().parent().remove();
                             } else {
                                 toastMessage('Xóa thất bại', 'error');
 
