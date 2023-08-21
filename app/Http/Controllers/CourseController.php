@@ -27,7 +27,7 @@ class CourseController extends Controller
             $courses = $courses->where('name','like',"%{$keyword}%");
         }
 
-        $courses = $courses->orderBy('id','desc')->paginate(Beesquad::PAGINATE_BLOG);
+        // $courses = $courses->orderBy('id','desc')->paginate(Beesquad::PAGINATE_BLOG);
 
         if ($user->hasRole('admin')) {
             $courses = $courses->orderBy('id','desc')->paginate(Beesquad::PAGINATE_BLOG);
