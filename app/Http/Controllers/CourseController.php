@@ -26,13 +26,16 @@ class CourseController extends Controller
             $keyword = $request->get('keyword');
             $courses = $courses->where('name','like',"%{$keyword}%");
         }
-        if ($user->hasRole('admin')) {
-            $courses = $courses->orderBy('id','desc')->paginate(Beesquad::PAGINATE_BLOG);
-        }
 
-        if ($user->hasRole('teacher')) {
-            $courses = $courses->where('teacher_id', $user->id)->orderBy('id','desc')->paginate(Beesquad::PAGINATE_BLOG);
-        }
+        $courses = $courses->orderBy('id','desc')->paginate(Beesquad::PAGINATE_BLOG);
+
+        // if ($user->hasRole('admin')) {
+        //     $courses = $courses->orderBy('id','desc')->paginate(Beesquad::PAGINATE_BLOG);
+        // }
+
+        // if ($user->hasRole('teacher')) {
+        //     $courses = $courses->where('teacher_id', $user->id)->orderBy('id','desc')->paginate(Beesquad::PAGINATE_BLOG);
+        // }
 
         $categories = Category::all();
         return view('courses.list',compact('courses','categories','keyword'));
