@@ -10,7 +10,13 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('permission:categories|categories-store|categories-update|categories-destroy', ['only' => ['index']]);
+         $this->middleware('permission:categories-store', ['only' => ['create','store']]);
+         $this->middleware('permission:categories-update', ['only' => ['edit','update']]);
+         $this->middleware('permission:categories-destroy', ['only' => ['destroy']]);
+    }
     public function index(Request $request)
     {
         $categories = Category::orderBy('id','desc');

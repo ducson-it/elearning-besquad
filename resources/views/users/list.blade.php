@@ -14,7 +14,7 @@
                                     <a
                                         href="{{route('addUser')}}">
                                         <button type="button" class="btn btn-success add-btn"><i
-                                                class="ri-add-line align-bottom me-1"></i> Add
+                                                class="ri-add-line align-bottom me-1"></i> Thêm
                                         </button>
                                     </a>
                                 </div>
@@ -70,7 +70,11 @@
                                         <td class="customer_name">{{$user->name}}</td>
                                         <td class="email">{{$user->email}}</td>
                                         <td class="phone">{{$user->phone}}</td>
-                                        <td class="role_name" >{{$user->role_id  == 2 ? "Thành viên":"Giảng viên"}}</td>
+                                        <td class="role_name" >
+                                            @foreach ($user->roles as $role)
+                                                {{ $role->name }}
+                                            @endforeach
+                                        </td>
                                         <td class="active">{{$user->active == 1 ? 'Active': 'Inactive'}}</td>
                                         <td class="phone">{{$user->point}}</td>
                                         <td class="created_at">{{$user->created_at}}</td>

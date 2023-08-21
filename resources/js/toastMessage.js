@@ -11,5 +11,3 @@ window.toastMessage = function(message, type = 'success', duration = 3000) {
         backgroundColor: type === 'error' ? '#FF0000' : '#00FF00',
     }).showToast();
 }
-
-console.log('here == == ');

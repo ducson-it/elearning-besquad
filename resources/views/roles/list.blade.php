@@ -20,7 +20,7 @@
                                     <label class=" col-form-label">Tên vai trò</label>
                                     <div class="">
                                         <input type="text" class="form-control role_name" name="name" maxlength="130"
-                                            placeholder="Tên nhóm quyền" required>
+                                            placeholder="Tên vai trò" required>
                                     </div>
                                     @error('name')
                                         <div style="color:red">{{ $message }}</div>
@@ -76,7 +76,7 @@
                                                     </td>
                                                     <td class="text-center">
                                                         <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-success edit-item-btn"><i class="fa fa-pencil"></i>Chỉnh sửa</a>
-                                                        <button class="btn btn-sm btn-danger remove-item-btn"> <i class="ace-icon fa  fa-lock bigger-120"></i>Xóa</button>
+                                                        <button class="btn btn-sm btn-danger remove-item-btn" data-id="{{ $role->id }}"> <i class="ace-icon fa  fa-lock bigger-120"></i>Xóa</button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -94,9 +94,31 @@
     </div>
 @endsection
 @section('script')
-    <script>
-        $(document).ready(function() {
-
-        })
-    </script>
+<script>
+    $(document).on('click', '.remove-item-btn', function(e) {
+            var id = $(this).data('id');
+            if (confirm('Bạn có chắc muốn xóa vai trò này không?')) {
+                $.ajax({
+                    url: '/roles/'+ id,
+                    type: 'delete',
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(res) {
+                        if (res.success == true) {
+                            toastMessage('Xóa thành công', 'success');
+                            setTimeout(function() {
+                                location.reload();
+                            }, 200)
+                        } else {
+                            toastMessage('Xóa thất bại', 'error');
+                        }
+                    },
+                    error: function(error) {
+                        toastMessage('Có lỗi xảy ra', 'error');
+                    }
+                });
+            }
+        });
+</script>
 @endsection
