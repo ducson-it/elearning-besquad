@@ -72,7 +72,7 @@ window.activeUser = (id) => {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, update it!'
+        confirmButtonText: 'Đồng ý cập nhật!'
     }).then((result) => {
         if (result.isConfirmed) {
             // Gửi yêu cầu xóa bằng Ajax

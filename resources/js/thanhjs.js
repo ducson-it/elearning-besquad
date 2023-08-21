@@ -89,8 +89,8 @@ window.deletecomment = (id) => {
 //status comment
 window.activeComment = (id) => {
     Swal.fire({
-        title: ' Bạn chắc chắn ? ',
-        text: "Thay đổi trạng thái comment ?",
+        title: ' Bạn chắc chắn? ',
+        text: "Thay đổi trạng thái comment?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -128,7 +128,7 @@ window.activeComment = (id) => {
 window.active = (id) => {
     Swal.fire({
         title: ' Bạn chắc chắn ? ',
-        text: "Thay đổi trạng thái bài viết ?",
+        text: "Thay đổi trạng thái bài viết?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

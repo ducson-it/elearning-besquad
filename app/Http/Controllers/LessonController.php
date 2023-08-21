@@ -20,7 +20,16 @@ class LessonController extends Controller
     public function index(Request $request)
     {
         $keyword = '';
-        $lessons = Lesson::with('module','course');
+        $user = Auth::user();
+
+        if ($user->hasRole(3)) {
+            $modules = Lesson::with('course')->whereHas('course', function($query) use($user){
+                $query->where('teacher_id', $user->id);
+            });
+        }else {
+            $lessons = Lesson::with('module','course');
+        }
+
         if($request->get('keyword')){
             $keyword = $request->get('keyword');
             $lessons = $lessons->where('name','like',"%{$keyword}%")
@@ -147,6 +156,7 @@ class LessonController extends Controller
         $video = json_decode($video,TRUE);
         return response()->json($video);
     }
+    
     // public function uploadVideo(Request $request)
     // {
     //     $source_video = $request->file('file');

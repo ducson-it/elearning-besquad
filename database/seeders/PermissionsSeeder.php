@@ -1,9 +1,10 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\GroupPermission;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 
 class PermissionsSeeder extends Seeder
 {
@@ -14,6 +15,12 @@ class PermissionsSeeder extends Seeder
      */
     public function run()
     {
-        Permission::factory()->count(10)->create();
+        $groupPermission = GroupPermission::create(['name' => 'Admin']);
+
+        $permission = Permission::create([
+            'name' => 'super-admin',
+            'description' => 'Super Admin',
+            'group_permission_id' => $groupPermission->id,
+        ]);
     }
 }
