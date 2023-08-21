@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CourseResource;
+use App\Mail\BuyCouresMail;
+use App\Mail\CheckOderMail;
 use App\Models\Beesquad;
 use App\Models\Category;
 use App\Models\Course;
@@ -16,8 +18,11 @@ use App\Models\Order;
 use App\Models\Study;
 use App\Models\UserVoucher;
 use Carbon\Carbon;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Laravel\Ui\Presets\React;
 use PHPUnit\Framework\Constraint\Count;
@@ -26,7 +31,7 @@ class CourseController extends Controller
 {
     public function categoryCourse()
     {
-        $courses = Category::with('courses', 'courses.users', 'courses.users.histories')->get();
+        $courses = Category::with('courses', 'courses.users', 'courses.users.histories','courses.studies')->get();
         if (!$courses) {
             return response()->json([
                 'code' => 404,
@@ -58,7 +63,9 @@ class CourseController extends Controller
     public function myCourse()
     {
         $userId = Auth::id();
-        $courses =  User::find($userId)->courses()->with(['modules', 'modules.lessons', 'category'])->get();
+        $courses =  User::find($userId)->courses()->with(['modules', 'modules.lessons', 'category','studies'=>function(Builder $query){
+            $query->where('user_id',Auth::id());
+        }])->get();
         return response()->json([
             'success' => true,
             'courses' => $courses
@@ -132,9 +139,12 @@ class CourseController extends Controller
                         'user_id' => $user->id,
                         'course_id' => $courseId,
                         'status' => Beesquad::PENDING,
-                        'amount' => $request->input('amount')
+                        'amount' => $request->input('amount'),
+                        'voucher_code'=> $request->input('voucher_code')
                     ];
-                    Order::create($data);
+                   $order = Order::create($data);
+                     Mail::to(Beesquad::MAIL_ADMIN)->send(new CheckOderMail($order_code,$order->created_at ,Auth::user()->name ,$data['amount'] ));
+                    Mail::to(Auth::user()->email)->send(new BuyCouresMail(Auth::user()->name ,$order->created_at ));
                     if($request->get('voucher_code')!= null){
                         UserVoucher::create([
                             'user_id'=>$user->id,
@@ -151,7 +161,7 @@ class CourseController extends Controller
                 } catch (\Throwable $th) {
                     DB::rollBack();
                     return response(['success' => false, 'data' => [
-                        'message' => 'Đơn hàng đang trong thời gian xử lý, vui lòng thử lại!'
+                        'message' => 'Đặt hàng không thành công, vui lòng thử lại!'
                     ]]);
                 }
             }

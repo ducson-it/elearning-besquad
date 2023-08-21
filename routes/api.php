@@ -114,7 +114,7 @@ Route::prefix('postforum')->group(function () {
     Route::get('/latest-posts', [ForumPostController::class, 'getLatestPosts']);
     //api post hay nhất
     Route::get('/top-rated-posts', [ForumPostController::class, 'getTopRatedPosts']);
-    Route::get('/user-is-posts', [ForumPostController::class, 'getUserPosts']);
+    Route::get('/user-is-posts', [ForumPostController::class, 'getUserPosts'])->middleware('auth:sanctum');
     Route::get('/search-posts', [ForumPostController::class, 'searchPosts']);
     Route::get('/postsCate', [ForumPostController::class, 'postsByCategory']);
 });
@@ -125,14 +125,12 @@ Route::prefix('feedbacks')->group(function () {
     Route::post('/edit/{id}', [ForumFeedbackController::class, 'edit'])->middleware('auth:sanctum');
     Route::delete('/delete/{id}', [ForumFeedbackController::class, 'delete'])->middleware('auth:sanctum');
     Route::post('/addview', [ForumFeedbackController::class, 'addview'])->middleware('auth:sanctum');
-
 });
 Route::prefix('comments')->group(function () {
     Route::get('/list', [CommentController::class, 'index']);
     Route::post('/addcomment', [CommentController::class, 'store'])->middleware('auth:sanctum');
     Route::post('/edit/{id}', [CommentController::class, 'update']);
     Route::delete('/delete/{id}', [CommentController::class, 'destroy'])->middleware('auth:sanctum');
-
 });
 
 

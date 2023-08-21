@@ -73,7 +73,8 @@ class LessonController extends Controller
                 'status'=>1,
                 'description'=>$request->content,
                 'view'=>0,
-                'is_trial_lesson'=>$request->is_trial_lesson
+                'is_trial_lesson'=>$request->is_trial_lesson,
+                'time'=>$request->time
             ];
             Lesson::create($data);
             return redirect()->route('lessons.list')->with('message','Thêm thành công');
@@ -114,7 +115,8 @@ class LessonController extends Controller
                 'description'=>$request->content,
                 'quiz_id'=>$request->quiz_id,
                 'view'=>0,
-                'is_trial_lesson'=>$request->is_trial_lesson
+                'is_trial_lesson'=>$request->is_trial_lesson,
+                'time'=>$request->time
         ];
         $lesson->update($data);
         return redirect()->route('lessons.list')->with('message','Cập nhật thành công');

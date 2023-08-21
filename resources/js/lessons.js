@@ -91,6 +91,11 @@ $('select#video').on('change',function(){
                 </div>
                 `
                 $('#showVideo').html(msg)
+                $('#time').html(
+                    `
+                    <input class="form-control" type="hidden" name="time" value="${data.duration}">
+                    `
+                )
             }
         })
 })

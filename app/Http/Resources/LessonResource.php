@@ -20,13 +20,14 @@ class LessonResource extends JsonResource
             'slug' => $this->slug,
             'course_id' => $this->course_id,
             'module_id' => $this->module_id,
-            'document' => $this->document,
+            'document' => '/storage/document/'.$this->document,
             'video_id' => $this->video_id,
             'status' => $this->status,
             'description' => $this->description,
             'is_trial_lesson' => $this->is_trial_lesson,
             'lesson_type'=>$this->lesson_type,
             'quiz_id'=>$this->quiz_id,
+            'time'=>$this->time,
             'course' => new CourseResource($this->whenLoaded('course')),
             'module' => new ModuleResource($this->whenLoaded('module'))
         ];

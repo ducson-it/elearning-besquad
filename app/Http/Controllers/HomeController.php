@@ -89,6 +89,12 @@ class HomeController extends Controller
         })
             ->where('status',Beesquad::CANCEL)
             ->count();
+        $order_complete= Order::with(['course'])
+            ->whereHas('course', function ($q) {
+            $q->where('is_free', Beesquad::FALSE);
+        })
+            ->where('status',Beesquad::DONE)
+            ->count();
         if($order_all == 0){
             $conversion_rate = round($order_payment*100,2);
         }else{
@@ -98,23 +104,47 @@ class HomeController extends Controller
         $top5_bestseller_courses = Course::where('is_free',Beesquad::FALSE)->withCount('orders')->withSum('orders','amount')->orderBy('orders_count','desc')->limit(5)->get();
         return view('home', compact
         ('recent_orders', 'total_earning_day', 'order_count_day', 'order_count_preDay', 'order_growth_rate',
-        'users_count_day','users_growth_rate','total_number_courses','order_all','revenue_all','order_cancel',
+        'users_count_day','users_growth_rate','total_number_courses','order_all','revenue_all','order_cancel','order_complete',
         'conversion_rate','top5_bestseller_courses'
         ));
     }
+
     public function statistic(Request $request)
     {
         $time = $request->time;
-        //statistic in month
-        if($time == 1){
-            $preMonth = Carbon::now()->subMonth();
+        $monthList = [];
+        $order_cancel_list = [];
+        $order_complete_list = [];
+        //statistic in 3 month
+        if($time == 3){
+            $preMonth = Carbon::now()->subMonth(3);
             $order_all = Order::with(['course'])
             ->whereHas('course', function ($q) {
             $q->where('is_free', Beesquad::FALSE);
             })
             ->whereDate('created_at','>=',$preMonth)
             ->count();
-
+            for($i = 3; $i >0 ; $i--){
+                array_push($monthList,Carbon::now()->subMonth($i)->format('Y-m-d'));
+                $order_cancel_preM = Order::with(['course'])
+                ->whereHas('course', function ($q) {
+                $q->where('is_free', Beesquad::FALSE);
+                })
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i))
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i-1))
+                ->where('status',Beesquad::CANCEL)
+                ->count();
+                array_push($order_cancel_list,$order_cancel_preM);
+                $order_complete_preM = Order::with(['course'])
+                ->whereHas('course', function ($q) {
+                $q->where('is_free', Beesquad::FALSE);
+                })
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i))
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i-1))
+                ->where('status',Beesquad::DONE)
+                ->count();
+                array_push($order_complete_list,$order_complete_preM);
+            }
             $order_payment = Order::with(['course'])
             ->whereHas('course', function ($q) {
             $q->where('is_free', Beesquad::FALSE);
@@ -130,6 +160,13 @@ class HomeController extends Controller
             })
             ->whereDate('created_at','>=',$preMonth)
             ->where('status',Beesquad::CANCEL)
+            ->count();
+            $order_complete = Order::with(['course'])
+            ->whereHas('course', function ($q) {
+            $q->where('is_free', Beesquad::FALSE);
+            })
+            ->whereDate('created_at','>=',$preMonth)
+            ->where('status',Beesquad::DONE)
             ->count();
             if($order_all == 0){
                 $conversion_rate = round($order_payment*100,2);
@@ -147,7 +184,27 @@ class HomeController extends Controller
             })
             ->whereDate('created_at','>=',$preSixMonth )
             ->count();
-
+            for($i = 6; $i >0 ; $i--){
+                array_push($monthList,Carbon::now()->subMonth($i)->format('Y-m-d'));
+                $order_cancel_preM = Order::with(['course'])
+                ->whereHas('course', function ($q) {
+                $q->where('is_free', Beesquad::FALSE);
+                })
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i))
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i-1))
+                ->where('status',Beesquad::CANCEL)
+                ->count();
+                array_push($order_cancel_list,$order_cancel_preM);
+                $order_complete_preM = Order::with(['course'])
+                ->whereHas('course', function ($q) {
+                $q->where('is_free', Beesquad::FALSE);
+                })
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i))
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i-1))
+                ->where('status',Beesquad::DONE)
+                ->count();
+                array_push($order_complete_list,$order_complete_preM);
+            }
             $order_payment = Order::with(['course'])
             ->whereHas('course', function ($q) {
             $q->where('is_free', Beesquad::FALSE);
@@ -163,6 +220,13 @@ class HomeController extends Controller
             })
             ->whereDate('created_at','>=',$preSixMonth )
             ->where('status',Beesquad::CANCEL)
+            ->count();
+            $order_complete = Order::with(['course'])
+            ->whereHas('course', function ($q) {
+            $q->where('is_free', Beesquad::FALSE);
+            })
+            ->whereDate('created_at','>=',$preSixMonth )
+            ->where('status',Beesquad::DONE)
             ->count();
             if($order_all == 0){
                 $conversion_rate = round($order_payment*100,2);
@@ -180,7 +244,27 @@ class HomeController extends Controller
             })
             ->whereDate('created_at','>=',$preYear )
             ->count();
-
+            for($i = 12; $i >0 ; $i--){
+                array_push($monthList,Carbon::now()->subMonth($i)->format('Y-m-d'));
+                $order_cancel_preM = Order::with(['course'])
+                ->whereHas('course', function ($q) {
+                $q->where('is_free', Beesquad::FALSE);
+                })
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i))
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i-1))
+                ->where('status',Beesquad::CANCEL)
+                ->count();
+                array_push($order_cancel_list,$order_cancel_preM);
+                $order_complete_preM = Order::with(['course'])
+                ->whereHas('course', function ($q) {
+                $q->where('is_free', Beesquad::FALSE);
+                })
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i))
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i-1))
+                ->where('status',Beesquad::DONE)
+                ->count();
+                array_push($order_complete_list,$order_complete_preM);
+            }
             $order_payment = Order::with(['course'])
             ->whereHas('course', function ($q) {
             $q->where('is_free', Beesquad::FALSE);
@@ -197,6 +281,13 @@ class HomeController extends Controller
             ->whereDate('created_at','>=',$preYear )
             ->where('status',Beesquad::CANCEL)
             ->count();
+            $order_complete = Order::with(['course'])
+            ->whereHas('course', function ($q) {
+            $q->where('is_free', Beesquad::FALSE);
+            })
+            ->whereDate('created_at','>=',$preYear )
+            ->where('status',Beesquad::DONE)
+            ->count();
             if($order_all == 0){
                 $conversion_rate = round($order_payment*100,2);
             }else{
@@ -211,6 +302,39 @@ class HomeController extends Controller
             $q->where('is_free', Beesquad::FALSE);
             })
             ->count();
+            $order_done_all_count = Order::with(['course'])
+            ->whereHas('course', function ($q) {
+            $q->where('is_free', Beesquad::FALSE)
+            ->where('status',Beesquad::DONE);
+            })
+            ->count();
+            $order_done_all = Order::with(['course'])
+            ->whereHas('course', function ($q) {
+            $q->where('is_free', Beesquad::FALSE)
+            ->where('status',Beesquad::DONE);
+            })
+            ->oldest();
+            for($i = 0; $i > $order_done_all_count ; $i++){
+                array_push($monthList,Carbon::create($order_done_all[$i]->created_at)->subMonth(1)->format('Y-m-d'));
+                $order_cancel_preM = Order::with(['course'])
+                ->whereHas('course', function ($q) {
+                $q->where('is_free', Beesquad::FALSE);
+                })
+                ->whereDate('created_at','>=',Carbon::create($order_done_all[$i]->created_at)->subMonth(1))
+                ->whereDate('created_at','<=',Carbon::create($order_done_all[$i]->created_at))
+                ->where('status',Beesquad::CANCEL)
+                ->count();
+                array_push($order_cancel_list,$order_cancel_preM);
+                $order_complete_preM = Order::with(['course'])
+                ->whereHas('course', function ($q) {
+                $q->where('is_free', Beesquad::FALSE);
+                })
+                ->whereDate('created_at','>=',Carbon::create($order_done_all[$i]->created_at)->subMonth(1))
+                ->whereDate('created_at','<=',Carbon::create($order_done_all[$i]->created_at))
+                ->where('status',Beesquad::DONE)
+                ->count();
+                array_push($order_complete_list,$order_complete_preM);
+            }
         $order_payment = Order::with(['course'])
         ->whereHas('course', function ($q) {
         $q->where('is_free', Beesquad::FALSE);
@@ -223,6 +347,12 @@ class HomeController extends Controller
             $q->where('is_free', Beesquad::FALSE);
         })
             ->where('status',Beesquad::CANCEL)
+            ->count();
+            $order_complete = Order::with(['course'])
+            ->whereHas('course', function ($q) {
+            $q->where('is_free', Beesquad::FALSE);
+        })
+            ->where('status',Beesquad::DONE)
             ->count();
             if($order_all == 0){
                 $conversion_rate = round($order_payment*100,2);
@@ -237,7 +367,11 @@ class HomeController extends Controller
                 'order_all'=>$order_all,
                 'revenue_all'=>$revenue_all,
                 'order_cancel'=>$order_cancel,
-                'conversion_rate'=>$conversion_rate
+                'order_complete'=>$order_complete,
+                'conversion_rate'=>$conversion_rate,
+                'monthList'=>$monthList,
+                'order_cancel_list'=>$order_cancel_list,
+                'order_complete_list'=>$order_complete_list
             ]
         ],200);
     }
@@ -245,9 +379,9 @@ class HomeController extends Controller
         $course_type = $request->course_type;
         //top 5 course bestseller
         if(!$course_type){
-            $top5_bestseller_courses = Course::where('is_free',Beesquad::TRUE)->withCount('orders')->withSum('orders','amount')->orderBy('orders_count','desc')->limit(5)->get();
+            $top5_bestseller_courses = Course::where('is_free',Beesquad::FALSE)->withCount('orders')->withSum('orders','amount')->orderBy('orders_count','desc')->limit(5)->get();
         }else{
-            $top5_bestseller_courses = Course::where('is_free',Beesquad:FALSE)->withCount('orders')->withSum('orders','amount')->orderBy('orders_count','desc')->limit(5)->get();
+            $top5_bestseller_courses = Course::where('is_free',Beesquad::TRUE)->withCount('orders')->withSum('orders','amount')->orderBy('orders_count','desc')->limit(5)->get();
 
         }
         return response()->json($top5_bestseller_courses);

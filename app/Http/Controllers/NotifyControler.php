@@ -23,10 +23,6 @@ class NotifyControler extends Controller
    }
     public function storeNotify(NotifycationRequest $request)
     {
-//        if ($request->option === 'option2' && $request->has('group_user')) {
-//            $send_to = 'group_users';
-//            $userIds = $request->group_user;
-//        }
 
         if ($request->option === 'system') {
             $send_to = 'system';
@@ -43,20 +39,8 @@ class NotifyControler extends Controller
 
         try {
             $notify = Notification::create($data);
-         //  dd($userIds);
             // Kiểm tra giá trị của option
                 return redirect()->route('show.notify')->with('message', 'Đã tạo thông báo thành công');
-//            if ($userIds &&  $send_to == 'group_users' ) {
-//                foreach ($userIds as $key => $userId) {
-//                    Notifycation_user::create([
-//                        'notifycation_id' => $notify->id,
-//                        'user_id' => $userId,
-//                    ]);
-//                }
-//                return redirect()->route('show.notify')->with('success', 'Đã tạo thông báo thành công');
-//            }
-
-
         } catch (\Exception $e) {
             Log::error("Lưu message lỗi: " . $e->getMessage());
             return redirect()->back()->with('error', 'Tạo thông báo thất bại');
@@ -123,14 +107,18 @@ class NotifyControler extends Controller
         }
     }
     public function getNoicePage(Request $request){
-        $listNotifys = Notification::where('send_user','<>','admin')->Where('is_read','<>',true)->paginate(10);
+        $currentDate = now();  // Lấy ngày hiện tại
+        $listNotifys = Notification::where('send_user', 'admin')
+            ->where('expired', '>=', $currentDate)
+            ->orderBy('id', 'desc')
+            ->paginate(8);
         $search = '';
         if($request->input('search_notice')){
             $search = $request->input('search_notice');
-            $listNotifys = Notification::where('send_user','<>','admin')
-                ->Where('is_read','<>',true)
+            $listNotifys = Notification::where('send_user', 'admin')
+                ->where('expired', '>=', $currentDate)
                 ->where('title', 'LIKE', '%'.$search.'%')
-                ->paginate(10);
+                ->paginate(8);
         }
         return view('notifycations.notice_page',compact('listNotifys','search'));
     }

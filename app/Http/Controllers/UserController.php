@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 
@@ -70,7 +71,7 @@ class UserController extends Controller
             $data = [
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => bcrypt($request->password),
+                'password' => Hash::make($request->password),
                 'phone' => $request->phone,
                 'point' => 0,
                 // 'role_id' => intval($request->role_id),
@@ -120,7 +121,7 @@ class UserController extends Controller
         $user = User::find($id);
         $data = [
             'name' => $request->name,
-            'password' => bcrypt($request->password),
+//            'password' => Hash::make($request->password),
             'phone' => $request->phone,
             // 'role_id' => intval($request->role_id),
             'active' => $request->active,

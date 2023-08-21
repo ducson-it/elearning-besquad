@@ -18,8 +18,15 @@ class IconNotifycationComponent extends Component
     public function __construct()
     {
         //
-        $this->countIsreadNotify = Notification::where('send_user','<>','admin')->count();
-        $this->listNotifys = Notification::where('send_user', '<>', 'admin')->paginate(3);
+        $currentDate = now();  // Lấy ngày hiện tại
+        $this->countIsreadNotify = Notification::where('send_user', 'admin')
+            ->where('expired', '>=', $currentDate)  // Lấy các thông báo có hạn sử dụng còn hiệu lực
+            ->orderBy('id', 'desc')
+            ->count();
+        $this->listNotifys = Notification::where('send_user', 'admin')
+            ->where('expired', '>=', $currentDate)  // Lấy các thông báo có hạn sử dụng còn hiệu lực
+            ->orderBy('id', 'desc')
+            ->paginate(5);
     }
 
     /**

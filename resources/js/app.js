@@ -16,6 +16,8 @@ import select2 from 'select2';
 select2()
 // import Dropzone from "dropzone";
 // import file js'
+console.log('quanaaaa');
+
 import'./home';
 import './tag';
 import './user';
@@ -34,7 +36,6 @@ import './order';
 import './question';
 import './answer';
 import './toastMessage.js';
-
 
 
 

@@ -8,8 +8,9 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use tidy;
 
-class BuyCouresMail extends Mailable
+class CompletedCourse extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,14 +18,17 @@ class BuyCouresMail extends Mailable
      * Create a new message instance.
      *
      * @return void
+     *
      */
     public $user_name;
-    public $time;
-    public function __construct($user_name,$time)
+    public $course_name;
+    public $complete_date;
+    public function __construct($user_name,$course_name,$complete_date)
     {
         //
         $this->user_name = $user_name;
-        $this->time = $time;
+        $this->course_name = $course_name;
+        $this->complete_date = $complete_date;
     }
 
     /**
@@ -35,7 +39,7 @@ class BuyCouresMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Thông báo bạn đã mua thành công khóa học',
+            subject: 'Completed Course',
         );
     }
 
@@ -47,7 +51,7 @@ class BuyCouresMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'emails.buy_course',
+            view: 'emails.complete_course',
         );
     }
 
