@@ -64,6 +64,8 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $user->assignRole(2);
+
         $access_token = $user->createAuthToken('web')->plainTextToken;
         $refresh_token = $user->createRefreshToken('web')->plainTextToken;
 

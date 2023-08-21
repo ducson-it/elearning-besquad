@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:super-admin', ['only' => ['showListUser']]);
+        // $this->middleware('permission:super-admin', ['only' => ['showListUser']]);
         //  $this->middleware('permission:admin create', ['only' => ['create','store']]);
         //  $this->middleware('permission:admin delete', ['only' => ['edit','update']]);
         //  $this->middleware('permission:product-delete', ['only' => ['destroy']]);
