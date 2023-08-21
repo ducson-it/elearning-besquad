@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
-Route::group(['middleware' => ['auth', 'role:admin|teacher']], function () {
+//, 'role:admin|teacher'
+Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
     Route::get('/statistic-business', [App\Http\Controllers\HomeController::class, 'statistic'])->middleware('auth');
