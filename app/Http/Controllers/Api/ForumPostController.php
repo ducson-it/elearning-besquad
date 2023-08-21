@@ -265,6 +265,26 @@ class ForumPostController extends Controller
             'data' => $formattedData,
         ]);
     }
+    public function addview(Request $request){
+        $id = $request->input('post_id');
+        $post = ForumPost::find($id);
+        $user = Auth::user();
+        if(!$post){
+            return response()->json([
+                'code'=>404,
+                'meesage'=> 'Not found',
+            ]);
+        }else{
+            $count = $post->view+ 1;
+            $post->update(['view'=>$count]);
+            return response()->json([
+                'code' => 200,
+                'message' => 'success',
+                'data' => ['post' => $post, 'user' => $user]
+            ]);
+        }
+
+    }
 
 }
 
