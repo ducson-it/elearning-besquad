@@ -39,7 +39,7 @@
                 </div>
                 <!--end row-->
                 <div>
-                    <h6>TODAY</h6>
+                    <h5>TODAY</h5>
 
                 </div>
                 <div class="row">
@@ -243,7 +243,7 @@
                             </div>
                         </div><!-- end card header -->
 
-                        <div class="card-body">
+                        <div class="card-body" style = "width:80%; margin:auto;overflow-auto">
                             <canvas id="myChart"></canvas>
                         </div><!-- end card body -->
                     </div><!-- end card -->
