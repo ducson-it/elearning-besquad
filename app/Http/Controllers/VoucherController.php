@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Mail;
 
 class VoucherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:vouchers.list|vouchers.store|vouchers.update|vouchers.destroy', ['only' => ['showVoucher']]);
+        $this->middleware('permission:vouchers.store', ['only' => ['addVoucher','storeVoucher']]);
+        $this->middleware('permission:vouchers.update', ['only' => ['editVoucher','updateVoucher']]);
+        $this->middleware('permission:vouchers.destroy', ['only' => ['deleteVoucher']]);
+    }
     //
     public function showVoucher(Request $request){
         $list_vouchers = Voucher::where('name', 'LIKE', '%'.$request->search_voucher.'%')

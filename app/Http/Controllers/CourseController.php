@@ -17,7 +17,14 @@ use Spatie\Permission\Models\Role;
 
 class CourseController extends Controller
 {
-    //list courses
+    public function __construct()
+    {
+        $this->middleware('permission:courses.list|courses.store|courses.update|courses.distroy', ['only' => ['index']]);
+        $this->middleware('permission:courses.store', ['only' => ['create','store']]);
+        $this->middleware('permission:courses.update', ['only' => ['edit','update']]);
+        $this->middleware('permission:courses.destroy', ['only' => ['destroy']]);
+    }
+    
     public function index(Request $request){
         $user = Auth::user();
         $courses = Course::with('category');
