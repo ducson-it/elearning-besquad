@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,4 +17,5 @@ class OrdersSeeder extends Seeder
     {
         Order::factory()->count(10)->create();
     }
+
 }

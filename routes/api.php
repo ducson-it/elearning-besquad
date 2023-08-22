@@ -118,6 +118,7 @@ Route::prefix('postforum')->group(function () {
     Route::get('/search-posts', [ForumPostController::class, 'searchPosts']);
     Route::get('/postsCate', [ForumPostController::class, 'postsByCategory']);
     Route::post('/addview', [ForumPostController::class, 'addview'])->middleware('auth:sanctum');
+    Route::get('/posttype/{id}', [ForumPostController::class, 'getPostType'])->middleware('auth:sanctum');
 });
 Route::prefix('feedbacks')->group(function () {
     Route::get('/list', [ForumFeedbackController::class, 'list']);
