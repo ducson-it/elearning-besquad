@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
  */
 //, 'role:admin|teacher'
 Route::group(['middleware' => ['auth']], function () {
-
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
     Route::get('/statistic-business', [App\Http\Controllers\HomeController::class, 'statistic'])->middleware('auth');
     Route::post('/top-course', [App\Http\Controllers\HomeController::class, 'topCourse'])->middleware('auth');
