@@ -39,6 +39,7 @@ class ModuleController extends Controller
     }
     public function create()
     {
+        $courses = Course::all();
         return view('modules.create', compact('courses'));
     }
     public function store(ModuleRequest $request)
