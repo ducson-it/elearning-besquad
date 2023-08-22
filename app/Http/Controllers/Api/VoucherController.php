@@ -89,7 +89,7 @@ class VoucherController extends Controller
     public function redeemVoucher(Request $request)
     {
         $user = Auth::user();
-        $exchange_rate = $request->input('exchange_rate');
+        $exchange_rate = (int)$request->input('exchange_rate');
         $discount = 0;
         $requiredPoints = 0;
 

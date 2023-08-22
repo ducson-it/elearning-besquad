@@ -7,17 +7,26 @@ use App\Models\Beesquad;
 use App\Models\Course;
 use App\Models\Module;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 
 class ModuleController extends Controller
 {
- 
+
     //
     public function index(Request $request)
     {
         $keyword = '';
-        $modules = Module::with('course');
+        $user = Auth::user();
+
+        if ($user->hasRole(3)) {
+            $modules = Module::with('course')->whereHas('course', function($query) use($user){
+                $query->where('teacher_id', $user->id);
+            });
+        } else {
+            $modules = Module::with('course');
+        }
         if($request->get('keyword')){
             $keyword = $request->get('keyword');
             $modules = $modules->where('name','like',"%{$keyword}%")
@@ -30,7 +39,7 @@ class ModuleController extends Controller
     }
     public function create()
     {
-        return view('modules.create');
+        return view('modules.create', compact('courses'));
     }
     public function store(ModuleRequest $request)
     {
@@ -70,9 +79,14 @@ class ModuleController extends Controller
     }
     public function searchCourse(Request $request)
     {
-        $courses = Course::orWhere('name','like',"%{$request->get('search')}%")
+        $user = Auth::user();
+        if ($user->hasRole(3)) {
+            $courses = Course::where('teacher_id',$user->id)->get();
+        } else {
+            $courses = Course::orWhere('name','like',"%{$request->get('search')}%")
                             ->limit(20)
                             ->get();
+        }
         return response()->json($courses);
     }
 }

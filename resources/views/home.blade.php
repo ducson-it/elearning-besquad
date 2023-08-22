@@ -39,7 +39,7 @@
                 </div>
                 <!--end row-->
                 <div>
-                    <h6>TODAY</h6>
+                    <h5>TODAY</h5>
 
                 </div>
                 <div class="row">
@@ -155,7 +155,7 @@
                                         <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Khoá học</p>
                                     </div>
                                     <div class="flex-shrink-0">
-                                        
+
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between mt-4">
@@ -243,11 +243,11 @@
                             </div>
                         </div><!-- end card header -->
 
-                        <div class="card-body">
+                        <div class="card-body" style = "width:80%; margin:auto;overflow-auto">
                             <canvas id="myChart"></canvas>
                         </div><!-- end card body -->
                     </div><!-- end card -->
-                    
+
                 </div>
                 <!-- end col -->
                 <div>
@@ -275,7 +275,7 @@
                         <div>
                             <select name="top-course" id="top-course" class="form-select">
                                 <option value="0">Khoá mất phí</option>
-                                <option value="1">Khoá miễn phí</option>                           
+                                <option value="1">Khoá miễn phí</option>
                             </select>
                         </div>
                         </div><!-- end card header -->
@@ -377,7 +377,7 @@
                                                 <td>
                                                     <span class="text-success">{{number_format($recent_order->amount, 0, ',', '.')}}</span>
                                                 </td>
-                                                
+
                                                 <td class="status"><span
                                                     class="badge badge-soft-success text-uppercase {{ ($recent_order->status == 1) ? 'text-success' : (($recent_order->status == 2)?'text-danger':'text-warning') }}">{{ ($recent_order->status == 1) ? 'Payment' : (($recent_order->status == 2)?'Canceled':'Pending') }}</span>
                                             </td>

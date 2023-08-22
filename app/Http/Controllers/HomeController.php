@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Laravel\Ui\Presets\React;
+use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
 {
@@ -53,13 +54,15 @@ class HomeController extends Controller
             $order_growth_rate =  round(($order_count_day - $order_count_preDay) * 100 / $order_count_preDay, 2);
         }
         //count user active in day
-        $users_count_day = User::where('role_id',2)
-            ->whereDate('created_at', Carbon::today())
-            ->count();
+        // $users_count_day = User::where('role_id',2)
+        //     ->whereDate('created_at', Carbon::today())
+        //     ->count();
+            $users_count_day = Role::findById(2)->users()->whereDate('created_at', Carbon::today())->count();
         //calculate user day growth rate
-        $users_count_preDay = User::where('role_id',2)
-            ->whereDate('created_at', Carbon::yesterday())
-            ->count();
+        // $users_count_preDay = User::where('role_id',2)
+        //     ->whereDate('created_at', Carbon::yesterday())
+        //     ->count();
+            $users_count_preDay =  Role::findById(2)->users()->whereDate('created_at', Carbon::yesterday())->count();
         if( $users_count_preDay == 0){
             $users_growth_rate = round(($users_count_day - $users_count_preDay) * 100, 2);
         }else{
@@ -122,13 +125,13 @@ class HomeController extends Controller
             ->whereDate('created_at','>=',$preMonth)
             ->count();
             for($i = 3; $i >0 ; $i--){
-                array_push($monthList,Carbon::now()->subMonth($i)->format('Y-m-d'));
+                array_push($monthList,Carbon::now()->subMonth($i)->format('Y-m'));
                 $order_cancel_preM = Order::with(['course'])
                 ->whereHas('course', function ($q) {
                 $q->where('is_free', Beesquad::FALSE);
                 })
-                ->whereDate('created_at','>=',Carbon::now()->subMonth($i))
-                ->whereDate('created_at','<=',Carbon::now()->subMonth($i-1))
+                ->whereDate('created_at','>',Carbon::now()->subMonth($i)->startOfMonth())
+                ->whereDate('created_at','<',Carbon::now()->subMonth($i)->endOfMonth())
                 ->where('status',Beesquad::CANCEL)
                 ->count();
                 array_push($order_cancel_list,$order_cancel_preM);
@@ -136,8 +139,8 @@ class HomeController extends Controller
                 ->whereHas('course', function ($q) {
                 $q->where('is_free', Beesquad::FALSE);
                 })
-                ->whereDate('created_at','>=',Carbon::now()->subMonth($i))
-                ->whereDate('created_at','<=',Carbon::now()->subMonth($i-1))
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i)->startOfMonth())
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i)->endOfMonth())
                 ->where('status',Beesquad::DONE)
                 ->count();
                 array_push($order_complete_list,$order_complete_preM);
@@ -182,13 +185,13 @@ class HomeController extends Controller
             ->whereDate('created_at','>=',$preSixMonth )
             ->count();
             for($i = 6; $i >0 ; $i--){
-                array_push($monthList,Carbon::now()->subMonth($i)->format('Y-m-d'));
+                array_push($monthList,Carbon::now()->subMonth($i)->format('Y-m'));
                 $order_cancel_preM = Order::with(['course'])
                 ->whereHas('course', function ($q) {
                 $q->where('is_free', Beesquad::FALSE);
                 })
-                ->whereDate('created_at','>=',Carbon::now()->subMonth($i))
-                ->whereDate('created_at','<=',Carbon::now()->subMonth($i-1))
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i)->startOfMonth())
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i)->endOfMonth())
                 ->where('status',Beesquad::CANCEL)
                 ->count();
                 array_push($order_cancel_list,$order_cancel_preM);
@@ -196,8 +199,8 @@ class HomeController extends Controller
                 ->whereHas('course', function ($q) {
                 $q->where('is_free', Beesquad::FALSE);
                 })
-                ->whereDate('created_at','>=',Carbon::now()->subMonth($i))
-                ->whereDate('created_at','<=',Carbon::now()->subMonth($i-1))
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i)->startOfMonth())
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i)->endOfMonth())
                 ->where('status',Beesquad::DONE)
                 ->count();
                 array_push($order_complete_list,$order_complete_preM);
@@ -242,13 +245,13 @@ class HomeController extends Controller
             ->whereDate('created_at','>=',$preYear )
             ->count();
             for($i = 12; $i >0 ; $i--){
-                array_push($monthList,Carbon::now()->subMonth($i)->format('Y-m-d'));
+                array_push($monthList,Carbon::now()->subMonth($i)->format('Y-m'));
                 $order_cancel_preM = Order::with(['course'])
                 ->whereHas('course', function ($q) {
                 $q->where('is_free', Beesquad::FALSE);
                 })
-                ->whereDate('created_at','>=',Carbon::now()->subMonth($i))
-                ->whereDate('created_at','<=',Carbon::now()->subMonth($i-1))
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i)->startOfMonth())
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i)->endOfMonth())
                 ->where('status',Beesquad::CANCEL)
                 ->count();
                 array_push($order_cancel_list,$order_cancel_preM);
@@ -256,8 +259,8 @@ class HomeController extends Controller
                 ->whereHas('course', function ($q) {
                 $q->where('is_free', Beesquad::FALSE);
                 })
-                ->whereDate('created_at','>=',Carbon::now()->subMonth($i))
-                ->whereDate('created_at','<=',Carbon::now()->subMonth($i-1))
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i)->startOfMonth())
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i)->endOfMonth())
                 ->where('status',Beesquad::DONE)
                 ->count();
                 array_push($order_complete_list,$order_complete_preM);
@@ -308,17 +311,19 @@ class HomeController extends Controller
             $order_done_all = Order::with(['course'])
             ->whereHas('course', function ($q) {
             $q->where('is_free', Beesquad::FALSE)
-            ->where('status',Beesquad::DONE);
+            ;
             })
-            ->oldest();
-            for($i = 0; $i > $order_done_all_count ; $i++){
-                array_push($monthList,Carbon::create($order_done_all[$i]->created_at)->subMonth(1)->format('Y-m-d'));
+            ->where('status',Beesquad::DONE)
+            ->oldest()->first();
+            $monthCount = Carbon::now()->diffInMonths(Carbon::create($order_done_all->created_at));
+            for($i = $monthCount; $i > 0 ; $i--){
+                array_push($monthList,Carbon::now()->subMonth($i)->format('Y-m'));
                 $order_cancel_preM = Order::with(['course'])
                 ->whereHas('course', function ($q) {
                 $q->where('is_free', Beesquad::FALSE);
                 })
-                ->whereDate('created_at','>=',Carbon::create($order_done_all[$i]->created_at)->subMonth(1))
-                ->whereDate('created_at','<=',Carbon::create($order_done_all[$i]->created_at))
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i)->startOfMonth())
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i)->endOfMonth())
                 ->where('status',Beesquad::CANCEL)
                 ->count();
                 array_push($order_cancel_list,$order_cancel_preM);
@@ -326,8 +331,8 @@ class HomeController extends Controller
                 ->whereHas('course', function ($q) {
                 $q->where('is_free', Beesquad::FALSE);
                 })
-                ->whereDate('created_at','>=',Carbon::create($order_done_all[$i]->created_at)->subMonth(1))
-                ->whereDate('created_at','<=',Carbon::create($order_done_all[$i]->created_at))
+                ->whereDate('created_at','>=',Carbon::now()->subMonth($i)->startOfMonth())
+                ->whereDate('created_at','<=',Carbon::now()->subMonth($i)->endOfMonth())
                 ->where('status',Beesquad::DONE)
                 ->count();
                 array_push($order_complete_list,$order_complete_preM);

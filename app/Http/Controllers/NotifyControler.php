@@ -19,8 +19,7 @@ class NotifyControler extends Controller
         return view('notifycations.list',compact('notifycations','search'));
     }
    public function addNotify(){
-       $list_users = User::with('role')->Where('role_id', '<>', 1)->get();
-       return view('notifycations.create', compact('list_users'));
+       return view('notifycations.create');
    }
     public function storeNotify(NotifycationRequest $request)
     {
@@ -108,14 +107,18 @@ class NotifyControler extends Controller
         }
     }
     public function getNoicePage(Request $request){
-        $listNotifys = Notification::where('send_user','<>','admin')->Where('is_read','<>',true)->paginate(10);
+        $currentDate = now();  // Lấy ngày hiện tại
+        $listNotifys = Notification::where('send_user', 'admin')
+            ->where('expired', '>=', $currentDate)
+            ->orderBy('id', 'desc')
+            ->paginate(8);
         $search = '';
         if($request->input('search_notice')){
             $search = $request->input('search_notice');
-            $listNotifys = Notification::where('send_user','<>','admin')
-                ->Where('is_read','<>',true)
+            $listNotifys = Notification::where('send_user', 'admin')
+                ->where('expired', '>=', $currentDate)
                 ->where('title', 'LIKE', '%'.$search.'%')
-                ->paginate(10);
+                ->paginate(8);
         }
         return view('notifycations.notice_page',compact('listNotifys','search'));
     }

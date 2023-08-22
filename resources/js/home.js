@@ -64,7 +64,7 @@ $(document).ready(function () {
                                     <div class="p-3 border border-dashed border-start-0 border-end-0">
                                         <h5 class="mb-1 text-success"><span class="counter-value"
                                                 data-target="18.92">${statistic_result.conversion_rate}</span>%</h5>
-                                        <p class="text-muted mb-0">Tỷ lệ chuyển đổi</p>
+                                        <p class="text-muted mb-0">Tỷ lệ hoàn thành</p>
                                     </div>
                                 </div>
                 </div>
@@ -87,7 +87,7 @@ $(document).ready(function () {
                             backgroundColor: "#0ab39c",
                             borderColor: 'transparent',
                             borderWidth: 2.5,
-                            barPercentage: 0.4,
+                            barPercentage: 0.5,
                         }, {
                             label: "Huỷ bỏ",
                             startAngle: 2,
@@ -95,7 +95,7 @@ $(document).ready(function () {
                             backgroundColor: "#f1963b",
                             borderColor: 'transparent',
                             borderWidth: 2.5,
-                            barPercentage: 0.4,
+                            barPercentage: 0.5,
                         }]
                     },
                     options: {
@@ -118,6 +118,7 @@ $(document).ready(function () {
             }
         })
     }
+    Statistic(0);
     $('select#top-course').on('change', function () {
         var course_type = $(this).val();
         var msg = '';
