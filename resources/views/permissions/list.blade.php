@@ -76,12 +76,12 @@
 @endsection
 @section('script')
     <script>
-        $(document).on('click', '.rm_group_btn', function(e) {
+        $(document).on('click', '.remove-item-btn', function(e) {
                 var id = $(this).data('id');
                 if (confirm('Bạn có chắc muốn xóa quyền này không?')) {
                     $.ajax({
                         url: '/permissions/group-permissions/'+ id,
-                        type: 'delete',
+                        type: 'post',
                         headers: {
                             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                         },

@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class FeebackController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:feedbacks.list|feedbacks.store|feedbacks.update|feedbacks.distroy', ['only' => ['index']]);
+        $this->middleware('permission:feedbacks.store', ['only' => ['create','store']]);
+        $this->middleware('permission:feedbacks.update', ['only' => ['edit','update']]);
+        $this->middleware('permission:feedbacks.destroy', ['only' => ['destroy']]);
+    }
+
     public function index(Request $request){
         $search = $request->input('search');
         $feedbacks = Feedback::where('content', 'like', '%' . $search . '%')->paginate(8);

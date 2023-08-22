@@ -15,6 +15,15 @@ use Illuminate\Support\Facades\Mail;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:comments.list|comments.store|comments.update|comments.distroy', ['only' => ['index']]);
+        $this->middleware('permission:comments.store', ['only' => ['store']]);
+        $this->middleware('permission:comments.update', ['only' => ['update']]);
+        $this->middleware('permission:comments.destroy', ['only' => ['delete']]);
+        $this->middleware('permission:comments.reply', ['only' => ['rep_comment']]);
+    }
+
     public function index(Request $request)
     {
             $search = $request->input('search');

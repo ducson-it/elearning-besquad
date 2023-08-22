@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Log;
 
 class NotifyControler extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:notify.list|notify.store|notify.update|notify.destroy', ['only' => ['showNotify','show']]);
+        $this->middleware('permission:notify.store', ['only' => ['addNotify','storeNotify']]);
+        $this->middleware('permission:notify.update', ['only' => ['editNotify','updateNotify']]);
+        $this->middleware('permission:notify.destroy', ['only' => ['deleteNotify']]);
+    }
+
     public function showNotify(Request $request){
             $search = $request->input('search_notify');
             $notifycations  = Notification::where('title', 'LIKE', '%'.$search.'%')->orderBy('id', 'desc')->paginate(8);

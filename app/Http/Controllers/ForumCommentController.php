@@ -12,7 +12,14 @@ use Laravel\Ui\Presets\React;
 use App\Mail\ReplyForumComment;
 class ForumCommentController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('permission:forumComments.list|forumComments.destroy|forumComments.reply|forumComments.active', ['only' => ['showForumCmt']]);
+        $this->middleware('permission:forumComments.destroy', ['only' => ['deleteForumCmt']]);
+        $this->middleware('permission:forumComments.reply', ['only' => ['replyForumCmt']]);
+        $this->middleware('permission:forumComments.active', ['only' => ['activeForumCmt']]);
+    }
+
     public function showForumCmt(Request $request)
     {
         $comments = ForumComment::with(['user', 'post'])

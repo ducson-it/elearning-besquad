@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:sliders.list|sliders.store|sliders.update|sliders.destroy', ['only' => ['index']]);
+        $this->middleware('permission:sliders.store', ['only' => ['create','store']]);
+        $this->middleware('permission:sliders.update', ['only' => ['edit','update']]);
+        $this->middleware('permission:sliders.destroy', ['only' => ['delete']]);
+    }
+
     public function index(Request $request)
     {
             $search = $request->input('search');

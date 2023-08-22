@@ -15,7 +15,14 @@ use Nette\Utils\Random;
 
 class OrderController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('permission:orders.list|orders.store|orders.update|orders.destroy', ['only' => ['index','show']]);
+        $this->middleware('permission:orders.store', ['only' => ['create','store']]);
+        $this->middleware('permission:orders.checkPayment', ['only' => ['checkPayment']]);
+        $this->middleware('permission:orders.checkVoucher', ['only' => ['checkVoucher']]);
+    }
+
     public function index()
     {
         $orders = Order::with('user','course')->latest()->paginate(5);

@@ -12,7 +12,14 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('permission:questions.list|questions.store|questions.update|questions.destroy', ['only' => ['index']]);
+        $this->middleware('permission:questions.store', ['only' => ['create','store']]);
+        $this->middleware('permission:questions.update', ['only' => ['edit','update']]);
+        $this->middleware('permission:questions.destroy', ['only' => ['destroy']]);
+    }
+
     public function index($quiz_id)
     {
         $quiz = Quiz::find($quiz_id);
