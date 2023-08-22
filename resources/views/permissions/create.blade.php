@@ -157,7 +157,6 @@
                         success: function(res) {
                             if (res.success == true) {
                                 toastMessage('Xóa thành công', 'success');
-                                location.reload();
                             } else {
                                 toastMessage('Xóa thất bại', 'error');
                             }

@@ -94,7 +94,7 @@ class User extends Authenticatable
 
     public function sendPasswordResetNotification($token)
     {
-        $url = 'https://beesquad-online.tech/reset-pasword?token=' . $token;
+        $url = 'https://beesquad-online.tech/reset-password?token=' . $token;
 
         $this->notify(new ResetPasswordNotification($url));
     }
