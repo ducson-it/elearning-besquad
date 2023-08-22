@@ -171,9 +171,24 @@ class PermissionController extends Controller
 
     public function destroyGroupPermission($id)
     {
-        $groupPermission = GroupPermission::find($id);
-        $groupPermission->permissions()->delete();
-        $groupPermission->delete();
-        return redirect()->back();
+        try {
+            $groupPermission = GroupPermission::find($id);
+            $groupPermission->permissions()->delete();
+            $groupPermission->delete();
+
+        } catch (\Throwable $th) {
+            return response([
+                'success' => true,
+                'data' => [
+                    'message' => 'Có lỗi xảy ra!',
+                ],
+            ]);
+        }
+        return response([
+            'success' => true,
+            'data' => [
+                'message' => 'Xóa thành công!',
+            ],
+        ]);
     }
 }
