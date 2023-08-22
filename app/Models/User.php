@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -89,5 +90,12 @@ class User extends Authenticatable
     public function histories()
     {
         return $this->hasMany(History::class);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $url = 'https://beesquad-online.tech/reset-pasword?token=' . $token;
+
+        $this->notify(new ResetPasswordNotification($url));
     }
 }
