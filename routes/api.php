@@ -134,6 +134,9 @@ Route::prefix('comments')->group(function () {
     Route::delete('/delete/{id}', [CommentController::class, 'destroy'])->middleware('auth:sanctum');
 });
 
+Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('reset-password', [AuthController::class, 'reset']);
+
 
 
 
