@@ -15,11 +15,14 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
                                 <div>
+                                    @can('courses.store')
                                     <a href="{{ route('courses.create') }}">
                                         <button type="button" class="btn btn-success add-btn"><i
                                             class="ri-add-line align-bottom me-1"></i>
                                             Thêm</button>
                                     </a>
+                                    @endcan
+                                
 
                                 </div>
                             </div>
@@ -90,8 +93,10 @@
                                                                 href="{{ route('courses.edit', $course->id) }}" class="text-light">Edit</a></button>
                                                     </div>
                                                     <div class="remove">
+                                                        @can('courses.destroy')
                                                         <button class="btn btn-sm btn-danger remove-item-btn"
-                                                            onclick="deleteCourse({{ $course->id }})">Remove</button>
+                                                        onclick="deleteCourse({{ $course->id }})">Remove</button>
+                                                        @endcan
                                                     </div>
                                                 </div>
                                             </td>

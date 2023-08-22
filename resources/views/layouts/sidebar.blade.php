@@ -156,6 +156,11 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('quiz.list')}}">
+                        <i class="ri-apps-2-line"></i><span>Quản lý quiz</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('orders.list')}}">
                         <i class="ri-apps-2-line"></i><span>Quản lý order</span>
                     </a>
