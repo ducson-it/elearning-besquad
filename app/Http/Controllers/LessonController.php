@@ -9,6 +9,7 @@ use App\Models\Lesson;
 use App\Models\Module;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
@@ -16,6 +17,13 @@ use Illuminate\Support\Str;
 
 class LessonController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:lessons.list|lessons.store|lessons.update|lessons.distroy', ['only' => ['index']]);
+        $this->middleware('permission:lessons.store', ['only' => ['create','store']]);
+        $this->middleware('permission:lessons.update', ['only' => ['edit','update']]);
+        $this->middleware('permission:lessons.destroy', ['only' => ['destroy']]);
+    }
     //
     public function index(Request $request)
     {
@@ -156,7 +164,7 @@ class LessonController extends Controller
         $video = json_decode($video,TRUE);
         return response()->json($video);
     }
-    
+
     // public function uploadVideo(Request $request)
     // {
     //     $source_video = $request->file('file');

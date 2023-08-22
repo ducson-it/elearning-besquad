@@ -10,7 +10,14 @@ use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('permission:answers.list|answers.store|answers.update|answers.distroy', ['only' => ['index']]);
+        $this->middleware('permission:answers.store', ['only' => ['store']]);
+        $this->middleware('permission:answers.update', ['only' => ['update']]);
+        $this->middleware('permission:answers.destroy', ['only' => ['destroy']]);
+    }
+
     public function index($question_id)
     {
         $question = Question::find($question_id);

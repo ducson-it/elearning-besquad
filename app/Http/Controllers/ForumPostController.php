@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Auth;
 
 class ForumPostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:forumPosts.list|forumPosts.store|forumPosts.update|forumPosts.distroy', ['only' => ['index']]);
+        $this->middleware('permission:forumPosts.store', ['only' => ['create','store']]);
+        $this->middleware('permission:forumPosts.update', ['only' => ['edit','update']]);
+        $this->middleware('permission:forumPosts.destroy', ['only' => ['destroy']]);
+        $this->middleware('permission:forumPosts.active', ['only' => ['status']]);
+    }
+
     public function index(Request $request) {
         $search = $request->input('search');
         $forumposts = ForumPost::where('title', 'like', '%' . $search . '%')->paginate(8);

@@ -13,7 +13,13 @@ use Illuminate\Support\Str;
 
 class ModuleController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('permission:modules.list|modules.store|modules.update|modules.distroy', ['only' => ['index']]);
+        $this->middleware('permission:modules.store', ['only' => ['create','store']]);
+        $this->middleware('permission:modules.update', ['only' => ['edit','update']]);
+        $this->middleware('permission:modules.destroy', ['only' => ['destroy']]);
+    }
     //
     public function index(Request $request)
     {

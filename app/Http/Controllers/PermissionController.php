@@ -10,6 +10,13 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:permissions.list|permissions.store|permissions.update|permissions.destroy', ['only' => ['index']]);
+        $this->middleware('permission:permissions.store', ['only' => ['create','store']]);
+        $this->middleware('permission:permissions.update', ['only' => ['edit','update']]);
+        $this->middleware('permission:permissions.destroy', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -127,7 +134,7 @@ class PermissionController extends Controller
                 'group_permission_id' => $groupPermission->id,
             ]);
         }
-        
+
         return response([
             'success' => true,
             'data' => [
@@ -164,8 +171,9 @@ class PermissionController extends Controller
 
     public function destroyGroupPermission($id)
     {
-        $groupPermission = GroupPermission::findByID($id);
+        $groupPermission = GroupPermission::find($id);
         $groupPermission->permissions()->delete();
+        $groupPermission->delete();
         return redirect()->back();
     }
 }

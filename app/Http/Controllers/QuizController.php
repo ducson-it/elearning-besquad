@@ -11,7 +11,14 @@ use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('permission:quizzes.list|quizzes.store|quizzes.update|quizzes.destroy', ['only' => ['index']]);
+        $this->middleware('permission:quizzes.store', ['only' => ['create','store']]);
+        $this->middleware('permission:quizzes.update', ['only' => ['edit','update']]);
+        $this->middleware('permission:quizzes.destroy', ['only' => ['destroy']]);
+    }
+
     public function index(Request $request)
     {
         $quizzes = Quiz::with('courses','modules')->orderBy('id','desc');
