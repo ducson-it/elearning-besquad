@@ -12,5 +12,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/upload',[UserController::class,'UserUpload'])->name('uploadFileUser');
     Route::post('/user-active/{id}',[UserController::class,'activeUser'])->name('activeUser');
     Route::post('/user-search', [UserController::class, 'searchUser'])->name('search.user');
- ///
+    Route::get('/editprofile', [UserController::class, 'editprofile'])->name('editprofile');
+    Route::post('/updateprofile', [UserController::class, 'updateprofile'])->name('updateprofile');
+    Route::get('/editpass', [UserController::class, 'editpass'])->name('editpass');
+    Route::post('/updatepass', [UserController::class, 'changepass'])->name('changepass');
 });

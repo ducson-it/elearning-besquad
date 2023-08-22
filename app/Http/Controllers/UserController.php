@@ -135,6 +135,56 @@ class UserController extends Controller
 
         // Lưu category vào cơ sở dữ liệu
         return redirect()->route('show.user')->with('message', 'sửa user thành công');
-
     }
+    public function editprofile(){
+        $user= Auth::user();
+        return view('users.profile',compact('user'));
+    }
+    public function updateProfile(Request $request) {
+        $user= Auth::user();
+        $data = [
+            'name' => $request->input('name'),
+            'phone' => $request->input('phone'),
+            'avatar' => $request->input('filepath'),
+            'address' => $request->input('address'),
+        ];
+        $user->update($data);
+        return redirect()->route('editprofile')->with('message', 'Cập nhật thành công');
+    }
+    public function editpass(){
+        return view('users.changepass');
+    }
+    public function changepass(Request $request) {
+        $user = Auth::user();
+        $oldPassword = $request->input('old_password');
+        $newPassword = $request->input('new_password');
+        $confirmPassword = $request->input('confirm_password');
+
+        $validator = Validator::make($request->all(), [
+
+            'old_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+                if (!Hash::check($value, $user->password)) {
+                    return $fail(__('Mật khẩu cũ không đúng'));
+                }
+            }],
+            'new_password' => 'required|min:8',
+            'confirm_password' => 'required|same:new_password',
+        ], [
+            'old_password.required' => 'Vui lòng nhập mật khẩu cũ',
+            'new_password.required' => 'Vui lòng nhập mật khẩu mới',
+            'new_password.min' => 'Mật khẩu mới phải có ít nhất 8 ký tự',
+            'confirm_password.required' => 'Vui lòng xác nhận mật khẩu mới',
+            'confirm_password.same' => 'Mật khẩu xác nhận không khớp với mật khẩu mới',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('editpass')->withErrors($validator)->withInput();
+        }
+        $user->password = bcrypt($newPassword);
+        $user->save();
+        return redirect()->route('editpass')->with('message', 'Mật khẩu đã được thay đổi thành công');
+    }
+
+
+
 }
