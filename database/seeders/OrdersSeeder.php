@@ -51,4 +51,5 @@ class OrdersSeeder extends Seeder
             }
         }
     }
+
 }
