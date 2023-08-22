@@ -286,5 +286,24 @@ class ForumPostController extends Controller
 
     }
 
+    public function getPostType($id) {
+        $posts = ForumPost::with(['user:id,name', 'category:id,name'])
+            ->where('type', $id)
+            ->get();
+
+        if ($posts->isEmpty()) {
+            return response()->json([
+                'code' => false,
+                'message' => 'Không tồn tại loại bài post này',
+            ]);
+        } else {
+            return response()->json([
+                'code' => 200,
+                'message' => 'Thành công',
+                'data' => $posts,
+            ]);
+        }
+    }
+
 }
 
