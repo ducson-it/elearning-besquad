@@ -292,7 +292,7 @@ class CourseController extends Controller
                     'status'=>0
                 ]);
             }
-            return Redirect::to('http://localhost:4000/paymentSuccess');
+            return Redirect::to('https://beesquad-online.tech/paymentSuccess');
         }
     }
     //get history
