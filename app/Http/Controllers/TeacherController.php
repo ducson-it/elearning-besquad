@@ -11,6 +11,14 @@ use Spatie\Permission\Models\Role;
 
 class TeacherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:teachers.list|teachers.store|teachers.update|teachers.destroy', ['only' => ['showListTeacher']]);
+        $this->middleware('permission:teachers.store', ['only' => ['addTeacher','storeTeacher']]);
+        $this->middleware('permission:teachers.update', ['only' => ['editTeacher','updateTeacher']]);
+        $this->middleware('permission:teachers.destroy', ['only' => ['deleteUser']]);
+        $this->middleware('permission:teachers.active', ['only' => ['activeTeacher']]);
+    }
     //
     public function showListTeacher(Request $request)
     {

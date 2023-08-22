@@ -16,10 +16,11 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('permission:super-admin', ['only' => ['showListUser']]);
-        //  $this->middleware('permission:admin create', ['only' => ['create','store']]);
-        //  $this->middleware('permission:admin delete', ['only' => ['edit','update']]);
-        //  $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:users.list|users.store|users.update|users.destroy', ['only' => ['showListUser']]);
+        $this->middleware('permission:users.store', ['only' => ['addUser','storeUser']]);
+        $this->middleware('permission:users.update', ['only' => ['editUser','updateUser']]);
+        $this->middleware('permission:users.destroy', ['only' => ['deleteUser']]);
+        $this->middleware('permission:users.active', ['only' => ['activeUser']]);
     }
 
     public function showListUser(Request $request)
