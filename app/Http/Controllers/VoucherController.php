@@ -58,9 +58,10 @@ class VoucherController extends Controller
                 'expired' => $request->expired,
                 'send_user' => 'admin'
             ]);
-            $list_users = User::where('role_id', '>', 1)
-                ->where('active', 1)
-                ->get();
+            // $list_users = User::where('role_id', '>', 1)
+            //     ->where('active', 1)
+            //     ->get();
+            $list_users = Role::findById(2)->users()->get();
             // Lấy  thông tin user đang thực hiện thao tác
             foreach ($list_users as $user) {
                 SendVoucherEmail::dispatch($user, $request->code, $discount, $request->expired);
